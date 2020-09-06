@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ThreeSolarSystemComponent } from './three-solar-system.component';
+import { ConnectedNodesComponent } from './connected-nodes.component';
 
-describe('ThreeSolarSystemComponent', () => {
-  let component: ThreeSolarSystemComponent;
-  let fixture: ComponentFixture<ThreeSolarSystemComponent>;
+describe('ConnectedNodesComponent', () => {
+  let component: ConnectedNodesComponent;
+  let fixture: ComponentFixture<ConnectedNodesComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ThreeSolarSystemComponent ]
+      declarations: [ ConnectedNodesComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ThreeSolarSystemComponent);
+    fixture = TestBed.createComponent(ConnectedNodesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

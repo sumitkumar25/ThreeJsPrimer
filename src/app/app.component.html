@@ -1,15 +1,36 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<h1>
-  Three JS
-  <hr>
-</h1>
-<section class="ThreeJsElem one" #threeJsElemOne>
 
-</section>
-<section>
-  <app-three-globe></app-three-globe>
-</section>
-<section>
-  <app-three-globe3d></app-three-globe3d>
-</section>
-<router-outlet></router-outlet>
+<mat-toolbar color="primary">
+  <header>
+    <h1>
+      JavaScript Visualization
+    </h1>
+  </header>
+</mat-toolbar>
+<main>
+  <nav>
+    <a [routerLink]="['/three']" [routerLinkActive]="['selected']">
+      Three Js
+    </a>
+    <!-- <a [routerLink]=" ['/pixi']" [routerLinkActive]="['selected']">
+      Pixi
+    </a> -->
+    <a [routerLink]="['/d3']" [routerLinkActive]="['selected']">
+      Canvas
+    </a>
+  </nav>
+  <section>
+    <router-outlet></router-outlet>
+  </section>
+</main>
+<!-- <app-menu></app-menu> -->
+
+<!-- <section class=" ThreeJsElem one" #threeJsElemOne>
+
+      </section>
+      <section>
+        <app-three-globe></app-three-globe>
+      </section>
+      <section>
+        <app-three-globe3d></app-three-globe3d>
+      </section> -->

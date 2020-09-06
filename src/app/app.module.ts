@@ -1,22 +1,25 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {MatToolbarModule} from '@angular/material/toolbar';
 import { AppComponent } from './app.component';
-import { ThreeGlobeComponent } from './three-globe/three-globe.component';
-import { ThreeGlobe3dComponent } from './three-globe3d/three-globe3d.component';
-import { ThreeSolarSystemComponent } from './three-solar-system/three-solar-system.component';
+import { MenuComponent } from './common/menu/menu.component';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ThreeGlobeComponent,
-    ThreeGlobe3dComponent,
-    ThreeSolarSystemComponent
+    MenuComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatIconModule,
+    NoopAnimationsModule,
+    MatToolbarModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

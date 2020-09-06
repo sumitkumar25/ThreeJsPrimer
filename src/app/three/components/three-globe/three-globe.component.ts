@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { ThreeService } from '../services/three.service';
-import * as THREE from 'three';
+import { ThreeService } from '../../services/three.service';
 
 @Component({
   selector: 'app-three-globe',
