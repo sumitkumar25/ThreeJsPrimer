@@ -19,6 +19,7 @@
           "options": {
             "outputPath": "docs",
             "index": "src/index.html",
+            "baseHref": "https://sumitkumar25.github.io/ThreeJsPrimer/",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
