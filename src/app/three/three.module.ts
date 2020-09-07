@@ -4,15 +4,24 @@ import { VisualizationThreeComponent } from './components/visualization-three/vi
 import { ThreeRoutingModule } from './three-routing/three-routing.module';
 import { ConnectedNodesComponent } from './components/connected-nodes/connected-nodes.component';
 import { MatButtonModule } from '@angular/material/button';
+import { GlobePackageComponent } from './components/globe-package/globe-package.component';
+import { MatTabsModule } from '@angular/material/tabs';
+import { ThreeGlobe3dComponent } from './components/three-globe3d/three-globe3d.component';
 
 
 
 @NgModule({
-  declarations: [VisualizationThreeComponent, ConnectedNodesComponent],
+  declarations: [
+    VisualizationThreeComponent, 
+    ConnectedNodesComponent, 
+    GlobePackageComponent,
+    ThreeGlobe3dComponent
+  ],
   imports: [
     CommonModule,
     ThreeRoutingModule,
-    MatButtonModule
+    MatButtonModule,
+    MatTabsModule
   ]
 })
 export class ThreeModule { }

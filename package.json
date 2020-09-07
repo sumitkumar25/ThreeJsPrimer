@@ -23,6 +23,8 @@
     "@angular/router": "~8.1.2",
     "rxjs": "~6.4.0",
     "three": "^0.120.1",
+    "three-globe": "^2.8.8",
+    "three-trackballcontrols": "0.0.8",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1"
   },

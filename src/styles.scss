@@ -13,7 +13,8 @@ body {
 //common.
 .visualization--canvas {
     width: 100%;
-    height: 70vh;
+    height: 50vh;
     display: block;
+    margin: 0 auto;
     background-image: linear-gradient(180deg, #ffffff 0%, #f3f3f3 75%, #c2c7de 100%);
 }

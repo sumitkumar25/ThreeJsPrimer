@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import * as THREE from 'three';
+import * as TrackballControls from 'three-trackballcontrols';
 
 
 @Component({
@@ -81,11 +82,8 @@ export class ThreeGlobe3dComponent implements OnInit {
       //  TODO:experiment hue
        const hue = THREE.MathUtils.lerp(0.7,0.3,amount);
        const saturation = 1;
-       const lightness = THREE.MathUtils.lerp(0.1,1.0,amount)
-       console.log(hue,saturation,lightness);
-       
+       const lightness = THREE.MathUtils.lerp(0.1,1.0,amount);       
        material.color.setHSL(hue, saturation, lightness);
-
 
        const mesh = new THREE.Mesh(geometry, material);
        this.scene.add(mesh);
@@ -105,6 +103,7 @@ export class ThreeGlobe3dComponent implements OnInit {
   }
 
   render() {
+    this.setupViewSetting();
     this.renderer.render(this.scene, this.camera);
   }
   async loadFile(url) {
@@ -139,5 +138,22 @@ export class ThreeGlobe3dComponent implements OnInit {
       }
     });
     return Object.assign(settings, { min, max });
+  }
+
+  setupViewSetting() {
+    // this.scene.background = new THREE.Color('black');
+    this.scene.add(new THREE.AmbientLight(0xbbbbbb));
+    this.scene.add(new THREE.DirectionalLight(0xffffff, 0.6));
+
+    // // Setup camera
+    // this.camera.aspect = 2;
+    // this.camera.updateProjectionMatrix();
+    // this.camera.position.z = 500;
+
+    // Add camera controls
+    const tbControls = new TrackballControls(this.camera, this.renderer.domElement);
+    tbControls.minDistance = 101;
+    tbControls.rotateSpeed = 5;
+    tbControls.zoomSpeed = 0.8;
   }
 }
