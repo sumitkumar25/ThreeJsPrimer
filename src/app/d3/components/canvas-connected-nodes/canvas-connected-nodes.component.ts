@@ -38,7 +38,7 @@ export class CanvasConnectedNodesComponent implements OnInit, AfterViewInit {
   drawConnections() {
     const line = new Path2D();
     line.moveTo(160, 100);
-    line.lineTo(360, 100)
+    line.lineTo(340, 100)
     this.ctx.strokeStyle = 'red';
     this.ctx.stroke(line);
     this.connections = [line]

@@ -1,0 +1,16 @@
+.pos-relative{
+    position: relative;
+}
+.pos-abs{
+    position: absolute;
+    height: 100vh;
+    left: -10.1vw;
+    right: 0;
+    top: 0;
+}
+.top-btn{
+    position: absolute;
+    top : 0;
+    right: 0;
+    z-index: 6;
+}

@@ -48,11 +48,18 @@ export class CtGlobeGlIntfrastructureComponent implements OnInit, AfterViewInit 
         console.log(point, event, this)
       }).onPointHover(function (point, prevPoint) {
         console.log(point, prevPoint, this);
-
       })
   }
 
   ngOnInit() {
+  }
+
+  scrollToTop($event) {
+    window.scroll({
+      top: 0, 
+      left: 0, 
+      behavior: 'smooth'
+    });
   }
 
 }

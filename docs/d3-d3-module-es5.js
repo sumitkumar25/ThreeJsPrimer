@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<section>\n    <h3>Canvas Nodes and Connections\n        <button mat-button color=\"primary\" (click)=\"resetEventHandler($event)\">Reset</button>\n    </h3>\n    <canvas class=\"\" #canvasEl (click)=\"clickEventHandler($event)\" height=\"500\" width=\"500\"></canvas>\n\n    <!-- (mousemove)=\"hoverEventHandler($event)\" (mouseleave)=\"blurEventHandler($event)\" -->\n\n</section>"
+module.exports = "<section>\n    <h3>Canvas Nodes and Connections\n        <button mat-button color=\"primary\" (click)=\"resetEventHandler($event)\">Reset</button>\n    </h3>\n    <canvas height=\"500\" width=\"1000\"  class=\"visualization--canvas\" #canvasEl (click)=\"clickEventHandler($event)\"></canvas>\n\n    <!-- (mousemove)=\"hoverEventHandler($event)\" (mouseleave)=\"blurEventHandler($event)\" -->\n\n</section>"
 
 /***/ }),
 
@@ -75,7 +75,7 @@ var CanvasConnectedNodesComponent = /** @class */ (function () {
     CanvasConnectedNodesComponent.prototype.drawConnections = function () {
         var line = new Path2D();
         line.moveTo(160, 100);
-        line.lineTo(360, 100);
+        line.lineTo(340, 100);
         this.ctx.strokeStyle = 'red';
         this.ctx.stroke(line);
         this.connections = [line];

@@ -1,20 +1,33 @@
 # ThreeJsPrimer
 
-Comparative code snippets for Three Js, Canvas, Pixi and D3 visualization libraries.
+A Comparative code snippets for Three Js, Canvas (Two nodes and a connection).
+three globe (<https://www.npmjs.com/package/three-globe>) and globe.gl demos.
 
 ## Contents
 
 1. Two nodes and a connection (Three js vs HTML canvas)
     1. THREE JS
 
-    Spherical geometry, Basic Line geometry, Raycaster for mouseclick.
+       1. Spherical geometry, Basic Line geometry, Raycaster for mouseclick.
+       2. Globe Points Rendering with sized points and labels.
+       3. Coordinate Points and labels.
+       4. 3D canvas globe rendering - No controls.
+       5. 2D canvas globe(Map) rendering
 
     2. Canvas 
 
     Path 2d, isPointInPath, isPointInStroke.
+    
+
 2. 3D globe npm package. 
+
    1. Colors dependent on lightning.
    2. Request Animation frame for rendering required. Single render execution not working.
+   3. TODO: How to set userData.
+
+3. Globe.gl npm package.
+
+   1. Display aws region and intersected objects in console.
 
 ## Preview
 

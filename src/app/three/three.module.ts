@@ -8,6 +8,7 @@ import { GlobePackageComponent } from './components/globe-package/globe-package.
 import { MatTabsModule } from '@angular/material/tabs';
 import { ThreeGlobe3dComponent } from './components/three-globe3d/three-globe3d.component';
 import { GlobeCounteriesComponent } from './components/globe-counteries/globe-counteries.component';
+import { ThreeGlobeComponent } from './components/three-globe/three-globe.component';
 
 
 
@@ -17,7 +18,8 @@ import { GlobeCounteriesComponent } from './components/globe-counteries/globe-co
     ConnectedNodesComponent, 
     GlobePackageComponent,
     ThreeGlobe3dComponent,
-    GlobeCounteriesComponent
+    GlobeCounteriesComponent,
+    ThreeGlobeComponent
   ],
   imports: [
     CommonModule,

@@ -7,6 +7,7 @@ import { CtGlobeInfrastructureComponent } from './components/ct-globe-infrastruc
 import { CtVisualizationRequestService } from './services/ct-visualization-request.service';
 import { HttpClientModule } from '@angular/common/http';
 import { CtGlobeGlIntfrastructureComponent } from './components/ct-globe-gl-intfrastructure/ct-globe-gl-intfrastructure.component';
+import { MatButtonModule } from '@angular/material/button';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { CtGlobeGlIntfrastructureComponent } from './components/ct-globe-gl-intf
   imports: [
     CommonModule,
     CtVisualizationRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    MatButtonModule
   ],
   providers: [
     CtVisualizationRequestService

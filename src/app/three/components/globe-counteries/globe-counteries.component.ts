@@ -37,7 +37,7 @@ export class GlobeCounteriesComponent implements OnInit {
 
     this.camera.aspect = this.canvasEl.nativeElement.offsetWidth / this.canvasEl.nativeElement.offsetHeight;
     this.camera.updateProjectionMatrix();
-    this.camera.position.z = 500;
+    this.camera.position.z = 270;
 
     // controls.
     this.tbControls = new TrackballControls(this.camera, this.renderer.domElement);
@@ -58,7 +58,7 @@ export class GlobeCounteriesComponent implements OnInit {
       .bumpImageUrl('assets/earth-topology.png')
       .pointsData(gData)
       // .pointAltitude('size')
-      .pointAltitude(0)
+      .pointAltitude('size')
       .pointColor('color')
       .labelsData(gData)
       .labelText(d => {
@@ -69,10 +69,10 @@ export class GlobeCounteriesComponent implements OnInit {
       .labelColor('color');
     // .labelDotRadius(d => d['size'] / 5)
     this.scene.add(globe);
-    // setTimeout(() => {
-    //   gData.forEach(d => d.size = Math.random());
-    //   globe.pointsData(gData);
-    // }, 4000);
+    setInterval(() => {
+      gData.forEach(d => d.size = Math.random());
+      globe.pointsData(gData).labelsData(gData)
+    }, 10000);
   }
 
   renderView() {

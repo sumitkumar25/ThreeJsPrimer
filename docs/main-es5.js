@@ -30,7 +30,7 @@ webpackEmptyAsyncContext.id = "./$$_lazy_route_resource lazy recursive";
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!--The content below is only a placeholder and can be replaced.-->\n\n<mat-toolbar color=\"primary\">\n  <header>\n    <h1>\n      JavaScript Visualization\n    </h1>\n  </header>\n</mat-toolbar>\n<main>\n  <nav>\n    <a [routerLink]=\"['/three']\" [routerLinkActive]=\"['selected']\">\n      Three Js\n    </a>\n    <!-- <a [routerLink]=\" ['/pixi']\" [routerLinkActive]=\"['selected']\">\n      Pixi\n    </a> -->\n    <a [routerLink]=\"['/d3']\" [routerLinkActive]=\"['selected']\">\n      Canvas\n    </a>\n  </nav>\n  <section>\n    <router-outlet></router-outlet>\n  </section>\n</main>\n<!-- <app-menu></app-menu> -->\n\n<!-- <section class=\" ThreeJsElem one\" #threeJsElemOne>\n\n      </section>\n      <section>\n        <app-three-globe></app-three-globe>\n      </section>\n      <section>\n        <app-three-globe3d></app-three-globe3d>\n      </section> -->"
+module.exports = "<!--The content below is only a placeholder and can be replaced.-->\n\n<mat-toolbar color=\"primary\">\n  <header>\n    <h1>\n      JavaScript Visualization\n    </h1>\n  </header>\n</mat-toolbar>\n<main>\n  <nav>\n    <a [routerLink]=\"['/three']\" [routerLinkActive]=\"['selected']\">\n      Three Js\n    </a>\n    <!-- <a [routerLink]=\" ['/pixi']\" [routerLinkActive]=\"['selected']\">\n      Pixi\n    </a> -->\n    <a [routerLink]=\"['/d3']\" [routerLinkActive]=\"['selected']\">\n      Canvas\n    </a>\n    <a [routerLink]=\"['/awsus']\" [routerLinkActive]=\"['selected']\">\n      Aws US Regions\n    </a>\n  </nav>\n  <section>\n    <router-outlet></router-outlet>\n  </section>\n</main>\n<!-- <app-menu></app-menu> -->\n\n<!-- <section class=\" ThreeJsElem one\" #threeJsElemOne>\n\n      </section>\n      <section>\n        <app-three-globe></app-three-globe>\n      </section>\n      <section>\n        <app-three-globe3d></app-three-globe3d>\n      </section> -->"
 
 /***/ }),
 
@@ -64,7 +64,7 @@ __webpack_require__.r(__webpack_exports__);
 var routes = [
     {
         path: 'three',
-        loadChildren: function () { return __webpack_require__.e(/*! import() | three-three-module */ "three-three-module").then(__webpack_require__.bind(null, /*! ./three/three.module */ "./src/app/three/three.module.ts")).then(function (m) { return m.ThreeModule; }); }
+        loadChildren: function () { return Promise.all(/*! import() | three-three-module */[__webpack_require__.e("default~ct-visualization-ct-visualization-module~three-three-module"), __webpack_require__.e("three-three-module")]).then(__webpack_require__.bind(null, /*! ./three/three.module */ "./src/app/three/three.module.ts")).then(function (m) { return m.ThreeModule; }); }
     },
     {
         path: 'pixi',
@@ -73,6 +73,10 @@ var routes = [
     {
         path: 'd3',
         loadChildren: function () { return __webpack_require__.e(/*! import() | d3-d3-module */ "d3-d3-module").then(__webpack_require__.bind(null, /*! ./d3/d3.module */ "./src/app/d3/d3.module.ts")).then(function (m) { return m.D3Module; }); }
+    },
+    {
+        path: 'awsus',
+        loadChildren: function () { return Promise.all(/*! import() | ct-visualization-ct-visualization-module */[__webpack_require__.e("default~ct-visualization-ct-visualization-module~three-three-module"), __webpack_require__.e("ct-visualization-ct-visualization-module")]).then(__webpack_require__.bind(null, /*! ./ct-visualization/ct-visualization.module */ "./src/app/ct-visualization/ct-visualization.module.ts")).then(function (m) { return m.CtVisualizationModule; }); }
     },
     {
         path: '',
@@ -151,15 +155,15 @@ var AppComponent = /** @class */ (function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppModule", function() { return AppModule; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
-/* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm5/animations.js");
-/* harmony import */ var _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/material/toolbar */ "./node_modules/@angular/material/esm5/toolbar.es5.js");
-/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
-/* harmony import */ var _common_menu_menu_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./common/menu/menu.component */ "./src/app/common/menu/menu.component.ts");
-/* harmony import */ var _angular_material_icon__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/material/icon */ "./node_modules/@angular/material/esm5/icon.es5.js");
-/* harmony import */ var _angular_material_button__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/material/button */ "./node_modules/@angular/material/esm5/button.es5.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_material_button__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material/button */ "./node_modules/@angular/material/esm5/button.es5.js");
+/* harmony import */ var _angular_material_icon__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material/icon */ "./node_modules/@angular/material/esm5/icon.es5.js");
+/* harmony import */ var _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/material/toolbar */ "./node_modules/@angular/material/esm5/toolbar.es5.js");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
+/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
+/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
+/* harmony import */ var _common_menu_menu_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./common/menu/menu.component */ "./src/app/common/menu/menu.component.ts");
+/* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm5/animations.js");
 
 
 
@@ -174,21 +178,21 @@ var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["NgModule"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
             declarations: [
-                _app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"],
-                _common_menu_menu_component__WEBPACK_IMPORTED_MODULE_7__["MenuComponent"]
+                _app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"],
+                _common_menu_menu_component__WEBPACK_IMPORTED_MODULE_8__["MenuComponent"]
             ],
             imports: [
-                _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
-                _app_routing_module__WEBPACK_IMPORTED_MODULE_3__["AppRoutingModule"],
-                _angular_material_icon__WEBPACK_IMPORTED_MODULE_8__["MatIconModule"],
-                _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_4__["NoopAnimationsModule"],
-                _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_5__["MatToolbarModule"],
-                _angular_material_button__WEBPACK_IMPORTED_MODULE_9__["MatButtonModule"]
+                _angular_platform_browser__WEBPACK_IMPORTED_MODULE_5__["BrowserModule"],
+                _app_routing_module__WEBPACK_IMPORTED_MODULE_6__["AppRoutingModule"],
+                _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_9__["BrowserAnimationsModule"],
+                _angular_material_icon__WEBPACK_IMPORTED_MODULE_3__["MatIconModule"],
+                _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_4__["MatToolbarModule"],
+                _angular_material_button__WEBPACK_IMPORTED_MODULE_2__["MatButtonModule"]
             ],
             providers: [],
-            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"]]
+            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"]]
         })
     ], AppModule);
     return AppModule;

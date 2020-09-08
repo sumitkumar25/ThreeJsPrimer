@@ -8,13 +8,14 @@ body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
     background-image: linear-gradient(180deg, #ffffff 0%, #f3f3f3 75%, #c2c7de 100%);
+    height: 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 //common.
-.visualization--canvas {
-    width: 100%;
-    height: 50vh;
+.visualization--canvas,canvas {
     display: block;
     margin: 0 auto;
-    background-image: linear-gradient(180deg, #ffffff 0%, #f3f3f3 75%, #c2c7de 100%);
+    border:solid 1px #c2c7de;
 }

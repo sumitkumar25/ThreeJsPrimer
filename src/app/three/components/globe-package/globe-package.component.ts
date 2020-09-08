@@ -37,11 +37,11 @@ export class GlobePackageComponent implements OnInit, AfterViewInit {
 
     this.camera.aspect = this.canvasEl.nativeElement.offsetWidth / this.canvasEl.nativeElement.offsetHeight;
     this.camera.updateProjectionMatrix();
-    this.camera.position.z = 500;
+    this.camera.position.z = 200;
 
     // controls.
     this.tbControls = new TrackballControls(this.camera, this.renderer.domElement);
-    this.tbControls.minDistance = 101;
+    this.tbControls.minDistance = 10;
     this.tbControls.rotateSpeed = 5;
     this.tbControls.zoomSpeed = 0.8;
   }
@@ -55,9 +55,7 @@ export class GlobePackageComponent implements OnInit, AfterViewInit {
     }));
     const globe = new ThreeGlobe()
       .globeImageUrl('assets/earth-dark.jpg')
-      .bumpImageUrl('assets/earth-topology.png')
       .pointsData(gData)
-      // .pointAltitude('size')
       .pointAltitude(0)
       .pointColor('color')
       .labelsData(gData)
@@ -67,12 +65,7 @@ export class GlobePackageComponent implements OnInit, AfterViewInit {
       })
       .labelSize(2)
       .labelColor('color');
-      // .labelDotRadius(d => d['size'] / 5)
     this.scene.add(globe);
-    // setTimeout(() => {
-    //   gData.forEach(d => d.size = Math.random());
-    //   globe.pointsData(gData);
-    // }, 4000);
   }
 
   renderView() {

@@ -16,12 +16,12 @@ const routes: Routes = [
     loadChildren: () => import('./d3/d3.module').then(m => m.D3Module)
   },
   {
-    path: 'CtVisualization',
+    path: 'awsus',
     loadChildren: () => import('./ct-visualization/ct-visualization.module').then(m => m.CtVisualizationModule)
   },
   {
     path: '',
-    redirectTo: 'CtVisualization',
+    redirectTo: 'three',
     pathMatch: 'full'
   }
 ];

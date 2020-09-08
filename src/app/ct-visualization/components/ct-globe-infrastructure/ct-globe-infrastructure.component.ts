@@ -33,21 +33,21 @@ export class CtGlobeInfrastructureComponent implements OnInit, AfterViewInit, On
       lng: -82.996216,
       label: 'US East (Ohio)'
     },
-    // {
-    //   lat: 37.926868,
-    //   lng: -78.024902,
-    //   label: 'US East (N. Virginia)'
-    // },
-    // {
-    //   lat: 36.778259,
-    //   lng: -119.417931,
-    //   label: 'US West (N. California)'
-    // },
-    // {
-    //   lat: 44.000000,
-    //   lng: -120.500000,
-    //   label: 'US West (Oregon)'
-    // }
+    {
+      lat: 37.926868,
+      lng: -78.024902,
+      label: 'US East (N. Virginia)'
+    },
+    {
+      lat: 36.778259,
+      lng: -119.417931,
+      label: 'US West (N. California)'
+    },
+    {
+      lat: 44.000000,
+      lng: -120.500000,
+      label: 'US West (Oregon)'
+    }
   ];
   obControls: any;
   raycaster = new THREE.Raycaster();
@@ -116,11 +116,11 @@ export class CtGlobeInfrastructureComponent implements OnInit, AfterViewInit, On
     this.threeConstants.scene.add(new THREE.AmbientLight(0xbbbbbb));
     this.threeConstants.scene.add(new THREE.DirectionalLight(0xffffff, 0.6));
 
-    this.threeConstants.renderer.setSize(window.innerWidth, (window.innerHeight));
+    this.threeConstants.renderer.setSize(1000, (500));
     this.canvasEl.nativeElement.appendChild(this.threeConstants.renderer.domElement);
 
     // (this.threeConstants.camera as THREE.PerspectiveCamera).aspect = this.canvasEl.nativeElement.offsetWidth / this.canvasEl.nativeElement.offsetHeight;
-    (this.threeConstants.camera as THREE.PerspectiveCamera).aspect = window.innerWidth / window.innerHeight;
+    (this.threeConstants.camera as THREE.PerspectiveCamera).aspect = 1000 / 500;
     (this.threeConstants.camera as THREE.PerspectiveCamera).updateProjectionMatrix();
     this.threeConstants.camera.position.z = 500;
 
@@ -139,8 +139,8 @@ export class CtGlobeInfrastructureComponent implements OnInit, AfterViewInit, On
   }
 
   mouseMoveHandler(event) {
-    this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-    this.mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
+    this.mouse.x = (event.clientX / 1000) * 2 - 1;
+    this.mouse.y = - (event.clientY / 500) * 2 + 1;
     this.enableRaycast = true;
   }
 
