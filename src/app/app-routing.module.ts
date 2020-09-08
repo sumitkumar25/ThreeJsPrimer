@@ -21,7 +21,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'three',
+    redirectTo: 'CtVisualization',
     pathMatch: 'full'
   }
 ];
