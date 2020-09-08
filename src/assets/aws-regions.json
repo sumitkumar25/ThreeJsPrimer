@@ -1,0 +1,26 @@
+{
+    "awsRegions": [
+        {
+            "lat": 1,
+            "lon": 1,
+            "name": ""
+        },
+        {
+            "lat": 1,
+            "lon": 1,
+            "name": ""
+        },        {
+            "lat": 1,
+            "lon": 1,
+            "name": ""
+        },        {
+            "lat": 1,
+            "lon": 1,
+            "name": ""
+        },        {
+            "lat": 1,
+            "lon": 1,
+            "name": ""
+        }
+    ]
+}

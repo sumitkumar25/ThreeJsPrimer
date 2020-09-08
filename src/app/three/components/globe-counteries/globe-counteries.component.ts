@@ -1,14 +1,14 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import ThreeGlobe from 'three-globe';
 import { ThreeService } from '../../services/three.service';
 import * as THREE from 'three';
 import * as TrackballControls from 'three-trackballcontrols';
 @Component({
-  selector: 'app-globe-package',
-  templateUrl: './globe-package.component.html',
-  styleUrls: ['./globe-package.component.scss']
+  selector: 'app-globe-counteries',
+  templateUrl: './globe-counteries.component.html',
+  styleUrls: ['./globe-counteries.component.scss']
 })
-export class GlobePackageComponent implements OnInit, AfterViewInit {
+export class GlobeCounteriesComponent implements OnInit {
   @ViewChild('canvasEl', { static: false, read: ElementRef }) canvasEl: ElementRef;
 
   scene;
@@ -67,7 +67,7 @@ export class GlobePackageComponent implements OnInit, AfterViewInit {
       })
       .labelSize(2)
       .labelColor('color');
-      // .labelDotRadius(d => d['size'] / 5)
+    // .labelDotRadius(d => d['size'] / 5)
     this.scene.add(globe);
     // setTimeout(() => {
     //   gData.forEach(d => d.size = Math.random());
@@ -81,3 +81,4 @@ export class GlobePackageComponent implements OnInit, AfterViewInit {
     window.requestAnimationFrame(this.renderView.bind(this));
   }
 }
+

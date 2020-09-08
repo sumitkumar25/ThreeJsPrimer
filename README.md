@@ -12,6 +12,9 @@ Comparative code snippets for Three Js, Canvas, Pixi and D3 visualization librar
     2. Canvas 
 
     Path 2d, isPointInPath, isPointInStroke.
+2. 3D globe npm package. 
+   1. Colors dependent on lightning.
+   2. Request Animation frame for rendering required. Single render execution not working.
 
 ## Preview
 
