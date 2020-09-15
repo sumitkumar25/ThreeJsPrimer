@@ -69,7 +69,6 @@ export class ThreeGlobeComponent implements OnInit {
       }
     });
     this.parsedData = Object.assign(settings, { min, max });
-    console.log(this.parsedData);
   }
   async fetchGlobeData() {
     const data = await fetch('assets/globe-data.asc')
