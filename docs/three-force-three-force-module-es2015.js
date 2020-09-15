@@ -63559,7 +63559,6 @@ let ForceGraphComponent = class ForceGraphComponent {
                 target: Math.round(Math.random() * (id - 1))
             }))
         };
-        console.log(gData);
         const Graph = Object(_3d_force_graph__WEBPACK_IMPORTED_MODULE_2__["default"])()(this.el.nativeElement)
             .graphData(gData);
     }

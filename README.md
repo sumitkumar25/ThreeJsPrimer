@@ -12,7 +12,10 @@ three globe (<https://www.npmjs.com/package/three-globe>) and globe.gl demos.
        2. Globe Points Rendering with sized points and labels.
        3. Coordinate Points and labels.
        4. 3D canvas globe rendering - No controls.
-       5. 2D canvas globe(Map) rendering
+       5. 2D canvas globe(Map) rendering.
+       6. Three Js groups and Object3D combinations.
+       7. Drag and drop of objects.
+          1. <https://github.com/mrdoob/three.js/blob/master/examples/misc_controls_drag.html>
 
     2. Canvas 
 
@@ -28,6 +31,7 @@ three globe (<https://www.npmjs.com/package/three-globe>) and globe.gl demos.
 3. Globe.gl npm package.
 
    1. Display aws region and intersected objects in console.
+
 
 ## Preview
 

@@ -63559,7 +63559,6 @@ var ForceGraphComponent = /** @class */ (function () {
                 target: Math.round(Math.random() * (id - 1))
             }); })
         };
-        console.log(gData);
         var Graph = Object(_3d_force_graph__WEBPACK_IMPORTED_MODULE_2__["default"])()(this.el.nativeElement)
             .graphData(gData);
     };

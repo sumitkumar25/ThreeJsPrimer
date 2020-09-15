@@ -5266,6 +5266,17 @@ module.exports = "<h3>Coordinate Points and labels</h3>\n<canvas height=\"500\" 
 
 /***/ }),
 
+/***/ "./node_modules/raw-loader/index.js!./src/app/three/components/object-group/object-group.component.html":
+/*!*****************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/three/components/object-group/object-group.component.html ***!
+  \*****************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h3>Three Object Groups</h3>\n<canvas height=\"500\" width=\"1000\" class=\"visualization--canvas\" #canvasEl></canvas>"
+
+/***/ }),
+
 /***/ "./node_modules/raw-loader/index.js!./src/app/three/components/three-globe/three-globe.component.html":
 /*!***************************************************************************************************!*\
   !*** ./node_modules/raw-loader!./src/app/three/components/three-globe/three-globe.component.html ***!
@@ -5295,7 +5306,7 @@ module.exports = "<h3>3D canvas globe rendering - No controls</h3>\n<canvas heig
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- <app-three-globe3d></app-three-globe3d> -->\n\n<app-connected-nodes></app-connected-nodes>\n<app-globe-counteries></app-globe-counteries>\n<app-globe-package></app-globe-package>\n<app-three-globe3d></app-three-globe3d>\n<app-three-globe></app-three-globe>"
+module.exports = "<!-- <app-three-globe3d></app-three-globe3d> -->\n<app-object-group></app-object-group>\n<app-connected-nodes></app-connected-nodes>\n<app-globe-counteries></app-globe-counteries>\n<app-globe-package></app-globe-package>\n<app-three-globe3d></app-three-globe3d>\n<app-three-globe></app-three-globe>"
 
 /***/ }),
 
@@ -6345,6 +6356,170 @@ GlobePackageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 
 /***/ }),
 
+/***/ "./src/app/three/components/object-group/object-group.component.scss":
+/*!***************************************************************************!*\
+  !*** ./src/app/three/components/object-group/object-group.component.scss ***!
+  \***************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3RocmVlL2NvbXBvbmVudHMvb2JqZWN0LWdyb3VwL29iamVjdC1ncm91cC5jb21wb25lbnQuc2NzcyJ9 */"
+
+/***/ }),
+
+/***/ "./src/app/three/components/object-group/object-group.component.ts":
+/*!*************************************************************************!*\
+  !*** ./src/app/three/components/object-group/object-group.component.ts ***!
+  \*************************************************************************/
+/*! exports provided: ObjectGroupComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ObjectGroupComponent", function() { return ObjectGroupComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _services_three_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../services/three.service */ "./src/app/three/services/three.service.ts");
+/* harmony import */ var three__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! three */ "./node_modules/three/build/three.module.js");
+
+
+
+
+
+let ObjectGroupComponent = class ObjectGroupComponent {
+    constructor(threeService) {
+        this.threeService = threeService;
+        this.nodes = [];
+    }
+    ngOnInit() {
+    }
+    ngAfterViewInit() {
+        this.threeCommon = this.threeService.getThreeCommon(this.canvasEl.nativeElement);
+        this.threeCommon.camera.fov = 50;
+        this.threeCommon.camera.position.z = 550;
+        this.threeCommon.camera.updateProjectionMatrix();
+        this.viewController();
+    }
+    viewController() {
+        this.constructDataObjects();
+        this.renderView();
+    }
+    constructDataObjects() {
+        this.constructNodeObjects();
+        this.constructNode2Objects();
+        this.constructConnectionObjects();
+    }
+    constructNode2Objects() {
+        const nodeObj = new three__WEBPACK_IMPORTED_MODULE_3__["Object3D"]();
+        const nGroup = new three__WEBPACK_IMPORTED_MODULE_3__["Group"]();
+        const radius = 5;
+        const widthSegments = 30;
+        const heightSegments = 30;
+        for (let index = 0; index < 4; index++) {
+            const sphere = new three__WEBPACK_IMPORTED_MODULE_3__["SphereBufferGeometry"](radius, widthSegments, heightSegments);
+            const material = new three__WEBPACK_IMPORTED_MODULE_3__["MeshBasicMaterial"]({
+                color: [0xF3A2B0, 0x928369, 0x302B22, 0x605602][index],
+            });
+            const mesh = new three__WEBPACK_IMPORTED_MODULE_3__["Mesh"](sphere, material);
+            mesh.userData = {
+                id: `mesh2-${index}`,
+                name: `mesh2-${index}`,
+            };
+            const x = 120 + (index % 2 === 0 ? (2 * radius + 1) * (index + 1) : -((2 * radius + 1) * (index + 1)));
+            const y = 120 + (index % 2 === 0 ? -(2 * radius + 1) * (index + 1) : ((2 * radius + 1) * (index + 1)));
+            const z = 120 + (index % 2 === 0 ? (2 * radius + 1) * (index + 1) : -((2 * radius + 1) * (index + 1)));
+            mesh.position.set(x, y, z);
+            // nodeGroup.add(mesh);
+            // this.threeCommon.scene.add(nodeGroup);      
+            nodeObj.add(mesh);
+        }
+        // bounding box.
+        const box = new three__WEBPACK_IMPORTED_MODULE_3__["BoxHelper"](nodeObj, 'red');
+        const bbDimensions = box.geometry.boundingSphere;
+        // bounding sphere.
+        const bbSphere = new three__WEBPACK_IMPORTED_MODULE_3__["SphereBufferGeometry"](bbDimensions.radius, 30, 30);
+        const bbMaterial = new three__WEBPACK_IMPORTED_MODULE_3__["MeshBasicMaterial"]({
+            color: 'blue',
+            transparent: true,
+            opacity: 0.1
+        });
+        const bbSphereMesh = new three__WEBPACK_IMPORTED_MODULE_3__["Mesh"](bbSphere, bbMaterial);
+        bbSphereMesh.position.set(bbDimensions.center.x, bbDimensions.center.y, bbDimensions.center.z);
+        [bbSphereMesh, box, nodeObj].forEach(threeEl => nGroup.add(threeEl));
+        nGroup.userData = {
+            id: `g2`,
+            name: `g2`
+        };
+        this.threeCommon.scene.add(nGroup);
+    }
+    constructNodeObjects() {
+        const nodeObj = new three__WEBPACK_IMPORTED_MODULE_3__["Object3D"]();
+        const nGroup = new three__WEBPACK_IMPORTED_MODULE_3__["Group"]();
+        const radius = 5;
+        const widthSegments = 30;
+        const heightSegments = 30;
+        for (let index = 0; index < 4; index++) {
+            const sphere = new three__WEBPACK_IMPORTED_MODULE_3__["SphereBufferGeometry"](radius, widthSegments, heightSegments);
+            const material = new three__WEBPACK_IMPORTED_MODULE_3__["MeshBasicMaterial"]({
+                color: 'black',
+            });
+            const mesh = new three__WEBPACK_IMPORTED_MODULE_3__["Mesh"](sphere, material);
+            mesh.userData = {
+                id: `mesh-${index}`,
+                name: `mesh-${index}`,
+            };
+            const x = index % 2 === 0 ? (2 * radius + 1) * (index + 1) : -((2 * radius + 1) * (index + 1));
+            const y = index % 2 === 0 ? -(2 * radius + 1) * (index + 1) : ((2 * radius + 1) * (index + 1));
+            const z = index % 2 === 0 ? (2 * radius + 1) * (index + 1) : -((2 * radius + 1) * (index + 1));
+            mesh.position.set(x, y, z);
+            // nodeGroup.add(mesh);
+            // this.threeCommon.scene.add(nodeGroup);
+            nodeObj.add(mesh);
+        }
+        // bounding box.
+        const box = new three__WEBPACK_IMPORTED_MODULE_3__["BoxHelper"](nodeObj, 0x000000);
+        const bbDimensions = box.geometry.boundingSphere;
+        // bounding sphere.
+        const bbSphere = new three__WEBPACK_IMPORTED_MODULE_3__["SphereBufferGeometry"](bbDimensions.radius, 30, 30);
+        const bbMaterial = new three__WEBPACK_IMPORTED_MODULE_3__["MeshBasicMaterial"]({
+            color: 'red',
+            transparent: true,
+            opacity: 0.1
+        });
+        const bbSphereMesh = new three__WEBPACK_IMPORTED_MODULE_3__["Mesh"](bbSphere, bbMaterial);
+        bbSphereMesh.position.set(bbDimensions.center.x, bbDimensions.center.y, bbDimensions.center.z);
+        [bbSphereMesh, box, nodeObj].forEach(threeEl => nGroup.add(threeEl));
+        nGroup.userData = {
+            id: `g1`,
+            name: `g1`
+        };
+        this.threeCommon.scene.add(nGroup);
+    }
+    constructConnectionObjects() {
+    }
+    renderView() {
+        this.threeCommon.renderer.render(this.threeCommon.scene, this.threeCommon.camera);
+        window.requestAnimationFrame(this.renderView.bind(this));
+    }
+};
+ObjectGroupComponent.ctorParameters = () => [
+    { type: _services_three_service__WEBPACK_IMPORTED_MODULE_2__["ThreeService"] }
+];
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('canvasEl', { static: false })
+], ObjectGroupComponent.prototype, "canvasEl", void 0);
+ObjectGroupComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-object-group',
+        template: __webpack_require__(/*! raw-loader!./object-group.component.html */ "./node_modules/raw-loader/index.js!./src/app/three/components/object-group/object-group.component.html"),
+        styles: [__webpack_require__(/*! ./object-group.component.scss */ "./src/app/three/components/object-group/object-group.component.scss")]
+    })
+], ObjectGroupComponent);
+
+
+
+/***/ }),
+
 /***/ "./src/app/three/components/three-globe/three-globe.component.scss":
 /*!*************************************************************************!*\
   !*** ./src/app/three/components/three-globe/three-globe.component.scss ***!
@@ -6433,7 +6608,6 @@ let ThreeGlobeComponent = class ThreeGlobeComponent {
             }
         });
         this.parsedData = Object.assign(settings, { min, max });
-        console.log(this.parsedData);
     }
     fetchGlobeData() {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
@@ -6697,6 +6871,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var three__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! three */ "./node_modules/three/build/three.module.js");
 /* harmony import */ var src_app_common_colors_enum__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/common/colors.enum */ "./src/app/common/colors.enum.ts");
+/* harmony import */ var three_examples_jsm_controls_OrbitControls__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! three/examples/jsm/controls/OrbitControls */ "./node_modules/three/examples/jsm/controls/OrbitControls.js");
+
 
 
 
@@ -6708,10 +6884,10 @@ let ThreeService = class ThreeService {
             scene: new three__WEBPACK_IMPORTED_MODULE_2__["Scene"](),
             renderer: new three__WEBPACK_IMPORTED_MODULE_2__["WebGLRenderer"]({ canvas: canvasEl }),
             camera: new three__WEBPACK_IMPORTED_MODULE_2__["PerspectiveCamera"](75, 2),
+            controls: {}
         };
-        //  set some defaults
-        common.scene.background = new three__WEBPACK_IMPORTED_MODULE_2__["Color"](src_app_common_colors_enum__WEBPACK_IMPORTED_MODULE_3__["Colors"].canvasBackground);
         common.renderer.setSize(canvasEl.offsetWidth, canvasEl.offsetHeight);
+        common.controls = this.configureViewSettings(common.scene, common.camera, common.renderer);
         return common;
     }
     getThreeCommonWindow() {
@@ -6722,8 +6898,17 @@ let ThreeService = class ThreeService {
         };
         common.scene.background = new three__WEBPACK_IMPORTED_MODULE_2__["Color"](src_app_common_colors_enum__WEBPACK_IMPORTED_MODULE_3__["Colors"].canvasBackground);
         common.renderer.setSize(window.innerWidth, window.innerHeight);
-        common.camera.position.z = 5;
+        common.camera.position.z = 100;
         return common;
+    }
+    configureViewSettings(scene, camera, renderer) {
+        scene.background = new three__WEBPACK_IMPORTED_MODULE_2__["Color"](src_app_common_colors_enum__WEBPACK_IMPORTED_MODULE_3__["Colors"].canvasBackground);
+        const light = new three__WEBPACK_IMPORTED_MODULE_2__["AmbientLight"](0x404040); // soft white light
+        scene.add(light);
+        const controls = new three_examples_jsm_controls_OrbitControls__WEBPACK_IMPORTED_MODULE_4__["OrbitControls"](camera, renderer.domElement);
+        camera.position.set(0, 0, 5);
+        controls.update();
+        return controls;
     }
 };
 ThreeService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -6795,6 +6980,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_three_globe3d_three_globe3d_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/three-globe3d/three-globe3d.component */ "./src/app/three/components/three-globe3d/three-globe3d.component.ts");
 /* harmony import */ var _components_globe_counteries_globe_counteries_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/globe-counteries/globe-counteries.component */ "./src/app/three/components/globe-counteries/globe-counteries.component.ts");
 /* harmony import */ var _components_three_globe_three_globe_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/three-globe/three-globe.component */ "./src/app/three/components/three-globe/three-globe.component.ts");
+/* harmony import */ var _components_object_group_object_group_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/object-group/object-group.component */ "./src/app/three/components/object-group/object-group.component.ts");
+
 
 
 
@@ -6817,7 +7004,8 @@ ThreeModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
             _components_globe_package_globe_package_component__WEBPACK_IMPORTED_MODULE_7__["GlobePackageComponent"],
             _components_three_globe3d_three_globe3d_component__WEBPACK_IMPORTED_MODULE_9__["ThreeGlobe3dComponent"],
             _components_globe_counteries_globe_counteries_component__WEBPACK_IMPORTED_MODULE_10__["GlobeCounteriesComponent"],
-            _components_three_globe_three_globe_component__WEBPACK_IMPORTED_MODULE_11__["ThreeGlobeComponent"]
+            _components_three_globe_three_globe_component__WEBPACK_IMPORTED_MODULE_11__["ThreeGlobeComponent"],
+            _components_object_group_object_group_component__WEBPACK_IMPORTED_MODULE_12__["ObjectGroupComponent"]
         ],
         imports: [
             _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],

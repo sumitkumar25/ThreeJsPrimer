@@ -27,7 +27,6 @@ export class ForceGraphComponent implements OnInit, AfterViewInit {
           target: Math.round(Math.random() * (id-1))
         }))
     };
-    console.log(gData);
     const Graph = ForceGraph3D()
       (this.el.nativeElement)
         .graphData(gData);
