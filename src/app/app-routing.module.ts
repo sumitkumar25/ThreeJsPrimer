@@ -16,8 +16,12 @@ const routes: Routes = [
     loadChildren: () => import('./d3/d3.module').then(m => m.D3Module)
   },
   {
-    path: 'awsus',
+    path: 'us-regions',
     loadChildren: () => import('./ct-visualization/ct-visualization.module').then(m => m.CtVisualizationModule)
+  },
+  {
+    path: '3dforce',
+    loadChildren: () => import('./three-force/three-force.module').then(m => m.ThreeForceModule)
   },
   {
     path: '',

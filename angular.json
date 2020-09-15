@@ -64,7 +64,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ThreeJsPrimer:build"
+            "browserTarget": "ThreeJsPrimer:build",
+            "baseHref": "/"
           },
           "configurations": {
             "production": {

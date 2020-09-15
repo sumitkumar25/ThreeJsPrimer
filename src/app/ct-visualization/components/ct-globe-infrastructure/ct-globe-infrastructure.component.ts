@@ -10,6 +10,7 @@ import ThreeGlobe from 'three-globe';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls';
+import { GlobeData } from '../../interfaces/globe-data';
 
 @Component({
   selector: 'app-ct-globe-infrastructure',
@@ -22,33 +23,11 @@ export class CtGlobeInfrastructureComponent implements OnInit, AfterViewInit, On
 
   private assetsGeoData: Array<GeoJson>;
 
-  private filteredGlobeData: Array<{ lat: number, lng: number, label: string }>
+  private filteredGlobeData: Array<GlobeData>
 
   subscriptions: Array<Subscription> = [];
   tbControls: any;
 
-  private readonly awsUsRegions = [
-    {
-      lat: 40.367474,
-      lng: -82.996216,
-      label: 'US East (Ohio)'
-    },
-    {
-      lat: 37.926868,
-      lng: -78.024902,
-      label: 'US East (N. Virginia)'
-    },
-    {
-      lat: 36.778259,
-      lng: -119.417931,
-      label: 'US West (N. California)'
-    },
-    {
-      lat: 44.000000,
-      lng: -120.500000,
-      label: 'US West (Oregon)'
-    }
-  ];
   obControls: any;
   raycaster = new THREE.Raycaster();
   mouse = new THREE.Vector2();
@@ -84,10 +63,10 @@ export class CtGlobeInfrastructureComponent implements OnInit, AfterViewInit, On
     this.formatGeoJsonResponse();
     const globe = new ThreeGlobe()
       .globeImageUrl('assets/earth-dark.jpg')
-      .pointsData(this.awsUsRegions)
+      .pointsData(this.filteredGlobeData)
       .pointAltitude(0.0005)
       .pointColor(() => '#007FFF')
-      .pointRadius(.8)
+      .pointRadius(.2)
       .pointResolution(2000)
 
     this.threeConstants.scene.add(globe);
@@ -105,8 +84,8 @@ export class CtGlobeInfrastructureComponent implements OnInit, AfterViewInit, On
         return (location.geometry && location.geometry.coordinates && location.geometry.coordinates.length === 2);
       }).map((location: GeoJson) => {
         return {
-          lat: location.geometry.coordinates[0],
-          lng: location.geometry.coordinates[1],
+          lat: location.geometry.coordinates[1],
+          lng: location.geometry.coordinates[0],
           label: location.properties && location.properties['city'] ? location.properties['city'] : ''
         };
       });

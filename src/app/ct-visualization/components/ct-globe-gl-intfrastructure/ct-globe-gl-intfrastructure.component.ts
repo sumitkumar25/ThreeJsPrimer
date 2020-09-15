@@ -1,5 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import Globe from 'globe.gl';
+import { CtVisualizationRequestService } from '../../services/ct-visualization-request.service';
+import { GeoJson, GeoJsonResponse } from '../../interfaces/geo-json';
+import { GlobeData } from '../../interfaces/globe-data';
 @Component({
   selector: 'app-ct-globe-gl-intfrastructure',
   templateUrl: './ct-globe-gl-intfrastructure.component.html',
@@ -8,56 +11,59 @@ import Globe from 'globe.gl';
 export class CtGlobeGlIntfrastructureComponent implements OnInit, AfterViewInit {
   @ViewChild('el', { static: false }) el: ElementRef;
 
-  private readonly awsUsRegions = [
-    {
-      lat: 40.367474,
-      lng: -82.996216,
-      label: 'US East (Ohio)'
-    },
-    {
-      lat: 37.926868,
-      lng: -78.024902,
-      label: 'US East (N. Virginia)'
-    },
-    {
-      lat: 36.778259,
-      lng: -119.417931,
-      label: 'US West (N. California)'
-    },
-    {
-      lat: 44.000000,
-      lng: -120.500000,
-      label: 'US West (Oregon)'
-    }
-  ];
+  filteredGlobeData: Array<GlobeData>;
 
-  constructor() { }
-  ngAfterViewInit(): void {
-    this.constructGlobe()
+  constructor(private ctVisualization: CtVisualizationRequestService) { }
+  ngOnInit() {
   }
+  getStateCapitalsData() {
+    this.ctVisualization.getStateCapitals()
+      .subscribe((response: GeoJsonResponse) => {
+        if (response.features && response.features.length) {
+          this.formatGeoJsonResponse(response.features);
+          this.constructGlobe();
+        }
+      })
+  }
+  ngAfterViewInit(): void {
+    this.getStateCapitalsData();
+  }
+
+  private formatGeoJsonResponse(usaCapitalsGeoData) {
+    this.filteredGlobeData = usaCapitalsGeoData
+      .filter((location: GeoJson) => {
+        return (location.geometry && location.geometry.coordinates && location.geometry.coordinates.length === 2);
+      }).map((location: GeoJson) => {
+        return {
+          lat: location.geometry.coordinates[1],
+          lng: location.geometry.coordinates[0],
+          label: location.properties && location.properties.name ? location.properties.name : ''
+        };
+      });
+  }
+
   constructGlobe() {
     const globe = Globe();
     globe(this.el.nativeElement)
       .globeImageUrl('assets/earth-dark.jpg')
-      .pointsData(this.awsUsRegions)
+      .pointsData(this.filteredGlobeData)
       .pointAltitude(0.0005)
-      .pointColor(() => '#007FFF')
-      .pointRadius(.8)
+      .pointColor((e) => {
+        return '#007FFF'
+      })
+      .pointRadius(.2)
       .pointResolution(2000)
       .onPointClick(function (point, event) {
-        console.log(point, event, this)
+        console.log('click', point, event, this)
       }).onPointHover(function (point, prevPoint) {
-        console.log(point, prevPoint, this);
+        console.log('hover', point, prevPoint, this);
       })
-  }
-
-  ngOnInit() {
   }
 
   scrollToTop($event) {
     window.scroll({
-      top: 0, 
-      left: 0, 
+      top: 0,
+      left: 0,
       behavior: 'smooth'
     });
   }

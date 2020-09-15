@@ -9,17 +9,20 @@
 </mat-toolbar>
 <main>
   <nav>
+    <a [routerLink]="['/3dforce']" [routerLinkActive]="['selected']">
+      3D Force Graph
+    </a>
     <a [routerLink]="['/three']" [routerLinkActive]="['selected']">
       Three Js
     </a>
     <!-- <a [routerLink]=" ['/pixi']" [routerLinkActive]="['selected']">
       Pixi
     </a> -->
+    <a [routerLink]="['/us-regions']" [routerLinkActive]="['selected']">
+      US Regions on Globe
+    </a>
     <a [routerLink]="['/d3']" [routerLinkActive]="['selected']">
       Canvas
-    </a>
-    <a [routerLink]="['/awsus']" [routerLinkActive]="['selected']">
-      Aws US Regions
     </a>
   </nav>
   <section>
