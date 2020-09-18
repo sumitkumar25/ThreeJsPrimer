@@ -30,7 +30,7 @@ webpackEmptyAsyncContext.id = "./$$_lazy_route_resource lazy recursive";
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!--The content below is only a placeholder and can be replaced.-->\n\n<mat-toolbar color=\"primary\">\n  <header>\n    <h1>\n      JavaScript Visualization\n    </h1>\n  </header>\n</mat-toolbar>\n<main>\n  <nav>\n    <a [routerLink]=\"['/three']\" [routerLinkActive]=\"['selected']\">\n      Three Js\n    </a>\n    <a [routerLink]=\"['/3dforce']\" [routerLinkActive]=\"['selected']\">\n      3D Force Graph\n    </a>\n    <!-- <a [routerLink]=\" ['/pixi']\" [routerLinkActive]=\"['selected']\">\n      Pixi\n    </a> -->\n    <a [routerLink]=\"['/us-regions']\" [routerLinkActive]=\"['selected']\">\n      US Regions on Globe\n    </a>\n    <a [routerLink]=\"['/d3']\" [routerLinkActive]=\"['selected']\">\n      Canvas\n    </a>\n  </nav>\n  <section>\n    <router-outlet></router-outlet>\n  </section>\n</main>\n<!-- <app-menu></app-menu> -->\n\n<!-- <section class=\" ThreeJsElem one\" #threeJsElemOne>\n\n      </section>\n      <section>\n        <app-three-globe></app-three-globe>\n      </section>\n      <section>\n        <app-three-globe3d></app-three-globe3d>\n      </section> -->"
+module.exports = "<!--The content below is only a placeholder and can be replaced.-->\n\n<mat-toolbar color=\"primary\">\n  <header>\n    <h1>\n      JavaScript Visualization\n    </h1>\n  </header>\n</mat-toolbar>\n<main>\n  <nav>\n    <a [routerLink]=\"['/three-optimized']\" [routerLinkActive]=\"['selected']\">\n      Three Optimized\n    </a>\n    <a [routerLink]=\"['/three']\" [routerLinkActive]=\"['selected']\">\n      Three Js\n    </a>\n    <a [routerLink]=\"['/3dforce']\" [routerLinkActive]=\"['selected']\">\n      3D Force Graph\n    </a>\n    <!-- <a [routerLink]=\" ['/pixi']\" [routerLinkActive]=\"['selected']\">\n      Pixi\n    </a> -->\n    <a [routerLink]=\"['/us-regions']\" [routerLinkActive]=\"['selected']\">\n      US Regions on Globe\n    </a>\n    <a [routerLink]=\"['/d3']\" [routerLinkActive]=\"['selected']\">\n      Canvas\n    </a>\n  </nav>\n  <section>\n    <router-outlet></router-outlet>\n  </section>\n</main>\n<!-- <app-menu></app-menu> -->\n\n<!-- <section class=\" ThreeJsElem one\" #threeJsElemOne>\n\n      </section>\n      <section>\n        <app-three-globe></app-three-globe>\n      </section>\n      <section>\n        <app-three-globe3d></app-three-globe3d>\n      </section> -->"
 
 /***/ }),
 
@@ -63,8 +63,12 @@ __webpack_require__.r(__webpack_exports__);
 
 var routes = [
     {
+        path: 'three-optimized',
+        loadChildren: function () { return Promise.all(/*! import() | three-optimized-three-optimized-module */[__webpack_require__.e("default~ct-visualization-ct-visualization-module~three-force-three-force-module~three-optimized-thre~1c637ca4"), __webpack_require__.e("common"), __webpack_require__.e("three-optimized-three-optimized-module")]).then(__webpack_require__.bind(null, /*! ./three-optimized/three-optimized.module */ "./src/app/three-optimized/three-optimized.module.ts")).then(function (m) { return m.ThreeOptimizedModule; }); }
+    },
+    {
         path: 'three',
-        loadChildren: function () { return Promise.all(/*! import() | three-three-module */[__webpack_require__.e("default~ct-visualization-ct-visualization-module~three-force-three-force-module~three-three-module"), __webpack_require__.e("default~ct-visualization-ct-visualization-module~three-three-module"), __webpack_require__.e("three-three-module")]).then(__webpack_require__.bind(null, /*! ./three/three.module */ "./src/app/three/three.module.ts")).then(function (m) { return m.ThreeModule; }); }
+        loadChildren: function () { return Promise.all(/*! import() | three-three-module */[__webpack_require__.e("default~ct-visualization-ct-visualization-module~three-force-three-force-module~three-optimized-thre~1c637ca4"), __webpack_require__.e("default~ct-visualization-ct-visualization-module~three-force-three-force-module~three-three-module"), __webpack_require__.e("default~ct-visualization-ct-visualization-module~three-three-module"), __webpack_require__.e("common"), __webpack_require__.e("three-three-module")]).then(__webpack_require__.bind(null, /*! ./three/three.module */ "./src/app/three/three.module.ts")).then(function (m) { return m.ThreeModule; }); }
     },
     {
         path: 'pixi',
@@ -76,15 +80,15 @@ var routes = [
     },
     {
         path: 'us-regions',
-        loadChildren: function () { return Promise.all(/*! import() | ct-visualization-ct-visualization-module */[__webpack_require__.e("default~ct-visualization-ct-visualization-module~three-force-three-force-module~three-three-module"), __webpack_require__.e("default~ct-visualization-ct-visualization-module~three-three-module"), __webpack_require__.e("default~ct-visualization-ct-visualization-module~three-force-three-force-module"), __webpack_require__.e("ct-visualization-ct-visualization-module")]).then(__webpack_require__.bind(null, /*! ./ct-visualization/ct-visualization.module */ "./src/app/ct-visualization/ct-visualization.module.ts")).then(function (m) { return m.CtVisualizationModule; }); }
+        loadChildren: function () { return Promise.all(/*! import() | ct-visualization-ct-visualization-module */[__webpack_require__.e("default~ct-visualization-ct-visualization-module~three-force-three-force-module~three-optimized-thre~1c637ca4"), __webpack_require__.e("default~ct-visualization-ct-visualization-module~three-force-three-force-module~three-three-module"), __webpack_require__.e("default~ct-visualization-ct-visualization-module~three-three-module"), __webpack_require__.e("default~ct-visualization-ct-visualization-module~three-force-three-force-module"), __webpack_require__.e("ct-visualization-ct-visualization-module")]).then(__webpack_require__.bind(null, /*! ./ct-visualization/ct-visualization.module */ "./src/app/ct-visualization/ct-visualization.module.ts")).then(function (m) { return m.CtVisualizationModule; }); }
     },
     {
         path: '3dforce',
-        loadChildren: function () { return Promise.all(/*! import() | three-force-three-force-module */[__webpack_require__.e("default~ct-visualization-ct-visualization-module~three-force-three-force-module~three-three-module"), __webpack_require__.e("default~ct-visualization-ct-visualization-module~three-force-three-force-module"), __webpack_require__.e("three-force-three-force-module")]).then(__webpack_require__.bind(null, /*! ./three-force/three-force.module */ "./src/app/three-force/three-force.module.ts")).then(function (m) { return m.ThreeForceModule; }); }
+        loadChildren: function () { return Promise.all(/*! import() | three-force-three-force-module */[__webpack_require__.e("default~ct-visualization-ct-visualization-module~three-force-three-force-module~three-optimized-thre~1c637ca4"), __webpack_require__.e("default~ct-visualization-ct-visualization-module~three-force-three-force-module~three-three-module"), __webpack_require__.e("default~ct-visualization-ct-visualization-module~three-force-three-force-module"), __webpack_require__.e("three-force-three-force-module")]).then(__webpack_require__.bind(null, /*! ./three-force/three-force.module */ "./src/app/three-force/three-force.module.ts")).then(function (m) { return m.ThreeForceModule; }); }
     },
     {
         path: '',
-        redirectTo: 'three',
+        redirectTo: 'three-optimized',
         pathMatch: 'full'
     }
 ];
