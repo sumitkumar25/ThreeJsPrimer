@@ -10,6 +10,7 @@ import { ThreeGlobe3dComponent } from './components/three-globe3d/three-globe3d.
 import { GlobeCounteriesComponent } from './components/globe-counteries/globe-counteries.component';
 import { ThreeGlobeComponent } from './components/three-globe/three-globe.component';
 import { ObjectGroupComponent } from './components/object-group/object-group.component';
+import { InstanceMeshComponent } from './components/instance-mesh/instance-mesh.component';
 
 
 
@@ -21,7 +22,8 @@ import { ObjectGroupComponent } from './components/object-group/object-group.com
     ThreeGlobe3dComponent,
     GlobeCounteriesComponent,
     ThreeGlobeComponent,
-    ObjectGroupComponent
+    ObjectGroupComponent,
+    InstanceMeshComponent
   ],
   imports: [
     CommonModule,

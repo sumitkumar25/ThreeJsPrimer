@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angula
 import { ThreeService } from '../../services/three.service';
 import * as THREE from 'three';
 import { SphereBufferGeometry, Object3D, Group } from 'three';
+import { DragControls } from 'three/examples/jsm/controls/DragControls';
+
 
 @Component({
   selector: 'app-object-group',
@@ -10,11 +12,21 @@ import { SphereBufferGeometry, Object3D, Group } from 'three';
 })
 export class ObjectGroupComponent implements OnInit, AfterViewInit {
   @ViewChild('canvasEl', { static: false }) canvasEl: ElementRef;
-  threeCommon: { scene: any; renderer: any; camera: any; };
+
+  threeCommon: { scene: any, renderer: any, camera: any, controls: any };
+
   nodes: Array<SphereBufferGeometry> = [];
+  raycaster: THREE.Raycaster;
+  mouse: THREE.Vector2;
+  dragControls: DragControls;
+  dragableElem=[];
+
+
   constructor(private threeService: ThreeService) { }
 
   ngOnInit() {
+    this.mouse = new THREE.Vector2();
+    this.raycaster = new THREE.Raycaster();
   }
 
   ngAfterViewInit() {
@@ -32,6 +44,12 @@ export class ObjectGroupComponent implements OnInit, AfterViewInit {
     this.constructNodeObjects();
     this.constructNode2Objects();
     this.constructConnectionObjects();
+    this.dragControls = new DragControls([...this.dragableElem], this.threeCommon.camera, this.threeCommon.renderer.domElement);
+    this.dragControls.addEventListener('drag', this.dragHandler);
+
+  }
+  dragHandler(arg0) {
+    console.log({ drag: arg0 })
   }
   constructNode2Objects() {
     const nodeObj = new Object3D();
@@ -50,9 +68,9 @@ export class ObjectGroupComponent implements OnInit, AfterViewInit {
         id: `mesh2-${index}`,
         name: `mesh2-${index}`,
       }
-      const x = 120+ (index % 2 === 0 ? (2 * radius + 1) * (index + 1) : -((2 * radius + 1) * (index + 1)));
-      const y = 120+ (index % 2 === 0 ? -(2 * radius + 1) * (index + 1) : ((2 * radius + 1) * (index + 1)));
-      const z = 120+ (index % 2 === 0 ? (2 * radius + 1) * (index + 1) : -((2 * radius + 1) * (index + 1)));
+      const x = 120 + (index % 2 === 0 ? (2 * radius + 1) * (index + 1) : -((2 * radius + 1) * (index + 1)));
+      const y = 120 + (index % 2 === 0 ? -(2 * radius + 1) * (index + 1) : ((2 * radius + 1) * (index + 1)));
+      const z = 120 + (index % 2 === 0 ? (2 * radius + 1) * (index + 1) : -((2 * radius + 1) * (index + 1)));
       mesh.position.set(x, y, z)
       // nodeGroup.add(mesh);
       // this.threeCommon.scene.add(nodeGroup);      
@@ -67,17 +85,18 @@ export class ObjectGroupComponent implements OnInit, AfterViewInit {
     const bbSphere = new THREE.SphereBufferGeometry(bbDimensions.radius, 30, 30);
     const bbMaterial = new THREE.MeshBasicMaterial({
       color: 'blue',
-      transparent: true, 
+      transparent: true,
       opacity: 0.1
     });
     const bbSphereMesh = new THREE.Mesh(bbSphere, bbMaterial);
     bbSphereMesh.position.set(bbDimensions.center.x, bbDimensions.center.y, bbDimensions.center.z);
-    [bbSphereMesh,box,nodeObj].forEach(threeEl => nGroup.add(threeEl));
+    [bbSphereMesh, box, nodeObj].forEach(threeEl => nGroup.add(threeEl));
     nGroup.userData = {
       id: `g2`,
       name: `g2`
     }
     this.threeCommon.scene.add(nGroup);
+    this.dragableElem.push(nGroup.children[0])
   }
   constructNodeObjects() {
     const nodeObj = new Object3D();
@@ -114,17 +133,18 @@ export class ObjectGroupComponent implements OnInit, AfterViewInit {
     const bbSphere = new THREE.SphereBufferGeometry(bbDimensions.radius, 30, 30);
     const bbMaterial = new THREE.MeshBasicMaterial({
       color: 'red',
-      transparent: true, 
+      transparent: true,
       opacity: 0.1
     });
     const bbSphereMesh = new THREE.Mesh(bbSphere, bbMaterial);
     bbSphereMesh.position.set(bbDimensions.center.x, bbDimensions.center.y, bbDimensions.center.z);
-    [bbSphereMesh,box,nodeObj].forEach(threeEl => nGroup.add(threeEl));
+    [bbSphereMesh, box, nodeObj].forEach(threeEl => nGroup.add(threeEl));
     nGroup.userData = {
       id: `g1`,
       name: `g1`
     }
     this.threeCommon.scene.add(nGroup);
+    this.dragableElem.push(nGroup.children[0]);
   }
   constructConnectionObjects() {
   }

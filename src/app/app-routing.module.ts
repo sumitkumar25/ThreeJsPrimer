@@ -4,6 +4,10 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
   {
+    path: 'three-optimized',
+    loadChildren: () => import('./three-optimized/three-optimized.module').then(m => m.ThreeOptimizedModule)
+  },
+  {
     path: 'three',
     loadChildren: () => import('./three/three.module').then(m => m.ThreeModule)
   },
@@ -25,7 +29,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'three',
+    redirectTo: 'three-optimized',
     pathMatch: 'full'
   }
 ];

@@ -12,12 +12,13 @@ export class ThreeService {
   getThreeCommon(canvasEl): { scene: any, renderer: any, camera: any, controls: any } {
     const common = {
       scene: new THREE.Scene(),
-      renderer: new THREE.WebGLRenderer({ canvas: canvasEl }),
+      renderer: new THREE.WebGLRenderer({ canvas: canvasEl ,antialias:true}),
       camera: new THREE.PerspectiveCamera(75, 2),
       controls : {}
     }
     common.renderer.setSize(canvasEl.offsetWidth, canvasEl.offsetHeight)
-    common.controls = this.configureViewSettings(common.scene, common.camera, common.renderer)
+    common.scene.add(new THREE.AmbientLight( 0xffffff, 1 ));
+    common.controls = this.configureViewSettings(common.scene, common.camera, common.renderer);
     return common;
   }
 
