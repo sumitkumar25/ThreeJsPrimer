@@ -5266,6 +5266,17 @@ module.exports = "<h3>Coordinate Points and labels</h3>\n<canvas height=\"500\" 
 
 /***/ }),
 
+/***/ "./node_modules/raw-loader/index.js!./src/app/three/components/instance-mesh/instance-mesh.component.html":
+/*!*******************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/three/components/instance-mesh/instance-mesh.component.html ***!
+  \*******************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h3>Instance Mesh</h3>\n<canvas height=\"500\" width=\"1000\" class=\"visualization--canvas\" #canvasEl></canvas>"
+
+/***/ }),
+
 /***/ "./node_modules/raw-loader/index.js!./src/app/three/components/object-group/object-group.component.html":
 /*!*****************************************************************************************************!*\
   !*** ./node_modules/raw-loader!./src/app/three/components/object-group/object-group.component.html ***!
@@ -5306,7 +5317,7 @@ module.exports = "<h3>3D canvas globe rendering - No controls</h3>\n<canvas heig
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- <app-three-globe3d></app-three-globe3d> -->\n<app-object-group></app-object-group>\n<app-connected-nodes></app-connected-nodes>\n<app-globe-counteries></app-globe-counteries>\n<app-globe-package></app-globe-package>\n<app-three-globe3d></app-three-globe3d>\n<app-three-globe></app-three-globe>"
+module.exports = "<!-- <app-three-globe3d></app-three-globe3d> -->\n<app-instance-mesh></app-instance-mesh>\n<app-object-group></app-object-group>\n<app-connected-nodes></app-connected-nodes>\n<app-globe-counteries></app-globe-counteries>\n<app-globe-package></app-globe-package>\n<app-three-globe3d></app-three-globe3d>\n<app-three-globe></app-three-globe>"
 
 /***/ }),
 
@@ -5977,23 +5988,279 @@ TrackballControls.prototype = Object.create( THREE.EventDispatcher.prototype );
 
 /***/ }),
 
-/***/ "./src/app/common/colors.enum.ts":
-/*!***************************************!*\
-  !*** ./src/app/common/colors.enum.ts ***!
-  \***************************************/
-/*! exports provided: Colors */
+/***/ "./node_modules/three/examples/jsm/controls/DragControls.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/three/examples/jsm/controls/DragControls.js ***!
+  \******************************************************************/
+/*! exports provided: DragControls */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Colors", function() { return Colors; });
-var Colors;
-(function (Colors) {
-    Colors["red"] = "#F97664";
-    Colors["green"] = "#C8FF67";
-    Colors["canvasBackground"] = "#ECFCF9";
-    Colors["yellow"] = "#F9E764";
-})(Colors || (Colors = {}));
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DragControls", function() { return DragControls; });
+/* harmony import */ var _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../build/three.module.js */ "./node_modules/three/build/three.module.js");
+
+
+var DragControls = function ( _objects, _camera, _domElement ) {
+
+	var _plane = new _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["Plane"]();
+	var _raycaster = new _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["Raycaster"]();
+
+	var _mouse = new _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["Vector2"]();
+	var _offset = new _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["Vector3"]();
+	var _intersection = new _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["Vector3"]();
+	var _worldPosition = new _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["Vector3"]();
+	var _inverseMatrix = new _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["Matrix4"]();
+	var _intersections = [];
+
+	var _selected = null, _hovered = null;
+
+	//
+
+	var scope = this;
+
+	function activate() {
+
+		_domElement.addEventListener( 'mousemove', onDocumentMouseMove, false );
+		_domElement.addEventListener( 'mousedown', onDocumentMouseDown, false );
+		_domElement.addEventListener( 'mouseup', onDocumentMouseCancel, false );
+		_domElement.addEventListener( 'mouseleave', onDocumentMouseCancel, false );
+		_domElement.addEventListener( 'touchmove', onDocumentTouchMove, false );
+		_domElement.addEventListener( 'touchstart', onDocumentTouchStart, false );
+		_domElement.addEventListener( 'touchend', onDocumentTouchEnd, false );
+
+	}
+
+	function deactivate() {
+
+		_domElement.removeEventListener( 'mousemove', onDocumentMouseMove, false );
+		_domElement.removeEventListener( 'mousedown', onDocumentMouseDown, false );
+		_domElement.removeEventListener( 'mouseup', onDocumentMouseCancel, false );
+		_domElement.removeEventListener( 'mouseleave', onDocumentMouseCancel, false );
+		_domElement.removeEventListener( 'touchmove', onDocumentTouchMove, false );
+		_domElement.removeEventListener( 'touchstart', onDocumentTouchStart, false );
+		_domElement.removeEventListener( 'touchend', onDocumentTouchEnd, false );
+
+		_domElement.style.cursor = '';
+
+	}
+
+	function dispose() {
+
+		deactivate();
+
+	}
+
+	function getObjects() {
+
+		return _objects;
+
+	}
+
+	function onDocumentMouseMove( event ) {
+
+		event.preventDefault();
+
+		var rect = _domElement.getBoundingClientRect();
+
+		_mouse.x = ( ( event.clientX - rect.left ) / rect.width ) * 2 - 1;
+		_mouse.y = - ( ( event.clientY - rect.top ) / rect.height ) * 2 + 1;
+
+		_raycaster.setFromCamera( _mouse, _camera );
+
+		if ( _selected && scope.enabled ) {
+
+			if ( _raycaster.ray.intersectPlane( _plane, _intersection ) ) {
+
+				_selected.position.copy( _intersection.sub( _offset ).applyMatrix4( _inverseMatrix ) );
+
+			}
+
+			scope.dispatchEvent( { type: 'drag', object: _selected } );
+
+			return;
+
+		}
+
+		_intersections.length = 0;
+
+		_raycaster.setFromCamera( _mouse, _camera );
+		_raycaster.intersectObjects( _objects, true, _intersections );
+
+		if ( _intersections.length > 0 ) {
+
+			var object = _intersections[ 0 ].object;
+
+			_plane.setFromNormalAndCoplanarPoint( _camera.getWorldDirection( _plane.normal ), _worldPosition.setFromMatrixPosition( object.matrixWorld ) );
+
+			if ( _hovered !== object ) {
+
+				scope.dispatchEvent( { type: 'hoveron', object: object } );
+
+				_domElement.style.cursor = 'pointer';
+				_hovered = object;
+
+			}
+
+		} else {
+
+			if ( _hovered !== null ) {
+
+				scope.dispatchEvent( { type: 'hoveroff', object: _hovered } );
+
+				_domElement.style.cursor = 'auto';
+				_hovered = null;
+
+			}
+
+		}
+
+	}
+
+	function onDocumentMouseDown( event ) {
+
+		event.preventDefault();
+
+		_intersections.length = 0;
+
+		_raycaster.setFromCamera( _mouse, _camera );
+		_raycaster.intersectObjects( _objects, true, _intersections );
+
+		if ( _intersections.length > 0 ) {
+
+			_selected = ( scope.transformGroup === true ) ? _objects[ 0 ] : _intersections[ 0 ].object;
+
+			if ( _raycaster.ray.intersectPlane( _plane, _intersection ) ) {
+
+				_inverseMatrix.getInverse( _selected.parent.matrixWorld );
+				_offset.copy( _intersection ).sub( _worldPosition.setFromMatrixPosition( _selected.matrixWorld ) );
+
+			}
+
+			_domElement.style.cursor = 'move';
+
+			scope.dispatchEvent( { type: 'dragstart', object: _selected } );
+
+		}
+
+
+	}
+
+	function onDocumentMouseCancel( event ) {
+
+		event.preventDefault();
+
+		if ( _selected ) {
+
+			scope.dispatchEvent( { type: 'dragend', object: _selected } );
+
+			_selected = null;
+
+		}
+
+		_domElement.style.cursor = _hovered ? 'pointer' : 'auto';
+
+	}
+
+	function onDocumentTouchMove( event ) {
+
+		event.preventDefault();
+		event = event.changedTouches[ 0 ];
+
+		var rect = _domElement.getBoundingClientRect();
+
+		_mouse.x = ( ( event.clientX - rect.left ) / rect.width ) * 2 - 1;
+		_mouse.y = - ( ( event.clientY - rect.top ) / rect.height ) * 2 + 1;
+
+		_raycaster.setFromCamera( _mouse, _camera );
+
+		if ( _selected && scope.enabled ) {
+
+			if ( _raycaster.ray.intersectPlane( _plane, _intersection ) ) {
+
+				_selected.position.copy( _intersection.sub( _offset ).applyMatrix4( _inverseMatrix ) );
+
+			}
+
+			scope.dispatchEvent( { type: 'drag', object: _selected } );
+
+			return;
+
+		}
+
+	}
+
+	function onDocumentTouchStart( event ) {
+
+		event.preventDefault();
+		event = event.changedTouches[ 0 ];
+
+		var rect = _domElement.getBoundingClientRect();
+
+		_mouse.x = ( ( event.clientX - rect.left ) / rect.width ) * 2 - 1;
+		_mouse.y = - ( ( event.clientY - rect.top ) / rect.height ) * 2 + 1;
+
+		_intersections.length = 0;
+
+		_raycaster.setFromCamera( _mouse, _camera );
+		 _raycaster.intersectObjects( _objects, true, _intersections );
+
+		if ( _intersections.length > 0 ) {
+
+			_selected = ( scope.transformGroup === true ) ? _objects[ 0 ] : _intersections[ 0 ].object;
+
+			_plane.setFromNormalAndCoplanarPoint( _camera.getWorldDirection( _plane.normal ), _worldPosition.setFromMatrixPosition( _selected.matrixWorld ) );
+
+			if ( _raycaster.ray.intersectPlane( _plane, _intersection ) ) {
+
+				_inverseMatrix.getInverse( _selected.parent.matrixWorld );
+				_offset.copy( _intersection ).sub( _worldPosition.setFromMatrixPosition( _selected.matrixWorld ) );
+
+			}
+
+			_domElement.style.cursor = 'move';
+
+			scope.dispatchEvent( { type: 'dragstart', object: _selected } );
+
+		}
+
+
+	}
+
+	function onDocumentTouchEnd( event ) {
+
+		event.preventDefault();
+
+		if ( _selected ) {
+
+			scope.dispatchEvent( { type: 'dragend', object: _selected } );
+
+			_selected = null;
+
+		}
+
+		_domElement.style.cursor = 'auto';
+
+	}
+
+	activate();
+
+	// API
+
+	this.enabled = true;
+	this.transformGroup = false;
+
+	this.activate = activate;
+	this.deactivate = deactivate;
+	this.dispose = dispose;
+	this.getObjects = getObjects;
+
+};
+
+DragControls.prototype = Object.create( _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["EventDispatcher"].prototype );
+DragControls.prototype.constructor = DragControls;
+
+
 
 
 /***/ }),
@@ -6356,6 +6623,65 @@ GlobePackageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 
 /***/ }),
 
+/***/ "./src/app/three/components/instance-mesh/instance-mesh.component.scss":
+/*!*****************************************************************************!*\
+  !*** ./src/app/three/components/instance-mesh/instance-mesh.component.scss ***!
+  \*****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3RocmVlL2NvbXBvbmVudHMvaW5zdGFuY2UtbWVzaC9pbnN0YW5jZS1tZXNoLmNvbXBvbmVudC5zY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/three/components/instance-mesh/instance-mesh.component.ts":
+/*!***************************************************************************!*\
+  !*** ./src/app/three/components/instance-mesh/instance-mesh.component.ts ***!
+  \***************************************************************************/
+/*! exports provided: InstanceMeshComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InstanceMeshComponent", function() { return InstanceMeshComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _services_three_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../services/three.service */ "./src/app/three/services/three.service.ts");
+
+
+
+let InstanceMeshComponent = class InstanceMeshComponent {
+    constructor(threeService) {
+        this.threeService = threeService;
+    }
+    ngOnInit() {
+        this.threeCommon = this.threeService.getThreeCommon(this.canvasEl.nativeElement);
+        this.threeCommon.camera.fov = 50;
+        this.threeCommon.camera.position.z = 550;
+        this.threeCommon.camera.updateProjectionMatrix();
+    }
+    renderView() {
+        this.threeCommon.renderer.render(this.threeCommon.scene, this.threeCommon.camera);
+    }
+};
+InstanceMeshComponent.ctorParameters = () => [
+    { type: _services_three_service__WEBPACK_IMPORTED_MODULE_2__["ThreeService"] }
+];
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('canvasEl', { static: true })
+], InstanceMeshComponent.prototype, "canvasEl", void 0);
+InstanceMeshComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-instance-mesh',
+        template: __webpack_require__(/*! raw-loader!./instance-mesh.component.html */ "./node_modules/raw-loader/index.js!./src/app/three/components/instance-mesh/instance-mesh.component.html"),
+        styles: [__webpack_require__(/*! ./instance-mesh.component.scss */ "./src/app/three/components/instance-mesh/instance-mesh.component.scss")]
+    })
+], InstanceMeshComponent);
+
+
+
+/***/ }),
+
 /***/ "./src/app/three/components/object-group/object-group.component.scss":
 /*!***************************************************************************!*\
   !*** ./src/app/three/components/object-group/object-group.component.scss ***!
@@ -6381,6 +6707,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _services_three_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../services/three.service */ "./src/app/three/services/three.service.ts");
 /* harmony import */ var three__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! three */ "./node_modules/three/build/three.module.js");
+/* harmony import */ var three_examples_jsm_controls_DragControls__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! three/examples/jsm/controls/DragControls */ "./node_modules/three/examples/jsm/controls/DragControls.js");
+
 
 
 
@@ -6390,8 +6718,11 @@ let ObjectGroupComponent = class ObjectGroupComponent {
     constructor(threeService) {
         this.threeService = threeService;
         this.nodes = [];
+        this.dragableElem = [];
     }
     ngOnInit() {
+        this.mouse = new three__WEBPACK_IMPORTED_MODULE_3__["Vector2"]();
+        this.raycaster = new three__WEBPACK_IMPORTED_MODULE_3__["Raycaster"]();
     }
     ngAfterViewInit() {
         this.threeCommon = this.threeService.getThreeCommon(this.canvasEl.nativeElement);
@@ -6408,6 +6739,11 @@ let ObjectGroupComponent = class ObjectGroupComponent {
         this.constructNodeObjects();
         this.constructNode2Objects();
         this.constructConnectionObjects();
+        this.dragControls = new three_examples_jsm_controls_DragControls__WEBPACK_IMPORTED_MODULE_4__["DragControls"]([...this.dragableElem], this.threeCommon.camera, this.threeCommon.renderer.domElement);
+        this.dragControls.addEventListener('drag', this.dragHandler);
+    }
+    dragHandler(arg0) {
+        console.log({ drag: arg0 });
     }
     constructNode2Objects() {
         const nodeObj = new three__WEBPACK_IMPORTED_MODULE_3__["Object3D"]();
@@ -6451,6 +6787,7 @@ let ObjectGroupComponent = class ObjectGroupComponent {
             name: `g2`
         };
         this.threeCommon.scene.add(nGroup);
+        this.dragableElem.push(nGroup.children[0]);
     }
     constructNodeObjects() {
         const nodeObj = new three__WEBPACK_IMPORTED_MODULE_3__["Object3D"]();
@@ -6494,6 +6831,7 @@ let ObjectGroupComponent = class ObjectGroupComponent {
             name: `g1`
         };
         this.threeCommon.scene.add(nGroup);
+        this.dragableElem.push(nGroup.children[0]);
     }
     constructConnectionObjects() {
     }
@@ -6857,70 +7195,6 @@ VisualizationThreeComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 
 /***/ }),
 
-/***/ "./src/app/three/services/three.service.ts":
-/*!*************************************************!*\
-  !*** ./src/app/three/services/three.service.ts ***!
-  \*************************************************/
-/*! exports provided: ThreeService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ThreeService", function() { return ThreeService; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var three__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! three */ "./node_modules/three/build/three.module.js");
-/* harmony import */ var src_app_common_colors_enum__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/common/colors.enum */ "./src/app/common/colors.enum.ts");
-/* harmony import */ var three_examples_jsm_controls_OrbitControls__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! three/examples/jsm/controls/OrbitControls */ "./node_modules/three/examples/jsm/controls/OrbitControls.js");
-
-
-
-
-
-let ThreeService = class ThreeService {
-    constructor() { }
-    getThreeCommon(canvasEl) {
-        const common = {
-            scene: new three__WEBPACK_IMPORTED_MODULE_2__["Scene"](),
-            renderer: new three__WEBPACK_IMPORTED_MODULE_2__["WebGLRenderer"]({ canvas: canvasEl }),
-            camera: new three__WEBPACK_IMPORTED_MODULE_2__["PerspectiveCamera"](75, 2),
-            controls: {}
-        };
-        common.renderer.setSize(canvasEl.offsetWidth, canvasEl.offsetHeight);
-        common.controls = this.configureViewSettings(common.scene, common.camera, common.renderer);
-        return common;
-    }
-    getThreeCommonWindow() {
-        const common = {
-            scene: new three__WEBPACK_IMPORTED_MODULE_2__["Scene"](),
-            renderer: new three__WEBPACK_IMPORTED_MODULE_2__["WebGLRenderer"](),
-            camera: new three__WEBPACK_IMPORTED_MODULE_2__["PerspectiveCamera"](),
-        };
-        common.scene.background = new three__WEBPACK_IMPORTED_MODULE_2__["Color"](src_app_common_colors_enum__WEBPACK_IMPORTED_MODULE_3__["Colors"].canvasBackground);
-        common.renderer.setSize(window.innerWidth, window.innerHeight);
-        common.camera.position.z = 100;
-        return common;
-    }
-    configureViewSettings(scene, camera, renderer) {
-        scene.background = new three__WEBPACK_IMPORTED_MODULE_2__["Color"](src_app_common_colors_enum__WEBPACK_IMPORTED_MODULE_3__["Colors"].canvasBackground);
-        const light = new three__WEBPACK_IMPORTED_MODULE_2__["AmbientLight"](0x404040); // soft white light
-        scene.add(light);
-        const controls = new three_examples_jsm_controls_OrbitControls__WEBPACK_IMPORTED_MODULE_4__["OrbitControls"](camera, renderer.domElement);
-        camera.position.set(0, 0, 5);
-        controls.update();
-        return controls;
-    }
-};
-ThreeService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-        providedIn: 'root'
-    })
-], ThreeService);
-
-
-
-/***/ }),
-
 /***/ "./src/app/three/three-routing/three-routing.module.ts":
 /*!*************************************************************!*\
   !*** ./src/app/three/three-routing/three-routing.module.ts ***!
@@ -6981,6 +7255,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_globe_counteries_globe_counteries_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/globe-counteries/globe-counteries.component */ "./src/app/three/components/globe-counteries/globe-counteries.component.ts");
 /* harmony import */ var _components_three_globe_three_globe_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/three-globe/three-globe.component */ "./src/app/three/components/three-globe/three-globe.component.ts");
 /* harmony import */ var _components_object_group_object_group_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/object-group/object-group.component */ "./src/app/three/components/object-group/object-group.component.ts");
+/* harmony import */ var _components_instance_mesh_instance_mesh_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/instance-mesh/instance-mesh.component */ "./src/app/three/components/instance-mesh/instance-mesh.component.ts");
+
 
 
 
@@ -7005,7 +7281,8 @@ ThreeModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
             _components_three_globe3d_three_globe3d_component__WEBPACK_IMPORTED_MODULE_9__["ThreeGlobe3dComponent"],
             _components_globe_counteries_globe_counteries_component__WEBPACK_IMPORTED_MODULE_10__["GlobeCounteriesComponent"],
             _components_three_globe_three_globe_component__WEBPACK_IMPORTED_MODULE_11__["ThreeGlobeComponent"],
-            _components_object_group_object_group_component__WEBPACK_IMPORTED_MODULE_12__["ObjectGroupComponent"]
+            _components_object_group_object_group_component__WEBPACK_IMPORTED_MODULE_12__["ObjectGroupComponent"],
+            _components_instance_mesh_instance_mesh_component__WEBPACK_IMPORTED_MODULE_13__["InstanceMeshComponent"]
         ],
         imports: [
             _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
