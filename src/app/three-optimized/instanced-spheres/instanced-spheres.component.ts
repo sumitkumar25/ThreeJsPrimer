@@ -100,11 +100,11 @@ export class InstancedSpheresComponent implements OnInit, AfterViewInit {
   }
   configureInstanceAttributes() {
     let aColor = [];
-    let colors = [new THREE.Color("#ff3030"), new THREE.Color("#121214")];
+    let colors = [new THREE.Color("#ff3030"), new THREE.Color("#0000ff"),new THREE.Color("#00ff99")];
     let aCurve = [];
 
     for (let i = 0; i < this.instanceCount; i++) {
-      let radius = random.float(30, 40);
+      let radius = random.float(10, 20);
       let zOffset = random.float(-5, 5);
       let progress = random.float();
       let speed = random.float(0.02, 0.07);
