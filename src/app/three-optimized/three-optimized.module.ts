@@ -1,17 +1,14 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
 
-import { ThreeOptimizedRoutingModule } from './three-optimized-routing.module';
-import { InstanceMeshComponent } from './components/instance-mesh/instance-mesh.component';
-import { ThreeOptimizedComponent } from './components/three-optimized/three-optimized.component';
-import { UnoptimizedCubesComponent } from './components/unoptimized-cubes/unoptimized-cubes.component';
-
+import { ThreeOptimizedRoutingModule } from "./three-optimized-routing.module";
+import { ThreeOptimizedComponent } from "./components/three-optimized/three-optimized.component";
+import { UnoptimizedCubesComponent } from "./components/unoptimized-cubes/unoptimized-cubes.component";
+import { OptimizedCubesComponent } from './optimized-cubes/optimized-cubes.component';
+import { InstancedSpheresComponent } from './instanced-spheres/instanced-spheres.component';
 
 @NgModule({
-  declarations: [InstanceMeshComponent, ThreeOptimizedComponent, UnoptimizedCubesComponent],
-  imports: [
-    CommonModule,
-    ThreeOptimizedRoutingModule
-  ]
+  declarations: [ThreeOptimizedComponent, UnoptimizedCubesComponent, OptimizedCubesComponent, InstancedSpheresComponent],
+  imports: [CommonModule, ThreeOptimizedRoutingModule],
 })
-export class ThreeOptimizedModule { }
+export class ThreeOptimizedModule {}

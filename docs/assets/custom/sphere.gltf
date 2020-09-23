@@ -1,0 +1,186 @@
+{
+  "asset": {
+    "version": "2.0",
+    "generator": "GLTFExporter"
+  },
+  "scenes": [
+    {
+      "name": "Scene",
+      "nodes": [
+        0,
+        1
+      ]
+    }
+  ],
+  "scene": 0,
+  "nodes": [
+    {
+      "name": "Sphere",
+      "mesh": 0
+    },
+    {
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        5,
+        10,
+        7.5,
+        1
+      ],
+      "name": "DirectionalLight",
+      "extensions": {
+        "KHR_lights_punctual": {
+          "light": 0
+        }
+      }
+    }
+  ],
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteOffset": 0,
+      "byteLength": 756,
+      "target": 34962,
+      "byteStride": 12
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 756,
+      "byteLength": 756,
+      "target": 34962,
+      "byteStride": 12
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 1512,
+      "byteLength": 504,
+      "target": 34962,
+      "byteStride": 8
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 2016,
+      "byteLength": 480,
+      "target": 34963
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 2496,
+      "uri": "data:application/octet-stream;base64,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AAAAAKuqqj4AAAA+q6qqPgAAgD6rqqo+AADAPquqqj4AAAA/q6qqPgAAID+rqqo+AABAP6uqqj4AAGA/q6qqPgAAgD+rqqo+AAAAAKuqKj4AAAA+q6oqPgAAgD6rqio+AADAPquqKj4AAAA/q6oqPgAAID+rqio+AABAP6uqKj4AAGA/q6oqPgAAgD+rqio+AACAvQAAAAAAAIA9AAAAAAAAQD4AAAAAAACgPgAAAAAAAOA+AAAAAAAAED8AAAAAAAAwPwAAAAAAAFA/AAAAAAAAcD8AAAAAAAAJAAoAAQAKAAsAAgALAAwAAwAMAA0ABAANAA4ABQAOAA8ABgAPABAABwAQABEACgAJABMACQASABMACwAKABQACgATABQADAALABUACwAUABUADQAMABYADAAVABYADgANABcADQAWABcADwAOABgADgAXABgAEAAPABkADwAYABkAEQAQABoAEAAZABoAEwASABwAEgAbABwAFAATAB0AEwAcAB0AFQAUAB4AFAAdAB4AFgAVAB8AFQAeAB8AFwAWACAAFgAfACAAGAAXACEAFwAgACEAGQAYACIAGAAhACIAGgAZACMAGQAiACMAHAAbACUAGwAkACUAHQAcACYAHAAlACYAHgAdACcAHQAmACcAHwAeACgAHgAnACgAIAAfACkAHwAoACkAIQAgACoAIAApACoAIgAhACsAIQAqACsAIwAiACwAIgArACwAJQAkAC4AJAAtAC4AJgAlAC8AJQAuAC8AJwAmADAAJgAvADAAKAAnADEAJwAwADEAKQAoADIAKAAxADIAKgApADMAKQAyADMAKwAqADQAKgAzADQALAArADUAKwA0ADUALgAtADcALwAuADgAMAAvADkAMQAwADoAMgAxADsAMwAyADwANAAzAD0ANQA0AD4A"
+    }
+  ],
+  "accessors": [
+    {
+      "bufferView": 0,
+      "componentType": 5126,
+      "count": 63,
+      "max": [
+        1,
+        1,
+        1
+      ],
+      "min": [
+        -1,
+        -1,
+        -1
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 63,
+      "max": [
+        1,
+        1,
+        1
+      ],
+      "min": [
+        -1,
+        -1,
+        -1
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "componentType": 5126,
+      "count": 63,
+      "max": [
+        1.0625,
+        1
+      ],
+      "min": [
+        -0.0625,
+        0
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 3,
+      "componentType": 5123,
+      "count": 240,
+      "max": [
+        62
+      ],
+      "min": [
+        0
+      ],
+      "type": "SCALAR"
+    }
+  ],
+  "materials": [
+    {
+      "pbrMetallicRoughness": {
+        "metallicFactor": 0,
+        "roughnessFactor": 1
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "primitives": [
+        {
+          "mode": 4,
+          "attributes": {
+            "POSITION": 0,
+            "NORMAL": 1,
+            "TEXCOORD_0": 2
+          },
+          "indices": 3,
+          "material": 0
+        }
+      ]
+    }
+  ],
+  "extensions": {
+    "KHR_lights_punctual": {
+      "lights": [
+        {
+          "name": "DirectionalLight",
+          "color": [
+            1,
+            1,
+            1
+          ],
+          "intensity": 1,
+          "type": "directional"
+        }
+      ]
+    }
+  },
+  "extensionsUsed": [
+    "KHR_lights_punctual"
+  ]
+}
