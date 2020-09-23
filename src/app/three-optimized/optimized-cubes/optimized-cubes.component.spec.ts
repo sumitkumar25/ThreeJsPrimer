@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { InstanceMeshComponent } from './instance-mesh.component';
+import { OptimizedCubesComponent } from './optimized-cubes.component';
 
-describe('InstanceMeshComponent', () => {
-  let component: InstanceMeshComponent;
-  let fixture: ComponentFixture<InstanceMeshComponent>;
+describe('OptimizedCubesComponent', () => {
+  let component: OptimizedCubesComponent;
+  let fixture: ComponentFixture<OptimizedCubesComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ InstanceMeshComponent ]
+      declarations: [ OptimizedCubesComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(InstanceMeshComponent);
+    fixture = TestBed.createComponent(OptimizedCubesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

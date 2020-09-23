@@ -9,7 +9,7 @@ export class ThreeService {
 
   constructor() { }
 
-  getThreeCommon(canvasEl): { scene: any, renderer: any, camera: any, controls: any } {
+getThreeCommon(canvasEl): { scene: any, renderer: any, camera: any, controls: any } {
     const common = {
       scene: new THREE.Scene(),
       renderer: new THREE.WebGLRenderer({ canvas: canvasEl ,antialias:true}),
@@ -35,11 +35,11 @@ export class ThreeService {
   }
 
   configureViewSettings(scene, camera, renderer) {
-    scene.background = new THREE.Color(Colors.canvasBackground);
+    scene.background = new THREE.Color('black');
     const light = new THREE.AmbientLight(0x404040); // soft white light
     scene.add(light);
     const controls = new OrbitControls(camera, renderer.domElement);
-    camera.position.set(0, 0, 5);
+    camera.position.set(0, 0, 100);
     controls.update();
     return controls;
   }

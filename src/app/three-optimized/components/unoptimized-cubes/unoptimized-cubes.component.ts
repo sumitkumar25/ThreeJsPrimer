@@ -102,6 +102,7 @@ export class UnoptimizedCubesComponent implements OnInit, AfterViewInit {
       if (this.intersected) this.intersected.material.emissive.setHex(this.intersected.currentHex);
       this.intersected = null;
     }
+    // console.log(this.threeCommon.renderer.info.render.calls)
     this.threeCommon.renderer.render(this.threeCommon.scene, this.threeCommon.camera);
     window.requestAnimationFrame(this.renderView.bind(this));
   }

@@ -33,9 +33,10 @@ three globe (<https://www.npmjs.com/package/three-globe>) and globe.gl demos.
                 3. Merge operation itself may be slow and cause a lot of GC (Garbage collection) activity.
                 4. Complicated to update individual instances within the cluster
           2. Instancing .
+             1. <https://velasquezdaniel.com/blog/rendering-100k-spheres-instantianing-and-draw-calls/> instancing starter reference.
 
-             1. smaller set of data to describe OBJECTS and render it the same.
-             2. 1 extra matrix multiplication for (attribute mat4 instanceMatrix), but in the case of all unique nodes, it will be done on the GPU not the CPU. GPUs might be idle waiting for the draw call to be issued, performance gain can be made here by keeping them busier at the same overhead cost (draw call).
+             2. smaller set of data to describe OBJECTS and render it the same.
+             3. 1 extra matrix multiplication for (attribute mat4 instanceMatrix), but in the case of all unique nodes, it will be done on the GPU not the CPU. GPUs might be idle waiting for the draw call to be issued, performance gain can be made here by keeping them busier at the same overhead cost (draw call).
 
                   Simple Shader
 
@@ -58,9 +59,9 @@ three globe (<https://www.npmjs.com/package/three-globe>) and globe.gl demos.
                   }
                   ```
 
-               3. InstancedBufferAttribute
+               1. InstancedBufferAttribute
                   An array of numbers formatted in such a way that they correspond to the data you would otherwise draw with a unique draw call.
-               4. Single draw call then draws many vertices the same, over and over for each instance, with each instance, it accesses a        different value:
+               2. Single draw call then draws many vertices the same, over and over for each instance, with each instance, it accesses a        different value:
                
                   ```javascript
 
@@ -70,7 +71,18 @@ three globe (<https://www.npmjs.com/package/three-globe>) and globe.gl demos.
                      }
                      
                   ```
-               5. InstancedBufferGeometry ends up doing the job of both Geometry and Object3D ( Group ).
+               3. InstancedBufferGeometry ends up doing the job of both Geometry and Object3D ( Group ).
+               4. TODO: normal attribute of geometry.
+         1. TODO: updateWorldMatrix
+         2. Shaders.
+            A shader is essentially a function required to draw something on the screen. Shaders run on a GPU (graphics processing unit), which is optimized for such operations.
+
+            1. Vertex Shaders
+               1. Vertex shaders manipulate coordinates in a 3D space and are  called once per vertex.
+               2. Set up the gl_Position variable, a global variable used to store the position of the current vertex.
+               3. Fourth vertex of a vec4 is used to manipulate the clipping of the vertex position in the 3D space, but we don't need in our case.
+
+
 
 
     2. Canvas 
