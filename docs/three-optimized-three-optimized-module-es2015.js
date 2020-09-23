@@ -1565,7 +1565,7 @@ module.exports = "<h3>UnOptimized cubes</h3>\n<canvas height=\"500\" width=\"100
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h3>Optimized cubes</h3>\n<canvas\n  height=\"500\"\n  width=\"1000\"\n  #canvasEl\n></canvas>\n"
+module.exports = "<h3>Instances using shaders without instance mesh</h3>\n<canvas\n  height=\"500\"\n  width=\"1000\"\n  #canvasEl\n></canvas>\n"
 
 /***/ }),
 
@@ -3860,10 +3860,10 @@ let InstancedSpheresComponent = class InstancedSpheresComponent {
     }
     configureInstanceAttributes() {
         let aColor = [];
-        let colors = [new three__WEBPACK_IMPORTED_MODULE_3__["Color"]("#ff3030"), new three__WEBPACK_IMPORTED_MODULE_3__["Color"]("#121214")];
+        let colors = [new three__WEBPACK_IMPORTED_MODULE_3__["Color"]("#ff3030"), new three__WEBPACK_IMPORTED_MODULE_3__["Color"]("#0000ff"), new three__WEBPACK_IMPORTED_MODULE_3__["Color"]("#00ff99")];
         let aCurve = [];
         for (let i = 0; i < this.instanceCount; i++) {
-            let radius = random__WEBPACK_IMPORTED_MODULE_4__["float"](30, 40);
+            let radius = random__WEBPACK_IMPORTED_MODULE_4__["float"](10, 20);
             let zOffset = random__WEBPACK_IMPORTED_MODULE_4__["float"](-5, 5);
             let progress = random__WEBPACK_IMPORTED_MODULE_4__["float"]();
             let speed = random__WEBPACK_IMPORTED_MODULE_4__["float"](0.02, 0.07);

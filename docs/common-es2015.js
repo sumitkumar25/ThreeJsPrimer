@@ -67,7 +67,7 @@ let ThreeService = class ThreeService {
         return common;
     }
     configureViewSettings(scene, camera, renderer) {
-        scene.background = new three__WEBPACK_IMPORTED_MODULE_2__["Color"]('black');
+        scene.background = new three__WEBPACK_IMPORTED_MODULE_2__["Color"]('white');
         const light = new three__WEBPACK_IMPORTED_MODULE_2__["AmbientLight"](0x404040); // soft white light
         scene.add(light);
         const controls = new three_examples_jsm_controls_OrbitControls__WEBPACK_IMPORTED_MODULE_4__["OrbitControls"](camera, renderer.domElement);
