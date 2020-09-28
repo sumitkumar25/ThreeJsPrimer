@@ -6,9 +6,10 @@ import { ThreeOptimizedComponent } from "./components/three-optimized/three-opti
 import { UnoptimizedCubesComponent } from "./components/unoptimized-cubes/unoptimized-cubes.component";
 import { OptimizedCubesComponent } from './optimized-cubes/optimized-cubes.component';
 import { InstancedSpheresComponent } from './instanced-spheres/instanced-spheres.component';
+import { InstanceOptimizedComponent } from './instance-optimized/instance-optimized.component';
 
 @NgModule({
-  declarations: [ThreeOptimizedComponent, UnoptimizedCubesComponent, OptimizedCubesComponent, InstancedSpheresComponent],
+  declarations: [ThreeOptimizedComponent, UnoptimizedCubesComponent, OptimizedCubesComponent, InstancedSpheresComponent, InstanceOptimizedComponent],
   imports: [CommonModule, ThreeOptimizedRoutingModule],
 })
 export class ThreeOptimizedModule {}

@@ -41,6 +41,7 @@ getThreeCommon(canvasEl): { scene: any, renderer: any, camera: any, controls: an
     const controls = new OrbitControls(camera, renderer.domElement);
     camera.position.set(0, 0, 100);
     controls.update();
+    // controls.autoRotate =true;
     return controls;
   }
 }

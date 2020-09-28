@@ -1,0 +1,22 @@
+<section #stats>
+  <h3>Instances Optimization</h3>
+  <div>Render calls :{{ renderCalls }}</div>
+  <div>
+    Object Count :{{ objectCount }}
+    <div>
+      <input
+        type="range"
+        id="points"
+        name="points"
+        min="10"
+        max="10000"
+        step="100"
+        (change)="objectCountChangeHandler($event)"
+        style="display: inline-block; width: 100%"
+        [value]="objectCount"
+      />
+    </div>
+    <div style="color: green; font-weight: bold;">Stats enabled</div>
+  </div>
+  <canvas height="500" width="1000" #canvasEl (click)="clickHandler($event)"></canvas>
+</section>

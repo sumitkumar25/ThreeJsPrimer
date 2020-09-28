@@ -4017,6 +4017,9 @@ let OptimizedCubesComponent = class OptimizedCubesComponent {
         this.stats = new _node_modules_stats_js_build_stats_min_js__WEBPACK_IMPORTED_MODULE_4__();
         this.stats.showPanel(1); // 0: fps, 1: ms, 2: mb, 3+: custom
         document.body.appendChild(this.stats.dom);
+        this.stats.domElement.style.position = 'absolute';
+        this.stats.domElement.style.left = '0px';
+        this.stats.domElement.style.top = '0px';
     }
     // viewController() {
     //   /**

@@ -52,9 +52,12 @@ export class UnoptimizedCubesComponent implements OnInit, AfterViewInit {
     this.mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
   }
   setUpStats() {
-    this.stats = new Stats();
-    this.stats.showPanel(1); // 0: fps, 1: ms, 2: mb, 3+: custom
-    document.body.appendChild(this.stats.dom);
+    // this.stats = new Stats();
+    // this.stats.showPanel(1); // 0: fps, 1: ms, 2: mb, 3+: custom
+    // document.body.appendChild(this.stats.dom);
+    // this.stats.domElement.style.position = 'absolute';
+    // this.stats.domElement.style.left = '0px';
+    // this.stats.domElement.style.top = '0px';
   }
   viewController() {
     const geometry = new THREE.BoxBufferGeometry(20, 20, 20);
@@ -86,7 +89,6 @@ export class UnoptimizedCubesComponent implements OnInit, AfterViewInit {
     this.threeCommon.camera.position.y = this.radius * Math.sin(THREE.MathUtils.degToRad(this.theta));
     this.threeCommon.camera.position.z = this.radius * Math.cos(THREE.MathUtils.degToRad(this.theta));
     this.threeCommon.camera.lookAt(this.threeCommon.scene.position);
-       this.stats.update();
     this.raycaster.setFromCamera(this.mouse, this.threeCommon.camera);
 
     var intersects = this.raycaster.intersectObjects(this.threeCommon.scene.children);
