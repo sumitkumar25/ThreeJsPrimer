@@ -1,3 +1,20 @@
-<!-- <app-optimized-cubes></app-optimized-cubes> -->
-<!-- <app-unoptimized-cubes></app-unoptimized-cubes> -->
-<app-instanced-spheres></app-instanced-spheres>
+<nav>
+  <a [routerLink]="['/three-optimized']" [routerLinkActive]="['selected']">
+    Three Instancing
+  </a>
+  <a [routerLink]="['/three']" [routerLinkActive]="['selected']"> Three Js </a>
+  <a [routerLink]="['/3dforce']" [routerLinkActive]="['selected']">
+    3D Force Graph
+  </a>
+  <!-- <a [routerLink]=" ['/pixi']" [routerLinkActive]="['selected']">
+      Pixi
+    </a> -->
+  <a [routerLink]="['/us-regions']" [routerLinkActive]="['selected']">
+    US Regions on Globe
+  </a>
+  <a [routerLink]="['/d3']" [routerLinkActive]="['selected']"> Canvas </a>
+</nav>
+<app-instance-optimized></app-instance-optimized>
+<!-- <app-unoptimized-cubes></app-unoptimized-cubes>
+<app-optimized-cubes></app-optimized-cubes>
+<app-instanced-spheres></app-instanced-spheres> -->
