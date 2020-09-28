@@ -74,6 +74,7 @@ var ThreeService = /** @class */ (function () {
         var controls = new three_examples_jsm_controls_OrbitControls__WEBPACK_IMPORTED_MODULE_4__["OrbitControls"](camera, renderer.domElement);
         camera.position.set(0, 0, 100);
         controls.update();
+        // controls.autoRotate =true;
         return controls;
     };
     ThreeService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
