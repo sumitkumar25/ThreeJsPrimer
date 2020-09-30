@@ -1,0 +1,21 @@
+<h3>Instancing spheres as nodes in geometric layout</h3>
+<h4>renderer calls count : {{ renderCalls }}</h4>
+<h4>Object Count :{{ objectCount }}</h4>
+<div class="app--margin__vertical object-range">
+  <input
+    type="range"
+    id="points"
+    name="points"
+    min="3"
+    max="100"
+    step="1"
+    (change)="objectCountChangeHandler($event)"
+    [value]="objectCount"
+  />
+</div>
+<canvas
+  height="500"
+  width="860"
+  #canvasEl
+  (click)="clickHandler($event)"
+></canvas>

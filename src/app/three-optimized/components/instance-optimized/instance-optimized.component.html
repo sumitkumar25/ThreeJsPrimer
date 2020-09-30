@@ -1,0 +1,24 @@
+<section #stats>
+  <h3>Instancing and Ray-cast click event</h3>
+  <h4>Render calls :{{ renderCalls }}</h4>
+  <h4>Object Count :{{ objectCount }}</h4>
+  <div class="app--margin__vertical object-range">
+    <input
+      type="range"
+      id="points"
+      name="points"
+      min="10"
+      max="10000"
+      step="100"
+      (change)="objectCountChangeHandler($event)"
+      [value]="objectCount"
+    />
+  </div>
+  <div class="app--margin__vertical stats">Stats enabled</div>
+  <canvas
+    height="500"
+    width="1000"
+    #canvasEl
+    (click)="clickHandler($event)"
+  ></canvas>
+</section>

@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angula
 import { ThreeService } from '../../services/three.service';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import { Colors } from 'src/app/common/colors.enum';
+import { Colors } from 'src/app/common/enums/colors.enum';
 
 @Component({
   selector: 'app-connected-nodes',

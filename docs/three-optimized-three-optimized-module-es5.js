@@ -1536,14 +1536,47 @@ module.exports = __webpack_require__(/*! ./dist/random */ "./node_modules/random
 
 /***/ }),
 
-/***/ "./node_modules/raw-loader/index.js!./src/app/three-optimized/components/three-optimized/three-optimized.component.html":
+/***/ "./node_modules/raw-loader/index.js!./src/app/three-optimized/components/instance-optimized/instance-optimized.component.html":
+/*!***************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/three-optimized/components/instance-optimized/instance-optimized.component.html ***!
+  \***************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<section #stats>\n  <h3>Instancing and Ray-cast click event</h3>\n  <h4>Render calls :{{ renderCalls }}</h4>\n  <h4>Object Count :{{ objectCount }}</h4>\n  <div class=\"app--margin__vertical object-range\">\n    <input\n      type=\"range\"\n      id=\"points\"\n      name=\"points\"\n      min=\"10\"\n      max=\"10000\"\n      step=\"100\"\n      (change)=\"objectCountChangeHandler($event)\"\n      [value]=\"objectCount\"\n    />\n  </div>\n  <div class=\"app--margin__vertical stats\">Stats enabled</div>\n  <canvas\n    height=\"500\"\n    width=\"1000\"\n    #canvasEl\n    (click)=\"clickHandler($event)\"\n  ></canvas>\n</section>\n"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/three-optimized/components/instanced-layout/instanced-layout.component.html":
+/*!***********************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/three-optimized/components/instanced-layout/instanced-layout.component.html ***!
+  \***********************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h3>Instancing spheres as nodes in geometric layout</h3>\n<h4>renderer calls count : {{ renderCalls }}</h4>\n<h4>Object Count :{{ objectCount }}</h4>\n<div class=\"app--margin__vertical object-range\">\n  <input\n    type=\"range\"\n    id=\"points\"\n    name=\"points\"\n    min=\"3\"\n    max=\"100\"\n    step=\"1\"\n    (change)=\"objectCountChangeHandler($event)\"\n    [value]=\"objectCount\"\n  />\n</div>\n<canvas\n  height=\"500\"\n  width=\"860\"\n  #canvasEl\n  (click)=\"clickHandler($event)\"\n></canvas>\n"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/three-optimized/components/instanced-spheres/instanced-spheres.component.html":
+/*!*************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/three-optimized/components/instanced-spheres/instanced-spheres.component.html ***!
+  \*************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h3>Instances using shaders without instance mesh</h3>\n<canvas\n  height=\"500\"\n  width=\"1000\"\n  #canvasEl\n></canvas>\n"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/three-optimized/components/optimized-cubes/optimized-cubes.component.html":
 /*!*********************************************************************************************************************!*\
-  !*** ./node_modules/raw-loader!./src/app/three-optimized/components/three-optimized/three-optimized.component.html ***!
+  !*** ./node_modules/raw-loader!./src/app/three-optimized/components/optimized-cubes/optimized-cubes.component.html ***!
   \*********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav>\n  <a [routerLink]=\"['/three-optimized']\" [routerLinkActive]=\"['selected']\">\n    Three Instancing\n  </a>\n  <a [routerLink]=\"['/three']\" [routerLinkActive]=\"['selected']\"> Three Js </a>\n  <a [routerLink]=\"['/3dforce']\" [routerLinkActive]=\"['selected']\">\n    3D Force Graph\n  </a>\n  <!-- <a [routerLink]=\" ['/pixi']\" [routerLinkActive]=\"['selected']\">\n      Pixi\n    </a> -->\n  <a [routerLink]=\"['/us-regions']\" [routerLinkActive]=\"['selected']\">\n    US Regions on Globe\n  </a>\n  <a [routerLink]=\"['/d3']\" [routerLinkActive]=\"['selected']\"> Canvas </a>\n</nav>\n<app-instance-optimized></app-instance-optimized>\n<!-- <app-unoptimized-cubes></app-unoptimized-cubes>\n<app-optimized-cubes></app-optimized-cubes>\n<app-instanced-spheres></app-instanced-spheres> -->\n"
+module.exports = "<h3>Instances using instance mesh and geometry loader.</h3>\n<canvas height=\"500\" width=\"1000\" #canvasEl (mousemove)=\"mouseMoveHandler($event)\"></canvas>"
 
 /***/ }),
 
@@ -1555,39 +1588,6 @@ module.exports = "<nav>\n  <a [routerLink]=\"['/three-optimized']\" [routerLinkA
 /***/ (function(module, exports) {
 
 module.exports = "<h3>UnOptimized cubes</h3>\n<canvas height=\"500\" width=\"1000\" #canvasEl (mousemove)=\"mouseMoveHandler($event)\"></canvas>\n"
-
-/***/ }),
-
-/***/ "./node_modules/raw-loader/index.js!./src/app/three-optimized/instance-optimized/instance-optimized.component.html":
-/*!****************************************************************************************************************!*\
-  !*** ./node_modules/raw-loader!./src/app/three-optimized/instance-optimized/instance-optimized.component.html ***!
-  \****************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<section #stats>\n  <h3>Instances Optimization</h3>\n  <div>Render calls :{{ renderCalls }}</div>\n  <div>\n    Object Count :{{ objectCount }}\n    <div>\n      <input\n        type=\"range\"\n        id=\"points\"\n        name=\"points\"\n        min=\"10\"\n        max=\"10000\"\n        step=\"100\"\n        (change)=\"objectCountChangeHandler($event)\"\n        style=\"display: inline-block; width: 100%\"\n        [value]=\"objectCount\"\n      />\n    </div>\n    <div style=\"color: green; font-weight: bold;\">Stats enabled</div>\n  </div>\n  <canvas height=\"500\" width=\"1000\" #canvasEl (click)=\"clickHandler($event)\"></canvas>\n</section>\n"
-
-/***/ }),
-
-/***/ "./node_modules/raw-loader/index.js!./src/app/three-optimized/instanced-spheres/instanced-spheres.component.html":
-/*!**************************************************************************************************************!*\
-  !*** ./node_modules/raw-loader!./src/app/three-optimized/instanced-spheres/instanced-spheres.component.html ***!
-  \**************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<h3>Instances using shaders without instance mesh</h3>\n<canvas\n  height=\"500\"\n  width=\"1000\"\n  #canvasEl\n></canvas>\n"
-
-/***/ }),
-
-/***/ "./node_modules/raw-loader/index.js!./src/app/three-optimized/optimized-cubes/optimized-cubes.component.html":
-/*!**********************************************************************************************************!*\
-  !*** ./node_modules/raw-loader!./src/app/three-optimized/optimized-cubes/optimized-cubes.component.html ***!
-  \**********************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<h3>Instances using instance mesh and geometry loader.</h3>\n<canvas height=\"500\" width=\"1000\" #canvasEl (mousemove)=\"mouseMoveHandler($event)\"></canvas>"
 
 /***/ }),
 
@@ -2645,6 +2645,894 @@ b.fillRect(d,m,n,p);b.fillStyle=l;b.globalAlpha=.9;b.fillRect(d,m,n,p);return{do
 
 /***/ }),
 
+/***/ "./node_modules/three/examples/jsm/loaders/OBJLoader.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/three/examples/jsm/loaders/OBJLoader.js ***!
+  \**************************************************************/
+/*! exports provided: OBJLoader */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OBJLoader", function() { return OBJLoader; });
+/* harmony import */ var _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../build/three.module.js */ "./node_modules/three/build/three.module.js");
+
+
+var OBJLoader = ( function () {
+
+	// o object_name | g group_name
+	var object_pattern = /^[og]\s*(.+)?/;
+	// mtllib file_reference
+	var material_library_pattern = /^mtllib /;
+	// usemtl material_name
+	var material_use_pattern = /^usemtl /;
+	// usemap map_name
+	var map_use_pattern = /^usemap /;
+
+	var vA = new _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["Vector3"]();
+	var vB = new _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["Vector3"]();
+	var vC = new _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["Vector3"]();
+
+	var ab = new _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["Vector3"]();
+	var cb = new _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["Vector3"]();
+
+	function ParserState() {
+
+		var state = {
+			objects: [],
+			object: {},
+
+			vertices: [],
+			normals: [],
+			colors: [],
+			uvs: [],
+
+			materials: {},
+			materialLibraries: [],
+
+			startObject: function ( name, fromDeclaration ) {
+
+				// If the current object (initial from reset) is not from a g/o declaration in the parsed
+				// file. We need to use it for the first parsed g/o to keep things in sync.
+				if ( this.object && this.object.fromDeclaration === false ) {
+
+					this.object.name = name;
+					this.object.fromDeclaration = ( fromDeclaration !== false );
+					return;
+
+				}
+
+				var previousMaterial = ( this.object && typeof this.object.currentMaterial === 'function' ? this.object.currentMaterial() : undefined );
+
+				if ( this.object && typeof this.object._finalize === 'function' ) {
+
+					this.object._finalize( true );
+
+				}
+
+				this.object = {
+					name: name || '',
+					fromDeclaration: ( fromDeclaration !== false ),
+
+					geometry: {
+						vertices: [],
+						normals: [],
+						colors: [],
+						uvs: [],
+						hasNormalIndices: false,
+						hasUVIndices: false
+					},
+					materials: [],
+					smooth: true,
+
+					startMaterial: function ( name, libraries ) {
+
+						var previous = this._finalize( false );
+
+						// New usemtl declaration overwrites an inherited material, except if faces were declared
+						// after the material, then it must be preserved for proper MultiMaterial continuation.
+						if ( previous && ( previous.inherited || previous.groupCount <= 0 ) ) {
+
+							this.materials.splice( previous.index, 1 );
+
+						}
+
+						var material = {
+							index: this.materials.length,
+							name: name || '',
+							mtllib: ( Array.isArray( libraries ) && libraries.length > 0 ? libraries[ libraries.length - 1 ] : '' ),
+							smooth: ( previous !== undefined ? previous.smooth : this.smooth ),
+							groupStart: ( previous !== undefined ? previous.groupEnd : 0 ),
+							groupEnd: - 1,
+							groupCount: - 1,
+							inherited: false,
+
+							clone: function ( index ) {
+
+								var cloned = {
+									index: ( typeof index === 'number' ? index : this.index ),
+									name: this.name,
+									mtllib: this.mtllib,
+									smooth: this.smooth,
+									groupStart: 0,
+									groupEnd: - 1,
+									groupCount: - 1,
+									inherited: false
+								};
+								cloned.clone = this.clone.bind( cloned );
+								return cloned;
+
+							}
+						};
+
+						this.materials.push( material );
+
+						return material;
+
+					},
+
+					currentMaterial: function () {
+
+						if ( this.materials.length > 0 ) {
+
+							return this.materials[ this.materials.length - 1 ];
+
+						}
+
+						return undefined;
+
+					},
+
+					_finalize: function ( end ) {
+
+						var lastMultiMaterial = this.currentMaterial();
+						if ( lastMultiMaterial && lastMultiMaterial.groupEnd === - 1 ) {
+
+							lastMultiMaterial.groupEnd = this.geometry.vertices.length / 3;
+							lastMultiMaterial.groupCount = lastMultiMaterial.groupEnd - lastMultiMaterial.groupStart;
+							lastMultiMaterial.inherited = false;
+
+						}
+
+						// Ignore objects tail materials if no face declarations followed them before a new o/g started.
+						if ( end && this.materials.length > 1 ) {
+
+							for ( var mi = this.materials.length - 1; mi >= 0; mi -- ) {
+
+								if ( this.materials[ mi ].groupCount <= 0 ) {
+
+									this.materials.splice( mi, 1 );
+
+								}
+
+							}
+
+						}
+
+						// Guarantee at least one empty material, this makes the creation later more straight forward.
+						if ( end && this.materials.length === 0 ) {
+
+							this.materials.push( {
+								name: '',
+								smooth: this.smooth
+							} );
+
+						}
+
+						return lastMultiMaterial;
+
+					}
+				};
+
+				// Inherit previous objects material.
+				// Spec tells us that a declared material must be set to all objects until a new material is declared.
+				// If a usemtl declaration is encountered while this new object is being parsed, it will
+				// overwrite the inherited material. Exception being that there was already face declarations
+				// to the inherited material, then it will be preserved for proper MultiMaterial continuation.
+
+				if ( previousMaterial && previousMaterial.name && typeof previousMaterial.clone === 'function' ) {
+
+					var declared = previousMaterial.clone( 0 );
+					declared.inherited = true;
+					this.object.materials.push( declared );
+
+				}
+
+				this.objects.push( this.object );
+
+			},
+
+			finalize: function () {
+
+				if ( this.object && typeof this.object._finalize === 'function' ) {
+
+					this.object._finalize( true );
+
+				}
+
+			},
+
+			parseVertexIndex: function ( value, len ) {
+
+				var index = parseInt( value, 10 );
+				return ( index >= 0 ? index - 1 : index + len / 3 ) * 3;
+
+			},
+
+			parseNormalIndex: function ( value, len ) {
+
+				var index = parseInt( value, 10 );
+				return ( index >= 0 ? index - 1 : index + len / 3 ) * 3;
+
+			},
+
+			parseUVIndex: function ( value, len ) {
+
+				var index = parseInt( value, 10 );
+				return ( index >= 0 ? index - 1 : index + len / 2 ) * 2;
+
+			},
+
+			addVertex: function ( a, b, c ) {
+
+				var src = this.vertices;
+				var dst = this.object.geometry.vertices;
+
+				dst.push( src[ a + 0 ], src[ a + 1 ], src[ a + 2 ] );
+				dst.push( src[ b + 0 ], src[ b + 1 ], src[ b + 2 ] );
+				dst.push( src[ c + 0 ], src[ c + 1 ], src[ c + 2 ] );
+
+			},
+
+			addVertexPoint: function ( a ) {
+
+				var src = this.vertices;
+				var dst = this.object.geometry.vertices;
+
+				dst.push( src[ a + 0 ], src[ a + 1 ], src[ a + 2 ] );
+
+			},
+
+			addVertexLine: function ( a ) {
+
+				var src = this.vertices;
+				var dst = this.object.geometry.vertices;
+
+				dst.push( src[ a + 0 ], src[ a + 1 ], src[ a + 2 ] );
+
+			},
+
+			addNormal: function ( a, b, c ) {
+
+				var src = this.normals;
+				var dst = this.object.geometry.normals;
+
+				dst.push( src[ a + 0 ], src[ a + 1 ], src[ a + 2 ] );
+				dst.push( src[ b + 0 ], src[ b + 1 ], src[ b + 2 ] );
+				dst.push( src[ c + 0 ], src[ c + 1 ], src[ c + 2 ] );
+
+			},
+
+			addFaceNormal: function ( a, b, c ) {
+
+				var src = this.vertices;
+				var dst = this.object.geometry.normals;
+
+				vA.fromArray( src, a );
+				vB.fromArray( src, b );
+				vC.fromArray( src, c );
+
+				cb.subVectors( vC, vB );
+				ab.subVectors( vA, vB );
+				cb.cross( ab );
+
+				cb.normalize();
+
+				dst.push( cb.x, cb.y, cb.z );
+				dst.push( cb.x, cb.y, cb.z );
+				dst.push( cb.x, cb.y, cb.z );
+
+			},
+
+			addColor: function ( a, b, c ) {
+
+				var src = this.colors;
+				var dst = this.object.geometry.colors;
+
+				if ( src[ a ] !== undefined ) dst.push( src[ a + 0 ], src[ a + 1 ], src[ a + 2 ] );
+				if ( src[ b ] !== undefined ) dst.push( src[ b + 0 ], src[ b + 1 ], src[ b + 2 ] );
+				if ( src[ c ] !== undefined ) dst.push( src[ c + 0 ], src[ c + 1 ], src[ c + 2 ] );
+
+			},
+
+			addUV: function ( a, b, c ) {
+
+				var src = this.uvs;
+				var dst = this.object.geometry.uvs;
+
+				dst.push( src[ a + 0 ], src[ a + 1 ] );
+				dst.push( src[ b + 0 ], src[ b + 1 ] );
+				dst.push( src[ c + 0 ], src[ c + 1 ] );
+
+			},
+
+			addDefaultUV: function () {
+
+				var dst = this.object.geometry.uvs;
+
+				dst.push( 0, 0 );
+				dst.push( 0, 0 );
+				dst.push( 0, 0 );
+
+			},
+
+			addUVLine: function ( a ) {
+
+				var src = this.uvs;
+				var dst = this.object.geometry.uvs;
+
+				dst.push( src[ a + 0 ], src[ a + 1 ] );
+
+			},
+
+			addFace: function ( a, b, c, ua, ub, uc, na, nb, nc ) {
+
+				var vLen = this.vertices.length;
+
+				var ia = this.parseVertexIndex( a, vLen );
+				var ib = this.parseVertexIndex( b, vLen );
+				var ic = this.parseVertexIndex( c, vLen );
+
+				this.addVertex( ia, ib, ic );
+				this.addColor( ia, ib, ic );
+
+				// normals
+
+				if ( na !== undefined && na !== '' ) {
+
+					var nLen = this.normals.length;
+
+					ia = this.parseNormalIndex( na, nLen );
+					ib = this.parseNormalIndex( nb, nLen );
+					ic = this.parseNormalIndex( nc, nLen );
+
+					this.addNormal( ia, ib, ic );
+
+					this.object.geometry.hasNormalIndices = true;
+
+				} else {
+
+					this.addFaceNormal( ia, ib, ic );
+
+				}
+
+				// uvs
+
+				if ( ua !== undefined && ua !== '' ) {
+
+					var uvLen = this.uvs.length;
+
+					ia = this.parseUVIndex( ua, uvLen );
+					ib = this.parseUVIndex( ub, uvLen );
+					ic = this.parseUVIndex( uc, uvLen );
+
+					this.addUV( ia, ib, ic );
+
+					this.object.geometry.hasUVIndices = true;
+
+				} else {
+
+					// add placeholder values (for inconsistent face definitions)
+
+					this.addDefaultUV();
+
+				}
+
+			},
+
+			addPointGeometry: function ( vertices ) {
+
+				this.object.geometry.type = 'Points';
+
+				var vLen = this.vertices.length;
+
+				for ( var vi = 0, l = vertices.length; vi < l; vi ++ ) {
+
+					this.addVertexPoint( this.parseVertexIndex( vertices[ vi ], vLen ) );
+
+				}
+
+			},
+
+			addLineGeometry: function ( vertices, uvs ) {
+
+				this.object.geometry.type = 'Line';
+
+				var vLen = this.vertices.length;
+				var uvLen = this.uvs.length;
+
+				for ( var vi = 0, l = vertices.length; vi < l; vi ++ ) {
+
+					this.addVertexLine( this.parseVertexIndex( vertices[ vi ], vLen ) );
+
+				}
+
+				for ( var uvi = 0, l = uvs.length; uvi < l; uvi ++ ) {
+
+					this.addUVLine( this.parseUVIndex( uvs[ uvi ], uvLen ) );
+
+				}
+
+			}
+
+		};
+
+		state.startObject( '', false );
+
+		return state;
+
+	}
+
+	//
+
+	function OBJLoader( manager ) {
+
+		_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["Loader"].call( this, manager );
+
+		this.materials = null;
+
+	}
+
+	OBJLoader.prototype = Object.assign( Object.create( _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["Loader"].prototype ), {
+
+		constructor: OBJLoader,
+
+		load: function ( url, onLoad, onProgress, onError ) {
+
+			var scope = this;
+
+			var loader = new _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["FileLoader"]( scope.manager );
+			loader.setPath( this.path );
+			loader.setRequestHeader( this.requestHeader );
+			loader.load( url, function ( text ) {
+
+				try {
+
+					onLoad( scope.parse( text ) );
+
+				} catch ( e ) {
+
+					if ( onError ) {
+
+						onError( e );
+
+					} else {
+
+						console.error( e );
+
+					}
+
+					scope.manager.itemError( url );
+
+				}
+
+			}, onProgress, onError );
+
+		},
+
+		setMaterials: function ( materials ) {
+
+			this.materials = materials;
+
+			return this;
+
+		},
+
+		parse: function ( text ) {
+
+			var state = new ParserState();
+
+			if ( text.indexOf( '\r\n' ) !== - 1 ) {
+
+				// This is faster than String.split with regex that splits on both
+				text = text.replace( /\r\n/g, '\n' );
+
+			}
+
+			if ( text.indexOf( '\\\n' ) !== - 1 ) {
+
+				// join lines separated by a line continuation character (\)
+				text = text.replace( /\\\n/g, '' );
+
+			}
+
+			var lines = text.split( '\n' );
+			var line = '', lineFirstChar = '';
+			var lineLength = 0;
+			var result = [];
+
+			// Faster to just trim left side of the line. Use if available.
+			var trimLeft = ( typeof ''.trimLeft === 'function' );
+
+			for ( var i = 0, l = lines.length; i < l; i ++ ) {
+
+				line = lines[ i ];
+
+				line = trimLeft ? line.trimLeft() : line.trim();
+
+				lineLength = line.length;
+
+				if ( lineLength === 0 ) continue;
+
+				lineFirstChar = line.charAt( 0 );
+
+				// @todo invoke passed in handler if any
+				if ( lineFirstChar === '#' ) continue;
+
+				if ( lineFirstChar === 'v' ) {
+
+					var data = line.split( /\s+/ );
+
+					switch ( data[ 0 ] ) {
+
+						case 'v':
+							state.vertices.push(
+								parseFloat( data[ 1 ] ),
+								parseFloat( data[ 2 ] ),
+								parseFloat( data[ 3 ] )
+							);
+							if ( data.length >= 7 ) {
+
+								state.colors.push(
+									parseFloat( data[ 4 ] ),
+									parseFloat( data[ 5 ] ),
+									parseFloat( data[ 6 ] )
+
+								);
+
+							} else {
+
+								// if no colors are defined, add placeholders so color and vertex indices match
+
+								state.colors.push( undefined, undefined, undefined );
+
+							}
+
+							break;
+						case 'vn':
+							state.normals.push(
+								parseFloat( data[ 1 ] ),
+								parseFloat( data[ 2 ] ),
+								parseFloat( data[ 3 ] )
+							);
+							break;
+						case 'vt':
+							state.uvs.push(
+								parseFloat( data[ 1 ] ),
+								parseFloat( data[ 2 ] )
+							);
+							break;
+
+					}
+
+				} else if ( lineFirstChar === 'f' ) {
+
+					var lineData = line.substr( 1 ).trim();
+					var vertexData = lineData.split( /\s+/ );
+					var faceVertices = [];
+
+					// Parse the face vertex data into an easy to work with format
+
+					for ( var j = 0, jl = vertexData.length; j < jl; j ++ ) {
+
+						var vertex = vertexData[ j ];
+
+						if ( vertex.length > 0 ) {
+
+							var vertexParts = vertex.split( '/' );
+							faceVertices.push( vertexParts );
+
+						}
+
+					}
+
+					// Draw an edge between the first vertex and all subsequent vertices to form an n-gon
+
+					var v1 = faceVertices[ 0 ];
+
+					for ( var j = 1, jl = faceVertices.length - 1; j < jl; j ++ ) {
+
+						var v2 = faceVertices[ j ];
+						var v3 = faceVertices[ j + 1 ];
+
+						state.addFace(
+							v1[ 0 ], v2[ 0 ], v3[ 0 ],
+							v1[ 1 ], v2[ 1 ], v3[ 1 ],
+							v1[ 2 ], v2[ 2 ], v3[ 2 ]
+						);
+
+					}
+
+				} else if ( lineFirstChar === 'l' ) {
+
+					var lineParts = line.substring( 1 ).trim().split( " " );
+					var lineVertices = [], lineUVs = [];
+
+					if ( line.indexOf( "/" ) === - 1 ) {
+
+						lineVertices = lineParts;
+
+					} else {
+
+						for ( var li = 0, llen = lineParts.length; li < llen; li ++ ) {
+
+							var parts = lineParts[ li ].split( "/" );
+
+							if ( parts[ 0 ] !== "" ) lineVertices.push( parts[ 0 ] );
+							if ( parts[ 1 ] !== "" ) lineUVs.push( parts[ 1 ] );
+
+						}
+
+					}
+
+					state.addLineGeometry( lineVertices, lineUVs );
+
+				} else if ( lineFirstChar === 'p' ) {
+
+					var lineData = line.substr( 1 ).trim();
+					var pointData = lineData.split( " " );
+
+					state.addPointGeometry( pointData );
+
+				} else if ( ( result = object_pattern.exec( line ) ) !== null ) {
+
+					// o object_name
+					// or
+					// g group_name
+
+					// WORKAROUND: https://bugs.chromium.org/p/v8/issues/detail?id=2869
+					// var name = result[ 0 ].substr( 1 ).trim();
+					var name = ( " " + result[ 0 ].substr( 1 ).trim() ).substr( 1 );
+
+					state.startObject( name );
+
+				} else if ( material_use_pattern.test( line ) ) {
+
+					// material
+
+					state.object.startMaterial( line.substring( 7 ).trim(), state.materialLibraries );
+
+				} else if ( material_library_pattern.test( line ) ) {
+
+					// mtl file
+
+					state.materialLibraries.push( line.substring( 7 ).trim() );
+
+				} else if ( map_use_pattern.test( line ) ) {
+
+					// the line is parsed but ignored since the loader assumes textures are defined MTL files
+					// (according to https://www.okino.com/conv/imp_wave.htm, 'usemap' is the old-style Wavefront texture reference method)
+
+					console.warn( 'THREE.OBJLoader: Rendering identifier "usemap" not supported. Textures must be defined in MTL files.' );
+
+				} else if ( lineFirstChar === 's' ) {
+
+					result = line.split( ' ' );
+
+					// smooth shading
+
+					// @todo Handle files that have varying smooth values for a set of faces inside one geometry,
+					// but does not define a usemtl for each face set.
+					// This should be detected and a dummy material created (later MultiMaterial and geometry groups).
+					// This requires some care to not create extra material on each smooth value for "normal" obj files.
+					// where explicit usemtl defines geometry groups.
+					// Example asset: examples/models/obj/cerberus/Cerberus.obj
+
+					/*
+					 * http://paulbourke.net/dataformats/obj/
+					 * or
+					 * http://www.cs.utah.edu/~boulos/cs3505/obj_spec.pdf
+					 *
+					 * From chapter "Grouping" Syntax explanation "s group_number":
+					 * "group_number is the smoothing group number. To turn off smoothing groups, use a value of 0 or off.
+					 * Polygonal elements use group numbers to put elements in different smoothing groups. For free-form
+					 * surfaces, smoothing groups are either turned on or off; there is no difference between values greater
+					 * than 0."
+					 */
+					if ( result.length > 1 ) {
+
+						var value = result[ 1 ].trim().toLowerCase();
+						state.object.smooth = ( value !== '0' && value !== 'off' );
+
+					} else {
+
+						// ZBrush can produce "s" lines #11707
+						state.object.smooth = true;
+
+					}
+
+					var material = state.object.currentMaterial();
+					if ( material ) material.smooth = state.object.smooth;
+
+				} else {
+
+					// Handle null terminated files without exception
+					if ( line === '\0' ) continue;
+
+					console.warn( 'THREE.OBJLoader: Unexpected line: "' + line + '"' );
+
+				}
+
+			}
+
+			state.finalize();
+
+			var container = new _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["Group"]();
+			container.materialLibraries = [].concat( state.materialLibraries );
+
+			for ( var i = 0, l = state.objects.length; i < l; i ++ ) {
+
+				var object = state.objects[ i ];
+				var geometry = object.geometry;
+				var materials = object.materials;
+				var isLine = ( geometry.type === 'Line' );
+				var isPoints = ( geometry.type === 'Points' );
+				var hasVertexColors = false;
+
+				// Skip o/g line declarations that did not follow with any faces
+				if ( geometry.vertices.length === 0 ) continue;
+
+				var buffergeometry = new _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["BufferGeometry"]();
+
+				buffergeometry.setAttribute( 'position', new _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["Float32BufferAttribute"]( geometry.vertices, 3 ) );
+
+				if ( geometry.hasNormalIndices === true ) {
+
+					buffergeometry.setAttribute( 'normal', new _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["Float32BufferAttribute"]( geometry.normals, 3 ) );
+
+				}
+
+				if ( geometry.colors.length > 0 ) {
+
+					hasVertexColors = true;
+					buffergeometry.setAttribute( 'color', new _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["Float32BufferAttribute"]( geometry.colors, 3 ) );
+
+				}
+
+				if ( geometry.hasUVIndices === true ) {
+
+					buffergeometry.setAttribute( 'uv', new _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["Float32BufferAttribute"]( geometry.uvs, 2 ) );
+
+				}
+
+				// Create materials
+
+				var createdMaterials = [];
+
+				for ( var mi = 0, miLen = materials.length; mi < miLen; mi ++ ) {
+
+					var sourceMaterial = materials[ mi ];
+					var materialHash = sourceMaterial.name + '_' + sourceMaterial.smooth + '_' + hasVertexColors;
+					var material = state.materials[ materialHash ];
+
+					if ( this.materials !== null ) {
+
+						material = this.materials.create( sourceMaterial.name );
+
+						// mtl etc. loaders probably can't create line materials correctly, copy properties to a line material.
+						if ( isLine && material && ! ( material instanceof _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["LineBasicMaterial"] ) ) {
+
+							var materialLine = new _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["LineBasicMaterial"]();
+							_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["Material"].prototype.copy.call( materialLine, material );
+							materialLine.color.copy( material.color );
+							material = materialLine;
+
+						} else if ( isPoints && material && ! ( material instanceof _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["PointsMaterial"] ) ) {
+
+							var materialPoints = new _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["PointsMaterial"]( { size: 10, sizeAttenuation: false } );
+							_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["Material"].prototype.copy.call( materialPoints, material );
+							materialPoints.color.copy( material.color );
+							materialPoints.map = material.map;
+							material = materialPoints;
+
+						}
+
+					}
+
+					if ( material === undefined ) {
+
+						if ( isLine ) {
+
+							material = new _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["LineBasicMaterial"]();
+
+						} else if ( isPoints ) {
+
+							material = new _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["PointsMaterial"]( { size: 1, sizeAttenuation: false } );
+
+						} else {
+
+							material = new _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["MeshPhongMaterial"]();
+
+						}
+
+						material.name = sourceMaterial.name;
+						material.flatShading = sourceMaterial.smooth ? false : true;
+						material.vertexColors = hasVertexColors;
+
+						state.materials[ materialHash ] = material;
+
+					}
+
+					createdMaterials.push( material );
+
+				}
+
+				// Create mesh
+
+				var mesh;
+
+				if ( createdMaterials.length > 1 ) {
+
+					for ( var mi = 0, miLen = materials.length; mi < miLen; mi ++ ) {
+
+						var sourceMaterial = materials[ mi ];
+						buffergeometry.addGroup( sourceMaterial.groupStart, sourceMaterial.groupCount, mi );
+
+					}
+
+					if ( isLine ) {
+
+						mesh = new _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["LineSegments"]( buffergeometry, createdMaterials );
+
+					} else if ( isPoints ) {
+
+						mesh = new _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["Points"]( buffergeometry, createdMaterials );
+
+					} else {
+
+						mesh = new _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["Mesh"]( buffergeometry, createdMaterials );
+
+					}
+
+				} else {
+
+					if ( isLine ) {
+
+						mesh = new _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["LineSegments"]( buffergeometry, createdMaterials[ 0 ] );
+
+					} else if ( isPoints ) {
+
+						mesh = new _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["Points"]( buffergeometry, createdMaterials[ 0 ] );
+
+					} else {
+
+						mesh = new _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["Mesh"]( buffergeometry, createdMaterials[ 0 ] );
+
+					}
+
+				}
+
+				mesh.name = object.name;
+
+				container.add( mesh );
+
+			}
+
+			return container;
+
+		}
+
+	} );
+
+	return OBJLoader;
+
+} )();
+
+
+
+
+/***/ }),
+
 /***/ "./node_modules/webpack/buildin/amd-define.js":
 /*!***************************************!*\
   !*** (webpack)/buildin/amd-define.js ***!
@@ -2706,44 +3594,615 @@ module.exports = function(module) {
 
 /***/ }),
 
-/***/ "./src/app/three-optimized/components/three-optimized/three-optimized.component.scss":
-/*!*******************************************************************************************!*\
-  !*** ./src/app/three-optimized/components/three-optimized/three-optimized.component.scss ***!
-  \*******************************************************************************************/
+/***/ "./src/app/three-optimized/components/instance-optimized/instance-optimized.component.scss":
+/*!*************************************************************************************************!*\
+  !*** ./src/app/three-optimized/components/instance-optimized/instance-optimized.component.scss ***!
+  \*************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3RocmVlLW9wdGltaXplZC9jb21wb25lbnRzL3RocmVlLW9wdGltaXplZC90aHJlZS1vcHRpbWl6ZWQuY29tcG9uZW50LnNjc3MifQ== */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3RocmVlLW9wdGltaXplZC9jb21wb25lbnRzL2luc3RhbmNlLW9wdGltaXplZC9pbnN0YW5jZS1vcHRpbWl6ZWQuY29tcG9uZW50LnNjc3MifQ== */"
 
 /***/ }),
 
-/***/ "./src/app/three-optimized/components/three-optimized/three-optimized.component.ts":
-/*!*****************************************************************************************!*\
-  !*** ./src/app/three-optimized/components/three-optimized/three-optimized.component.ts ***!
-  \*****************************************************************************************/
-/*! exports provided: ThreeOptimizedComponent */
+/***/ "./src/app/three-optimized/components/instance-optimized/instance-optimized.component.ts":
+/*!***********************************************************************************************!*\
+  !*** ./src/app/three-optimized/components/instance-optimized/instance-optimized.component.ts ***!
+  \***********************************************************************************************/
+/*! exports provided: InstanceOptimizedComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ThreeOptimizedComponent", function() { return ThreeOptimizedComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InstanceOptimizedComponent", function() { return InstanceOptimizedComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_app_three_services_three_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/three/services/three.service */ "./src/app/three/services/three.service.ts");
+/* harmony import */ var three__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! three */ "./node_modules/three/build/three.module.js");
+/* harmony import */ var _node_modules_stats_js_build_stats_min_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../node_modules/stats.js/build/stats.min.js */ "./node_modules/stats.js/build/stats.min.js");
+/* harmony import */ var _node_modules_stats_js_build_stats_min_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_node_modules_stats_js_build_stats_min_js__WEBPACK_IMPORTED_MODULE_4__);
 
 
-var ThreeOptimizedComponent = /** @class */ (function () {
-    function ThreeOptimizedComponent() {
+
+
+
+var InstanceOptimizedComponent = /** @class */ (function () {
+    function InstanceOptimizedComponent(threeService) {
+        this.threeService = threeService;
+        this.objectCount = 1000;
+        this.renderCalls = 0;
+        this.raycaster = new three__WEBPACK_IMPORTED_MODULE_3__["Raycaster"]();
+        this.color = new three__WEBPACK_IMPORTED_MODULE_3__["Color"]();
     }
-    ThreeOptimizedComponent.prototype.ngOnInit = function () {
+    InstanceOptimizedComponent.prototype.ngOnInit = function () {
+        this.loadGeometry();
     };
-    ThreeOptimizedComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    InstanceOptimizedComponent.prototype.ngAfterViewInit = function () {
+        this.setUpStats();
+        this.threeCommon = this.threeService.getThreeCommon(this.canvasEl.nativeElement);
+        this.threeCommon.camera.position.z = 20;
+        this.threeCommon.camera.aspect =
+            this.canvasEl.nativeElement.offsetWidth /
+                this.canvasEl.nativeElement.offsetHeight;
+        this.threeCommon.renderer.setPixelRatio(window.devicePixelRatio);
+        this.threeCommon.camera.updateProjectionMatrix();
+    };
+    InstanceOptimizedComponent.prototype.setUpStats = function () {
+        this.stats = new _node_modules_stats_js_build_stats_min_js__WEBPACK_IMPORTED_MODULE_4__();
+        this.stats.showPanel(1); // 0: fps, 1: ms, 2: mb, 3+: custom
+        this.statsEl.nativeElement.appendChild(this.stats.dom);
+        this.stats.domElement.style.position = "absolute";
+        this.stats.domElement.style.left = "0px";
+        this.stats.domElement.style.top = "0px";
+    };
+    InstanceOptimizedComponent.prototype.loadGeometry = function () {
+        var _this = this;
+        var loader = new three__WEBPACK_IMPORTED_MODULE_3__["BufferGeometryLoader"]();
+        loader.load("assets/custom/geometry2.json", function (geometry) {
+            _this.geometry = geometry;
+            _this.drawInstanceMesh();
+            _this.renderView();
+        });
+    };
+    InstanceOptimizedComponent.prototype.drawInstanceMesh = function () {
+        this.clean();
+        var material = new three__WEBPACK_IMPORTED_MODULE_3__["MeshNormalMaterial"]();
+        this.geometry.computeVertexNormals();
+        var matrix = new three__WEBPACK_IMPORTED_MODULE_3__["Matrix4"]();
+        this.mesh = new three__WEBPACK_IMPORTED_MODULE_3__["InstancedMesh"](this.geometry, material, this.objectCount);
+        for (var i = 0; i < this.objectCount; i++) {
+            this.randomizeMatrix(matrix);
+            this.mesh.setMatrixAt(i, matrix);
+        }
+        this.threeCommon.scene.add(this.mesh);
+    };
+    InstanceOptimizedComponent.prototype.objectCountChangeHandler = function ($event) {
+        this.objectCount = Number.parseInt($event.target.value, 10);
+        this.drawInstanceMesh();
+    };
+    InstanceOptimizedComponent.prototype.clean = function () {
+        var meshes = [];
+        this.threeCommon.scene.traverse(function (object) {
+            if (object.isMesh)
+                meshes.push(object);
+        });
+        for (var i = 0; i < meshes.length; i++) {
+            var mesh = meshes[i];
+            mesh.material.dispose();
+            mesh.geometry.dispose();
+            this.threeCommon.scene.remove(mesh);
+        }
+    };
+    InstanceOptimizedComponent.prototype.randomizeMatrix = function (matrix) {
+        var position = new three__WEBPACK_IMPORTED_MODULE_3__["Vector3"]();
+        var rotation = new three__WEBPACK_IMPORTED_MODULE_3__["Euler"]();
+        var quaternion = new three__WEBPACK_IMPORTED_MODULE_3__["Quaternion"]();
+        var scale = new three__WEBPACK_IMPORTED_MODULE_3__["Vector3"]();
+        position.x = Math.random() * 40 - 20;
+        position.y = Math.random() * 40 - 20;
+        position.z = Math.random() * 40 - 20;
+        rotation.x = Math.random() * 2 * Math.PI;
+        rotation.y = Math.random() * 2 * Math.PI;
+        rotation.z = Math.random() * 2 * Math.PI;
+        quaternion.setFromEuler(rotation);
+        scale.x = scale.y = scale.z = Math.random() * 1;
+        matrix.compose(position, quaternion, scale);
+    };
+    InstanceOptimizedComponent.prototype.renderView = function () {
+        if (this.mouse) {
+            this.raycaster.setFromCamera(this.mouse, this.threeCommon.camera);
+        }
+        var intersection = this.raycaster.intersectObject(this.mesh);
+        if (intersection.length > 0) {
+            var rotationMatrix = new three__WEBPACK_IMPORTED_MODULE_3__["Matrix4"]().makeRotationY(0.2);
+            var instanceMatrix = new three__WEBPACK_IMPORTED_MODULE_3__["Matrix4"]();
+            var instanceId = intersection[0].instanceId;
+            var matrix = new three__WEBPACK_IMPORTED_MODULE_3__["Matrix4"]();
+            this.mesh.getMatrixAt(intersection[0].instanceId, instanceMatrix);
+            matrix.multiplyMatrices(instanceMatrix, rotationMatrix);
+            this.mesh.setMatrixAt(intersection[0].instanceId, matrix);
+            this.mesh.instanceMatrix.needsUpdate = true;
+        }
+        this.threeCommon.renderer.render(this.threeCommon.scene, this.threeCommon.camera);
+        this.threeCommon.controls.update();
+        this.stats.update();
+        window.requestAnimationFrame(this.renderView.bind(this));
+        this.renderCalls = this.threeCommon.renderer.info.render.calls;
+    };
+    InstanceOptimizedComponent.prototype.clickHandler = function (event) {
+        event.preventDefault();
+        var canvasBounds = this.threeCommon.renderer.context.canvas.getBoundingClientRect();
+        this.mouse = this.mouse || new three__WEBPACK_IMPORTED_MODULE_3__["Vector3"]();
+        this.mouse.x =
+            ((event.clientX - canvasBounds.left) /
+                (canvasBounds.right - canvasBounds.left)) *
+                2 -
+                1;
+        this.mouse.y =
+            -((event.clientY - canvasBounds.top) /
+                (canvasBounds.bottom - canvasBounds.top)) *
+                2 +
+                1;
+    };
+    InstanceOptimizedComponent.ctorParameters = function () { return [
+        { type: src_app_three_services_three_service__WEBPACK_IMPORTED_MODULE_2__["ThreeService"] }
+    ]; };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])("canvasEl", { static: false, read: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"] })
+    ], InstanceOptimizedComponent.prototype, "canvasEl", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])("stats", { static: false, read: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"] })
+    ], InstanceOptimizedComponent.prototype, "statsEl", void 0);
+    InstanceOptimizedComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-three-optimized',
-            template: __webpack_require__(/*! raw-loader!./three-optimized.component.html */ "./node_modules/raw-loader/index.js!./src/app/three-optimized/components/three-optimized/three-optimized.component.html"),
-            styles: [__webpack_require__(/*! ./three-optimized.component.scss */ "./src/app/three-optimized/components/three-optimized/three-optimized.component.scss")]
+            selector: "app-instance-optimized",
+            template: __webpack_require__(/*! raw-loader!./instance-optimized.component.html */ "./node_modules/raw-loader/index.js!./src/app/three-optimized/components/instance-optimized/instance-optimized.component.html"),
+            styles: [__webpack_require__(/*! ./instance-optimized.component.scss */ "./src/app/three-optimized/components/instance-optimized/instance-optimized.component.scss")]
         })
-    ], ThreeOptimizedComponent);
-    return ThreeOptimizedComponent;
+    ], InstanceOptimizedComponent);
+    return InstanceOptimizedComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/three-optimized/components/instanced-layout/instanced-layout.component.scss":
+/*!*********************************************************************************************!*\
+  !*** ./src/app/three-optimized/components/instanced-layout/instanced-layout.component.scss ***!
+  \*********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3RocmVlLW9wdGltaXplZC9jb21wb25lbnRzL2luc3RhbmNlZC1sYXlvdXQvaW5zdGFuY2VkLWxheW91dC5jb21wb25lbnQuc2NzcyJ9 */"
+
+/***/ }),
+
+/***/ "./src/app/three-optimized/components/instanced-layout/instanced-layout.component.ts":
+/*!*******************************************************************************************!*\
+  !*** ./src/app/three-optimized/components/instanced-layout/instanced-layout.component.ts ***!
+  \*******************************************************************************************/
+/*! exports provided: InstancedLayoutComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InstancedLayoutComponent", function() { return InstancedLayoutComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_app_three_services_three_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/three/services/three.service */ "./src/app/three/services/three.service.ts");
+/* harmony import */ var three__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! three */ "./node_modules/three/build/three.module.js");
+/* harmony import */ var _node_modules_three_examples_jsm_loaders_OBJLoader__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../../../../../node_modules/three/examples/jsm/loaders/OBJLoader */ "./node_modules/three/examples/jsm/loaders/OBJLoader.js");
+
+
+
+
+
+
+var InstancedLayoutComponent = /** @class */ (function () {
+    function InstancedLayoutComponent(threeService) {
+        this.threeService = threeService;
+        this.objectCount = 3;
+        this.vertices = [];
+        this.raycaster = new three__WEBPACK_IMPORTED_MODULE_3__["Raycaster"]();
+    }
+    InstancedLayoutComponent.prototype.ngOnInit = function () { };
+    InstancedLayoutComponent.prototype.ngAfterViewInit = function () {
+        this.threeCommon = this.threeService.getThreeCommon(this.canvasEl.nativeElement);
+        this.threeCommon.camera.position.z = 25;
+        this.constructLayout();
+        this.loadGeometry();
+    };
+    InstancedLayoutComponent.prototype.constructLayout = function () {
+        if (this.objectCount <= 6) {
+            this.layoutGeometry = new three__WEBPACK_IMPORTED_MODULE_3__["ConeGeometry"](10, 10, this.objectCount - 1);
+        }
+        else if (this.objectCount <= 12) {
+            this.layoutGeometry = new three__WEBPACK_IMPORTED_MODULE_3__["IcosahedronGeometry"](10, 0);
+        }
+        else {
+            this.layoutGeometry = new three__WEBPACK_IMPORTED_MODULE_3__["SphereGeometry"](15, 12, 10);
+        }
+        var material = new three__WEBPACK_IMPORTED_MODULE_3__["MeshBasicMaterial"]({
+            color: "white",
+            wireframe: true,
+        });
+        var mesh = new three__WEBPACK_IMPORTED_MODULE_3__["Mesh"](this.layoutGeometry, material);
+        this.threeCommon.scene.add(mesh);
+    };
+    InstancedLayoutComponent.prototype.loadGeometry = function () {
+        var _this = this;
+        var objLoader = new _node_modules_three_examples_jsm_loaders_OBJLoader__WEBPACK_IMPORTED_MODULE_4__["OBJLoader"]();
+        objLoader
+            .loadAsync("assets/node-spheres/sphere.obj")
+            .then(function (res) {
+            _this.object = res;
+            _this.geometry = res.children[0].geometry;
+            _this.sceneController();
+        })
+            .catch(function (e) { return console.log(e); });
+    };
+    InstancedLayoutComponent.prototype.sceneController = function () {
+        var material = new three__WEBPACK_IMPORTED_MODULE_3__["MeshNormalMaterial"]();
+        this.geometry.computeVertexNormals();
+        this.mesh = new three__WEBPACK_IMPORTED_MODULE_3__["InstancedMesh"](this.geometry, material, this.objectCount);
+        for (var i = 0; i < this.objectCount; i++) {
+            this.mesh.setMatrixAt(i, this.setPositionFromLayout(i));
+        }
+        this.threeCommon.scene.add(this.mesh);
+        this.renderView();
+    };
+    InstancedLayoutComponent.prototype.setPositionFromLayout = function (i) {
+        var matrix = new three__WEBPACK_IMPORTED_MODULE_3__["Matrix4"]();
+        var position = new three__WEBPACK_IMPORTED_MODULE_3__["Vector3"]();
+        var rotation = new three__WEBPACK_IMPORTED_MODULE_3__["Euler"]();
+        var quaternion = new three__WEBPACK_IMPORTED_MODULE_3__["Quaternion"]();
+        var scale = new three__WEBPACK_IMPORTED_MODULE_3__["Vector3"]();
+        if (!this.layoutGeometry.vertices[i]) {
+            console.log("no vertex for index", i);
+        }
+        var step = Math.floor(this.layoutGeometry.vertices.length / this.objectCount);
+        position = this.layoutGeometry.vertices[i];
+        // rotation.x = Math.random() * 2 * Math.PI;
+        // rotation.y = Math.random() * 2 * Math.PI;
+        // rotation.z = Math.random() * 2 * Math.PI;
+        quaternion.setFromEuler(rotation);
+        scale.x = scale.y = scale.z = 1;
+        matrix.compose(position, quaternion, scale);
+        return matrix;
+    };
+    InstancedLayoutComponent.prototype.randomizeMatrix = function (matrix, i) {
+        var position = new three__WEBPACK_IMPORTED_MODULE_3__["Vector3"]();
+        var rotation = new three__WEBPACK_IMPORTED_MODULE_3__["Euler"]();
+        var quaternion = new three__WEBPACK_IMPORTED_MODULE_3__["Quaternion"]();
+        var scale = new three__WEBPACK_IMPORTED_MODULE_3__["Vector3"]();
+        position.x = Math.random() * 40 - 20;
+        position.y = Math.random() * 40 - 20;
+        position.z = Math.random() * 40 - 20;
+        rotation.x = Math.random() * 2 * Math.PI;
+        rotation.y = Math.random() * 2 * Math.PI;
+        rotation.z = Math.random() * 2 * Math.PI;
+        quaternion.setFromEuler(rotation);
+        scale.x = scale.y = scale.z = 1;
+        matrix.compose(position, quaternion, scale);
+    };
+    InstancedLayoutComponent.prototype.destroyMesh = function () {
+        var meshes = [];
+        this.threeCommon.scene.traverse(function (object) {
+            if (object.isMesh)
+                meshes.push(object);
+        });
+        for (var i = 0; i < meshes.length; i++) {
+            var mesh = meshes[i];
+            mesh.material.dispose();
+            mesh.geometry.dispose();
+            this.threeCommon.scene.remove(mesh);
+        }
+    };
+    InstancedLayoutComponent.prototype.objectCountChangeHandler = function ($event) {
+        this.objectCount = Number.parseInt($event.target.value, 10);
+        this.destroyMesh();
+        this.constructLayout();
+        this.sceneController();
+    };
+    InstancedLayoutComponent.prototype.clickHandler = function (event) {
+        event.preventDefault();
+        var canvasBounds = this.threeCommon.renderer.context.canvas.getBoundingClientRect();
+        this.mouse = this.mouse || new three__WEBPACK_IMPORTED_MODULE_3__["Vector3"]();
+        this.mouse.x =
+            ((event.clientX - canvasBounds.left) /
+                (canvasBounds.right - canvasBounds.left)) *
+                2 -
+                1;
+        this.mouse.y =
+            -((event.clientY - canvasBounds.top) /
+                (canvasBounds.bottom - canvasBounds.top)) *
+                2 +
+                1;
+    };
+    InstancedLayoutComponent.prototype.renderView = function () {
+        if (this.mouse) {
+            this.raycaster.setFromCamera(this.mouse, this.threeCommon.camera);
+        }
+        var intersection = this.raycaster.intersectObject(this.mesh);
+        if (intersection.length > 0) {
+            var rotationMatrix = new three__WEBPACK_IMPORTED_MODULE_3__["Matrix4"]().makeRotationY(0.3);
+            var instanceMatrix = new three__WEBPACK_IMPORTED_MODULE_3__["Matrix4"]();
+            var instanceId = intersection[0].instanceId;
+            var matrix = new three__WEBPACK_IMPORTED_MODULE_3__["Matrix4"]();
+            this.mesh.getMatrixAt(intersection[0].instanceId, instanceMatrix);
+            matrix.multiplyMatrices(instanceMatrix, rotationMatrix);
+            this.mesh.setMatrixAt(intersection[0].instanceId, matrix);
+            this.mesh.instanceMatrix.needsUpdate = true;
+        }
+        this.threeCommon.renderer.render(this.threeCommon.scene, this.threeCommon.camera);
+        this.threeCommon.controls.update();
+        this.renderCalls = this.threeService.getRendererCallCount(this.threeCommon.renderer);
+        window.requestAnimationFrame(this.renderView.bind(this));
+    };
+    InstancedLayoutComponent.ctorParameters = function () { return [
+        { type: src_app_three_services_three_service__WEBPACK_IMPORTED_MODULE_2__["ThreeService"] }
+    ]; };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])("canvasEl", { static: false, read: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"] })
+    ], InstancedLayoutComponent.prototype, "canvasEl", void 0);
+    InstancedLayoutComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: "app-instanced-layout",
+            template: __webpack_require__(/*! raw-loader!./instanced-layout.component.html */ "./node_modules/raw-loader/index.js!./src/app/three-optimized/components/instanced-layout/instanced-layout.component.html"),
+            styles: [__webpack_require__(/*! ./instanced-layout.component.scss */ "./src/app/three-optimized/components/instanced-layout/instanced-layout.component.scss")]
+        })
+    ], InstancedLayoutComponent);
+    return InstancedLayoutComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/three-optimized/components/instanced-spheres/instanced-spheres.component.scss":
+/*!***********************************************************************************************!*\
+  !*** ./src/app/three-optimized/components/instanced-spheres/instanced-spheres.component.scss ***!
+  \***********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3RocmVlLW9wdGltaXplZC9jb21wb25lbnRzL2luc3RhbmNlZC1zcGhlcmVzL2luc3RhbmNlZC1zcGhlcmVzLmNvbXBvbmVudC5zY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/three-optimized/components/instanced-spheres/instanced-spheres.component.ts":
+/*!*********************************************************************************************!*\
+  !*** ./src/app/three-optimized/components/instanced-spheres/instanced-spheres.component.ts ***!
+  \*********************************************************************************************/
+/*! exports provided: InstancedSpheresComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InstancedSpheresComponent", function() { return InstancedSpheresComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_app_three_services_three_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/three/services/three.service */ "./src/app/three/services/three.service.ts");
+/* harmony import */ var three__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! three */ "./node_modules/three/build/three.module.js");
+/* harmony import */ var random__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! random */ "./node_modules/random/index.js");
+/* harmony import */ var random__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(random__WEBPACK_IMPORTED_MODULE_4__);
+
+
+
+
+
+var InstancedSpheresComponent = /** @class */ (function () {
+    function InstancedSpheresComponent(threeService) {
+        this.threeService = threeService;
+    }
+    InstancedSpheresComponent.prototype.ngOnInit = function () { };
+    InstancedSpheresComponent.prototype.ngAfterViewInit = function () {
+        this.threeCommon = this.threeService.getThreeCommon(this.canvasEl.nativeElement);
+        this.threeCommon.camera.position.z = 50;
+        this.sceneController();
+    };
+    InstancedSpheresComponent.prototype.sceneController = function () {
+        this.configureShaders();
+        var baseGeometry = new three__WEBPACK_IMPORTED_MODULE_3__["SphereBufferGeometry"](3);
+        this.instancedGeometry = new three__WEBPACK_IMPORTED_MODULE_3__["InstancedBufferGeometry"]().copy(baseGeometry);
+        this.instanceCount = 7000;
+        this.instancedGeometry.instanceCount = this.instanceCount;
+        var material = new three__WEBPACK_IMPORTED_MODULE_3__["ShaderMaterial"]({
+            vertexShader: this.vertexShader,
+            fragmentShader: this.fragmentShader,
+            uniforms: {
+                uTime: new three__WEBPACK_IMPORTED_MODULE_3__["Uniform"](0)
+            }
+        });
+        var mesh = new three__WEBPACK_IMPORTED_MODULE_3__["Mesh"](this.instancedGeometry, material);
+        this.threeCommon.scene.add(mesh);
+        this.configureInstanceAttributes();
+        this.renderView();
+    };
+    InstancedSpheresComponent.prototype.configureShaders = function () {
+        this.vertexShader = "\n    #define PI (3.14159265358979323846)\n    attribute vec4 aCurve;\n    uniform float uTime;\n\n    attribute vec3 aColor;\n    varying vec3 vColor;\n\n    vec3 getCurvePosition(float progress, float radius, float offset){\n      vec3 pos = vec3(0.);\n      pos.x += cos(progress *PI *8.) * radius ;\n      pos.y += sin(progress *PI *8.) * radius + sin(progress * PI *2.) * 30.;\n      pos.z += progress *200. - 200./2. + offset;\n      return pos;\n    }\n    void main(){\n      vec3 transformed = position;\n      \n      // 2. Extract values from attribute\n      float aRadius = aCurve.x;\n      float aZOffset = aCurve.z;\n      float aSpeed = aCurve.w;\n      float aProgress = mod(aCurve.y + uTime * aSpeed, 1.);\n      \n      // 3. Get position and add it to the final position\n      vec3 curvePosition = getCurvePosition(aProgress, aRadius, aZOffset);\n      transformed += curvePosition;\n      \n      gl_Position = projectionMatrix * modelViewMatrix * vec4(transformed, 1.);\n      vColor = aColor;\n    }\n    ";
+        this.fragmentShader = "\n    varying vec3 vColor;\n    void main(){\n      gl_FragColor = vec4(vColor, 1.);\n    }\n    ";
+    };
+    InstancedSpheresComponent.prototype.configureInstanceAttributes = function () {
+        var aColor = [];
+        var colors = [new three__WEBPACK_IMPORTED_MODULE_3__["Color"]("#ff3030"), new three__WEBPACK_IMPORTED_MODULE_3__["Color"]("#0000ff"), new three__WEBPACK_IMPORTED_MODULE_3__["Color"]("#00ff99")];
+        var aCurve = [];
+        for (var i = 0; i < this.instanceCount; i++) {
+            var radius = random__WEBPACK_IMPORTED_MODULE_4__["float"](10, 20);
+            var zOffset = random__WEBPACK_IMPORTED_MODULE_4__["float"](-5, 5);
+            var progress = random__WEBPACK_IMPORTED_MODULE_4__["float"]();
+            var speed = random__WEBPACK_IMPORTED_MODULE_4__["float"](0.02, 0.07);
+            aCurve.push(radius, progress, zOffset, speed);
+            var color = colors[random__WEBPACK_IMPORTED_MODULE_4__["int"](0, colors.length - 1)];
+            aColor.push(color.r, color.g, color.b);
+        }
+        var aCurveFloat32 = new Float32Array(aCurve);
+        this.instancedGeometry.setAttribute("aCurve", new three__WEBPACK_IMPORTED_MODULE_3__["InstancedBufferAttribute"](aCurveFloat32, 4, false));
+        var f32 = new Float32Array(aColor);
+        this.instancedGeometry.setAttribute("aColor", new three__WEBPACK_IMPORTED_MODULE_3__["InstancedBufferAttribute"](f32, 3, false));
+        // sphere props.
+    };
+    InstancedSpheresComponent.prototype.renderView = function () {
+        this.threeCommon.renderer.render(this.threeCommon.scene, this.threeCommon.camera);
+        window.requestAnimationFrame(this.renderView.bind(this));
+    };
+    InstancedSpheresComponent.ctorParameters = function () { return [
+        { type: src_app_three_services_three_service__WEBPACK_IMPORTED_MODULE_2__["ThreeService"] }
+    ]; };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])("canvasEl", { static: false, read: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"] })
+    ], InstancedSpheresComponent.prototype, "canvasEl", void 0);
+    InstancedSpheresComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: "app-instanced-spheres",
+            template: __webpack_require__(/*! raw-loader!./instanced-spheres.component.html */ "./node_modules/raw-loader/index.js!./src/app/three-optimized/components/instanced-spheres/instanced-spheres.component.html"),
+            styles: [__webpack_require__(/*! ./instanced-spheres.component.scss */ "./src/app/three-optimized/components/instanced-spheres/instanced-spheres.component.scss")]
+        })
+    ], InstancedSpheresComponent);
+    return InstancedSpheresComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/three-optimized/components/optimized-cubes/optimized-cubes.component.scss":
+/*!*******************************************************************************************!*\
+  !*** ./src/app/three-optimized/components/optimized-cubes/optimized-cubes.component.scss ***!
+  \*******************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3RocmVlLW9wdGltaXplZC9jb21wb25lbnRzL29wdGltaXplZC1jdWJlcy9vcHRpbWl6ZWQtY3ViZXMuY29tcG9uZW50LnNjc3MifQ== */"
+
+/***/ }),
+
+/***/ "./src/app/three-optimized/components/optimized-cubes/optimized-cubes.component.ts":
+/*!*****************************************************************************************!*\
+  !*** ./src/app/three-optimized/components/optimized-cubes/optimized-cubes.component.ts ***!
+  \*****************************************************************************************/
+/*! exports provided: OptimizedCubesComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OptimizedCubesComponent", function() { return OptimizedCubesComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_app_three_services_three_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/three/services/three.service */ "./src/app/three/services/three.service.ts");
+/* harmony import */ var three__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! three */ "./node_modules/three/build/three.module.js");
+
+
+
+
+
+var OptimizedCubesComponent = /** @class */ (function () {
+    function OptimizedCubesComponent(threeService) {
+        this.threeService = threeService;
+        this.mouse = new three__WEBPACK_IMPORTED_MODULE_3__["Vector2"]();
+        this.objectCount = 20;
+        this.raycaster = new three__WEBPACK_IMPORTED_MODULE_3__["Raycaster"]();
+        this.theta = 0;
+        this.radius = 1000;
+    }
+    OptimizedCubesComponent.prototype.resizeEvent = function () {
+        this.threeCommon.camera.aspect =
+            this.canvasEl.nativeElement.offsetWidth /
+                this.canvasEl.nativeElement.offsetHeight;
+        this.threeCommon.camera.updateProjectionMatrix();
+        this.threeCommon.renderer.setSize(this.canvasEl.nativeElement.offsetWidth, this.canvasEl.nativeElement.offsetHeight);
+    };
+    OptimizedCubesComponent.prototype.ngOnInit = function () {
+        this.loadGeometry();
+    };
+    OptimizedCubesComponent.prototype.loadGeometry = function () {
+        var _this = this;
+        var loader = new three__WEBPACK_IMPORTED_MODULE_3__["BufferGeometryLoader"]();
+        loader.load("assets/custom/geometry2.json", function (geometry) {
+            _this.geometry = geometry;
+            // this.drawByMesh();
+            _this.drawByInstancing();
+            _this.renderView();
+        });
+    };
+    OptimizedCubesComponent.prototype.ngAfterViewInit = function () {
+        this.setUpStats();
+        this.threeCommon = this.threeService.getThreeCommon(this.canvasEl.nativeElement);
+        this.threeCommon.camera.position.z = 10;
+        this.threeCommon.camera.aspect =
+            this.canvasEl.nativeElement.offsetWidth /
+                this.canvasEl.nativeElement.offsetHeight;
+        this.threeCommon.renderer.setPixelRatio(window.devicePixelRatio);
+        this.threeCommon.camera.updateProjectionMatrix();
+        this.drawByMesh();
+    };
+    OptimizedCubesComponent.prototype.drawByMesh = function () {
+        var mesh = new three__WEBPACK_IMPORTED_MODULE_3__["Mesh"](this.geometry, new three__WEBPACK_IMPORTED_MODULE_3__["MeshNormalMaterial"]({}));
+        mesh.position.set(15, 0, 0);
+        this.threeCommon.scene.add(mesh);
+    };
+    OptimizedCubesComponent.prototype.drawByInstancing = function () {
+        var material = new three__WEBPACK_IMPORTED_MODULE_3__["MeshNormalMaterial"]();
+        this.instancedMesh = new three__WEBPACK_IMPORTED_MODULE_3__["InstancedMesh"](this.geometry, material, this.objectCount);
+        this.instancedMesh.instanceMatrix.setUsage(three__WEBPACK_IMPORTED_MODULE_3__["DynamicDrawUsage"]);
+        this.threeCommon.scene.add(this.instancedMesh);
+    };
+    OptimizedCubesComponent.prototype.mouseMoveHandler = function (event) {
+        event.preventDefault();
+        this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        this.mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+    };
+    OptimizedCubesComponent.prototype.setUpStats = function () {
+        // this.stats = new Stats();
+        // this.stats.showPanel(1); // 0: fps, 1: ms, 2: mb, 3+: custom
+        // document.body.appendChild(this.stats.dom);
+        // this.stats.domElement.style.position = 'absolute';
+        // this.stats.domElement.style.left = '0px';
+        // this.stats.domElement.style.top = '0px';
+    };
+    OptimizedCubesComponent.prototype.renderView = function () {
+        var time = Date.now() * 0.001;
+        this.instancedMesh.rotation.x = Math.sin(time / 4);
+        this.instancedMesh.rotation.y = Math.sin(time / 2);
+        var i = 0;
+        var offset = (this.objectCount - 1) / 2;
+        var dummy = new three__WEBPACK_IMPORTED_MODULE_3__["Object3D"]();
+        for (var x = 0; x < this.objectCount; x++) {
+            for (var y = 0; y < this.objectCount; y++) {
+                for (var z = 0; z < this.objectCount; z++) {
+                    dummy.position.set(offset - x, offset - y, offset - z);
+                    dummy.rotation.y =
+                        Math.sin(x / 4 + time) +
+                            Math.sin(y / 4 + time) +
+                            Math.sin(z / 4 + time);
+                    dummy.rotation.z = dummy.rotation.y * 2;
+                    dummy.updateMatrix();
+                    this.instancedMesh.setMatrixAt(i++, dummy.matrix);
+                }
+            }
+        }
+        this.instancedMesh.instanceMatrix.needsUpdate = true;
+        this.threeCommon.renderer.render(this.threeCommon.scene, this.threeCommon.camera);
+        window.requestAnimationFrame(this.renderView.bind(this));
+    };
+    OptimizedCubesComponent.ctorParameters = function () { return [
+        { type: src_app_three_services_three_service__WEBPACK_IMPORTED_MODULE_2__["ThreeService"] }
+    ]; };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])("resize")
+    ], OptimizedCubesComponent.prototype, "resizeEvent", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])("canvasEl", { static: false, read: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"] })
+    ], OptimizedCubesComponent.prototype, "canvasEl", void 0);
+    OptimizedCubesComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: "app-optimized-cubes",
+            template: __webpack_require__(/*! raw-loader!./optimized-cubes.component.html */ "./node_modules/raw-loader/index.js!./src/app/three-optimized/components/optimized-cubes/optimized-cubes.component.html"),
+            styles: [__webpack_require__(/*! ./optimized-cubes.component.scss */ "./src/app/three-optimized/components/optimized-cubes/optimized-cubes.component.scss")]
+        })
+    ], OptimizedCubesComponent);
+    return OptimizedCubesComponent;
 }());
 
 
@@ -2883,420 +4342,6 @@ var UnoptimizedCubesComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/three-optimized/instance-optimized/instance-optimized.component.scss":
-/*!**************************************************************************************!*\
-  !*** ./src/app/three-optimized/instance-optimized/instance-optimized.component.scss ***!
-  \**************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3RocmVlLW9wdGltaXplZC9pbnN0YW5jZS1vcHRpbWl6ZWQvaW5zdGFuY2Utb3B0aW1pemVkLmNvbXBvbmVudC5zY3NzIn0= */"
-
-/***/ }),
-
-/***/ "./src/app/three-optimized/instance-optimized/instance-optimized.component.ts":
-/*!************************************************************************************!*\
-  !*** ./src/app/three-optimized/instance-optimized/instance-optimized.component.ts ***!
-  \************************************************************************************/
-/*! exports provided: InstanceOptimizedComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InstanceOptimizedComponent", function() { return InstanceOptimizedComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var src_app_three_services_three_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/three/services/three.service */ "./src/app/three/services/three.service.ts");
-/* harmony import */ var three__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! three */ "./node_modules/three/build/three.module.js");
-/* harmony import */ var _node_modules_stats_js_build_stats_min_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../node_modules/stats.js/build/stats.min.js */ "./node_modules/stats.js/build/stats.min.js");
-/* harmony import */ var _node_modules_stats_js_build_stats_min_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_node_modules_stats_js_build_stats_min_js__WEBPACK_IMPORTED_MODULE_4__);
-
-
-
-
-
-var InstanceOptimizedComponent = /** @class */ (function () {
-    function InstanceOptimizedComponent(threeService) {
-        this.threeService = threeService;
-        this.mouse = new three__WEBPACK_IMPORTED_MODULE_3__["Vector3"]();
-        this.objectCount = 1000;
-        this.renderCalls = 0;
-        this.raycaster = new three__WEBPACK_IMPORTED_MODULE_3__["Raycaster"]();
-        this.color = new three__WEBPACK_IMPORTED_MODULE_3__["Color"]();
-    }
-    InstanceOptimizedComponent.prototype.ngOnInit = function () {
-        this.loadGeometry();
-    };
-    InstanceOptimizedComponent.prototype.ngAfterViewInit = function () {
-        this.setUpStats();
-        this.threeCommon = this.threeService.getThreeCommon(this.canvasEl.nativeElement);
-        this.threeCommon.camera.position.z = 300;
-        this.threeCommon.camera.aspect =
-            this.canvasEl.nativeElement.offsetWidth /
-                this.canvasEl.nativeElement.offsetHeight;
-        this.threeCommon.renderer.setPixelRatio(window.devicePixelRatio);
-        this.threeCommon.camera.updateProjectionMatrix();
-    };
-    InstanceOptimizedComponent.prototype.setUpStats = function () {
-        this.stats = new _node_modules_stats_js_build_stats_min_js__WEBPACK_IMPORTED_MODULE_4__();
-        this.stats.showPanel(1); // 0: fps, 1: ms, 2: mb, 3+: custom
-        this.statsEl.nativeElement.appendChild(this.stats.dom);
-        this.stats.domElement.style.position = "absolute";
-        this.stats.domElement.style.left = "0px";
-        this.stats.domElement.style.top = "0px";
-    };
-    InstanceOptimizedComponent.prototype.loadGeometry = function () {
-        var _this = this;
-        var loader = new three__WEBPACK_IMPORTED_MODULE_3__["BufferGeometryLoader"]();
-        loader.load("assets/custom/geometry2.json", function (geometry) {
-            _this.geometry = geometry;
-            _this.drawInstanceMesh();
-            _this.renderView();
-        });
-    };
-    InstanceOptimizedComponent.prototype.drawInstanceMesh = function () {
-        this.clean();
-        var material = new three__WEBPACK_IMPORTED_MODULE_3__["MeshNormalMaterial"]();
-        this.geometry.computeVertexNormals();
-        var matrix = new three__WEBPACK_IMPORTED_MODULE_3__["Matrix4"]();
-        this.mesh = new three__WEBPACK_IMPORTED_MODULE_3__["InstancedMesh"](this.geometry, material, this.objectCount);
-        for (var i = 0; i < this.objectCount; i++) {
-            this.randomizeMatrix(matrix);
-            this.mesh.setMatrixAt(i, matrix);
-        }
-        this.threeCommon.scene.add(this.mesh);
-    };
-    InstanceOptimizedComponent.prototype.objectCountChangeHandler = function ($event) {
-        this.objectCount = Number.parseInt($event.target.value, 10);
-        this.drawInstanceMesh();
-    };
-    InstanceOptimizedComponent.prototype.clean = function () {
-        var meshes = [];
-        this.threeCommon.scene.traverse(function (object) {
-            if (object.isMesh)
-                meshes.push(object);
-        });
-        for (var i = 0; i < meshes.length; i++) {
-            var mesh = meshes[i];
-            mesh.material.dispose();
-            mesh.geometry.dispose();
-            this.threeCommon.scene.remove(mesh);
-        }
-    };
-    InstanceOptimizedComponent.prototype.randomizeMatrix = function (matrix) {
-        var position = new three__WEBPACK_IMPORTED_MODULE_3__["Vector3"]();
-        var rotation = new three__WEBPACK_IMPORTED_MODULE_3__["Euler"]();
-        var quaternion = new three__WEBPACK_IMPORTED_MODULE_3__["Quaternion"]();
-        var scale = new three__WEBPACK_IMPORTED_MODULE_3__["Vector3"]();
-        position.x = Math.random() * 40 - 20;
-        position.y = Math.random() * 40 - 20;
-        position.z = Math.random() * 40 - 20;
-        rotation.x = Math.random() * 2 * Math.PI;
-        rotation.y = Math.random() * 2 * Math.PI;
-        rotation.z = Math.random() * 2 * Math.PI;
-        quaternion.setFromEuler(rotation);
-        scale.x = scale.y = scale.z = Math.random() * 1;
-        matrix.compose(position, quaternion, scale);
-    };
-    InstanceOptimizedComponent.prototype.renderView = function () {
-        this.raycaster.setFromCamera(this.mouse, this.threeCommon.camera);
-        var intersection = this.raycaster.intersectObject(this.mesh);
-        if (intersection.length > 0) {
-            var rotationMatrix = new three__WEBPACK_IMPORTED_MODULE_3__["Matrix4"]().makeRotationY(0.2);
-            var instanceMatrix = new three__WEBPACK_IMPORTED_MODULE_3__["Matrix4"]();
-            var instanceId = intersection[0].instanceId;
-            var matrix = new three__WEBPACK_IMPORTED_MODULE_3__["Matrix4"]();
-            this.mesh.getMatrixAt(intersection[0].instanceId, instanceMatrix);
-            matrix.multiplyMatrices(instanceMatrix, rotationMatrix);
-            this.mesh.setMatrixAt(intersection[0].instanceId, matrix);
-            this.mesh.instanceMatrix.needsUpdate = true;
-        }
-        this.threeCommon.renderer.render(this.threeCommon.scene, this.threeCommon.camera);
-        this.threeCommon.controls.update();
-        this.stats.update();
-        window.requestAnimationFrame(this.renderView.bind(this));
-        this.renderCalls = this.threeCommon.renderer.info.render.calls;
-    };
-    InstanceOptimizedComponent.prototype.clickHandler = function (event) {
-        event.preventDefault();
-        var canvasBounds = this.threeCommon.renderer.context.canvas.getBoundingClientRect();
-        this.mouse.x = ((event.clientX - canvasBounds.left) / (canvasBounds.right - canvasBounds.left)) * 2 - 1;
-        this.mouse.y = -((event.clientY - canvasBounds.top) / (canvasBounds.bottom - canvasBounds.top)) * 2 + 1;
-    };
-    InstanceOptimizedComponent.ctorParameters = function () { return [
-        { type: src_app_three_services_three_service__WEBPACK_IMPORTED_MODULE_2__["ThreeService"] }
-    ]; };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])("canvasEl", { static: false, read: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"] })
-    ], InstanceOptimizedComponent.prototype, "canvasEl", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])("stats", { static: false, read: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"] })
-    ], InstanceOptimizedComponent.prototype, "statsEl", void 0);
-    InstanceOptimizedComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: "app-instance-optimized",
-            template: __webpack_require__(/*! raw-loader!./instance-optimized.component.html */ "./node_modules/raw-loader/index.js!./src/app/three-optimized/instance-optimized/instance-optimized.component.html"),
-            styles: [__webpack_require__(/*! ./instance-optimized.component.scss */ "./src/app/three-optimized/instance-optimized/instance-optimized.component.scss")]
-        })
-    ], InstanceOptimizedComponent);
-    return InstanceOptimizedComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/three-optimized/instanced-spheres/instanced-spheres.component.scss":
-/*!************************************************************************************!*\
-  !*** ./src/app/three-optimized/instanced-spheres/instanced-spheres.component.scss ***!
-  \************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3RocmVlLW9wdGltaXplZC9pbnN0YW5jZWQtc3BoZXJlcy9pbnN0YW5jZWQtc3BoZXJlcy5jb21wb25lbnQuc2NzcyJ9 */"
-
-/***/ }),
-
-/***/ "./src/app/three-optimized/instanced-spheres/instanced-spheres.component.ts":
-/*!**********************************************************************************!*\
-  !*** ./src/app/three-optimized/instanced-spheres/instanced-spheres.component.ts ***!
-  \**********************************************************************************/
-/*! exports provided: InstancedSpheresComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InstancedSpheresComponent", function() { return InstancedSpheresComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var src_app_three_services_three_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/three/services/three.service */ "./src/app/three/services/three.service.ts");
-/* harmony import */ var three__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! three */ "./node_modules/three/build/three.module.js");
-/* harmony import */ var random__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! random */ "./node_modules/random/index.js");
-/* harmony import */ var random__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(random__WEBPACK_IMPORTED_MODULE_4__);
-
-
-
-
-
-var InstancedSpheresComponent = /** @class */ (function () {
-    function InstancedSpheresComponent(threeService) {
-        this.threeService = threeService;
-    }
-    InstancedSpheresComponent.prototype.ngOnInit = function () { };
-    InstancedSpheresComponent.prototype.ngAfterViewInit = function () {
-        this.threeCommon = this.threeService.getThreeCommon(this.canvasEl.nativeElement);
-        this.threeCommon.camera.position.z = 50;
-        this.sceneController();
-    };
-    InstancedSpheresComponent.prototype.sceneController = function () {
-        this.configureShaders();
-        var baseGeometry = new three__WEBPACK_IMPORTED_MODULE_3__["SphereBufferGeometry"](3);
-        this.instancedGeometry = new three__WEBPACK_IMPORTED_MODULE_3__["InstancedBufferGeometry"]().copy(baseGeometry);
-        this.instanceCount = 7000;
-        this.instancedGeometry.instanceCount = this.instanceCount;
-        var material = new three__WEBPACK_IMPORTED_MODULE_3__["ShaderMaterial"]({
-            vertexShader: this.vertexShader,
-            fragmentShader: this.fragmentShader,
-            uniforms: {
-                uTime: new three__WEBPACK_IMPORTED_MODULE_3__["Uniform"](0)
-            }
-        });
-        var mesh = new three__WEBPACK_IMPORTED_MODULE_3__["Mesh"](this.instancedGeometry, material);
-        this.threeCommon.scene.add(mesh);
-        this.configureInstanceAttributes();
-        this.renderView();
-    };
-    InstancedSpheresComponent.prototype.configureShaders = function () {
-        this.vertexShader = "\n    #define PI (3.14159265358979323846)\n    attribute vec4 aCurve;\n    uniform float uTime;\n\n    attribute vec3 aColor;\n    varying vec3 vColor;\n\n    vec3 getCurvePosition(float progress, float radius, float offset){\n      vec3 pos = vec3(0.);\n      pos.x += cos(progress *PI *8.) * radius ;\n      pos.y += sin(progress *PI *8.) * radius + sin(progress * PI *2.) * 30.;\n      pos.z += progress *200. - 200./2. + offset;\n      return pos;\n    }\n    void main(){\n      vec3 transformed = position;\n      \n      // 2. Extract values from attribute\n      float aRadius = aCurve.x;\n      float aZOffset = aCurve.z;\n      float aSpeed = aCurve.w;\n      float aProgress = mod(aCurve.y + uTime * aSpeed, 1.);\n      \n      // 3. Get position and add it to the final position\n      vec3 curvePosition = getCurvePosition(aProgress, aRadius, aZOffset);\n      transformed += curvePosition;\n      \n      gl_Position = projectionMatrix * modelViewMatrix * vec4(transformed, 1.);\n      vColor = aColor;\n    }\n    ";
-        this.fragmentShader = "\n    varying vec3 vColor;\n    void main(){\n      gl_FragColor = vec4(vColor, 1.);\n    }\n    ";
-    };
-    InstancedSpheresComponent.prototype.configureInstanceAttributes = function () {
-        var aColor = [];
-        var colors = [new three__WEBPACK_IMPORTED_MODULE_3__["Color"]("#ff3030"), new three__WEBPACK_IMPORTED_MODULE_3__["Color"]("#0000ff"), new three__WEBPACK_IMPORTED_MODULE_3__["Color"]("#00ff99")];
-        var aCurve = [];
-        for (var i = 0; i < this.instanceCount; i++) {
-            var radius = random__WEBPACK_IMPORTED_MODULE_4__["float"](10, 20);
-            var zOffset = random__WEBPACK_IMPORTED_MODULE_4__["float"](-5, 5);
-            var progress = random__WEBPACK_IMPORTED_MODULE_4__["float"]();
-            var speed = random__WEBPACK_IMPORTED_MODULE_4__["float"](0.02, 0.07);
-            aCurve.push(radius, progress, zOffset, speed);
-            var color = colors[random__WEBPACK_IMPORTED_MODULE_4__["int"](0, colors.length - 1)];
-            aColor.push(color.r, color.g, color.b);
-        }
-        var aCurveFloat32 = new Float32Array(aCurve);
-        this.instancedGeometry.setAttribute("aCurve", new three__WEBPACK_IMPORTED_MODULE_3__["InstancedBufferAttribute"](aCurveFloat32, 4, false));
-        var f32 = new Float32Array(aColor);
-        this.instancedGeometry.setAttribute("aColor", new three__WEBPACK_IMPORTED_MODULE_3__["InstancedBufferAttribute"](f32, 3, false));
-        // sphere props.
-    };
-    InstancedSpheresComponent.prototype.renderView = function () {
-        this.threeCommon.renderer.render(this.threeCommon.scene, this.threeCommon.camera);
-        window.requestAnimationFrame(this.renderView.bind(this));
-    };
-    InstancedSpheresComponent.ctorParameters = function () { return [
-        { type: src_app_three_services_three_service__WEBPACK_IMPORTED_MODULE_2__["ThreeService"] }
-    ]; };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])("canvasEl", { static: false, read: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"] })
-    ], InstancedSpheresComponent.prototype, "canvasEl", void 0);
-    InstancedSpheresComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: "app-instanced-spheres",
-            template: __webpack_require__(/*! raw-loader!./instanced-spheres.component.html */ "./node_modules/raw-loader/index.js!./src/app/three-optimized/instanced-spheres/instanced-spheres.component.html"),
-            styles: [__webpack_require__(/*! ./instanced-spheres.component.scss */ "./src/app/three-optimized/instanced-spheres/instanced-spheres.component.scss")]
-        })
-    ], InstancedSpheresComponent);
-    return InstancedSpheresComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/three-optimized/optimized-cubes/optimized-cubes.component.scss":
-/*!********************************************************************************!*\
-  !*** ./src/app/three-optimized/optimized-cubes/optimized-cubes.component.scss ***!
-  \********************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3RocmVlLW9wdGltaXplZC9vcHRpbWl6ZWQtY3ViZXMvb3B0aW1pemVkLWN1YmVzLmNvbXBvbmVudC5zY3NzIn0= */"
-
-/***/ }),
-
-/***/ "./src/app/three-optimized/optimized-cubes/optimized-cubes.component.ts":
-/*!******************************************************************************!*\
-  !*** ./src/app/three-optimized/optimized-cubes/optimized-cubes.component.ts ***!
-  \******************************************************************************/
-/*! exports provided: OptimizedCubesComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OptimizedCubesComponent", function() { return OptimizedCubesComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var src_app_three_services_three_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/three/services/three.service */ "./src/app/three/services/three.service.ts");
-/* harmony import */ var three__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! three */ "./node_modules/three/build/three.module.js");
-
-
-
-
-
-
-
-var OptimizedCubesComponent = /** @class */ (function () {
-    function OptimizedCubesComponent(threeService) {
-        this.threeService = threeService;
-        this.mouse = new three__WEBPACK_IMPORTED_MODULE_3__["Vector2"]();
-        this.objectCount = 20;
-        this.raycaster = new three__WEBPACK_IMPORTED_MODULE_3__["Raycaster"]();
-        this.theta = 0;
-        this.radius = 1000;
-    }
-    OptimizedCubesComponent.prototype.resizeEvent = function () {
-        this.threeCommon.camera.aspect =
-            this.canvasEl.nativeElement.offsetWidth /
-                this.canvasEl.nativeElement.offsetHeight;
-        this.threeCommon.camera.updateProjectionMatrix();
-        this.threeCommon.renderer.setSize(this.canvasEl.nativeElement.offsetWidth, this.canvasEl.nativeElement.offsetHeight);
-    };
-    OptimizedCubesComponent.prototype.ngOnInit = function () {
-        this.loadGeometry();
-    };
-    OptimizedCubesComponent.prototype.loadGeometry = function () {
-        var _this = this;
-        var loader = new three__WEBPACK_IMPORTED_MODULE_3__["BufferGeometryLoader"]();
-        loader.load("assets/custom/geometry2.json", function (geometry) {
-            _this.geometry = geometry;
-            // this.drawByMesh();
-            _this.drawByInstancing();
-            _this.renderView();
-        });
-    };
-    OptimizedCubesComponent.prototype.ngAfterViewInit = function () {
-        this.setUpStats();
-        this.threeCommon = this.threeService.getThreeCommon(this.canvasEl.nativeElement);
-        this.threeCommon.camera.position.z = 10;
-        this.threeCommon.camera.aspect =
-            this.canvasEl.nativeElement.offsetWidth /
-                this.canvasEl.nativeElement.offsetHeight;
-        this.threeCommon.renderer.setPixelRatio(window.devicePixelRatio);
-        this.threeCommon.camera.updateProjectionMatrix();
-        this.drawByMesh();
-    };
-    OptimizedCubesComponent.prototype.drawByMesh = function () {
-        var mesh = new three__WEBPACK_IMPORTED_MODULE_3__["Mesh"](this.geometry, new three__WEBPACK_IMPORTED_MODULE_3__["MeshNormalMaterial"]({}));
-        mesh.position.set(15, 0, 0);
-        this.threeCommon.scene.add(mesh);
-    };
-    OptimizedCubesComponent.prototype.drawByInstancing = function () {
-        var material = new three__WEBPACK_IMPORTED_MODULE_3__["MeshNormalMaterial"]();
-        this.instancedMesh = new three__WEBPACK_IMPORTED_MODULE_3__["InstancedMesh"](this.geometry, material, this.objectCount);
-        this.instancedMesh.instanceMatrix.setUsage(three__WEBPACK_IMPORTED_MODULE_3__["DynamicDrawUsage"]);
-        this.threeCommon.scene.add(this.instancedMesh);
-    };
-    OptimizedCubesComponent.prototype.mouseMoveHandler = function (event) {
-        event.preventDefault();
-        this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-        this.mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-    };
-    OptimizedCubesComponent.prototype.setUpStats = function () {
-        // this.stats = new Stats();
-        // this.stats.showPanel(1); // 0: fps, 1: ms, 2: mb, 3+: custom
-        // document.body.appendChild(this.stats.dom);
-        // this.stats.domElement.style.position = 'absolute';
-        // this.stats.domElement.style.left = '0px';
-        // this.stats.domElement.style.top = '0px';
-    };
-    OptimizedCubesComponent.prototype.renderView = function () {
-        var time = Date.now() * 0.001;
-        this.instancedMesh.rotation.x = Math.sin(time / 4);
-        this.instancedMesh.rotation.y = Math.sin(time / 2);
-        var i = 0;
-        var offset = (this.objectCount - 1) / 2;
-        var dummy = new three__WEBPACK_IMPORTED_MODULE_3__["Object3D"]();
-        for (var x = 0; x < this.objectCount; x++) {
-            for (var y = 0; y < this.objectCount; y++) {
-                for (var z = 0; z < this.objectCount; z++) {
-                    dummy.position.set(offset - x, offset - y, offset - z);
-                    dummy.rotation.y =
-                        Math.sin(x / 4 + time) +
-                            Math.sin(y / 4 + time) +
-                            Math.sin(z / 4 + time);
-                    dummy.rotation.z = dummy.rotation.y * 2;
-                    dummy.updateMatrix();
-                    this.instancedMesh.setMatrixAt(i++, dummy.matrix);
-                }
-            }
-        }
-        this.instancedMesh.instanceMatrix.needsUpdate = true;
-        this.threeCommon.renderer.render(this.threeCommon.scene, this.threeCommon.camera);
-        window.requestAnimationFrame(this.renderView.bind(this));
-    };
-    OptimizedCubesComponent.ctorParameters = function () { return [
-        { type: src_app_three_services_three_service__WEBPACK_IMPORTED_MODULE_2__["ThreeService"] }
-    ]; };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])("resize")
-    ], OptimizedCubesComponent.prototype, "resizeEvent", null);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])("canvasEl", { static: false, read: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"] })
-    ], OptimizedCubesComponent.prototype, "canvasEl", void 0);
-    OptimizedCubesComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: "app-optimized-cubes",
-            template: __webpack_require__(/*! raw-loader!./optimized-cubes.component.html */ "./node_modules/raw-loader/index.js!./src/app/three-optimized/optimized-cubes/optimized-cubes.component.html"),
-            styles: [__webpack_require__(/*! ./optimized-cubes.component.scss */ "./src/app/three-optimized/optimized-cubes/optimized-cubes.component.scss")]
-        })
-    ], OptimizedCubesComponent);
-    return OptimizedCubesComponent;
-}());
-
-
-
-/***/ }),
-
 /***/ "./src/app/three-optimized/three-optimized-routing.module.ts":
 /*!*******************************************************************!*\
   !*** ./src/app/three-optimized/three-optimized-routing.module.ts ***!
@@ -3310,15 +4355,45 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _components_three_optimized_three_optimized_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/three-optimized/three-optimized.component */ "./src/app/three-optimized/components/three-optimized/three-optimized.component.ts");
+/* harmony import */ var _common_enums_three_optimized_routes_enum__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../common/enums/three-optimized-routes.enum */ "./src/app/common/enums/three-optimized-routes.enum.ts");
+/* harmony import */ var _components_instance_optimized_instance_optimized_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/instance-optimized/instance-optimized.component */ "./src/app/three-optimized/components/instance-optimized/instance-optimized.component.ts");
+/* harmony import */ var _components_instanced_layout_instanced_layout_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/instanced-layout/instanced-layout.component */ "./src/app/three-optimized/components/instanced-layout/instanced-layout.component.ts");
+/* harmony import */ var _components_instanced_spheres_instanced_spheres_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/instanced-spheres/instanced-spheres.component */ "./src/app/three-optimized/components/instanced-spheres/instanced-spheres.component.ts");
+/* harmony import */ var _components_optimized_cubes_optimized_cubes_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/optimized-cubes/optimized-cubes.component */ "./src/app/three-optimized/components/optimized-cubes/optimized-cubes.component.ts");
+/* harmony import */ var _components_unoptimized_cubes_unoptimized_cubes_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/unoptimized-cubes/unoptimized-cubes.component */ "./src/app/three-optimized/components/unoptimized-cubes/unoptimized-cubes.component.ts");
+
+
+
+
+
 
 
 
 
 var routes = [
     {
-        path: '',
-        component: _components_three_optimized_three_optimized_component__WEBPACK_IMPORTED_MODULE_3__["ThreeOptimizedComponent"]
+        path: "" + _common_enums_three_optimized_routes_enum__WEBPACK_IMPORTED_MODULE_3__["ThreeOptimizedRoutes"].instancingRaycast,
+        component: _components_instance_optimized_instance_optimized_component__WEBPACK_IMPORTED_MODULE_4__["InstanceOptimizedComponent"],
+    },
+    {
+        path: "" + _common_enums_three_optimized_routes_enum__WEBPACK_IMPORTED_MODULE_3__["ThreeOptimizedRoutes"].instancingBasic,
+        component: _components_optimized_cubes_optimized_cubes_component__WEBPACK_IMPORTED_MODULE_7__["OptimizedCubesComponent"],
+    },
+    {
+        path: "" + _common_enums_three_optimized_routes_enum__WEBPACK_IMPORTED_MODULE_3__["ThreeOptimizedRoutes"].webglShaders,
+        component: _components_instanced_spheres_instanced_spheres_component__WEBPACK_IMPORTED_MODULE_6__["InstancedSpheresComponent"],
+    },
+    {
+        path: "" + _common_enums_three_optimized_routes_enum__WEBPACK_IMPORTED_MODULE_3__["ThreeOptimizedRoutes"].unoptimizedCubes,
+        component: _components_unoptimized_cubes_unoptimized_cubes_component__WEBPACK_IMPORTED_MODULE_8__["UnoptimizedCubesComponent"],
+    },
+    {
+        path: "" + _common_enums_three_optimized_routes_enum__WEBPACK_IMPORTED_MODULE_3__["ThreeOptimizedRoutes"].instancingLayout,
+        component: _components_instanced_layout_instanced_layout_component__WEBPACK_IMPORTED_MODULE_5__["InstancedLayoutComponent"],
+    },
+    {
+        path: "",
+        redirectTo: "" + _common_enums_three_optimized_routes_enum__WEBPACK_IMPORTED_MODULE_3__["ThreeOptimizedRoutes"].instancingRaycast,
     }
 ];
 var ThreeOptimizedRoutingModule = /** @class */ (function () {
@@ -3327,7 +4402,7 @@ var ThreeOptimizedRoutingModule = /** @class */ (function () {
     ThreeOptimizedRoutingModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
             imports: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"].forChild(routes)],
-            exports: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"]]
+            exports: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"]],
         })
     ], ThreeOptimizedRoutingModule);
     return ThreeOptimizedRoutingModule;
@@ -3351,11 +4426,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
 /* harmony import */ var _three_optimized_routing_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./three-optimized-routing.module */ "./src/app/three-optimized/three-optimized-routing.module.ts");
-/* harmony import */ var _components_three_optimized_three_optimized_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/three-optimized/three-optimized.component */ "./src/app/three-optimized/components/three-optimized/three-optimized.component.ts");
-/* harmony import */ var _components_unoptimized_cubes_unoptimized_cubes_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/unoptimized-cubes/unoptimized-cubes.component */ "./src/app/three-optimized/components/unoptimized-cubes/unoptimized-cubes.component.ts");
-/* harmony import */ var _optimized_cubes_optimized_cubes_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./optimized-cubes/optimized-cubes.component */ "./src/app/three-optimized/optimized-cubes/optimized-cubes.component.ts");
-/* harmony import */ var _instanced_spheres_instanced_spheres_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./instanced-spheres/instanced-spheres.component */ "./src/app/three-optimized/instanced-spheres/instanced-spheres.component.ts");
-/* harmony import */ var _instance_optimized_instance_optimized_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./instance-optimized/instance-optimized.component */ "./src/app/three-optimized/instance-optimized/instance-optimized.component.ts");
+/* harmony import */ var _components_unoptimized_cubes_unoptimized_cubes_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/unoptimized-cubes/unoptimized-cubes.component */ "./src/app/three-optimized/components/unoptimized-cubes/unoptimized-cubes.component.ts");
+/* harmony import */ var _components_instanced_layout_instanced_layout_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/instanced-layout/instanced-layout.component */ "./src/app/three-optimized/components/instanced-layout/instanced-layout.component.ts");
+/* harmony import */ var _components_instance_optimized_instance_optimized_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/instance-optimized/instance-optimized.component */ "./src/app/three-optimized/components/instance-optimized/instance-optimized.component.ts");
+/* harmony import */ var _components_instanced_spheres_instanced_spheres_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/instanced-spheres/instanced-spheres.component */ "./src/app/three-optimized/components/instanced-spheres/instanced-spheres.component.ts");
+/* harmony import */ var _components_optimized_cubes_optimized_cubes_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/optimized-cubes/optimized-cubes.component */ "./src/app/three-optimized/components/optimized-cubes/optimized-cubes.component.ts");
 
 
 
@@ -3370,7 +4445,13 @@ var ThreeOptimizedModule = /** @class */ (function () {
     }
     ThreeOptimizedModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-            declarations: [_components_three_optimized_three_optimized_component__WEBPACK_IMPORTED_MODULE_4__["ThreeOptimizedComponent"], _components_unoptimized_cubes_unoptimized_cubes_component__WEBPACK_IMPORTED_MODULE_5__["UnoptimizedCubesComponent"], _optimized_cubes_optimized_cubes_component__WEBPACK_IMPORTED_MODULE_6__["OptimizedCubesComponent"], _instanced_spheres_instanced_spheres_component__WEBPACK_IMPORTED_MODULE_7__["InstancedSpheresComponent"], _instance_optimized_instance_optimized_component__WEBPACK_IMPORTED_MODULE_8__["InstanceOptimizedComponent"]],
+            declarations: [
+                _components_unoptimized_cubes_unoptimized_cubes_component__WEBPACK_IMPORTED_MODULE_4__["UnoptimizedCubesComponent"],
+                _components_optimized_cubes_optimized_cubes_component__WEBPACK_IMPORTED_MODULE_8__["OptimizedCubesComponent"],
+                _components_instanced_spheres_instanced_spheres_component__WEBPACK_IMPORTED_MODULE_7__["InstancedSpheresComponent"],
+                _components_instance_optimized_instance_optimized_component__WEBPACK_IMPORTED_MODULE_6__["InstanceOptimizedComponent"],
+                _components_instanced_layout_instanced_layout_component__WEBPACK_IMPORTED_MODULE_5__["InstancedLayoutComponent"],
+            ],
             imports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"], _three_optimized_routing_module__WEBPACK_IMPORTED_MODULE_3__["ThreeOptimizedRoutingModule"]],
         })
     ], ThreeOptimizedModule);

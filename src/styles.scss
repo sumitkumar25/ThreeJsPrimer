@@ -2,20 +2,39 @@
 @import "@angular/material/prebuilt-themes/indigo-pink.css";
 html,
 body {
-    height: 100%;
+  height: 100%;
 }
 body {
-    margin: 0;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
-    background-image: linear-gradient(180deg, #ffffff 0%, #f3f3f3 75%, #c2c7de 100%);
-    height: 100%;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-image: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #f3f3f3 75%,
+    #c2c7de 100%
+  );
+  height: 100%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  box-sizing: border-box;
 }
 
 //common.
-.visualization--canvas,canvas {
-    display: block;
-    margin: 0 auto;
-    border:solid 1px #c2c7de;
+.visualization--canvas,
+canvas {
+  display: block;
+  margin: 0 auto;
+  border: solid 1px #c2c7de;
+}
+
+.app--margin__vertical {
+  margin: 15px 0;
+}
+.object-range input {
+  display: inline-block;
+  width: 100%;
+}
+.stats {
+  color: green;
+  font-weight: bold;
 }

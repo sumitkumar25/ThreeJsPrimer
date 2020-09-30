@@ -2,44 +2,19 @@
 
 <mat-toolbar color="primary">
   <header>
-    <h1>
-      JavaScript Visualization
-    </h1>
+    <h1>JavaScript Visualization</h1>
   </header>
 </mat-toolbar>
 <main>
-  <nav>
-    <a [routerLink]="['/three-optimized']" [routerLinkActive]="['selected']">
-      Three Instancing
-    </a>
-    <a [routerLink]="['/three']" [routerLinkActive]="['selected']">
-      Three Js
-    </a>
-    <a [routerLink]="['/3dforce']" [routerLinkActive]="['selected']">
-      3D Force Graph
-    </a>
-    <!-- <a [routerLink]=" ['/pixi']" [routerLinkActive]="['selected']">
-      Pixi
-    </a> -->
-    <a [routerLink]="['/us-regions']" [routerLinkActive]="['selected']">
-      US Regions on Globe
-    </a>
-    <a [routerLink]="['/d3']" [routerLinkActive]="['selected']">
-      Canvas
-    </a>
-  </nav>
-  <section>
-    <router-outlet></router-outlet>
-  </section>
+  <app-menu-primary></app-menu-primary>
+  <div class="overflow-container">
+    <section class="main-flex">
+      <div class="sub-nav">
+        <app-menu-secondary></app-menu-secondary>
+      </div>
+      <div class="router-container">
+        <router-outlet></router-outlet>
+      </div>
+    </section>
+  </div>
 </main>
-<!-- <app-menu></app-menu> -->
-
-<!-- <section class=" ThreeJsElem one" #threeJsElemOne>
-
-      </section>
-      <section>
-        <app-three-globe></app-three-globe>
-      </section>
-      <section>
-        <app-three-globe3d></app-three-globe3d>
-      </section> -->

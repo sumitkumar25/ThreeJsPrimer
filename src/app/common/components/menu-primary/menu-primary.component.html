@@ -1,0 +1,22 @@
+<nav>
+  <a
+    [routerLink]="['/' + MAIN_ROUTES_DOM_REF.base3d]"
+    [routerLinkActive]="['selected']"
+  >
+    Base 3D
+  </a>
+  <a
+    [routerLink]="['/' + MAIN_ROUTES_DOM_REF.three - optimized]"
+    [routerLinkActive]="['selected']"
+  >
+    Three Instancing
+  </a>
+  <a [routerLink]="['/three']" [routerLinkActive]="['selected']"> Three Js </a>
+  <a [routerLink]="['/3dforce']" [routerLinkActive]="['selected']">
+    3D Force Graph
+  </a>
+  <a [routerLink]="['/us-regions']" [routerLinkActive]="['selected']">
+    US Regions on Globe
+  </a>
+  <a [routerLink]="['/d3']" [routerLinkActive]="['selected']"> Canvas </a>
+</nav>

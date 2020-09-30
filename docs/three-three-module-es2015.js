@@ -6291,7 +6291,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_three_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../services/three.service */ "./src/app/three/services/three.service.ts");
 /* harmony import */ var three__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! three */ "./node_modules/three/build/three.module.js");
 /* harmony import */ var three_examples_jsm_controls_OrbitControls__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! three/examples/jsm/controls/OrbitControls */ "./node_modules/three/examples/jsm/controls/OrbitControls.js");
-/* harmony import */ var src_app_common_colors_enum__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/common/colors.enum */ "./src/app/common/colors.enum.ts");
+/* harmony import */ var src_app_common_enums_colors_enum__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/common/enums/colors.enum */ "./src/app/common/enums/colors.enum.ts");
 
 
 
@@ -6327,11 +6327,11 @@ let ConnectedNodesComponent = class ConnectedNodesComponent {
     }
     constructNodes() {
         const geometry = new three__WEBPACK_IMPORTED_MODULE_3__["SphereBufferGeometry"]();
-        const material = new three__WEBPACK_IMPORTED_MODULE_3__["MeshPhongMaterial"]({ color: src_app_common_colors_enum__WEBPACK_IMPORTED_MODULE_5__["Colors"].green });
+        const material = new three__WEBPACK_IMPORTED_MODULE_3__["MeshPhongMaterial"]({ color: src_app_common_enums_colors_enum__WEBPACK_IMPORTED_MODULE_5__["Colors"].green });
         const node = new three__WEBPACK_IMPORTED_MODULE_3__["Mesh"](geometry, material);
         this.threeCommon.scene.add(node);
         const geometry2 = new three__WEBPACK_IMPORTED_MODULE_3__["SphereBufferGeometry"]();
-        const material2 = new three__WEBPACK_IMPORTED_MODULE_3__["MeshPhongMaterial"]({ color: src_app_common_colors_enum__WEBPACK_IMPORTED_MODULE_5__["Colors"].yellow });
+        const material2 = new three__WEBPACK_IMPORTED_MODULE_3__["MeshPhongMaterial"]({ color: src_app_common_enums_colors_enum__WEBPACK_IMPORTED_MODULE_5__["Colors"].yellow });
         const node2 = new three__WEBPACK_IMPORTED_MODULE_3__["Mesh"](geometry2, material2);
         node2.position.x = 2;
         node.position.x = -2;
@@ -6340,7 +6340,7 @@ let ConnectedNodesComponent = class ConnectedNodesComponent {
         this.threeCommon.camera.position.z = 5;
     }
     constructConnections() {
-        const material = new three__WEBPACK_IMPORTED_MODULE_3__["LineBasicMaterial"]({ color: src_app_common_colors_enum__WEBPACK_IMPORTED_MODULE_5__["Colors"].red });
+        const material = new three__WEBPACK_IMPORTED_MODULE_3__["LineBasicMaterial"]({ color: src_app_common_enums_colors_enum__WEBPACK_IMPORTED_MODULE_5__["Colors"].red });
         var points = [];
         points.push(new three__WEBPACK_IMPORTED_MODULE_3__["Vector3"](-1, 0, 0));
         points.push(new three__WEBPACK_IMPORTED_MODULE_3__["Vector3"](1, 0, 0));

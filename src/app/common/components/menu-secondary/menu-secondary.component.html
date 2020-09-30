@@ -1,0 +1,51 @@
+<div [ngSwitch]="currentMainRoute">
+  
+  <div *ngSwitchCase="MAIN_ROUTES_DOM_REF.base3d">
+    base 3d Menu
+  </div>
+  <div *ngSwitchCase="MAIN_ROUTES_DOM_REF['three-optimized']">
+    <nav>
+      <a
+        [routerLink]="[
+          MAIN_ROUTES_DOM_REF['three-optimized'],
+          THREE_OPTIMIZED_ROUTES.unoptimizedCubes
+        ]"
+      >
+        Unoptimized cubes
+      </a>
+      <a
+        [routerLink]="[
+          MAIN_ROUTES_DOM_REF['three-optimized'],
+          THREE_OPTIMIZED_ROUTES.webglShaders
+        ]"
+      >
+        WebGl Shaders
+      </a>
+      <a
+        [routerLink]="[
+          MAIN_ROUTES_DOM_REF['three-optimized'],
+          THREE_OPTIMIZED_ROUTES.instancingBasic
+        ]"
+      >
+        Three Instancing
+      </a>
+      <a
+        [routerLink]="[
+          MAIN_ROUTES_DOM_REF['three-optimized'],
+          THREE_OPTIMIZED_ROUTES.instancingRaycast
+        ]"
+      >
+        Instancing Raycast
+      </a>
+      <a
+        [routerLink]="[
+          MAIN_ROUTES_DOM_REF['three-optimized'],
+          THREE_OPTIMIZED_ROUTES.instancingLayout
+        ]"
+      >
+        Instancing Layout
+      </a>
+    </nav>
+  </div>
+  <div *ngSwitchDefault>output2</div>
+</div>
