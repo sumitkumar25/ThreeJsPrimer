@@ -29,6 +29,7 @@ export class GeometryComponent implements OnInit, AfterViewInit {
     this.threeCommon = this.threeService.getThreeCommon(
       this.canvasEl.nativeElement
     );
+    this.threeCommon.camera.position.z = 2;
     this.viewController();
   }
   viewController() {

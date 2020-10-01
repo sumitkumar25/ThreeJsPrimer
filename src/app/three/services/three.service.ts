@@ -40,7 +40,7 @@ export class ThreeService {
   }
 
   configureViewSettings(scene, camera, renderer) {
-    scene.background = new THREE.Color("black");
+    scene.background = new THREE.Color(0xffffff);
     const light = new THREE.AmbientLight(0x404040); // soft white light
     scene.add(light);
     const controls = new OrbitControls(camera, renderer.domElement);
@@ -52,5 +52,19 @@ export class ThreeService {
 
   getRendererCallCount(renderer) {
     return renderer.info.render.calls;
+  }
+
+  cleanScene(threeCommon) {
+    var meshes = [];
+
+    threeCommon.scene.traverse(function (object) {
+      if (object.isMesh) meshes.push(object);
+    });
+    for (var i = 0; i < meshes.length; i++) {
+      var mesh = meshes[i];
+      mesh.material.dispose();
+      mesh.geometry.dispose();
+      threeCommon.scene.remove(mesh);
+    }
   }
 }

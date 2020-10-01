@@ -1,7 +1,89 @@
 <div [ngSwitch]="currentMainRoute">
-  
   <div *ngSwitchCase="MAIN_ROUTES_DOM_REF.base3d">
-    base 3d Menu
+    <nav>
+      <a
+        [routerLink]="[
+          MAIN_ROUTES_DOM_REF.base3d,
+          BASE_3D_ROUTES.customGeometry
+        ]"
+      >
+        Custom Geometry
+      </a>
+    </nav>
+  </div>
+  <div *ngSwitchCase="MAIN_ROUTES_DOM_REF['force-graph']"></div>
+  <div *ngSwitchCase="MAIN_ROUTES_DOM_REF['canvas']"></div>
+  <div *ngSwitchCase="MAIN_ROUTES_DOM_REF['globe-visualization']">
+    <nav>
+      <a
+        [routerLink]="[
+          MAIN_ROUTES_DOM_REF['globe-visualization'],
+          GLOBE_MODULE_ROUTES.globeRaycaster
+        ]"
+      >
+        globe raycaster
+      </a>
+      <a
+        [routerLink]="[
+          MAIN_ROUTES_DOM_REF['globe-visualization'],
+          GLOBE_MODULE_ROUTES.globeGlPackage
+        ]"
+      >
+        globe gl package
+      </a>
+    </nav>
+  </div>
+  <div *ngSwitchCase="MAIN_ROUTES_DOM_REF['three-basics']">
+    <nav>
+      <a
+        [routerLink]="[
+          MAIN_ROUTES_DOM_REF['three-basics'],
+          THREE_MODULE_ROUTES.threeGlobeComponent
+        ]"
+      >
+        three Globe 2D
+      </a>
+      <a
+        [routerLink]="[
+          MAIN_ROUTES_DOM_REF['three-basics'],
+          THREE_MODULE_ROUTES.threeGlobe3dComponent
+        ]"
+      >
+        three Globe 3d
+      </a>
+      <a
+        [routerLink]="[
+          MAIN_ROUTES_DOM_REF['three-basics'],
+          THREE_MODULE_ROUTES.globePackageComponent
+        ]"
+      >
+        globe Package
+      </a>
+      <a
+        [routerLink]="[
+          MAIN_ROUTES_DOM_REF['three-basics'],
+          THREE_MODULE_ROUTES.globeCounteriesComponent
+        ]"
+      >
+        globe Countries
+      </a>
+      <a
+        [routerLink]="[
+          MAIN_ROUTES_DOM_REF['three-basics'],
+          THREE_MODULE_ROUTES.connectedNodesComponent
+        ]"
+      >
+        connected Nodes
+      </a>
+      <a
+        [routerLink]="[
+          MAIN_ROUTES_DOM_REF['three-basics'],
+          THREE_MODULE_ROUTES.objectGroupComponent
+        ]"
+      >
+        object3d /Group
+      </a>
+    </nav>
   </div>
   <div *ngSwitchCase="MAIN_ROUTES_DOM_REF['three-optimized']">
     <nav>

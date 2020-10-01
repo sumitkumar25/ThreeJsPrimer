@@ -1,6 +1,6 @@
 <section>
-    <h3>Canvas Nodes and Connections
-        <button mat-button color="primary" (click)="resetEventHandler($event)">Reset</button>
+    <h3>Canvas Nodes and Connections and click event
+        <button (click)="resetEventHandler()">Reset</button>
     </h3>
     <canvas height="500" width="1000"  class="visualization--canvas" #canvasEl (click)="clickEventHandler($event)"></canvas>
 

@@ -1,15 +1,15 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { VisualizationD3Component } from '../components/visualization-d3/visualization-d3.component';
+import { NgModule } from "@angular/core";
+import { RouterModule, Routes } from "@angular/router";
+import { CanvasConnectedNodesComponent } from "../components/canvas-connected-nodes/canvas-connected-nodes.component";
 
 const routes: Routes = [
   {
-    path: '',
-    component: VisualizationD3Component
-  }
+    path: "",
+    component: CanvasConnectedNodesComponent,
+  },
 ];
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class D3RoutingModule { }
+export class D3RoutingModule {}
