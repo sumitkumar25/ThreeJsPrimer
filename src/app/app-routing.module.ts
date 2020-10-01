@@ -20,10 +20,6 @@ const routes: Routes = [
     loadChildren: () =>
       import("./three/three.module").then((m) => m.ThreeModule),
   },
-  // {
-  //   path: "pixi",
-  //   loadChildren: () => import("./pixi/pixi.module").then((m) => m.PixiModule),
-  // },
   {
     path: `${MainRoutes.canvas}`,
     loadChildren: () => import("./d3/d3.module").then((m) => m.D3Module),

@@ -33,7 +33,7 @@ const routes: Routes = [
     component: ObjectGroupComponent,
   },
   {
-    path: ``,
+    path: "",
     component: ThreeGlobeComponent,
   }
 ];

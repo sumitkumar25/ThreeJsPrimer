@@ -57,10 +57,6 @@ const routes = [
         path: `${_common_enums_main_routes_enum__WEBPACK_IMPORTED_MODULE_1__["MainRoutes"]["three-basics"]}`,
         loadChildren: ɵ2,
     },
-    // {
-    //   path: "pixi",
-    //   loadChildren: () => import("./pixi/pixi.module").then((m) => m.PixiModule),
-    // },
     {
         path: `${_common_enums_main_routes_enum__WEBPACK_IMPORTED_MODULE_1__["MainRoutes"].canvas}`,
         loadChildren: ɵ3,

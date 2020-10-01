@@ -7581,7 +7581,7 @@ const routes = [
         component: _components_object_group_object_group_component__WEBPACK_IMPORTED_MODULE_5__["ObjectGroupComponent"],
     },
     {
-        path: ``,
+        path: "",
         component: _components_three_globe_three_globe_component__WEBPACK_IMPORTED_MODULE_6__["ThreeGlobeComponent"],
     }
 ];
