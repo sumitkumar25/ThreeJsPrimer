@@ -3846,7 +3846,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InstancedLayoutComponent", function() { return InstancedLayoutComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var three__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! three */ "./node_modules/three/build/three.module.js");
-/* harmony import */ var _node_modules_three_examples_jsm_loaders_OBJLoader__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../../../../node_modules/three/examples/jsm/loaders/OBJLoader */ "./node_modules/three/examples/jsm/loaders/OBJLoader.js");
+/* harmony import */ var _node_modules_stats_js_build_stats_min_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/stats.js/build/stats.min.js */ "./node_modules/stats.js/build/stats.min.js");
+/* harmony import */ var _node_modules_stats_js_build_stats_min_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_node_modules_stats_js_build_stats_min_js__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _node_modules_three_examples_jsm_loaders_OBJLoader__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../../../../../node_modules/three/examples/jsm/loaders/OBJLoader */ "./node_modules/three/examples/jsm/loaders/OBJLoader.js");
+
 
 
 
@@ -3861,6 +3864,7 @@ var InstancedLayoutComponent = /** @class */ (function () {
     InstancedLayoutComponent.prototype.ngOnInit = function () { };
     InstancedLayoutComponent.prototype.ngAfterViewInit = function () {
         this.threeCommon = this.threeService.getThreeCommon(this.canvasEl.nativeElement);
+        this.setUpStats();
         this.threeCommon.camera.position.z = 25;
         this.constructLayout();
         this.loadGeometry();
@@ -3876,7 +3880,7 @@ var InstancedLayoutComponent = /** @class */ (function () {
             this.layoutGeometry = new three__WEBPACK_IMPORTED_MODULE_1__["SphereGeometry"](15, 12, 10);
         }
         var material = new three__WEBPACK_IMPORTED_MODULE_1__["MeshBasicMaterial"]({
-            color: "white",
+            color: "red",
             wireframe: true,
         });
         var mesh = new three__WEBPACK_IMPORTED_MODULE_1__["Mesh"](this.layoutGeometry, material);
@@ -3884,7 +3888,7 @@ var InstancedLayoutComponent = /** @class */ (function () {
     };
     InstancedLayoutComponent.prototype.loadGeometry = function () {
         var _this = this;
-        var objLoader = new _node_modules_three_examples_jsm_loaders_OBJLoader__WEBPACK_IMPORTED_MODULE_2__["OBJLoader"]();
+        var objLoader = new _node_modules_three_examples_jsm_loaders_OBJLoader__WEBPACK_IMPORTED_MODULE_3__["OBJLoader"]();
         objLoader
             .loadAsync("assets/node-spheres/sphere.obj")
             .then(function (res) {
@@ -3972,6 +3976,11 @@ var InstancedLayoutComponent = /** @class */ (function () {
                 2 +
                 1;
     };
+    InstancedLayoutComponent.prototype.setUpStats = function () {
+        this.stats = new _node_modules_stats_js_build_stats_min_js__WEBPACK_IMPORTED_MODULE_2__();
+        this.stats.showPanel(1); // 0: fps, 1: ms, 2: mb, 3+: custom
+        document.body.appendChild(this.stats.dom);
+    };
     InstancedLayoutComponent.prototype.renderView = function () {
         if (this.mouse) {
             this.raycaster.setFromCamera(this.mouse, this.threeCommon.camera);
@@ -3989,6 +3998,7 @@ var InstancedLayoutComponent = /** @class */ (function () {
         }
         this.threeCommon.renderer.render(this.threeCommon.scene, this.threeCommon.camera);
         this.threeCommon.controls.update();
+        this.stats.update();
         this.renderCalls = this.threeService.getRendererCallCount(this.threeCommon.renderer);
         window.requestAnimationFrame(this.renderView.bind(this));
     };

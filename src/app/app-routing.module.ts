@@ -9,14 +9,14 @@ const routes: Routes = [
       import("./basic3d/basic3d.module").then((m) => m.Basic3dModule),
   },
   {
-    path: `${MainRoutes["three-optimized"]}`,
+    path: `${MainRoutes.threeOptimized}`,
     loadChildren: () =>
       import("./three-optimized/three-optimized.module").then(
         (m) => m.ThreeOptimizedModule
       ),
   },
   {
-    path: `${MainRoutes["three-basics"]}`,
+    path: `${MainRoutes.threeBasics}`,
     loadChildren: () =>
       import("./three/three.module").then((m) => m.ThreeModule),
   },
@@ -25,14 +25,14 @@ const routes: Routes = [
     loadChildren: () => import("./d3/d3.module").then((m) => m.D3Module),
   },
   {
-    path: `${MainRoutes["globe-visualization"]}`,
+    path: `${MainRoutes.globeVisualization}`,
     loadChildren: () =>
       import("./ct-visualization/ct-visualization.module").then(
         (m) => m.CtVisualizationModule
       ),
   },
   {
-    path: `${MainRoutes["force-graph"]}`,
+    path: `${MainRoutes.forceGraph}`,
     loadChildren: () =>
       import("./three-force/three-force.module").then(
         (m) => m.ThreeForceModule

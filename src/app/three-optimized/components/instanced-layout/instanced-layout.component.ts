@@ -3,19 +3,20 @@ import {
   Component,
   ElementRef,
   OnInit,
-  ViewChild,
+  ViewChild
 } from "@angular/core";
 import { ThreeService } from "src/app/three/services/three.service";
 import * as THREE from "three";
 import {
-  ConeBufferGeometry,
   ConeGeometry,
   IcosahedronGeometry,
-  Matrix4,
-  OctahedronGeometry,
-  SphereGeometry,
+
+
+  SphereGeometry
 } from "three";
+import * as Stats from '../../../../../node_modules/stats.js/build/stats.min.js';
 import { OBJLoader } from "./../../../../../node_modules/three/examples/jsm/loaders/OBJLoader";
+
 
 @Component({
   selector: "app-instanced-layout",
@@ -45,6 +46,7 @@ export class InstancedLayoutComponent implements OnInit, AfterViewInit {
 
   mouse;
   raycaster = new THREE.Raycaster();
+  stats: any;
 
   constructor(private threeService: ThreeService) {}
 
@@ -54,6 +56,7 @@ export class InstancedLayoutComponent implements OnInit, AfterViewInit {
     this.threeCommon = this.threeService.getThreeCommon(
       this.canvasEl.nativeElement
     );
+    this.setUpStats();
     this.threeCommon.camera.position.z = 25;
     this.constructLayout();
     this.loadGeometry();
@@ -68,7 +71,7 @@ export class InstancedLayoutComponent implements OnInit, AfterViewInit {
       this.layoutGeometry = new SphereGeometry(15, 12, 10);
     }
     const material = new THREE.MeshBasicMaterial({
-      color: "white",
+      color: "red",
       wireframe: true,
     });
     const mesh = new THREE.Mesh(this.layoutGeometry, material);
@@ -187,6 +190,12 @@ export class InstancedLayoutComponent implements OnInit, AfterViewInit {
       1;
   }
 
+  setUpStats() {
+    this.stats = new Stats();
+    this.stats.showPanel(1); // 0: fps, 1: ms, 2: mb, 3+: custom
+    document.body.appendChild(this.stats.dom);
+  }
+
   renderView() {
     if (this.mouse) {
       this.raycaster.setFromCamera(this.mouse, this.threeCommon.camera);
@@ -209,6 +218,7 @@ export class InstancedLayoutComponent implements OnInit, AfterViewInit {
       this.threeCommon.camera
     );
     this.threeCommon.controls.update();
+    this.stats.update();
     this.renderCalls = this.threeService.getRendererCallCount(
       this.threeCommon.renderer
     );
