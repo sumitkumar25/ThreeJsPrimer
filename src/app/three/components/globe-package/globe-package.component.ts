@@ -73,4 +73,12 @@ export class GlobePackageComponent implements OnInit, AfterViewInit {
     this.renderer.render(this.scene, this.camera)
     window.requestAnimationFrame(this.renderView.bind(this));
   }
+
+  ngOnDestroy(): void {
+    this.threeService.cleanScene({
+      scene: this.scene,
+      camera: this.camera,
+      renderer: this.renderer,
+    });
+  }
 }

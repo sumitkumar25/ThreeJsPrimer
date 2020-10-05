@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
 import { ThreeService } from '../../services/three.service';
 import * as THREE from 'three';
 import { SphereBufferGeometry, Object3D, Group } from 'three';
@@ -10,7 +10,7 @@ import { DragControls } from 'three/examples/jsm/controls/DragControls';
   templateUrl: './object-group.component.html',
   styleUrls: ['./object-group.component.scss']
 })
-export class ObjectGroupComponent implements OnInit, AfterViewInit {
+export class ObjectGroupComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('canvasEl', { static: false }) canvasEl: ElementRef;
 
   threeCommon: { scene: any, renderer: any, camera: any, controls: any };
@@ -152,6 +152,10 @@ export class ObjectGroupComponent implements OnInit, AfterViewInit {
   renderView() {
     this.threeCommon.renderer.render(this.threeCommon.scene, this.threeCommon.camera);
     window.requestAnimationFrame(this.renderView.bind(this));
+  }
+
+  ngOnDestroy(){
+    this.threeService.cleanScene(this.threeCommon)
   }
 
 }
