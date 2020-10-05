@@ -1,4 +1,10 @@
-import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
 import { ThreeService } from "src/app/three/services/three.service";
 import * as THREE from "three";
 import * as Stats from "../../../../../node_modules/stats.js/build/stats.min.js";
@@ -8,7 +14,7 @@ import * as Stats from "../../../../../node_modules/stats.js/build/stats.min.js"
   templateUrl: "./instance-optimized.component.html",
   styleUrls: ["./instance-optimized.component.scss"],
 })
-export class InstanceOptimizedComponent implements OnInit {
+export class InstanceOptimizedComponent implements OnInit, OnDestroy {
   mouse;
   stats: any;
   geometry: THREE.InstancedBufferGeometry | THREE.BufferGeometry;
@@ -165,5 +171,8 @@ export class InstanceOptimizedComponent implements OnInit {
       ) *
         2 +
       1;
+  }
+  ngOnDestroy(): void {
+    this.threeService.cleanScene(this.threeCommon);
   }
 }

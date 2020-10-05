@@ -2,6 +2,7 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  OnDestroy,
   OnInit,
   ViewChild,
 } from "@angular/core";
@@ -14,7 +15,8 @@ import * as random from "random";
   templateUrl: "./instanced-spheres.component.html",
   styleUrls: ["./instanced-spheres.component.scss"],
 })
-export class InstancedSpheresComponent implements OnInit, AfterViewInit {
+export class InstancedSpheresComponent
+  implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild("canvasEl", { static: false, read: ElementRef })
   canvasEl: ElementRef;
 
@@ -48,8 +50,8 @@ export class InstancedSpheresComponent implements OnInit, AfterViewInit {
       vertexShader: this.vertexShader,
       fragmentShader: this.fragmentShader,
       uniforms: {
-        uTime: new THREE.Uniform(0)
-      }
+        uTime: new THREE.Uniform(0),
+      },
     });
     let mesh = new THREE.Mesh(this.instancedGeometry, material);
     this.threeCommon.scene.add(mesh);
@@ -100,7 +102,11 @@ export class InstancedSpheresComponent implements OnInit, AfterViewInit {
   }
   configureInstanceAttributes() {
     let aColor = [];
-    let colors = [new THREE.Color("#ff3030"), new THREE.Color("#0000ff"),new THREE.Color("#00ff99")];
+    let colors = [
+      new THREE.Color("#ff3030"),
+      new THREE.Color("#0000ff"),
+      new THREE.Color("#00ff99"),
+    ];
     let aCurve = [];
 
     for (let i = 0; i < this.instanceCount; i++) {
@@ -133,6 +139,9 @@ export class InstancedSpheresComponent implements OnInit, AfterViewInit {
       this.threeCommon.scene,
       this.threeCommon.camera
     );
-    window.requestAnimationFrame(this.renderView.bind(this))
+    window.requestAnimationFrame(this.renderView.bind(this));
+  }
+  ngOnDestroy(): void {
+    this.threeService.cleanScene(this.threeCommon);
   }
 }
