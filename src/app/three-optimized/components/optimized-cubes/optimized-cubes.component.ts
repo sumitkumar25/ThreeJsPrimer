@@ -1,4 +1,12 @@
-import { Component, ElementRef, HostListener, OnInit, ViewChild } from "@angular/core";
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  HostListener,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
 import { ThreeService } from "src/app/three/services/three.service";
 import * as THREE from "three";
 import { MeshNormalMaterial, Object3D } from "three";
@@ -8,7 +16,8 @@ import { MeshNormalMaterial, Object3D } from "three";
   templateUrl: "./optimized-cubes.component.html",
   styleUrls: ["./optimized-cubes.component.scss"],
 })
-export class OptimizedCubesComponent implements OnInit {
+export class OptimizedCubesComponent
+  implements OnInit, AfterViewInit, OnDestroy {
   mouse = new THREE.Vector2();
   stats: any;
   geometry: THREE.InstancedBufferGeometry | THREE.BufferGeometry;
@@ -111,7 +120,7 @@ export class OptimizedCubesComponent implements OnInit {
     for (var x = 0; x < this.objectCount; x++) {
       for (var y = 0; y < this.objectCount; y++) {
         for (var z = 0; z < this.objectCount; z++) {
-          dummy.position.set(offset - x , offset - y, offset - z);
+          dummy.position.set(offset - x, offset - y, offset - z);
           dummy.rotation.y =
             Math.sin(x / 4 + time) +
             Math.sin(y / 4 + time) +
@@ -128,5 +137,8 @@ export class OptimizedCubesComponent implements OnInit {
       this.threeCommon.camera
     );
     window.requestAnimationFrame(this.renderView.bind(this));
+  }
+  ngOnDestroy(): void {
+    this.threeService.cleanScene(this.threeCommon);
   }
 }

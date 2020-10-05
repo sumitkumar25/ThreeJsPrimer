@@ -8,7 +8,7 @@ import * as TrackballControls from 'three-trackballcontrols';
   templateUrl: './globe-counteries.component.html',
   styleUrls: ['./globe-counteries.component.scss']
 })
-export class GlobeCounteriesComponent implements OnInit {
+export class GlobeCounteriesComponent implements OnInit, OnInit {
   @ViewChild('canvasEl', { static: false, read: ElementRef }) canvasEl: ElementRef;
 
   scene;
@@ -79,6 +79,14 @@ export class GlobeCounteriesComponent implements OnInit {
     this.tbControls.update();
     this.renderer.render(this.scene, this.camera)
     window.requestAnimationFrame(this.renderView.bind(this));
+  }
+
+  ngOnDestroy(){
+    this.threeService.cleanScene({
+      scene: this.scene,
+      camera: this.camera,
+      renderer: this.renderer,
+    });
   }
 }
 

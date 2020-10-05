@@ -2,28 +2,23 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  OnDestroy,
   OnInit,
-  ViewChild
+  ViewChild,
 } from "@angular/core";
 import { ThreeService } from "src/app/three/services/three.service";
 import * as THREE from "three";
-import {
-  ConeGeometry,
-  IcosahedronGeometry,
-
-
-  SphereGeometry
-} from "three";
-import * as Stats from '../../../../../node_modules/stats.js/build/stats.min.js';
+import { ConeGeometry, IcosahedronGeometry, SphereGeometry } from "three";
+import * as Stats from "../../../../../node_modules/stats.js/build/stats.min.js";
 import { OBJLoader } from "./../../../../../node_modules/three/examples/jsm/loaders/OBJLoader";
-
 
 @Component({
   selector: "app-instanced-layout",
   templateUrl: "./instanced-layout.component.html",
   styleUrls: ["./instanced-layout.component.scss"],
 })
-export class InstancedLayoutComponent implements OnInit, AfterViewInit {
+export class InstancedLayoutComponent
+  implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild("canvasEl", { static: false, read: ElementRef })
   canvasEl: ElementRef;
 
@@ -67,7 +62,6 @@ export class InstancedLayoutComponent implements OnInit, AfterViewInit {
     } else if (this.objectCount <= 12) {
       this.layoutGeometry = new IcosahedronGeometry(10, 0);
     } else {
-      
       this.layoutGeometry = new SphereGeometry(15, 12, 10);
     }
     const material = new THREE.MeshBasicMaterial({
@@ -223,5 +217,9 @@ export class InstancedLayoutComponent implements OnInit, AfterViewInit {
       this.threeCommon.renderer
     );
     window.requestAnimationFrame(this.renderView.bind(this));
+  }
+
+  ngOnDestroy(): void {
+    this.threeService.cleanScene(this.threeCommon);
   }
 }

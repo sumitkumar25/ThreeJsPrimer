@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
 import { ThreeService } from '../../services/three.service';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
@@ -9,7 +9,7 @@ import { Colors } from 'src/app/common/enums/colors.enum';
   templateUrl: './connected-nodes.component.html',
   styleUrls: ['./connected-nodes.component.scss']
 })
-export class ConnectedNodesComponent implements OnInit, AfterViewInit {
+export class ConnectedNodesComponent implements OnInit, AfterViewInit, OnDestroy {
   threeCommon
   @ViewChild('canvasEl', { static: false }) canvasEl: ElementRef;
 
@@ -111,5 +111,7 @@ export class ConnectedNodesComponent implements OnInit, AfterViewInit {
     this.renderView();
   }
 
-
+  ngOnDestroy(){
+    this.threeService.cleanScene(this.threeCommon);
+  }
 }
