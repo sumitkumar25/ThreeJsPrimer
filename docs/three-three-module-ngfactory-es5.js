@@ -7706,7 +7706,7 @@ function View_ConnectedNodesComponent_0(_l) { return _angular_core__WEBPACK_IMPO
         var pd_0 = (_co.clickEventHandler($event) !== false);
         ad = (pd_0 && ad);
     } return ad; }, null, null))], function (_ck, _v) { var currVal_2 = "primary"; _ck(_v, 5, 0, currVal_2); }, function (_ck, _v) { var currVal_0 = (_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵnov"](_v, 5).disabled || null); var currVal_1 = (_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵnov"](_v, 5)._animationMode === "NoopAnimations"); _ck(_v, 4, 0, currVal_0, currVal_1); }); }
-function View_ConnectedNodesComponent_Host_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](0, 0, null, null, 1, "app-connected-nodes", [], null, null, null, View_ConnectedNodesComponent_0, RenderType_ConnectedNodesComponent)), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](1, 4308992, null, 0, _connected_nodes_component__WEBPACK_IMPORTED_MODULE_6__["ConnectedNodesComponent"], [_services_three_service__WEBPACK_IMPORTED_MODULE_7__["ThreeService"]], null, null)], function (_ck, _v) { _ck(_v, 1, 0); }, null); }
+function View_ConnectedNodesComponent_Host_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](0, 0, null, null, 1, "app-connected-nodes", [], null, null, null, View_ConnectedNodesComponent_0, RenderType_ConnectedNodesComponent)), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](1, 4440064, null, 0, _connected_nodes_component__WEBPACK_IMPORTED_MODULE_6__["ConnectedNodesComponent"], [_services_three_service__WEBPACK_IMPORTED_MODULE_7__["ThreeService"]], null, null)], function (_ck, _v) { _ck(_v, 1, 0); }, null); }
 var ConnectedNodesComponentNgFactory = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵccf"]("app-connected-nodes", _connected_nodes_component__WEBPACK_IMPORTED_MODULE_6__["ConnectedNodesComponent"], View_ConnectedNodesComponent_Host_0, {}, {}, []);
 
 
@@ -7838,6 +7838,9 @@ var ConnectedNodesComponent = /** @class */ (function () {
         this.initShapes();
         this.renderView();
     };
+    ConnectedNodesComponent.prototype.ngOnDestroy = function () {
+        this.threeService.cleanScene(this.threeCommon);
+    };
     return ConnectedNodesComponent;
 }());
 
@@ -7876,7 +7879,7 @@ var styles_GlobeCounteriesComponent = [_globe_counteries_component_scss_shim_ngs
 var RenderType_GlobeCounteriesComponent = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵcrt"]({ encapsulation: 0, styles: styles_GlobeCounteriesComponent, data: {} });
 
 function View_GlobeCounteriesComponent_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵqud"](671088640, 1, { canvasEl: 0 }), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](1, 0, null, null, 1, "h3", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, ["Globe Points Rendering with size"])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](3, 0, [[1, 0], ["canvasEl", 1]], null, 0, "canvas", [["height", "500"], ["width", "1000"]], null, null, null, null, null))], null, null); }
-function View_GlobeCounteriesComponent_Host_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](0, 0, null, null, 1, "app-globe-counteries", [], null, null, null, View_GlobeCounteriesComponent_0, RenderType_GlobeCounteriesComponent)), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](1, 4308992, null, 0, _globe_counteries_component__WEBPACK_IMPORTED_MODULE_2__["GlobeCounteriesComponent"], [_services_three_service__WEBPACK_IMPORTED_MODULE_3__["ThreeService"]], null, null)], function (_ck, _v) { _ck(_v, 1, 0); }, null); }
+function View_GlobeCounteriesComponent_Host_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](0, 0, null, null, 1, "app-globe-counteries", [], null, null, null, View_GlobeCounteriesComponent_0, RenderType_GlobeCounteriesComponent)), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](1, 4440064, null, 0, _globe_counteries_component__WEBPACK_IMPORTED_MODULE_2__["GlobeCounteriesComponent"], [_services_three_service__WEBPACK_IMPORTED_MODULE_3__["ThreeService"]], null, null)], function (_ck, _v) { _ck(_v, 1, 0); }, null); }
 var GlobeCounteriesComponentNgFactory = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵccf"]("app-globe-counteries", _globe_counteries_component__WEBPACK_IMPORTED_MODULE_2__["GlobeCounteriesComponent"], View_GlobeCounteriesComponent_Host_0, {}, {}, []);
 
 
@@ -7987,6 +7990,13 @@ var GlobeCounteriesComponent = /** @class */ (function () {
         this.renderer.render(this.scene, this.camera);
         window.requestAnimationFrame(this.renderView.bind(this));
     };
+    GlobeCounteriesComponent.prototype.ngOnDestroy = function () {
+        this.threeService.cleanScene({
+            scene: this.scene,
+            camera: this.camera,
+            renderer: this.renderer,
+        });
+    };
     return GlobeCounteriesComponent;
 }());
 
@@ -8025,7 +8035,7 @@ var styles_GlobePackageComponent = [_globe_package_component_scss_shim_ngstyle__
 var RenderType_GlobePackageComponent = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵcrt"]({ encapsulation: 0, styles: styles_GlobePackageComponent, data: {} });
 
 function View_GlobePackageComponent_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵqud"](671088640, 1, { canvasEl: 0 }), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](1, 0, null, null, 1, "h3", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, ["Coordinate Points and labels"])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](3, 0, [[1, 0], ["canvasEl", 1]], null, 0, "canvas", [["height", "500"], ["width", "1000"]], null, null, null, null, null))], null, null); }
-function View_GlobePackageComponent_Host_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](0, 0, null, null, 1, "app-globe-package", [], null, null, null, View_GlobePackageComponent_0, RenderType_GlobePackageComponent)), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](1, 4308992, null, 0, _globe_package_component__WEBPACK_IMPORTED_MODULE_2__["GlobePackageComponent"], [_services_three_service__WEBPACK_IMPORTED_MODULE_3__["ThreeService"]], null, null)], function (_ck, _v) { _ck(_v, 1, 0); }, null); }
+function View_GlobePackageComponent_Host_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](0, 0, null, null, 1, "app-globe-package", [], null, null, null, View_GlobePackageComponent_0, RenderType_GlobePackageComponent)), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](1, 4440064, null, 0, _globe_package_component__WEBPACK_IMPORTED_MODULE_2__["GlobePackageComponent"], [_services_three_service__WEBPACK_IMPORTED_MODULE_3__["ThreeService"]], null, null)], function (_ck, _v) { _ck(_v, 1, 0); }, null); }
 var GlobePackageComponentNgFactory = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵccf"]("app-globe-package", _globe_package_component__WEBPACK_IMPORTED_MODULE_2__["GlobePackageComponent"], View_GlobePackageComponent_Host_0, {}, {}, []);
 
 
@@ -8129,6 +8139,13 @@ var GlobePackageComponent = /** @class */ (function () {
         this.renderer.render(this.scene, this.camera);
         window.requestAnimationFrame(this.renderView.bind(this));
     };
+    GlobePackageComponent.prototype.ngOnDestroy = function () {
+        this.threeService.cleanScene({
+            scene: this.scene,
+            camera: this.camera,
+            renderer: this.renderer,
+        });
+    };
     return GlobePackageComponent;
 }());
 
@@ -8167,7 +8184,7 @@ var styles_ObjectGroupComponent = [_object_group_component_scss_shim_ngstyle__WE
 var RenderType_ObjectGroupComponent = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵcrt"]({ encapsulation: 0, styles: styles_ObjectGroupComponent, data: {} });
 
 function View_ObjectGroupComponent_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵqud"](671088640, 1, { canvasEl: 0 }), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](1, 0, null, null, 1, "h3", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, ["Three Object Groups"])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](3, 0, [[1, 0], ["canvasEl", 1]], null, 0, "canvas", [["class", "visualization--canvas"], ["height", "500"], ["width", "1000"]], null, null, null, null, null))], null, null); }
-function View_ObjectGroupComponent_Host_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](0, 0, null, null, 1, "app-object-group", [], null, null, null, View_ObjectGroupComponent_0, RenderType_ObjectGroupComponent)), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](1, 4308992, null, 0, _object_group_component__WEBPACK_IMPORTED_MODULE_2__["ObjectGroupComponent"], [_services_three_service__WEBPACK_IMPORTED_MODULE_3__["ThreeService"]], null, null)], function (_ck, _v) { _ck(_v, 1, 0); }, null); }
+function View_ObjectGroupComponent_Host_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](0, 0, null, null, 1, "app-object-group", [], null, null, null, View_ObjectGroupComponent_0, RenderType_ObjectGroupComponent)), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](1, 4440064, null, 0, _object_group_component__WEBPACK_IMPORTED_MODULE_2__["ObjectGroupComponent"], [_services_three_service__WEBPACK_IMPORTED_MODULE_3__["ThreeService"]], null, null)], function (_ck, _v) { _ck(_v, 1, 0); }, null); }
 var ObjectGroupComponentNgFactory = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵccf"]("app-object-group", _object_group_component__WEBPACK_IMPORTED_MODULE_2__["ObjectGroupComponent"], View_ObjectGroupComponent_Host_0, {}, {}, []);
 
 
@@ -8339,6 +8356,9 @@ var ObjectGroupComponent = /** @class */ (function () {
     ObjectGroupComponent.prototype.renderView = function () {
         this.threeCommon.renderer.render(this.threeCommon.scene, this.threeCommon.camera);
         window.requestAnimationFrame(this.renderView.bind(this));
+    };
+    ObjectGroupComponent.prototype.ngOnDestroy = function () {
+        this.threeService.cleanScene(this.threeCommon);
     };
     return ObjectGroupComponent;
 }());
@@ -8524,6 +8544,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _three_globe3d_component_scss_shim_ngstyle__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./three-globe3d.component.scss.shim.ngstyle */ "./src/app/three/components/three-globe3d/three-globe3d.component.scss.shim.ngstyle.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _three_globe3d_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./three-globe3d.component */ "./src/app/three/components/three-globe3d/three-globe3d.component.ts");
+/* harmony import */ var _services_three_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../services/three.service */ "./src/app/three/services/three.service.ts");
 /**
  * @fileoverview This file was generated by the Angular template compiler. Do not edit.
  *
@@ -8533,11 +8554,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 var styles_ThreeGlobe3dComponent = [_three_globe3d_component_scss_shim_ngstyle__WEBPACK_IMPORTED_MODULE_0__["styles"]];
 var RenderType_ThreeGlobe3dComponent = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵcrt"]({ encapsulation: 0, styles: styles_ThreeGlobe3dComponent, data: {} });
 
 function View_ThreeGlobe3dComponent_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵqud"](402653184, 1, { canvasEl3d: 0 }), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](1, 0, null, null, 1, "h3", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, ["3D canvas globe rendering - No controls"])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](3, 0, [[1, 0], ["canvasEl3d", 1]], null, 0, "canvas", [["height", "500"], ["width", "1000"]], null, null, null, null, null))], null, null); }
-function View_ThreeGlobe3dComponent_Host_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](0, 0, null, null, 1, "app-three-globe3d", [], null, null, null, View_ThreeGlobe3dComponent_0, RenderType_ThreeGlobe3dComponent)), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](1, 114688, null, 0, _three_globe3d_component__WEBPACK_IMPORTED_MODULE_2__["ThreeGlobe3dComponent"], [], null, null)], function (_ck, _v) { _ck(_v, 1, 0); }, null); }
+function View_ThreeGlobe3dComponent_Host_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](0, 0, null, null, 1, "app-three-globe3d", [], null, null, null, View_ThreeGlobe3dComponent_0, RenderType_ThreeGlobe3dComponent)), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](1, 245760, null, 0, _three_globe3d_component__WEBPACK_IMPORTED_MODULE_2__["ThreeGlobe3dComponent"], [_services_three_service__WEBPACK_IMPORTED_MODULE_3__["ThreeService"]], null, null)], function (_ck, _v) { _ck(_v, 1, 0); }, null); }
 var ThreeGlobe3dComponentNgFactory = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵccf"]("app-three-globe3d", _three_globe3d_component__WEBPACK_IMPORTED_MODULE_2__["ThreeGlobe3dComponent"], View_ThreeGlobe3dComponent_Host_0, {}, {}, []);
 
 
@@ -8586,7 +8608,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var ThreeGlobe3dComponent = /** @class */ (function () {
-    function ThreeGlobe3dComponent() {
+    function ThreeGlobe3dComponent(threeService) {
+        this.threeService = threeService;
     }
     ThreeGlobe3dComponent.prototype.ngOnInit = function () {
         this.init();
@@ -8598,19 +8621,21 @@ var ThreeGlobe3dComponent = /** @class */ (function () {
         var far = 5;
         this.scene = new three__WEBPACK_IMPORTED_MODULE_2__["Scene"]();
         this.camera = new three__WEBPACK_IMPORTED_MODULE_2__["PerspectiveCamera"](fov, aspect, near, far);
-        this.renderer = new three__WEBPACK_IMPORTED_MODULE_2__["WebGL1Renderer"]({ canvas: this.canvasEl3d.nativeElement });
-        // set some defaults    
+        this.renderer = new three__WEBPACK_IMPORTED_MODULE_2__["WebGL1Renderer"]({
+            canvas: this.canvasEl3d.nativeElement,
+        });
+        // set some defaults
         this.camera.position.z = 5;
-        this.scene.background = new three__WEBPACK_IMPORTED_MODULE_2__["Color"]('white');
+        this.scene.background = new three__WEBPACK_IMPORTED_MODULE_2__["Color"]("white");
         this.render();
         //
         var loader = new three__WEBPACK_IMPORTED_MODULE_2__["TextureLoader"]();
-        var texture = loader.load('assets/world.jpg', this.render.bind(this));
+        var texture = loader.load("assets/world.jpg", this.render.bind(this));
         var geometry = new three__WEBPACK_IMPORTED_MODULE_2__["SphereBufferGeometry"](2, 64, 32);
         var material = new three__WEBPACK_IMPORTED_MODULE_2__["MeshBasicMaterial"]({ map: texture });
         this.scene.add(new three__WEBPACK_IMPORTED_MODULE_2__["Mesh"](geometry, material));
         // fetch data
-        this.loadFile('assets/globe-data.asc')
+        this.loadFile("assets/globe-data.asc")
             .then(this.parseData)
             .then(this.addBoxes.bind(this))
             .then(this.render.bind(this));
@@ -8618,7 +8643,7 @@ var ThreeGlobe3dComponent = /** @class */ (function () {
     ThreeGlobe3dComponent.prototype.addBoxes = function (file) {
         var _this = this;
         var min = file.min, max = file.max, data = file.data;
-        var range = (max - min);
+        var range = max - min;
         var color = new three__WEBPACK_IMPORTED_MODULE_2__["Color"]();
         var boxWidth = 1;
         var boxHeight = 1;
@@ -8637,7 +8662,7 @@ var ThreeGlobe3dComponent = /** @class */ (function () {
         var positionHelper = new three__WEBPACK_IMPORTED_MODULE_2__["Object3D"]();
         positionHelper.position.z = 2;
         latHelper.add(positionHelper);
-        var lonFudge = Math.PI * .5;
+        var lonFudge = Math.PI * 0.5;
         var latFudge = Math.PI * -0.135;
         data.forEach(function (row, latIndex) {
             row.forEach(function (value, lonIndex) {
@@ -8653,8 +8678,10 @@ var ThreeGlobe3dComponent = /** @class */ (function () {
                 material.color.setHSL(hue, saturation, lightness);
                 var mesh = new three__WEBPACK_IMPORTED_MODULE_2__["Mesh"](geometry, material);
                 _this.scene.add(mesh);
-                lonHelper.rotation.y = three__WEBPACK_IMPORTED_MODULE_2__["MathUtils"].degToRad(lonIndex + file.xllcorner) + lonFudge;
-                latHelper.rotation.x = three__WEBPACK_IMPORTED_MODULE_2__["MathUtils"].degToRad(latIndex + file.yllcorner) + latFudge;
+                lonHelper.rotation.y =
+                    three__WEBPACK_IMPORTED_MODULE_2__["MathUtils"].degToRad(lonIndex + file.xllcorner) + lonFudge;
+                latHelper.rotation.x =
+                    three__WEBPACK_IMPORTED_MODULE_2__["MathUtils"].degToRad(latIndex + file.yllcorner) + latFudge;
                 // use the world matrix of the position helper to
                 // position this mesh.
                 positionHelper.updateWorldMatrix(true, false);
@@ -8686,7 +8713,7 @@ var ThreeGlobe3dComponent = /** @class */ (function () {
         var max;
         var min;
         // split into lines
-        text.split('\n').forEach(function (line) {
+        text.split("\n").forEach(function (line) {
             // split the line by whitespace
             var parts = line.trim().split(/\s+/);
             if (parts.length === 2) {
@@ -8697,7 +8724,7 @@ var ThreeGlobe3dComponent = /** @class */ (function () {
                 // more than 2 parts, must be data
                 var values = parts.map(function (v) {
                     var value = parseFloat(v);
-                    if (value === settings['NODATA_value']) {
+                    if (value === settings["NODATA_value"]) {
                         return undefined;
                     }
                     max = Math.max(max === undefined ? value : max, value);
@@ -8722,6 +8749,13 @@ var ThreeGlobe3dComponent = /** @class */ (function () {
         tbControls.minDistance = 101;
         tbControls.rotateSpeed = 5;
         tbControls.zoomSpeed = 0.8;
+    };
+    ThreeGlobe3dComponent.prototype.ngOnDestroy = function () {
+        this.threeService.cleanScene({
+            scene: this.scene,
+            camera: this.camera,
+            renderer: this.renderer,
+        });
     };
     return ThreeGlobe3dComponent;
 }());

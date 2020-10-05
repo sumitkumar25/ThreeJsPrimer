@@ -3597,7 +3597,7 @@ function View_InstanceOptimizedComponent_0(_l) { return _angular_core__WEBPACK_I
         var pd_0 = (_co.clickHandler($event) !== false);
         ad = (pd_0 && ad);
     } return ad; }, null, null))], null, function (_ck, _v) { var _co = _v.component; var currVal_0 = _co.renderCalls; _ck(_v, 6, 0, currVal_0); var currVal_1 = _co.objectCount; _ck(_v, 8, 0, currVal_1); var currVal_2 = _co.objectCount; _ck(_v, 10, 0, currVal_2); }); }
-function View_InstanceOptimizedComponent_Host_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](0, 0, null, null, 1, "app-instance-optimized", [], null, null, null, View_InstanceOptimizedComponent_0, RenderType_InstanceOptimizedComponent)), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](1, 4308992, null, 0, _instance_optimized_component__WEBPACK_IMPORTED_MODULE_2__["InstanceOptimizedComponent"], [_three_services_three_service__WEBPACK_IMPORTED_MODULE_3__["ThreeService"]], null, null)], function (_ck, _v) { _ck(_v, 1, 0); }, null); }
+function View_InstanceOptimizedComponent_Host_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](0, 0, null, null, 1, "app-instance-optimized", [], null, null, null, View_InstanceOptimizedComponent_0, RenderType_InstanceOptimizedComponent)), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](1, 4440064, null, 0, _instance_optimized_component__WEBPACK_IMPORTED_MODULE_2__["InstanceOptimizedComponent"], [_three_services_three_service__WEBPACK_IMPORTED_MODULE_3__["ThreeService"]], null, null)], function (_ck, _v) { _ck(_v, 1, 0); }, null); }
 var InstanceOptimizedComponentNgFactory = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵccf"]("app-instance-optimized", _instance_optimized_component__WEBPACK_IMPORTED_MODULE_2__["InstanceOptimizedComponent"], View_InstanceOptimizedComponent_Host_0, {}, {}, []);
 
 
@@ -3760,6 +3760,9 @@ class InstanceOptimizedComponent {
                 2 +
                 1;
     }
+    ngOnDestroy() {
+        this.threeService.cleanScene(this.threeCommon);
+    }
 }
 
 
@@ -3802,7 +3805,7 @@ function View_InstancedLayoutComponent_0(_l) { return _angular_core__WEBPACK_IMP
         var pd_0 = (_co.clickHandler($event) !== false);
         ad = (pd_0 && ad);
     } return ad; }, null, null))], null, function (_ck, _v) { var _co = _v.component; var currVal_0 = _co.renderCalls; _ck(_v, 4, 0, currVal_0); var currVal_1 = _co.objectCount; _ck(_v, 6, 0, currVal_1); var currVal_2 = _co.objectCount; _ck(_v, 8, 0, currVal_2); }); }
-function View_InstancedLayoutComponent_Host_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](0, 0, null, null, 1, "app-instanced-layout", [], null, null, null, View_InstancedLayoutComponent_0, RenderType_InstancedLayoutComponent)), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](1, 4308992, null, 0, _instanced_layout_component__WEBPACK_IMPORTED_MODULE_2__["InstancedLayoutComponent"], [_three_services_three_service__WEBPACK_IMPORTED_MODULE_3__["ThreeService"]], null, null)], function (_ck, _v) { _ck(_v, 1, 0); }, null); }
+function View_InstancedLayoutComponent_Host_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](0, 0, null, null, 1, "app-instanced-layout", [], null, null, null, View_InstancedLayoutComponent_0, RenderType_InstancedLayoutComponent)), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](1, 4440064, null, 0, _instanced_layout_component__WEBPACK_IMPORTED_MODULE_2__["InstancedLayoutComponent"], [_three_services_three_service__WEBPACK_IMPORTED_MODULE_3__["ThreeService"]], null, null)], function (_ck, _v) { _ck(_v, 1, 0); }, null); }
 var InstancedLayoutComponentNgFactory = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵccf"]("app-instanced-layout", _instanced_layout_component__WEBPACK_IMPORTED_MODULE_2__["InstancedLayoutComponent"], View_InstancedLayoutComponent_Host_0, {}, {}, []);
 
 
@@ -3998,6 +4001,9 @@ class InstancedLayoutComponent {
         this.renderCalls = this.threeService.getRendererCallCount(this.threeCommon.renderer);
         window.requestAnimationFrame(this.renderView.bind(this));
     }
+    ngOnDestroy() {
+        this.threeService.cleanScene(this.threeCommon);
+    }
 }
 
 
@@ -4034,7 +4040,7 @@ var styles_InstancedSpheresComponent = [_instanced_spheres_component_scss_shim_n
 var RenderType_InstancedSpheresComponent = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵcrt"]({ encapsulation: 0, styles: styles_InstancedSpheresComponent, data: {} });
 
 function View_InstancedSpheresComponent_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵqud"](671088640, 1, { canvasEl: 0 }), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](1, 0, null, null, 1, "h3", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, ["Instances using shaders without instance mesh"])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](3, 0, [[1, 0], ["canvasEl", 1]], null, 0, "canvas", [["height", "500"], ["width", "1000"]], null, null, null, null, null))], null, null); }
-function View_InstancedSpheresComponent_Host_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](0, 0, null, null, 1, "app-instanced-spheres", [], null, null, null, View_InstancedSpheresComponent_0, RenderType_InstancedSpheresComponent)), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](1, 4308992, null, 0, _instanced_spheres_component__WEBPACK_IMPORTED_MODULE_2__["InstancedSpheresComponent"], [_three_services_three_service__WEBPACK_IMPORTED_MODULE_3__["ThreeService"]], null, null)], function (_ck, _v) { _ck(_v, 1, 0); }, null); }
+function View_InstancedSpheresComponent_Host_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](0, 0, null, null, 1, "app-instanced-spheres", [], null, null, null, View_InstancedSpheresComponent_0, RenderType_InstancedSpheresComponent)), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](1, 4440064, null, 0, _instanced_spheres_component__WEBPACK_IMPORTED_MODULE_2__["InstancedSpheresComponent"], [_three_services_three_service__WEBPACK_IMPORTED_MODULE_3__["ThreeService"]], null, null)], function (_ck, _v) { _ck(_v, 1, 0); }, null); }
 var InstancedSpheresComponentNgFactory = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵccf"]("app-instanced-spheres", _instanced_spheres_component__WEBPACK_IMPORTED_MODULE_2__["InstancedSpheresComponent"], View_InstancedSpheresComponent_Host_0, {}, {}, []);
 
 
@@ -4100,8 +4106,8 @@ class InstancedSpheresComponent {
             vertexShader: this.vertexShader,
             fragmentShader: this.fragmentShader,
             uniforms: {
-                uTime: new three__WEBPACK_IMPORTED_MODULE_1__["Uniform"](0)
-            }
+                uTime: new three__WEBPACK_IMPORTED_MODULE_1__["Uniform"](0),
+            },
         });
         let mesh = new three__WEBPACK_IMPORTED_MODULE_1__["Mesh"](this.instancedGeometry, material);
         this.threeCommon.scene.add(mesh);
@@ -4150,7 +4156,11 @@ class InstancedSpheresComponent {
     }
     configureInstanceAttributes() {
         let aColor = [];
-        let colors = [new three__WEBPACK_IMPORTED_MODULE_1__["Color"]("#ff3030"), new three__WEBPACK_IMPORTED_MODULE_1__["Color"]("#0000ff"), new three__WEBPACK_IMPORTED_MODULE_1__["Color"]("#00ff99")];
+        let colors = [
+            new three__WEBPACK_IMPORTED_MODULE_1__["Color"]("#ff3030"),
+            new three__WEBPACK_IMPORTED_MODULE_1__["Color"]("#0000ff"),
+            new three__WEBPACK_IMPORTED_MODULE_1__["Color"]("#00ff99"),
+        ];
         let aCurve = [];
         for (let i = 0; i < this.instanceCount; i++) {
             let radius = random__WEBPACK_IMPORTED_MODULE_2__["float"](10, 20);
@@ -4170,6 +4180,9 @@ class InstancedSpheresComponent {
     renderView() {
         this.threeCommon.renderer.render(this.threeCommon.scene, this.threeCommon.camera);
         window.requestAnimationFrame(this.renderView.bind(this));
+    }
+    ngOnDestroy() {
+        this.threeService.cleanScene(this.threeCommon);
     }
 }
 
@@ -4213,7 +4226,7 @@ function View_OptimizedCubesComponent_0(_l) { return _angular_core__WEBPACK_IMPO
 function View_OptimizedCubesComponent_Host_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](0, 0, null, null, 1, "app-optimized-cubes", [], null, [[null, "resize"]], function (_v, en, $event) { var ad = true; if (("resize" === en)) {
         var pd_0 = (_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵnov"](_v, 1).resizeEvent() !== false);
         ad = (pd_0 && ad);
-    } return ad; }, View_OptimizedCubesComponent_0, RenderType_OptimizedCubesComponent)), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](1, 4308992, null, 0, _optimized_cubes_component__WEBPACK_IMPORTED_MODULE_2__["OptimizedCubesComponent"], [_three_services_three_service__WEBPACK_IMPORTED_MODULE_3__["ThreeService"]], null, null)], function (_ck, _v) { _ck(_v, 1, 0); }, null); }
+    } return ad; }, View_OptimizedCubesComponent_0, RenderType_OptimizedCubesComponent)), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](1, 4440064, null, 0, _optimized_cubes_component__WEBPACK_IMPORTED_MODULE_2__["OptimizedCubesComponent"], [_three_services_three_service__WEBPACK_IMPORTED_MODULE_3__["ThreeService"]], null, null)], function (_ck, _v) { _ck(_v, 1, 0); }, null); }
 var OptimizedCubesComponentNgFactory = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵccf"]("app-optimized-cubes", _optimized_cubes_component__WEBPACK_IMPORTED_MODULE_2__["OptimizedCubesComponent"], View_OptimizedCubesComponent_Host_0, {}, {}, []);
 
 
@@ -4345,6 +4358,9 @@ class OptimizedCubesComponent {
         this.threeCommon.renderer.render(this.threeCommon.scene, this.threeCommon.camera);
         window.requestAnimationFrame(this.renderView.bind(this));
     }
+    ngOnDestroy() {
+        this.threeService.cleanScene(this.threeCommon);
+    }
 }
 
 
@@ -4387,7 +4403,7 @@ function View_UnoptimizedCubesComponent_0(_l) { return _angular_core__WEBPACK_IM
 function View_UnoptimizedCubesComponent_Host_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](0, 0, null, null, 1, "app-unoptimized-cubes", [], null, [[null, "resize"]], function (_v, en, $event) { var ad = true; if (("resize" === en)) {
         var pd_0 = (_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵnov"](_v, 1).resizeEvent() !== false);
         ad = (pd_0 && ad);
-    } return ad; }, View_UnoptimizedCubesComponent_0, RenderType_UnoptimizedCubesComponent)), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](1, 4308992, null, 0, _unoptimized_cubes_component__WEBPACK_IMPORTED_MODULE_2__["UnoptimizedCubesComponent"], [_three_services_three_service__WEBPACK_IMPORTED_MODULE_3__["ThreeService"]], null, null)], function (_ck, _v) { _ck(_v, 1, 0); }, null); }
+    } return ad; }, View_UnoptimizedCubesComponent_0, RenderType_UnoptimizedCubesComponent)), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](1, 4440064, null, 0, _unoptimized_cubes_component__WEBPACK_IMPORTED_MODULE_2__["UnoptimizedCubesComponent"], [_three_services_three_service__WEBPACK_IMPORTED_MODULE_3__["ThreeService"]], null, null)], function (_ck, _v) { _ck(_v, 1, 0); }, null); }
 var UnoptimizedCubesComponentNgFactory = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵccf"]("app-unoptimized-cubes", _unoptimized_cubes_component__WEBPACK_IMPORTED_MODULE_2__["UnoptimizedCubesComponent"], View_UnoptimizedCubesComponent_Host_0, {}, {}, []);
 
 
@@ -4439,17 +4455,20 @@ class UnoptimizedCubesComponent {
         this.radius = 1000;
     }
     resizeEvent() {
-        this.threeCommon.camera.aspect = this.canvasEl.nativeElement.offsetWidth / this.canvasEl.nativeElement.offsetHeight;
+        this.threeCommon.camera.aspect =
+            this.canvasEl.nativeElement.offsetWidth /
+                this.canvasEl.nativeElement.offsetHeight;
         this.threeCommon.camera.updateProjectionMatrix();
         this.threeCommon.renderer.setSize(this.canvasEl.nativeElement.offsetWidth, this.canvasEl.nativeElement.offsetHeight);
     }
-    ngOnInit() {
-    }
+    ngOnInit() { }
     ngAfterViewInit() {
         this.setUpStats();
         this.threeCommon = this.threeService.getThreeCommon(this.canvasEl.nativeElement);
         this.threeCommon.camera.position.z = 0;
-        this.threeCommon.camera.aspect = this.canvasEl.nativeElement.offsetWidth / this.canvasEl.nativeElement.offsetHeight;
+        this.threeCommon.camera.aspect =
+            this.canvasEl.nativeElement.offsetWidth /
+                this.canvasEl.nativeElement.offsetHeight;
         this.threeCommon.renderer.setPixelRatio(window.devicePixelRatio);
         this.threeCommon.camera.updateProjectionMatrix();
         this.threeCommon.scene.background = new three__WEBPACK_IMPORTED_MODULE_1__["Color"](0xf0f0f0);
@@ -4472,9 +4491,15 @@ class UnoptimizedCubesComponent {
         const geometry = new three__WEBPACK_IMPORTED_MODULE_1__["BoxBufferGeometry"](20, 20, 20);
         for (var i = 0; i < 2000; i++) {
             var object = new three__WEBPACK_IMPORTED_MODULE_1__["Mesh"](geometry, new three__WEBPACK_IMPORTED_MODULE_1__["MeshLambertMaterial"]({ color: Math.random() * 0xffffff }));
-            object.position.x = Math.random() * this.canvasEl.nativeElement.offsetWidth - this.canvasEl.nativeElement.offsetHeight;
-            object.position.y = Math.random() * this.canvasEl.nativeElement.offsetWidth - this.canvasEl.nativeElement.offsetHeight;
-            object.position.z = Math.random() * this.canvasEl.nativeElement.offsetWidth - this.canvasEl.nativeElement.offsetHeight;
+            object.position.x =
+                Math.random() * this.canvasEl.nativeElement.offsetWidth -
+                    this.canvasEl.nativeElement.offsetHeight;
+            object.position.y =
+                Math.random() * this.canvasEl.nativeElement.offsetWidth -
+                    this.canvasEl.nativeElement.offsetHeight;
+            object.position.z =
+                Math.random() * this.canvasEl.nativeElement.offsetWidth -
+                    this.canvasEl.nativeElement.offsetHeight;
             object.rotation.x = Math.random() * 2 * Math.PI;
             object.rotation.y = Math.random() * 2 * Math.PI;
             object.rotation.z = Math.random() * 2 * Math.PI;
@@ -4487,9 +4512,12 @@ class UnoptimizedCubesComponent {
     }
     renderView(calleeAnimationFrame) {
         this.theta += 0.01;
-        this.threeCommon.camera.position.x = this.radius * Math.sin(three__WEBPACK_IMPORTED_MODULE_1__["MathUtils"].degToRad(this.theta));
-        this.threeCommon.camera.position.y = this.radius * Math.sin(three__WEBPACK_IMPORTED_MODULE_1__["MathUtils"].degToRad(this.theta));
-        this.threeCommon.camera.position.z = this.radius * Math.cos(three__WEBPACK_IMPORTED_MODULE_1__["MathUtils"].degToRad(this.theta));
+        this.threeCommon.camera.position.x =
+            this.radius * Math.sin(three__WEBPACK_IMPORTED_MODULE_1__["MathUtils"].degToRad(this.theta));
+        this.threeCommon.camera.position.y =
+            this.radius * Math.sin(three__WEBPACK_IMPORTED_MODULE_1__["MathUtils"].degToRad(this.theta));
+        this.threeCommon.camera.position.z =
+            this.radius * Math.cos(three__WEBPACK_IMPORTED_MODULE_1__["MathUtils"].degToRad(this.theta));
         this.threeCommon.camera.lookAt(this.threeCommon.scene.position);
         this.raycaster.setFromCamera(this.mouse, this.threeCommon.camera);
         var intersects = this.raycaster.intersectObjects(this.threeCommon.scene.children);
@@ -4510,6 +4538,9 @@ class UnoptimizedCubesComponent {
         // console.log(this.threeCommon.renderer.info.render.calls)
         this.threeCommon.renderer.render(this.threeCommon.scene, this.threeCommon.camera);
         window.requestAnimationFrame(this.renderView.bind(this));
+    }
+    ngOnDestroy() {
+        this.threeService.cleanScene(this.threeCommon);
     }
 }
 
