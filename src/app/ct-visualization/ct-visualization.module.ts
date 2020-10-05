@@ -9,6 +9,7 @@ import { CtGlobeGlIntfrastructureComponent } from "./components/ct-globe-gl-intf
 import { MatButtonModule } from "@angular/material/button";
 
 @NgModule({
+  
   declarations: [
     CtGlobeInfrastructureComponent,
     CtGlobeGlIntfrastructureComponent,
