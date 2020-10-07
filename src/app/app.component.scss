@@ -14,17 +14,23 @@ main {
     flex: 0 0 80%;
   }
 }
-
-.ThreeJsElem {
-  &.one {
-    height: 400px;
-    width: 90vw;
-    border: solid 1px;
-    margin: 0 auto;
+header {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  h1{
+    margin: 0;
   }
 }
-.overflow-container{
-    height: 100%;
-    width: 100%;
-    overflow: scroll;
+.logos {
+  display: flex;
+  img {
+    width: 35px;
+    height: 35px;
+  }
+}
+.overflow-container {
+  height: 100%;
+  width: 100%;
+  overflow: scroll;
 }
