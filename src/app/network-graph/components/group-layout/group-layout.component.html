@@ -1,0 +1,22 @@
+<section #stats>
+    <h3>Group Layout</h3>
+    <h6>Render Calls:  </h6>
+    <div class="app--margin__vertical object-range">
+        <input
+          type="range"
+          id="points"
+          name="points"
+          min="3"
+          max="100"
+          step="1"
+          (change)="objectCountChangeHandler($event)"
+          [value]="objectCount"
+        />
+      </div>
+    <canvas
+      height="500"
+      width="1000"
+      #canvasEl
+      (click)="clickHandler($event)"
+    ></canvas>
+  </section>

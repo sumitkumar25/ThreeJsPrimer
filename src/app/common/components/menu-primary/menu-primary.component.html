@@ -1,5 +1,11 @@
 <nav>
   <a
+    [routerLink]="['/' + MAIN_ROUTES_DOM_REF.networkGraph]"
+    [routerLinkActive]="['selected']"
+  >
+    Network Graph
+  </a>
+  <a
     [routerLink]="['/' + MAIN_ROUTES_DOM_REF.threeOptimized]"
     [routerLinkActive]="['selected']"
   >

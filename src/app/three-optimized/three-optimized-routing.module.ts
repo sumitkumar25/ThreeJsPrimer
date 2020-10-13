@@ -1,12 +1,11 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { ThreeOptimizedRoutes } from "../common/enums/three-optimized-routes.enum";
-import { InstanceOptimizedComponent } from './components/instance-optimized/instance-optimized.component';
-import { InstancedLayoutComponent } from './components/instanced-layout/instanced-layout.component';
-import { InstancedSpheresComponent } from './components/instanced-spheres/instanced-spheres.component';
-import { OptimizedCubesComponent } from './components/optimized-cubes/optimized-cubes.component';
+import { InstanceOptimizedComponent } from "./components/instance-optimized/instance-optimized.component";
+import { InstancedLayoutComponent } from "./components/instanced-layout/instanced-layout.component";
+import { InstancedSpheresComponent } from "./components/instanced-spheres/instanced-spheres.component";
+import { OptimizedCubesComponent } from "./components/optimized-cubes/optimized-cubes.component";
 import { UnoptimizedCubesComponent } from "./components/unoptimized-cubes/unoptimized-cubes.component";
-
 
 const routes: Routes = [
   {
@@ -31,8 +30,8 @@ const routes: Routes = [
   },
   {
     path: "",
-    redirectTo: `${ThreeOptimizedRoutes.instancingRaycast}`,
-  }
+    redirectTo: `${ThreeOptimizedRoutes.instancingLayout}`,
+  },
 ];
 
 @NgModule({

@@ -174,5 +174,6 @@ export class InstanceOptimizedComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy(): void {
     this.threeService.cleanScene(this.threeCommon);
+    this.statsEl.nativeElement.removeChild(this.stats.dom);
   }
 }

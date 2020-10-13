@@ -5,4 +5,5 @@ export enum MainRoutes {
   "forceGraph" = "force-graph",
   "canvas" = "canvas",
   "base3d" = "base3d",
+  "networkGraph" = "network-graph"
 }

@@ -4,6 +4,7 @@ import { Subscription } from "rxjs";
 import { Base3dRoutes } from "../../enums/base3d-routes.enum";
 import { GlobeModuleRoutes } from "../../enums/globe-module-routes.enum";
 import { MainRoutes } from "../../enums/main-routes.enum";
+import { NetworkGraphRoutes } from "../../enums/network-graph-routes.enum";
 import { ThreeModuleRoutes } from "../../enums/three-module-routes.enum";
 import { ThreeOptimizedRoutes } from "../../enums/three-optimized-routes.enum";
 
@@ -20,6 +21,7 @@ export class MenuSecondaryComponent implements OnInit {
   THREE_MODULE_ROUTES = ThreeModuleRoutes;
   GLOBE_MODULE_ROUTES = GlobeModuleRoutes;
   MAIN_ROUTES_DOM_REF = MainRoutes;
+  NETWORK_GRAPH_ROUTES = NetworkGraphRoutes;
   constructor(private router: Router) {}
 
   ngOnInit() {

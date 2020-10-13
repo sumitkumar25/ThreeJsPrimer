@@ -14,8 +14,8 @@ import { OptimizedCubesComponent } from './components/optimized-cubes/optimized-
     UnoptimizedCubesComponent,
     OptimizedCubesComponent,
     InstancedSpheresComponent,
-    InstanceOptimizedComponent,
-    InstancedLayoutComponent,
+    InstanceOptimizedComponent,  
+    InstancedLayoutComponent
   ],
   imports: [CommonModule, ThreeOptimizedRoutingModule],
 })

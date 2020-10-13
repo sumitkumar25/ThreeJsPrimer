@@ -39,6 +39,13 @@ const routes: Routes = [
       ),
   },
   {
+    path: `${MainRoutes.networkGraph}`,
+    loadChildren: () =>
+      import("./network-graph/network-graph.module").then(
+        (m) => m.NetworkGraphModule
+      ),
+  },
+  {
     path: "",
     redirectTo: "three-optimized",
     pathMatch: "full",
