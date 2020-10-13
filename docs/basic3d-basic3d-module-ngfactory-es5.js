@@ -241,7 +241,8 @@ __webpack_require__.r(__webpack_exports__);
 var ThreeService = /** @class */ (function () {
     function ThreeService() {
     }
-    ThreeService.prototype.getThreeCommon = function (canvasEl) {
+    ThreeService.prototype.getThreeCommon = function (canvasEl, directionalLight) {
+        if (directionalLight === void 0) { directionalLight = false; }
         var common = {
             scene: new three__WEBPACK_IMPORTED_MODULE_0__["Scene"](),
             renderer: new three__WEBPACK_IMPORTED_MODULE_0__["WebGLRenderer"]({ canvas: canvasEl, antialias: true }),
@@ -249,7 +250,9 @@ var ThreeService = /** @class */ (function () {
             controls: {},
         };
         common.renderer.setSize(canvasEl.offsetWidth, canvasEl.offsetHeight);
-        common.scene.add(new three__WEBPACK_IMPORTED_MODULE_0__["AmbientLight"](0xffffff, 1));
+        common.scene.add(directionalLight
+            ? new three__WEBPACK_IMPORTED_MODULE_0__["DirectionalLight"](0xffffff, 1)
+            : new three__WEBPACK_IMPORTED_MODULE_0__["AmbientLight"](0xffffff, 1));
         common.controls = this.configureViewSettings(common.scene, common.camera, common.renderer);
         return common;
     };
