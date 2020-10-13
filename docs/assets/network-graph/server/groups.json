@@ -1,0 +1,20 @@
+{
+  "data": [
+    {
+      "title": "users",
+      "id": "users"
+    },
+    {
+      "title": "Active Directory",
+      "id": "users"
+    },
+    {
+      "title": "Internet",
+      "id": "internet"
+    },
+    {
+      "title": "Internal Networks",
+      "id": "internalNetworks"
+    }
+  ]
+}

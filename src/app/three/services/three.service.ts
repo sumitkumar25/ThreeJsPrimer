@@ -9,7 +9,8 @@ export class ThreeService {
   constructor() {}
 
   getThreeCommon(
-    canvasEl
+    canvasEl,
+    directionalLight = false
   ): { scene: any; renderer: any; camera: any; controls: any } {
     const common = {
       scene: new THREE.Scene(),
@@ -18,7 +19,11 @@ export class ThreeService {
       controls: {},
     };
     common.renderer.setSize(canvasEl.offsetWidth, canvasEl.offsetHeight);
-    common.scene.add(new THREE.AmbientLight(0xffffff, 1));
+    common.scene.add(
+      directionalLight
+        ? new THREE.DirectionalLight(0xffffff, 1)
+        : new THREE.AmbientLight(0xffffff, 1)
+    );
     common.controls = this.configureViewSettings(
       common.scene,
       common.camera,
