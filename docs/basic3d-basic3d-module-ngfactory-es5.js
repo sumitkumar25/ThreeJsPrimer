@@ -12,13 +12,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Basic3dRoutingModule", function() { return Basic3dRoutingModule; });
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _common_enums_base3d_routes_enum__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../common/enums/base3d-routes.enum */ "./src/app/common/enums/base3d-routes.enum.ts");
-/* harmony import */ var _components_geometry_geometry_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/geometry/geometry.component */ "./src/app/basic3d/components/geometry/geometry.component.ts");
+/* harmony import */ var _components_animations_animations_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/animations/animations.component */ "./src/app/basic3d/components/animations/animations.component.ts");
+/* harmony import */ var _components_geometry_geometry_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/geometry/geometry.component */ "./src/app/basic3d/components/geometry/geometry.component.ts");
+
 
 
 
 var routes = [
-    { path: "", component: _components_geometry_geometry_component__WEBPACK_IMPORTED_MODULE_2__["GeometryComponent"] },
-    { path: "" + _common_enums_base3d_routes_enum__WEBPACK_IMPORTED_MODULE_1__["Base3dRoutes"].customGeometry, component: _components_geometry_geometry_component__WEBPACK_IMPORTED_MODULE_2__["GeometryComponent"] },
+    { path: "" + _common_enums_base3d_routes_enum__WEBPACK_IMPORTED_MODULE_1__["Base3dRoutes"].customGeometry, component: _components_geometry_geometry_component__WEBPACK_IMPORTED_MODULE_3__["GeometryComponent"] },
+    { path: "" + _common_enums_base3d_routes_enum__WEBPACK_IMPORTED_MODULE_1__["Base3dRoutes"].animations, component: _components_animations_animations_component__WEBPACK_IMPORTED_MODULE_2__["AnimationsComponent"] },
+    { path: "", component: _components_geometry_geometry_component__WEBPACK_IMPORTED_MODULE_3__["GeometryComponent"] },
 ];
 var Basic3dRoutingModule = /** @class */ (function () {
     function Basic3dRoutingModule() {
@@ -44,10 +47,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _basic3d_module__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./basic3d.module */ "./src/app/basic3d/basic3d.module.ts");
 /* harmony import */ var _node_modules_angular_router_router_ngfactory__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/@angular/router/router.ngfactory */ "./node_modules/@angular/router/router.ngfactory.js");
 /* harmony import */ var _components_geometry_geometry_component_ngfactory__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/geometry/geometry.component.ngfactory */ "./src/app/basic3d/components/geometry/geometry.component.ngfactory.js");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _basic3d_routing_module__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./basic3d-routing.module */ "./src/app/basic3d/basic3d-routing.module.ts");
-/* harmony import */ var _components_geometry_geometry_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/geometry/geometry.component */ "./src/app/basic3d/components/geometry/geometry.component.ts");
+/* harmony import */ var _components_animations_animations_component_ngfactory__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/animations/animations.component.ngfactory */ "./src/app/basic3d/components/animations/animations.component.ngfactory.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _basic3d_routing_module__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./basic3d-routing.module */ "./src/app/basic3d/basic3d-routing.module.ts");
+/* harmony import */ var _components_geometry_geometry_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/geometry/geometry.component */ "./src/app/basic3d/components/geometry/geometry.component.ts");
+/* harmony import */ var _components_animations_animations_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/animations/animations.component */ "./src/app/basic3d/components/animations/animations.component.ts");
 /**
  * @fileoverview This file was generated by the Angular template compiler. Do not edit.
  *
@@ -62,7 +67,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var Basic3dModuleNgFactory = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵcmf"](_basic3d_module__WEBPACK_IMPORTED_MODULE_1__["Basic3dModule"], [], function (_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵmod"]([_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵmpd"](512, _angular_core__WEBPACK_IMPORTED_MODULE_0__["ComponentFactoryResolver"], _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵCodegenComponentFactoryResolver"], [[8, [_node_modules_angular_router_router_ngfactory__WEBPACK_IMPORTED_MODULE_2__["ɵangular_packages_router_router_lNgFactory"], _components_geometry_geometry_component_ngfactory__WEBPACK_IMPORTED_MODULE_3__["GeometryComponentNgFactory"]]], [3, _angular_core__WEBPACK_IMPORTED_MODULE_0__["ComponentFactoryResolver"]], _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModuleRef"]]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵmpd"](4608, _angular_common__WEBPACK_IMPORTED_MODULE_4__["NgLocalization"], _angular_common__WEBPACK_IMPORTED_MODULE_4__["NgLocaleLocalization"], [_angular_core__WEBPACK_IMPORTED_MODULE_0__["LOCALE_ID"], [2, _angular_common__WEBPACK_IMPORTED_MODULE_4__["ɵangular_packages_common_common_a"]]]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵmpd"](1073742336, _angular_common__WEBPACK_IMPORTED_MODULE_4__["CommonModule"], _angular_common__WEBPACK_IMPORTED_MODULE_4__["CommonModule"], []), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵmpd"](1073742336, _angular_router__WEBPACK_IMPORTED_MODULE_5__["RouterModule"], _angular_router__WEBPACK_IMPORTED_MODULE_5__["RouterModule"], [[2, _angular_router__WEBPACK_IMPORTED_MODULE_5__["ɵangular_packages_router_router_a"]], [2, _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"]]]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵmpd"](1073742336, _basic3d_routing_module__WEBPACK_IMPORTED_MODULE_6__["Basic3dRoutingModule"], _basic3d_routing_module__WEBPACK_IMPORTED_MODULE_6__["Basic3dRoutingModule"], []), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵmpd"](1073742336, _basic3d_module__WEBPACK_IMPORTED_MODULE_1__["Basic3dModule"], _basic3d_module__WEBPACK_IMPORTED_MODULE_1__["Basic3dModule"], []), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵmpd"](1024, _angular_router__WEBPACK_IMPORTED_MODULE_5__["ROUTES"], function () { return [[{ path: "", component: _components_geometry_geometry_component__WEBPACK_IMPORTED_MODULE_7__["GeometryComponent"] }, { path: "custom-geometry", component: _components_geometry_geometry_component__WEBPACK_IMPORTED_MODULE_7__["GeometryComponent"] }]]; }, [])]); });
+
+
+var Basic3dModuleNgFactory = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵcmf"](_basic3d_module__WEBPACK_IMPORTED_MODULE_1__["Basic3dModule"], [], function (_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵmod"]([_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵmpd"](512, _angular_core__WEBPACK_IMPORTED_MODULE_0__["ComponentFactoryResolver"], _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵCodegenComponentFactoryResolver"], [[8, [_node_modules_angular_router_router_ngfactory__WEBPACK_IMPORTED_MODULE_2__["ɵangular_packages_router_router_lNgFactory"], _components_geometry_geometry_component_ngfactory__WEBPACK_IMPORTED_MODULE_3__["GeometryComponentNgFactory"], _components_animations_animations_component_ngfactory__WEBPACK_IMPORTED_MODULE_4__["AnimationsComponentNgFactory"]]], [3, _angular_core__WEBPACK_IMPORTED_MODULE_0__["ComponentFactoryResolver"]], _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModuleRef"]]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵmpd"](4608, _angular_common__WEBPACK_IMPORTED_MODULE_5__["NgLocalization"], _angular_common__WEBPACK_IMPORTED_MODULE_5__["NgLocaleLocalization"], [_angular_core__WEBPACK_IMPORTED_MODULE_0__["LOCALE_ID"], [2, _angular_common__WEBPACK_IMPORTED_MODULE_5__["ɵangular_packages_common_common_a"]]]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵmpd"](1073742336, _angular_common__WEBPACK_IMPORTED_MODULE_5__["CommonModule"], _angular_common__WEBPACK_IMPORTED_MODULE_5__["CommonModule"], []), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵmpd"](1073742336, _angular_router__WEBPACK_IMPORTED_MODULE_6__["RouterModule"], _angular_router__WEBPACK_IMPORTED_MODULE_6__["RouterModule"], [[2, _angular_router__WEBPACK_IMPORTED_MODULE_6__["ɵangular_packages_router_router_a"]], [2, _angular_router__WEBPACK_IMPORTED_MODULE_6__["Router"]]]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵmpd"](1073742336, _basic3d_routing_module__WEBPACK_IMPORTED_MODULE_7__["Basic3dRoutingModule"], _basic3d_routing_module__WEBPACK_IMPORTED_MODULE_7__["Basic3dRoutingModule"], []), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵmpd"](1073742336, _basic3d_module__WEBPACK_IMPORTED_MODULE_1__["Basic3dModule"], _basic3d_module__WEBPACK_IMPORTED_MODULE_1__["Basic3dModule"], []), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵmpd"](1024, _angular_router__WEBPACK_IMPORTED_MODULE_6__["ROUTES"], function () { return [[{ path: "custom-geometry", component: _components_geometry_geometry_component__WEBPACK_IMPORTED_MODULE_8__["GeometryComponent"] }, { path: "animations", component: _components_animations_animations_component__WEBPACK_IMPORTED_MODULE_9__["AnimationsComponent"] }, { path: "", component: _components_geometry_geometry_component__WEBPACK_IMPORTED_MODULE_8__["GeometryComponent"] }]]; }, [])]); });
 
 
 
@@ -82,6 +89,119 @@ var Basic3dModule = /** @class */ (function () {
     function Basic3dModule() {
     }
     return Basic3dModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/basic3d/components/animations/animations.component.ngfactory.js":
+/*!*********************************************************************************!*\
+  !*** ./src/app/basic3d/components/animations/animations.component.ngfactory.js ***!
+  \*********************************************************************************/
+/*! exports provided: RenderType_AnimationsComponent, View_AnimationsComponent_0, View_AnimationsComponent_Host_0, AnimationsComponentNgFactory */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RenderType_AnimationsComponent", function() { return RenderType_AnimationsComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "View_AnimationsComponent_0", function() { return View_AnimationsComponent_0; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "View_AnimationsComponent_Host_0", function() { return View_AnimationsComponent_Host_0; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AnimationsComponentNgFactory", function() { return AnimationsComponentNgFactory; });
+/* harmony import */ var _animations_component_scss_shim_ngstyle__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./animations.component.scss.shim.ngstyle */ "./src/app/basic3d/components/animations/animations.component.scss.shim.ngstyle.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _animations_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./animations.component */ "./src/app/basic3d/components/animations/animations.component.ts");
+/* harmony import */ var _three_services_three_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../three/services/three.service */ "./src/app/three/services/three.service.ts");
+/**
+ * @fileoverview This file was generated by the Angular template compiler. Do not edit.
+ *
+ * @suppress {suspiciousCode,uselessCode,missingProperties,missingOverride,checkTypes}
+ * tslint:disable
+ */ 
+
+
+
+
+var styles_AnimationsComponent = [_animations_component_scss_shim_ngstyle__WEBPACK_IMPORTED_MODULE_0__["styles"]];
+var RenderType_AnimationsComponent = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵcrt"]({ encapsulation: 0, styles: styles_AnimationsComponent, data: {} });
+
+function View_AnimationsComponent_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵqud"](671088640, 1, { canvasEl: 0 }), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](1, 0, null, null, 1, "h5", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](2, null, ["Radius: ", ""])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](3, 0, null, null, 1, "div", [["class", "app--margin__vertical object-range"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](4, 0, null, null, 0, "input", [["id", "points"], ["max", "100"], ["min", "1"], ["name", "points"], ["step", "1"], ["type", "range"]], [[8, "value", 0]], [[null, "change"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("change" === en)) {
+        var pd_0 = (_co.objectCountChangeHandler($event) !== false);
+        ad = (pd_0 && ad);
+    } return ad; }, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](5, 0, [[1, 0], ["canvasEl", 1]], null, 0, "canvas", [["height", "400"], ["width", "800"]], null, null, null, null, null))], null, function (_ck, _v) { var _co = _v.component; var currVal_0 = _co.objectCount; _ck(_v, 2, 0, currVal_0); var currVal_1 = _co.objectCount; _ck(_v, 4, 0, currVal_1); }); }
+function View_AnimationsComponent_Host_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](0, 0, null, null, 1, "app-animations", [], null, null, null, View_AnimationsComponent_0, RenderType_AnimationsComponent)), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](1, 4308992, null, 0, _animations_component__WEBPACK_IMPORTED_MODULE_2__["AnimationsComponent"], [_three_services_three_service__WEBPACK_IMPORTED_MODULE_3__["ThreeService"]], null, null)], function (_ck, _v) { _ck(_v, 1, 0); }, null); }
+var AnimationsComponentNgFactory = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵccf"]("app-animations", _animations_component__WEBPACK_IMPORTED_MODULE_2__["AnimationsComponent"], View_AnimationsComponent_Host_0, {}, {}, []);
+
+
+
+/***/ }),
+
+/***/ "./src/app/basic3d/components/animations/animations.component.scss.shim.ngstyle.js":
+/*!*****************************************************************************************!*\
+  !*** ./src/app/basic3d/components/animations/animations.component.scss.shim.ngstyle.js ***!
+  \*****************************************************************************************/
+/*! exports provided: styles */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "styles", function() { return styles; });
+/**
+ * @fileoverview This file was generated by the Angular template compiler. Do not edit.
+ *
+ * @suppress {suspiciousCode,uselessCode,missingProperties,missingOverride,checkTypes}
+ * tslint:disable
+ */ 
+var styles = ["\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2Jhc2ljM2QvY29tcG9uZW50cy9hbmltYXRpb25zL2FuaW1hdGlvbnMuY29tcG9uZW50LnNjc3MifQ== */"];
+
+
+
+/***/ }),
+
+/***/ "./src/app/basic3d/components/animations/animations.component.ts":
+/*!***********************************************************************!*\
+  !*** ./src/app/basic3d/components/animations/animations.component.ts ***!
+  \***********************************************************************/
+/*! exports provided: AnimationsComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AnimationsComponent", function() { return AnimationsComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var three__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! three */ "./node_modules/three/build/three.module.js");
+
+
+
+var AnimationsComponent = /** @class */ (function () {
+    function AnimationsComponent(threeService) {
+        this.threeService = threeService;
+        this.objectCount = 3;
+    }
+    AnimationsComponent.prototype.ngOnInit = function () { };
+    AnimationsComponent.prototype.ngAfterViewInit = function () {
+        this.threeCommon = this.threeService.getThreeCommon(this.canvasEl.nativeElement);
+        this.threeCommon.camera.position.z = 2;
+        this.viewController();
+    };
+    AnimationsComponent.prototype.viewController = function () {
+        this.configureGeometry();
+        this.configureMesh();
+        this.renderView();
+    };
+    AnimationsComponent.prototype.configureGeometry = function () {
+        this.geometry = new three__WEBPACK_IMPORTED_MODULE_1__["CircleGeometry"](this.objectCount);
+    };
+    AnimationsComponent.prototype.configureMesh = function () {
+        this.threeCommon.scene.add(new three__WEBPACK_IMPORTED_MODULE_1__["Mesh"](this.geometry, new three__WEBPACK_IMPORTED_MODULE_1__["MeshBasicMaterial"]({ color: "red", side: three__WEBPACK_IMPORTED_MODULE_1__["DoubleSide"] })));
+    };
+    AnimationsComponent.prototype.objectCountChangeHandler = function ($event) {
+        this.objectCount = Number.parseInt($event.target.value, 10);
+    };
+    AnimationsComponent.prototype.renderView = function () {
+        this.threeCommon.renderer.render(this.threeCommon.scene, this.threeCommon.camera);
+    };
+    return AnimationsComponent;
 }());
 
 
