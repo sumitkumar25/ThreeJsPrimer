@@ -9,6 +9,8 @@ import { OBJLoader } from "./../../../../node_modules/three/examples/jsm/loaders
 export class NetworkGraphRequestService {
   private GEOMETRY_URL = "assets/network-graph/geometry/node.obj";
   private MOCK_GROUPS_URL = "assets/network-graph/server/groups.json";
+  private MOCK_CONNECTIONS_URL: string =
+    "assets/network-graph/server/connections.json";
   constructor(private httpClient: HttpClient) {}
 
   getNodeMesh() {
@@ -17,5 +19,9 @@ export class NetworkGraphRequestService {
 
   getGroups() {
     return this.httpClient.get(this.MOCK_GROUPS_URL);
+  }
+
+  getTrafficConnections() {
+    return this.httpClient.get(this.MOCK_CONNECTIONS_URL);
   }
 }

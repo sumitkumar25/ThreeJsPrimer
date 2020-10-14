@@ -1,0 +1,16 @@
+{
+  "data": [
+    {
+      "from": "users",
+      "to": "activeDirectory"
+    },
+    {
+      "from": "users",
+      "to": "internet"
+    },
+    {
+      "from": "users",
+      "to": "internalNetworks"
+    }
+  ]
+}

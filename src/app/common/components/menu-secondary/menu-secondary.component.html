@@ -10,6 +10,12 @@
       >
         Custom Geometry
       </a>
+      <a
+        [routerLink]="[MAIN_ROUTES_DOM_REF.base3d, BASE_3D_ROUTES.animations]"
+        [routerLinkActive]="['selected']"
+      >
+        Animations
+      </a>
     </nav>
   </div>
   <div *ngSwitchCase="MAIN_ROUTES_DOM_REF.forceGraph"></div>
@@ -17,11 +23,13 @@
   <div *ngSwitchCase="MAIN_ROUTES_DOM_REF.networkGraph">
     <nav>
       <a
-      [routerLink]="[
-        MAIN_ROUTES_DOM_REF.networkGraph,
-        NETWORK_GRAPH_ROUTES.groupLayout
-      ]"
-      [routerLinkActive]="['selected']">Group Layout </a>
+        [routerLink]="[
+          MAIN_ROUTES_DOM_REF.networkGraph,
+          NETWORK_GRAPH_ROUTES.groupLayout
+        ]"
+        [routerLinkActive]="['selected']"
+        >Group Layout
+      </a>
     </nav>
   </div>
   <div *ngSwitchCase="MAIN_ROUTES_DOM_REF.globeVisualization">

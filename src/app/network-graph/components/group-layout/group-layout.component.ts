@@ -12,9 +12,10 @@ import {
 import { forkJoin } from "rxjs";
 import { ThreeService } from "src/app/three/services/three.service";
 import * as THREE from "three";
+import { Matrix3, Matrix4, Vector3 } from "three";
 import * as Stats from "../../../../../node_modules/stats.js/build/stats.min.js";
 import { NetworkGraphRequestService } from "../../services/network-graph-request.service.js";
-
+import { ThreeFactoryService } from "../../services/three-factory.service.js";
 @Component({
   selector: "app-group-layout",
   templateUrl: "./group-layout.component.html",
@@ -46,10 +47,12 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
   groupsData: Object;
 
   // connections
-
+  connectionsData;
+  line: THREE.Line<THREE.BufferGeometry, THREE.LineBasicMaterial>;
   constructor(
     private threeService: ThreeService,
-    private graphRequestService: NetworkGraphRequestService
+    private graphRequestService: NetworkGraphRequestService,
+    private threeFactory: ThreeFactoryService
   ) {}
 
   ngOnInit() {
@@ -62,23 +65,30 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
       true
     );
     this.setUpStats();
-    this.setUpHelpers();
-    this.threeCommon.camera.position.z = 20;
+    // this.setUpHelpers();
+    this.threeCommon.camera.position.z = 10;
     this.threeCommon.camera.aspect =
       this.canvasEl.nativeElement.offsetWidth /
       this.canvasEl.nativeElement.offsetHeight;
     this.threeCommon.renderer.setPixelRatio(window.devicePixelRatio);
     this.threeCommon.scene.background = "black";
     this.threeCommon.camera.updateProjectionMatrix();
+    this.threeCommon.controls.addEventListener(
+      "change",
+      this.renderView.bind(this)
+    );
   }
 
   initRequests() {
     forkJoin(
       this.graphRequestService.getGroups(),
-      this.graphRequestService.getNodeMesh()
-    ).subscribe(([groupData, mesh]) => {
+      this.graphRequestService.getNodeMesh(),
+      this.graphRequestService.getTrafficConnections()
+    ).subscribe(([groupData, mesh, arg]) => {
+      this.connectionsData = arg["data"];
       this.nodeMeshResponseHandler(mesh);
       this.groupsResponseHandler(groupData);
+
     });
   }
 
@@ -93,13 +103,11 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
   groupsResponseHandler(groupData: Object) {
     this.groupsData = groupData;
     this.objectCount = this.groupsData["data"].length;
-    this.initLayout();
-    this.constructNodes();
-    this.renderView();
+    this.sceneController();
   }
 
   initLayout() {
-    this.threeService.cleanScene(this.threeCommon);
+    // this.threeService.cleanScene(this.threeCommon);
     const radiusOffset = Math.floor(this.objectCount / 10);
     this.layoutGeometry = new THREE.CircleGeometry(
       10 + radiusOffset * radiusOffset,
@@ -128,7 +136,6 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
       this.nodeMesh.material,
       this.objectCount
     );
-    console.log(this.instancedNodeMesh);
     for (var i = 0; i < this.objectCount; i++) {
       //using indexes as id.
       this.instancedNodeMesh.setMatrixAt(i, this.setPositionFromLayout(i));
@@ -152,26 +159,13 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
     return matrix;
   }
 
-  setUpStats() {
-    this.stats = new Stats();
-    this.stats.showPanel(1); // 0: fps, 1: ms, 2: mb, 3+: custom
-    this.statsEl.nativeElement.appendChild(this.stats.dom);
-    this.stats.update();
-  }
-
-  updateStats() {
-    window.requestAnimationFrame(this.updateStats.bind(this));
-  }
-
   clickHandler($event) {}
-  private renderView() {
+
+  renderView() {
     this.threeCommon.renderer.render(
       this.threeCommon.scene,
       this.threeCommon.camera
     );
-    this.threeCommon.controls.update();
-    window.requestAnimationFrame(this.renderView.bind(this));
-    this.stats.update();
     this.renderCalls = this.threeCommon.renderer.info.render.calls;
   }
 
@@ -188,13 +182,41 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
     this.renderView();
   }
   constructConnection() {
-    var material = new THREE.LineBasicMaterial({ color: 0x0000ff });
-    var points = [];
-    points.push(this.layoutMesh.geometry);
-    points.push(new THREE.Vector3(0, 10, 0));
-    points.push(new THREE.Vector3(10, 0, 0));
-    var geometry = new THREE.BufferGeometry().setFromPoints(points);
-    var line = new THREE.Line(geometry, material);
-    this.threeCommon.scene.add(line);
+    this.line = this.line || this.threeFactory.getLine();
+    let points = [];
+    const nodeMap = this.groupsData["data"].reduce((acc, current, index) => {
+      acc[current.id] = index;
+      return acc;
+    }, {});
+    if(!this.connectionsData){
+      return;
+    }
+    this.connectionsData.forEach((connection) => {
+      let sourceIndex = nodeMap[connection.from];
+      let destinationIndex = nodeMap[connection.to];
+      let sourceMatrix = new Matrix4();
+      let destinationMatrix = new Matrix4();
+      this.instancedNodeMesh.getMatrixAt(sourceIndex, sourceMatrix);
+      this.instancedNodeMesh.getMatrixAt(destinationIndex, destinationMatrix);
+      points.push(
+        new THREE.Vector3().setFromMatrixPosition(sourceMatrix),
+        new THREE.Vector3().setFromMatrixPosition(destinationMatrix),
+      );
+    });
+    //  this.line.geometry.setFromPoints()
+    // console.log(...this.layoutMesh.geometry.vertices.slice(1))
+    this.line.geometry.setFromPoints(points);
+    this.threeCommon.scene.add(this.line);
   }
+
+  setUpStats() {
+    this.stats = new Stats();
+    this.stats.showPanel(1); // 0: fps, 1: ms, 2: mb, 3+: custom
+    this.statsEl.nativeElement.appendChild(this.stats.dom);
+    this.stats.update();
+  }
+
+  // updateStats() {
+  //   window.requestAnimationFrame(this.updateStats.bind(this));
+  // }
 }
