@@ -14,7 +14,7 @@ import { ThreeService } from "src/app/three/services/three.service";
 import * as THREE from "three";
 import * as Stats from "../../../../../node_modules/stats.js/build/stats.min.js";
 import { NetworkGraphRequestService } from "../../services/network-graph-request.service.js";
-
+import { throttle } from "lodash";
 @Component({
   selector: "app-group-layout",
   templateUrl: "./group-layout.component.html",
@@ -62,7 +62,7 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
       true
     );
     this.setUpStats();
-    this.setUpHelpers();
+    // this.setUpHelpers();
     this.threeCommon.camera.position.z = 20;
     this.threeCommon.camera.aspect =
       this.canvasEl.nativeElement.offsetWidth /
@@ -70,6 +70,8 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
     this.threeCommon.renderer.setPixelRatio(window.devicePixelRatio);
     this.threeCommon.scene.background = "black";
     this.threeCommon.camera.updateProjectionMatrix();
+    let dbt;
+    this.threeCommon.controls.addEventListener("change", this.renderView.bind(this));
   }
 
   initRequests() {
@@ -99,7 +101,7 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
   }
 
   initLayout() {
-    this.threeService.cleanScene(this.threeCommon);
+    // this.threeService.cleanScene(this.threeCommon);
     const radiusOffset = Math.floor(this.objectCount / 10);
     this.layoutGeometry = new THREE.CircleGeometry(
       10 + radiusOffset * radiusOffset,
@@ -128,7 +130,6 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
       this.nodeMesh.material,
       this.objectCount
     );
-    console.log(this.instancedNodeMesh);
     for (var i = 0; i < this.objectCount; i++) {
       //using indexes as id.
       this.instancedNodeMesh.setMatrixAt(i, this.setPositionFromLayout(i));
@@ -152,26 +153,13 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
     return matrix;
   }
 
-  setUpStats() {
-    this.stats = new Stats();
-    this.stats.showPanel(1); // 0: fps, 1: ms, 2: mb, 3+: custom
-    this.statsEl.nativeElement.appendChild(this.stats.dom);
-    this.stats.update();
-  }
-
-  updateStats() {
-    window.requestAnimationFrame(this.updateStats.bind(this));
-  }
-
   clickHandler($event) {}
-  private renderView() {
+
+  renderView() {
     this.threeCommon.renderer.render(
       this.threeCommon.scene,
       this.threeCommon.camera
     );
-    this.threeCommon.controls.update();
-    window.requestAnimationFrame(this.renderView.bind(this));
-    this.stats.update();
     this.renderCalls = this.threeCommon.renderer.info.render.calls;
   }
 
@@ -197,4 +185,15 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
     var line = new THREE.Line(geometry, material);
     this.threeCommon.scene.add(line);
   }
+
+  setUpStats() {
+    this.stats = new Stats();
+    this.stats.showPanel(1); // 0: fps, 1: ms, 2: mb, 3+: custom
+    this.statsEl.nativeElement.appendChild(this.stats.dom);
+    this.stats.update();
+  }
+
+  // updateStats() {
+  //   window.requestAnimationFrame(this.updateStats.bind(this));
+  // }
 }
