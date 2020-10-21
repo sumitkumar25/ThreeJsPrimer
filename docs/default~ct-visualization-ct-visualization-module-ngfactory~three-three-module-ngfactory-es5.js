@@ -25429,10 +25429,13 @@ var ThreeService = /** @class */ (function () {
     ThreeService.prototype.getRendererCallCount = function (renderer) {
         return renderer.info.render.calls;
     };
+    ThreeService.prototype.configureHelpers = function (scene) {
+        scene.add(new three__WEBPACK_IMPORTED_MODULE_0__["AxesHelper"](5));
+    };
     ThreeService.prototype.cleanScene = function (threeCommon) {
         var meshes = [];
         threeCommon.scene.traverse(function (object) {
-            if (object.isMesh)
+            if (object.isMesh && !object.isInstancedMesh)
                 meshes.push(object);
         });
         for (var i = 0; i < meshes.length; i++) {

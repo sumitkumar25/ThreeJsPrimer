@@ -2602,39 +2602,6 @@ module.exports = __webpack_amd_options__;
 
 /***/ }),
 
-/***/ "./node_modules/webpack/buildin/module.js":
-/*!***********************************!*\
-  !*** (webpack)/buildin/module.js ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = function(module) {
-	if (!module.webpackPolyfill) {
-		module.deprecate = function() {};
-		module.paths = [];
-		// module.parent = undefined by default
-		if (!module.children) module.children = [];
-		Object.defineProperty(module, "loaded", {
-			enumerable: true,
-			get: function() {
-				return module.l;
-			}
-		});
-		Object.defineProperty(module, "id", {
-			enumerable: true,
-			get: function() {
-				return module.i;
-			}
-		});
-		module.webpackPolyfill = 1;
-	}
-	return module;
-};
-
-
-/***/ }),
-
 /***/ "./src/app/three-optimized/components/instance-optimized/instance-optimized.component.ngfactory.js":
 /*!*********************************************************************************************************!*\
   !*** ./src/app/three-optimized/components/instance-optimized/instance-optimized.component.ngfactory.js ***!
@@ -2743,9 +2710,6 @@ var InstanceOptimizedComponent = /** @class */ (function () {
         this.stats = new _node_modules_stats_js_build_stats_min_js__WEBPACK_IMPORTED_MODULE_2__();
         this.stats.showPanel(1); // 0: fps, 1: ms, 2: mb, 3+: custom
         this.statsEl.nativeElement.appendChild(this.stats.dom);
-        this.stats.domElement.style.position = "absolute";
-        this.stats.domElement.style.left = "0px";
-        this.stats.domElement.style.top = "0px";
     };
     InstanceOptimizedComponent.prototype.loadGeometry = function () {
         var _this = this;

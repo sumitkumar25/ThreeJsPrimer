@@ -164,7 +164,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var three__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! three */ "./node_modules/three/build/three.module.js");
 
 
-
 class AnimationsComponent {
     constructor(threeService) {
         this.threeService = threeService;
@@ -173,19 +172,46 @@ class AnimationsComponent {
     ngOnInit() { }
     ngAfterViewInit() {
         this.threeCommon = this.threeService.getThreeCommon(this.canvasEl.nativeElement);
-        this.threeCommon.camera.position.z = 2;
+        this.threeCommon.camera.position.z = 10;
+        this.threeCommon.controls.addEventListener("change", this.renderView.bind(this));
         this.viewController();
     }
     viewController() {
-        this.configureGeometry();
-        this.configureMesh();
+        // this.configureGeometry();
+        // this.configureMesh();
+        this.threeService.configureHelpers(this.threeCommon.scene);
+        this.configureConnections();
+        // this.configureDirectionArrows();
         this.renderView();
     }
-    configureGeometry() {
-        this.geometry = new three__WEBPACK_IMPORTED_MODULE_1__["CircleGeometry"](this.objectCount);
-    }
-    configureMesh() {
-        this.threeCommon.scene.add(new three__WEBPACK_IMPORTED_MODULE_1__["Mesh"](this.geometry, new three__WEBPACK_IMPORTED_MODULE_1__["MeshBasicMaterial"]({ color: "red", side: three__WEBPACK_IMPORTED_MODULE_1__["DoubleSide"] })));
+    configureConnections() {
+        let sourceVector = new three__WEBPACK_IMPORTED_MODULE_1__["Vector3"](0, 0, 0);
+        let destinationVector = new three__WEBPACK_IMPORTED_MODULE_1__["Vector3"](5, 5, 5);
+        var HALF_PI = Math.PI * 0.5;
+        var distance = sourceVector.distanceTo(destinationVector);
+        var position = destinationVector.clone().add(sourceVector).divideScalar(2);
+        var material = new three__WEBPACK_IMPORTED_MODULE_1__["MeshLambertMaterial"]({
+            color: 0x277cb2,
+            wireframe: true,
+        });
+        var cylinder = new three__WEBPACK_IMPORTED_MODULE_1__["CylinderGeometry"](0.01, 0.01, distance, 8, 1, false);
+        const coneGeometry = new three__WEBPACK_IMPORTED_MODULE_1__["ConeBufferGeometry"](1 * 0.25);
+        const conematerial = new three__WEBPACK_IMPORTED_MODULE_1__["MeshBasicMaterial"]({ color: "red" });
+        // Correct orientation
+        coneGeometry.translate(0, 1 / 2, 0);
+        coneGeometry.rotateX(Math.PI / 2);
+        const arrowMesh = new three__WEBPACK_IMPORTED_MODULE_1__["Mesh"](coneGeometry, conematerial);
+        this.threeCommon.scene.add(arrowMesh);
+        var orientation = new three__WEBPACK_IMPORTED_MODULE_1__["Matrix4"](); //a new orientation matrix to offset pivot
+        var offsetRotation = new three__WEBPACK_IMPORTED_MODULE_1__["Matrix4"](); //a matrix to fix pivot rotation
+        var offsetPosition = new three__WEBPACK_IMPORTED_MODULE_1__["Matrix4"](); //a matrix to fix pivot position
+        orientation.lookAt(sourceVector, destinationVector, new three__WEBPACK_IMPORTED_MODULE_1__["Vector3"](0, 1, 0)); //look at destination
+        offsetRotation.makeRotationX(HALF_PI); //rotate 90 degs on X
+        orientation.multiply(offsetRotation); //combine orientation with rotation transformations
+        cylinder.applyMatrix4(orientation);
+        var mesh = new three__WEBPACK_IMPORTED_MODULE_1__["Mesh"](cylinder, material);
+        mesh.position.set(position.x, position.y, position.z);
+        this.threeCommon.scene.add(mesh);
     }
     objectCountChangeHandler($event) {
         this.objectCount = Number.parseInt($event.target.value, 10);
@@ -386,10 +412,13 @@ class ThreeService {
     getRendererCallCount(renderer) {
         return renderer.info.render.calls;
     }
+    configureHelpers(scene) {
+        scene.add(new three__WEBPACK_IMPORTED_MODULE_0__["AxesHelper"](5));
+    }
     cleanScene(threeCommon) {
         var meshes = [];
         threeCommon.scene.traverse(function (object) {
-            if (object.isMesh)
+            if (object.isMesh && !object.isInstancedMesh)
                 meshes.push(object);
         });
         for (var i = 0; i < meshes.length; i++) {

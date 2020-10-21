@@ -25427,10 +25427,13 @@ class ThreeService {
     getRendererCallCount(renderer) {
         return renderer.info.render.calls;
     }
+    configureHelpers(scene) {
+        scene.add(new three__WEBPACK_IMPORTED_MODULE_0__["AxesHelper"](5));
+    }
     cleanScene(threeCommon) {
         var meshes = [];
         threeCommon.scene.traverse(function (object) {
-            if (object.isMesh)
+            if (object.isMesh && !object.isInstancedMesh)
                 meshes.push(object);
         });
         for (var i = 0; i < meshes.length; i++) {

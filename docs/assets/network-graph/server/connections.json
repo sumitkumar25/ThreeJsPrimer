@@ -11,6 +11,42 @@
     {
       "from": "users",
       "to": "internalNetworks"
+    },
+    {
+      "from": "activeDirectory",
+      "to": "users"
+    },
+    {
+      "from": "activeDirectory",
+      "to": "internet"
+    },
+    {
+      "from": "activeDirectory",
+      "to": "internalNetworks"
+    },
+    {
+      "from": "internet",
+      "to": "users"
+    },
+    {
+      "from": "internet",
+      "to": "activeDirectory"
+    },
+    {
+      "from": "internet",
+      "to": "internalNetworks"
+    },
+    {
+      "from": "internalNetworks",
+      "to": "users"
+    },
+    {
+      "from": "internalNetworks",
+      "to": "activeDirectory"
+    },
+    {
+      "from": "internalNetworks",
+      "to": "internet"
     }
   ]
 }
