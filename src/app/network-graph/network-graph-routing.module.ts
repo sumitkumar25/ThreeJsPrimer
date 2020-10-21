@@ -8,6 +8,10 @@ const routes: Routes = [
     path: `${NetworkGraphRoutes.groupLayout}`,
     component: GroupLayoutComponent,
   },
+  {
+    path: ``,
+    component: GroupLayoutComponent,
+  },
 ];
 
 @NgModule({

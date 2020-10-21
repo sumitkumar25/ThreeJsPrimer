@@ -28,28 +28,66 @@ export class AnimationsComponent implements OnInit, AfterViewInit {
     this.threeCommon = this.threeService.getThreeCommon(
       this.canvasEl.nativeElement
     );
-    this.threeCommon.camera.position.z = 2;
+    this.threeCommon.camera.position.z = 10;
+    this.threeCommon.controls.addEventListener(
+      "change",
+      this.renderView.bind(this)
+    );
     this.viewController();
   }
 
   viewController() {
-    this.configureGeometry();
-    this.configureMesh();
+    // this.configureGeometry();
+    // this.configureMesh();
+    this.threeService.configureHelpers(this.threeCommon.scene);
+    this.configureConnections();
+    // this.configureDirectionArrows();
     this.renderView();
   }
 
-  configureGeometry() {
-    this.geometry = new THREE.CircleGeometry(this.objectCount);
+  configureConnections() {
+    let sourceVector = new THREE.Vector3(0, 0, 0);
+    let destinationVector = new THREE.Vector3(5, 5, 5);
+    var HALF_PI = Math.PI * 0.5;
+    var distance = sourceVector.distanceTo(destinationVector);
+    var position = destinationVector.clone().add(sourceVector).divideScalar(2);
+    var material = new THREE.MeshLambertMaterial({
+      color: 0x277cb2,
+      wireframe: true,
+    });
+    var cylinder = new THREE.CylinderGeometry(
+      0.01,
+      0.01,
+      distance,
+      8,
+      1,
+      false
+    );
+
+    const coneGeometry = new THREE.ConeBufferGeometry(1 * 0.25);
+    const conematerial = new THREE.MeshBasicMaterial({ color: "red" });
+    // Correct orientation
+    coneGeometry.translate(0, 1 / 2, 0);
+    coneGeometry.rotateX(Math.PI / 2);
+    const arrowMesh = new THREE.Mesh(coneGeometry, conematerial);
+    this.threeCommon.scene.add(arrowMesh);
+
+    var orientation = new THREE.Matrix4(); //a new orientation matrix to offset pivot
+    var offsetRotation = new THREE.Matrix4(); //a matrix to fix pivot rotation
+    var offsetPosition = new THREE.Matrix4(); //a matrix to fix pivot position
+    orientation.lookAt(
+      sourceVector,
+      destinationVector,
+      new THREE.Vector3(0, 1, 0)
+    ); //look at destination
+    offsetRotation.makeRotationX(HALF_PI); //rotate 90 degs on X
+    orientation.multiply(offsetRotation); //combine orientation with rotation transformations
+    cylinder.applyMatrix4(orientation);
+    var mesh = new THREE.Mesh(cylinder, material);
+    mesh.position.set(position.x, position.y, position.z);
+    this.threeCommon.scene.add(mesh);
   }
 
-  configureMesh() {
-    this.threeCommon.scene.add(
-      new Mesh(
-        this.geometry,
-        new THREE.MeshBasicMaterial({ color: "red", side: THREE.DoubleSide })
-      )
-    );
-  }
   objectCountChangeHandler($event) {
     this.objectCount = Number.parseInt($event.target.value, 10);
   }

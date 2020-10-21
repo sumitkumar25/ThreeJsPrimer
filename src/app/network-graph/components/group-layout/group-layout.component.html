@@ -1,22 +1,68 @@
 <section #stats>
-    <h3>Group Layout</h3>
-    <h6>Render Calls: {{renderCalls}}    Object Count: {{objectCount}} </h6>
-    <div class="app--margin__vertical object-range">
-        <input
-          type="range"
-          id="points"
-          name="points"
-          min="3"
-          max="100"
-          step="1"
-          (change)="objectCountChangeHandler($event)"
-          [value]="objectCount"
-        />
+  <h5>Group Layout</h5>
+  <h5>Render Calls: {{ renderCalls }}</h5>
+  <section
+    style="display: flex; border: solid 1px; padding: 10px; margin: 10px"
+  >
+    <div style="flex: 1 0 0; padding: 10px; border: solid 1px">
+      <h5>Node Metric</h5>
+      <div>
+        <h5>Object Count: {{ objectCount }}</h5>
       </div>
-    <canvas
-      height="500"
-      width="1000"
-      #canvasEl
-      (click)="clickHandler($event)"
-    ></canvas>
+      <div class="app--margin__vertical object-range">
+        <label for="points"
+          >Node Count
+          <input
+            type="range"
+            id="points"
+            name="points"
+            min="4"
+            max="10000"
+            step="10"
+            (change)="objectCountChangeHandler($event)"
+            [value]="objectCount"
+          />
+        </label>
+      </div>
+    </div>
+    <div style="flex: 1 0 0; padding: 10px; border: solid 1px">
+      <h5>Connection Metric</h5>
+      <div>
+        <h5>Max Connections (N * N) : {{ objectCount * objectCount }}</h5>
+        <h5>Connection Count: {{ connectionCount }}</h5>
+      </div>
+      <div>
+        <label for="step">
+          connection node step : {{ connectionStep }} <br />
+          <input
+            type="range"
+            name="points"
+            id="step"
+            min="1"
+            max="{{ objectCount }}"
+            step="1"
+            (change)="connectionStepHandler($event)"
+            [value]="connectionStep"
+        /></label>
+      </div>
+      <div>
+        <label for="enable">
+          Enable connections. {{ enableConnections }} <br />
+          <input
+            type="checkbox"
+            name="enable"
+            id="enable"
+            [value]="enableConnections"
+            (change)="connectionStateHandler($event)"
+          />
+        </label>
+      </div>
+    </div>
   </section>
+  <canvas
+    height="500"
+    width="1000"
+    #canvasEl
+    (click)="clickHandler($event)"
+  ></canvas>
+</section>

@@ -30,9 +30,9 @@ canvas {
 .app--margin__vertical {
   margin: 15px 0;
 }
-.object-range input {
+input[type=range] {
   display: inline-block;
-  width: 85%;
+  width: 100%;
 }
 .stats {
   color: green;

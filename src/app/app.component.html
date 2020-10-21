@@ -9,15 +9,13 @@
   </nav>
 </header>
 <main>
-  <app-menu-primary></app-menu-primary>
-  <div class="overflow-container">
-    <section class="main-flex">
-      <div class="sub-nav">
-        <app-menu-secondary></app-menu-secondary>
-      </div>
-      <div class="router-container">
-        <router-outlet></router-outlet>
-      </div>
-    </section>
-  </div>
+  <section class="sub-nav">
+    <app-menu-secondary></app-menu-secondary>
+  </section>
+  <section class="main-flex">
+    <app-menu-primary></app-menu-primary>
+    <div class="router-container">
+      <router-outlet></router-outlet>
+    </div>
+  </section>
 </main>

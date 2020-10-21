@@ -1,24 +1,22 @@
 main {
-  width: 80vw;
+  width: 99vw;
   margin: 0 auto;
+  display: flex;
+}
+.sub-nav {
+  flex: 0 0 20%;
+  padding: 20px;
+  padding-top: 60px;
 }
 .main-flex {
-  display: flex;
-  overflow: auto;
-
-  .sub-nav {
-    flex: 0 0 20%;
-  }
-  .router-container {
-    padding: 20px;
-    flex: 0 0 80%;
-  }
+  padding: 20px;
+  flex: 0 0 70%;
 }
 header {
   display: flex;
   justify-content: space-between;
   padding: 10px 0;
-  h1{
+  h1 {
     margin: 0;
   }
 }
@@ -28,9 +26,4 @@ header {
     width: 35px;
     height: 35px;
   }
-}
-.overflow-container {
-  height: 100%;
-  width: 100%;
-  overflow: scroll;
 }

@@ -59,9 +59,6 @@ export class InstanceOptimizedComponent implements OnInit, OnDestroy {
     this.stats = new Stats();
     this.stats.showPanel(1); // 0: fps, 1: ms, 2: mb, 3+: custom
     this.statsEl.nativeElement.appendChild(this.stats.dom);
-    this.stats.domElement.style.position = "absolute";
-    this.stats.domElement.style.left = "0px";
-    this.stats.domElement.style.top = "0px";
   }
 
   loadGeometry() {
