@@ -47,7 +47,7 @@ const routes: Routes = [
   },
   {
     path: "",
-    redirectTo: "three-optimized",
+    redirectTo: "network-graph",
     pathMatch: "full",
   },
 ];
