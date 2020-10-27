@@ -53,6 +53,7 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
   connectionStep: number = 1;
   connectionCount: number;
   enableConnections = false;
+  noConnectionMesh = false;
   mouse: any;
   constructor(
     private threeService: ThreeService,
@@ -172,7 +173,7 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
     var connectionData = [];
     for (let index = 0; index < this.connectionPoints.length; index++) {
       for (
-        let _index = this.connectionPoints.length -1;
+        let _index = this.connectionPoints.length - 1;
         _index >= 0;
         _index = _index - this.connectionStep
       ) {
@@ -183,19 +184,47 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
       }
     }
 
+    this.createConnectionMesh(connectionData);
+  }
+
+  private createConnectionMesh(connectionData: any[]) {
     this.connectionCount = connectionData.length / 2;
-    this.meshline = new MeshLine();
-    this.meshline.setPoints(connectionData);
-    const material = new MeshLineMaterial({
-      color: new THREE.Color("rgb(39,124,178)"),
-      opacity: 1,
-      lineWidth: 0.05,
-      depthTest: true,
-      transparent: false,
-    });
-    var mesh = new THREE.Mesh(this.meshline, material);
-    mesh.renderOrder = 10;
-    this.threeCommon.scene.add(mesh);
+    if (this.noConnectionMesh) {
+      const material = new MeshLineMaterial({
+        color: new THREE.Color("rgb(39,124,178)"),
+        opacity: 1,
+        lineWidth: 0.05,
+        depthTest: true,
+        transparent: false,
+      });
+      let meshCount = 0;
+      this.connectionsData.forEach((connection, i) => {
+        if (connectionData[i + 1] && i%2 === 0) {
+          const meshline = new MeshLine();
+          meshline.setPoints([connectionData[i], connectionData[i + 1]]);
+          var mesh = new THREE.Mesh(meshline, material);
+          mesh.frustumCulled = false;
+          meshCount++;
+          this.threeCommon.scene.add(mesh);
+        }
+      });
+      console.log(meshCount);
+      
+    } else {
+      this.meshline = new MeshLine();
+      this.meshline.setPoints(connectionData);
+      const material = new MeshLineMaterial({
+        color: new THREE.Color("rgb(39,124,178)"),
+        opacity: 1,
+        lineWidth: 0.05,
+        depthTest: true,
+        transparent: false,
+      });
+      var mesh = new THREE.Mesh(this.meshline, material);
+      mesh.frustumCulled = false;
+      mesh.renderOrder = 10;
+      this.threeCommon.scene.add(mesh);
+    }
   }
 
   constructCylindricalConnection(sourceVector, destinationVector) {
@@ -270,8 +299,16 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
   connectionStateHandler($event) {
     this.threeService.cleanScene(this.threeCommon);
     this.connectionPoints = [];
-    this.enableConnections = $event.target.value;
+    this.enableConnections = $event.target.checked;
     console.log(this.enableConnections);
+    
+    this.sceneController();
+  }
+
+  meshTypeStateHandler($event) {
+    this.threeService.cleanScene(this.threeCommon);
+    this.connectionPoints = [];
+    this.noConnectionMesh = $event.target.checked;
     this.sceneController();
   }
 }

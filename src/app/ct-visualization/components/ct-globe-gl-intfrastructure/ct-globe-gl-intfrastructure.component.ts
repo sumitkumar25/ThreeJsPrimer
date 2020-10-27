@@ -11,6 +11,8 @@ import { CtVisualizationRequestService } from "../../services/ct-visualization-r
 import { GeoJson, GeoJsonResponse } from "../../interfaces/geo-json";
 import { GlobeData } from "../../interfaces/globe-data";
 import { ThreeService } from "src/app/three/services/three.service";
+import * as Stats from "../../../../../node_modules/stats.js/build/stats.min.js";
+
 @Component({
   selector: "app-ct-globe-gl-intfrastructure",
   templateUrl: "./ct-globe-gl-intfrastructure.component.html",
@@ -22,6 +24,7 @@ export class CtGlobeGlIntfrastructureComponent
 
   filteredGlobeData: Array<GlobeData>;
   subscription: any;
+  stats: any;
 
   constructor(
     private ctVisualization: CtVisualizationRequestService,
@@ -32,7 +35,16 @@ export class CtGlobeGlIntfrastructureComponent
       this.subscription.unsubscribe();
     }
   }
-  ngOnInit() {}
+  ngOnInit() {
+    this.stats = new Stats();
+    this.stats.showPanel(1); // 0: fps, 1: ms, 2: mb, 3+: custom
+    document.body.appendChild(this.stats.dom);
+    this.statsUpdate();
+  }
+  statsUpdate() {
+    this.stats.update();
+    window.requestAnimationFrame(this.statsUpdate.bind(this));
+  }
   getStateCapitalsData() {
     this.subscription = this.ctVisualization
       .getStateCapitals()

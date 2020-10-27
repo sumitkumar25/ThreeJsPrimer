@@ -60,14 +60,15 @@ export class ThreeService {
   }
 
   configureHelpers(scene: any) {
-    scene.add(new THREE.AxesHelper( 5 ));
+    scene.add(new THREE.AxesHelper(5));
   }
 
   cleanScene(threeCommon) {
     var meshes = [];
-
     threeCommon.scene.traverse(function (object) {
-      if (object.isMesh && !object.isInstancedMesh) meshes.push(object);
+      if (object.isMesh && !object.isInstancedMesh) {
+        meshes.push(object);
+      }
     });
     for (var i = 0; i < meshes.length; i++) {
       var mesh = meshes[i];

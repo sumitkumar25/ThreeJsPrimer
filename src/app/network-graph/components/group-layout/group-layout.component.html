@@ -33,7 +33,6 @@
       </div>
       <div>
         <label for="step">
-          connection node step : {{ connectionStep }} <br />
           <input
             type="range"
             name="points"
@@ -43,8 +42,20 @@
             step="1"
             (change)="connectionStepHandler($event)"
             [value]="connectionStep"
-        /></label>
+        />connection node step : {{ connectionStep }} </label>
       </div>
+      <div>
+        <label for="noMesh">
+          Individual Meshes{{ enableConnections }} <br />
+          <input
+            type="checkbox"
+            name="noMesh"
+            id="noMesh"
+            [checked]="noConnectionMesh"
+            (change)="meshTypeStateHandler($event)"
+          />
+        </label>
+      </div>      
       <div>
         <label for="enable">
           Enable connections. {{ enableConnections }} <br />
@@ -52,7 +63,7 @@
             type="checkbox"
             name="enable"
             id="enable"
-            [value]="enableConnections"
+            [checked]="enableConnections"
             (change)="connectionStateHandler($event)"
           />
         </label>
