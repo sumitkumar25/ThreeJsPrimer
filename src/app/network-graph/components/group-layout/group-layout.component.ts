@@ -13,7 +13,7 @@ import { throttle } from "lodash";
 import { forkJoin } from "rxjs";
 import { ThreeService } from "src/app/three/services/three.service";
 import * as THREE from "three";
-import { MeshLine, MeshLineMaterial } from "three.meshline";
+import { MeshLine, MeshLineMaterial, MeshLineRaycast } from "three.meshline";
 import * as Stats from "../../../../../node_modules/stats.js/build/stats.min.js";
 import { NetworkGraphRequestService } from "../../services/network-graph-request.service.js";
 import { ThreeFactoryService } from "../../services/three-factory.service.js";
@@ -55,6 +55,8 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
   enableConnections = false;
   noConnectionMesh = false;
   mouse: any;
+  raycaster = new THREE.Raycaster();
+  meshConnections: THREE.Mesh<any, any>;
   constructor(
     private threeService: ThreeService,
     private graphRequestService: NetworkGraphRequestService,
@@ -88,10 +90,8 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
   initRequests() {
     forkJoin(
       this.graphRequestService.getGroups(),
-      this.graphRequestService.getNodeMesh(),
-      this.graphRequestService.getTrafficConnections()
-    ).subscribe(([groupData, mesh, arg]) => {
-      this.connectionsData = arg["data"];
+      this.graphRequestService.getNodeMesh()
+    ).subscribe(([groupData, mesh]) => {
       this.nodeMeshResponseHandler(mesh);
       this.groupsResponseHandler(groupData);
     });
@@ -106,8 +106,9 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
   }
 
   groupsResponseHandler(groupData: Object) {
-    this.groupsData = groupData;
-    this.objectCount = this.groupsData["data"].length;
+    // this.groupsData not used.
+    // this.groupsData = groupData;
+    // this.objectCount = this.groupsData["data"].length;
     this.sceneController();
   }
 
@@ -123,7 +124,6 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
       this.instancedNodeMesh.instanceMatrix.needsUpdate = true;
     }
     for (let i = 0; i < this.objectCount; i++) {
-      //using indexes as id.
       this.instancedNodeMesh.setMatrixAt(i, this.setPositionFromLayout(i));
     }
     if (this.previousObjectCount > this.objectCount) {
@@ -154,6 +154,40 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
   }
 
   renderView() {
+    if (this.mouse) {
+      this.raycaster.setFromCamera(this.mouse, this.threeCommon.camera);
+    }
+
+    const nodeInstersections = this.raycaster.intersectObjects([
+      this.instancedNodeMesh,
+      this.meshConnections,
+    ]);
+    // if (this.meshConnections) {
+    //   const lineIntersection = MeshLineRaycast(
+    //     this.raycaster,
+    //     this.meshConnections
+    //   );
+    //   console.log(lineIntersection);
+    // }
+
+    // const connectionIntersections =
+    if (nodeInstersections.length > 0) {
+      var rotationMatrix = new THREE.Matrix4().makeRotationY(0.3);
+      var instanceMatrix = new THREE.Matrix4();
+      var instanceId = nodeInstersections[0].instanceId;
+      const matrix = new THREE.Matrix4();
+      this.instancedNodeMesh.getMatrixAt(
+        nodeInstersections[0].instanceId,
+        instanceMatrix
+      );
+      matrix.multiplyMatrices(instanceMatrix, rotationMatrix);
+
+      this.instancedNodeMesh.setMatrixAt(
+        nodeInstersections[0].instanceId,
+        matrix
+      );
+      this.instancedNodeMesh.instanceMatrix.needsUpdate = true;
+    }
     this.threeCommon.renderer.render(
       this.threeCommon.scene,
       this.threeCommon.camera
@@ -199,7 +233,7 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
       });
       let meshCount = 0;
       this.connectionsData.forEach((connection, i) => {
-        if (connectionData[i + 1] && i%2 === 0) {
+        if (connectionData[i + 1] && i % 2 === 0) {
           const meshline = new MeshLine();
           meshline.setPoints([connectionData[i], connectionData[i + 1]]);
           var mesh = new THREE.Mesh(meshline, material);
@@ -209,9 +243,10 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
         }
       });
       console.log(meshCount);
-      
     } else {
       this.meshline = new MeshLine();
+      console.log("connectionData", connectionData);
+
       this.meshline.setPoints(connectionData);
       const material = new MeshLineMaterial({
         color: new THREE.Color("rgb(39,124,178)"),
@@ -220,35 +255,13 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
         depthTest: true,
         transparent: false,
       });
-      var mesh = new THREE.Mesh(this.meshline, material);
-      mesh.frustumCulled = false;
-      mesh.renderOrder = 10;
-      this.threeCommon.scene.add(mesh);
-    }
-  }
+      this.meshConnections = new THREE.Mesh(this.meshline, material);
+      this.meshConnections.frustumCulled = false;
+      this.meshConnections.renderOrder = 10;
+      this.meshConnections.raycast = MeshLineRaycast;
 
-  constructCylindricalConnection(sourceVector, destinationVector) {
-    // this.meshline = new MeshLine();
-    // this.meshline.setPoints([sourceVector, destinationVector]);
-    // var HALF_PI = Math.PI * 0.5;
-    // var distance = sourceVector.distanceTo(destinationVector);
-    // var position = destinationVector.clone().add(sourceVector).divideScalar(2);
-    // var material = new THREE.MeshLambertMaterial({ color: 0x277cb2 });
-    // var cylinder = new THREE.CylinderGeometry(.1, .1, distance, 10, 10, false);
-    // var orientation = new THREE.Matrix4(); //a new orientation matrix to offset pivot
-    // var offsetRotation = new THREE.Matrix4(); //a matrix to fix pivot rotation
-    // var offsetPosition = new THREE.Matrix4(); //a matrix to fix pivot position
-    // orientation.lookAt(
-    //   sourceVector,
-    //   destinationVector,
-    //   new THREE.Vector3(0, 1, 0)
-    // ); //look at destination
-    // offsetRotation.makeRotationX(HALF_PI); //rotate 90 degs on X
-    // orientation.multiply(offsetRotation); //combine orientation with rotation transformations
-    // cylinder.applyMatrix4(orientation);
-    // var mesh = new THREE.Mesh(cylinder, material);
-    // mesh.position.set(position.x, position.y, position.z);
-    // return mesh;
+      this.threeCommon.scene.add(this.meshConnections);
+    }
   }
 
   setUpStats() {
@@ -278,6 +291,7 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
       ) *
         2 +
       1;
+    this.renderView();
   }
 
   objectCountChangeHandler($event) {
@@ -301,7 +315,7 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
     this.connectionPoints = [];
     this.enableConnections = $event.target.checked;
     console.log(this.enableConnections);
-    
+
     this.sceneController();
   }
 

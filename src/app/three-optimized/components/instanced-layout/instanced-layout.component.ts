@@ -85,7 +85,7 @@ export class InstancedLayoutComponent
   }
   sceneController() {
     const material = new THREE.MeshNormalMaterial();
-    this.geometry.computeVertexNormals();
+    // this.geometry.computeVertexNormals();
     this.mesh = new THREE.InstancedMesh(
       this.geometry,
       material,

@@ -2939,7 +2939,7 @@ class InstancedLayoutComponent {
     }
     sceneController() {
         const material = new three__WEBPACK_IMPORTED_MODULE_1__["MeshNormalMaterial"]();
-        this.geometry.computeVertexNormals();
+        // this.geometry.computeVertexNormals();
         this.mesh = new three__WEBPACK_IMPORTED_MODULE_1__["InstancedMesh"](this.geometry, material, this.objectCount);
         for (var i = 0; i < this.objectCount; i++) {
             this.mesh.setMatrixAt(i, this.setPositionFromLayout(i));

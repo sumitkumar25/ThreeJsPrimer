@@ -418,8 +418,9 @@ class ThreeService {
     cleanScene(threeCommon) {
         var meshes = [];
         threeCommon.scene.traverse(function (object) {
-            if (object.isMesh && !object.isInstancedMesh)
+            if (object.isMesh && !object.isInstancedMesh) {
                 meshes.push(object);
+            }
         });
         for (var i = 0; i < meshes.length; i++) {
             var mesh = meshes[i];
