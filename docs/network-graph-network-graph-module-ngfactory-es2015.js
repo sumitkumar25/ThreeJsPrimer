@@ -18091,7 +18091,6 @@ class GroupLayoutComponent {
         }
         const nodeInstersections = this.raycaster.intersectObjects([
             this.instancedNodeMesh,
-            this.meshConnections,
         ]);
         // if (this.meshConnections) {
         //   const lineIntersection = MeshLineRaycast(

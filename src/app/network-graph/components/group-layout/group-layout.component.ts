@@ -157,10 +157,9 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
     if (this.mouse) {
       this.raycaster.setFromCamera(this.mouse, this.threeCommon.camera);
     }
-
+    
     const nodeInstersections = this.raycaster.intersectObjects([
       this.instancedNodeMesh,
-      this.meshConnections,
     ]);
     // if (this.meshConnections) {
     //   const lineIntersection = MeshLineRaycast(
