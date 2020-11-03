@@ -5793,6 +5793,7 @@ var TrackballControls = function ( object, domElement ) {
 		switch ( event.pointerType ) {
 
 			case 'mouse':
+			case 'pen':
 				onMouseDown( event );
 				break;
 
@@ -5809,6 +5810,7 @@ var TrackballControls = function ( object, domElement ) {
 		switch ( event.pointerType ) {
 
 			case 'mouse':
+			case 'pen':
 				onMouseMove( event );
 				break;
 
@@ -5825,6 +5827,7 @@ var TrackballControls = function ( object, domElement ) {
 		switch ( event.pointerType ) {
 
 			case 'mouse':
+			case 'pen':
 				onMouseUp( event );
 				break;
 
@@ -6473,7 +6476,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _postprocessing_Pass_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../postprocessing/Pass.js */ "./node_modules/three/examples/jsm/postprocessing/Pass.js");
 
 
-
 var MaskPass = function ( scene, camera ) {
 
 	_postprocessing_Pass_js__WEBPACK_IMPORTED_MODULE_0__["Pass"].call( this );
@@ -6625,6 +6627,10 @@ Object.assign( Pass.prototype, {
 
 // Helper for passes that need to fill the viewport with a single quad.
 
+// Important: It's actually a hack to put FullScreenQuad into the Pass namespace. This is only
+// done to make examples/js code work. Normally, FullScreenQuad should be exported
+// from this module like Pass.
+
 Pass.FullScreenQuad = ( function () {
 
 	var camera = new _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["OrthographicCamera"]( - 1, 1, 1, - 1, 0, 1 );
@@ -6688,7 +6694,6 @@ Pass.FullScreenQuad = ( function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RenderPass", function() { return RenderPass; });
 /* harmony import */ var _postprocessing_Pass_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../postprocessing/Pass.js */ "./node_modules/three/examples/jsm/postprocessing/Pass.js");
-
 
 
 var RenderPass = function ( scene, camera, overrideMaterial, clearColor, clearAlpha ) {
@@ -6865,7 +6870,6 @@ ShaderPass.prototype = Object.assign( Object.create( _postprocessing_Pass_js__WE
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CopyShader", function() { return CopyShader; });
-
 /**
  * Full-screen textured quad shader
  */
