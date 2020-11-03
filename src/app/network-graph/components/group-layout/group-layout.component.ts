@@ -13,10 +13,14 @@ import { throttle } from "lodash";
 import { forkJoin } from "rxjs";
 import { ThreeService } from "src/app/three/services/three.service";
 import * as THREE from "three";
+import { Geometry, GeometryUtils, Line3, Object3D } from "three";
 import { MeshLine, MeshLineMaterial, MeshLineRaycast } from "three.meshline";
 import * as Stats from "../../../../../node_modules/stats.js/build/stats.min.js";
 import { NetworkGraphRequestService } from "../../services/network-graph-request.service.js";
 import { ThreeFactoryService } from "../../services/three-factory.service.js";
+import { Line2 } from "./../../../../../node_modules/three/examples/jsm/lines/Line2.js";
+import { LineMaterial } from "./../../../../../node_modules/three/examples/jsm/lines/LineMaterial.js";
+import { LineGeometry } from "./../../../../../node_modules/three/examples/jsm/lines/LineGeometry.js";
 @Component({
   selector: "app-group-layout",
   templateUrl: "./group-layout.component.html",
@@ -57,6 +61,7 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
   mouse: any;
   raycaster = new THREE.Raycaster();
   meshConnections: THREE.Mesh<any, any>;
+  trafficGroup;
   constructor(
     private threeService: ThreeService,
     private graphRequestService: NetworkGraphRequestService,
@@ -156,35 +161,47 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
   renderView() {
     if (this.mouse) {
       this.raycaster.setFromCamera(this.mouse, this.threeCommon.camera);
+      const intersects = this.raycaster.intersectObjects(
+        this.threeCommon.scene.children
+      );
+      console.log(intersects[0]);
     }
 
-    const nodeInstersections = this.raycaster.intersectObjects([
-      this.instancedNodeMesh,
-    ]);
-    if (this.meshConnections) {
-      const connectionInterSects = [];
-      this.meshConnections.raycast(this.raycaster, connectionInterSects);
-      console.log(connectionInterSects);
-    }
+    // const nodeInstersections = this.raycaster.intersectObjects([
+    //   this.instancedNodeMesh,
+    // ]);
+    // if (this.meshConnections) {
+    //   const connectionInterSects = [];
+    //   this.meshConnections.raycast(this.raycaster, connectionInterSects);
+    //   console.log({connectionInterSects});
+    // }
+
+    // if(this.trafficGroup){
+    //   // this.meshConnections.raycast(this.raycaster, trafficGroupSects);
+    //   const trafficGroupSects = this.raycaster.intersectObjects(
+    //     this.trafficGroup
+    //   );
+    //   console.log({trafficGroupSects})
+    // }
 
     // const connectionIntersections =
-    if (nodeInstersections.length > 0) {
-      var rotationMatrix = new THREE.Matrix4().makeRotationY(0.3);
-      var instanceMatrix = new THREE.Matrix4();
-      var instanceId = nodeInstersections[0].instanceId;
-      const matrix = new THREE.Matrix4();
-      this.instancedNodeMesh.getMatrixAt(
-        nodeInstersections[0].instanceId,
-        instanceMatrix
-      );
-      matrix.multiplyMatrices(instanceMatrix, rotationMatrix);
+    // if (nodeInstersections.length > 0) {
+    //   var rotationMatrix = new THREE.Matrix4().makeRotationY(0.3);
+    //   var instanceMatrix = new THREE.Matrix4();
+    //   var instanceId = nodeInstersections[0].instanceId;
+    //   const matrix = new THREE.Matrix4();
+    //   this.instancedNodeMesh.getMatrixAt(
+    //     nodeInstersections[0].instanceId,
+    //     instanceMatrix
+    //   );
+    //   matrix.multiplyMatrices(instanceMatrix, rotationMatrix);
 
-      this.instancedNodeMesh.setMatrixAt(
-        nodeInstersections[0].instanceId,
-        matrix
-      );
-      this.instancedNodeMesh.instanceMatrix.needsUpdate = true;
-    }
+    //   this.instancedNodeMesh.setMatrixAt(
+    //     nodeInstersections[0].instanceId,
+    //     matrix
+    //   );
+    //   this.instancedNodeMesh.instanceMatrix.needsUpdate = true;
+    // }
     this.threeCommon.renderer.render(
       this.threeCommon.scene,
       this.threeCommon.camera
@@ -195,12 +212,155 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
   private sceneController() {
     this.constructNodes();
     if (this.enableConnections) {
-      this.constructMeshlineConnections();
+      this.configureConnections("cylindrical");
+      // this.constructMeshlineConnections();
     }
     this.renderView();
   }
+  configureConnections(type: string) {
+    let connectionData = this.generateRandomConnections();
+    switch (type) {
+      case "meshline":
+        this.constructMeshlineConnections(connectionData);
+        break;
+      case "curveLine":
+        this.constructCurveLineConnections(connectionData);
+        break;
+      case "lineSegment2":
+        this.constructlineSegment2Connections(connectionData);
+        break;
+      case "fatlines":
+        connectionData = this.generateDistinctConnections();
+        this.constructlinefatLineConnections(connectionData);
+        break;
+      case "line3":
+        connectionData = this.generateDistinctConnections();
+        this.constructline3Connections(connectionData);
+        break;
+      case "cylindrical":
+        connectionData = this.generateDistinctConnections();
+        this.constructCylindricalConnections(connectionData);
 
-  constructMeshlineConnections() {
+      default:
+        break;
+    }
+  }
+  constructline3Connections(connectionData: any[]) {
+    let matLine = new LineMaterial({
+      color: 0xffffff,
+      linewidth: 5, // in pixels
+      vertexColors: true,
+      //resolution:  // to be set by renderer, eventually
+      dashed: false,
+    });
+    let geometry = new Geometry();
+    connectionData.forEach((c) => {
+      geometry.vertices.push(c.source, c.target);
+      let line = new Line3(c.source, c.target);
+      // const lineMesh = new THREE.Mesh(line,matLine);
+      this.threeCommon.scene.add(line);
+    });
+  }
+  constructlinefatLineConnections(connectionData) {
+    GeometryUtils;
+    const geometry = new LineGeometry();
+    let matLine = new LineMaterial({
+      color: 0xffffff,
+      linewidth: 5, // in pixels
+      vertexColors: true,
+      //resolution:  // to be set by renderer, eventually
+      dashed: false,
+    });
+    connectionData.forEach((c) => {
+      geometry.setFromPoints([
+        c.source.x,
+        c.source.y,
+        c.source.z,
+        c.target.x,
+        c.target.y,
+        c.target.z,
+      ]);
+      let line = new Line2(geometry, matLine);
+      line.computeLineDistances();
+      line.scale.set(1, 1, 1);
+      this.threeCommon.scene.add(line);
+    });
+  }
+  constructlineSegment2Connections(connectionData) {}
+
+  constructCurveLineConnections(connectionData) {}
+
+  constructMeshlineConnections(connectionData) {
+    this.createConnectionMesh(connectionData);
+  }
+  constructCylindricalConnections(connectionData) {
+    var HALF_PI = Math.PI * 0.5;
+    var material = new THREE.MeshLambertMaterial({ color: 0x277cb2 });
+    connectionData.forEach((c) => {
+      var distance = c.source.distanceTo(c.target);
+      var cylinder = new THREE.CylinderGeometry(
+        0.1,
+        0.1,
+        distance,
+        10,
+        10,
+        false
+      );
+      // orient the cylinder
+      var position = c.target.clone().add(c.source).divideScalar(2);
+
+      var orientation = new THREE.Matrix4(); //a new orientation matrix to offset pivot
+      var offsetRotation = new THREE.Matrix4(); //a matrix to fix pivot rotation
+      var offsetPosition = new THREE.Matrix4(); //a matrix to fix pivot position
+      orientation.lookAt(c.source, c.target, new THREE.Vector3(0, 1, 0)); //look at destination
+      offsetRotation.makeRotationX(HALF_PI); //rotate 90 degs on X
+      orientation.multiply(offsetRotation); //combine orientation with rotation transformations
+      cylinder.applyMatrix4(orientation);
+      const mesh = new THREE.Mesh(cylinder, material);
+      mesh.position.set(position.x, position.y, position.z);
+      mesh.userData['__visualiserObj'] = "traffic";
+      this.threeCommon.scene.add(mesh);
+    });
+    // var cylinder = new THREE.CylinderGeometry(
+    //   0.1,
+    //   0.1,
+    //   distance,
+    //   10,
+    //   10,
+    //   false
+    // );
+    // var orientation = new THREE.Matrix4(); //a new orientation matrix to offset pivot
+    // var offsetRotation = new THREE.Matrix4(); //a matrix to fix pivot rotation
+    // var offsetPosition = new THREE.Matrix4(); //a matrix to fix pivot position
+    // orientation.lookAt(
+    //   sourceVector,
+    //   destinationVector,
+    //   new THREE.Vector3(0, 1, 0)
+    // ); //look at destination
+    // offsetRotation.makeRotationX(HALF_PI); //rotate 90 degs on X
+    // orientation.multiply(offsetRotation); //combine orientation with rotation transformations
+    // cylinder.applyMatrix4(orientation);
+    // var mesh = new THREE.Mesh(cylinder, material);
+    // mesh.position.set(position.x, position.y, position.z);
+    // return mesh;
+  }
+  private generateDistinctConnections() {
+    var connectionData = [];
+    for (let index = 0; index < this.connectionPoints.length; index++) {
+      for (
+        let _index = this.connectionPoints.length - 1;
+        _index >= 0;
+        _index = _index - this.connectionStep
+      ) {
+        connectionData.push({
+          source: this.connectionPoints[index],
+          target: this.connectionPoints[_index],
+        });
+      }
+    }
+    return connectionData;
+  }
+  private generateRandomConnections() {
     var connectionData = [];
     for (let index = 0; index < this.connectionPoints.length; index++) {
       for (
@@ -214,8 +374,7 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
         );
       }
     }
-
-    this.createConnectionMesh(connectionData);
+    return connectionData;
   }
 
   private createConnectionMesh(connectionData: any[]) {
@@ -228,22 +387,19 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
         depthTest: true,
         transparent: false,
       });
-      let meshCount = 0;
-      this.connectionsData.forEach((connection, i) => {
-        if (connectionData[i + 1] && i % 2 === 0) {
+      this.trafficGroup = [];
+      connectionData.forEach((connection, i) => {
+        if (connectionData[i + 1]) {
           const meshline = new MeshLine();
           meshline.setPoints([connectionData[i], connectionData[i + 1]]);
           var mesh = new THREE.Mesh(meshline, material);
-          mesh.frustumCulled = false;
-          meshCount++;
+          mesh["dt"] = { test: i };
+          this.trafficGroup.push(mesh);
           this.threeCommon.scene.add(mesh);
         }
       });
-      console.log(meshCount);
     } else {
       this.meshline = new MeshLine();
-      console.log("connectionData", connectionData);
-
       this.meshline.setPoints(connectionData);
       const material = new MeshLineMaterial({
         color: new THREE.Color("rgb(39,124,178)"),
