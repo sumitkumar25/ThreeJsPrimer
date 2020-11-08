@@ -31,7 +31,7 @@
         <h5>Max Connections (N * N) : {{ objectCount * objectCount }}</h5>
         <h5>Connection Count: {{ connectionCount }}</h5>
       </div>
-      <div>
+      <!-- <div>
         <label for="step">
           <input
             type="range"
@@ -43,8 +43,8 @@
             (change)="connectionStepHandler($event)"
             [value]="connectionStep"
         />connection node step : {{ connectionStep }} </label>
-      </div>
-      <div>
+      </div> -->
+      <!-- <div>
         <label for="noMesh">
           Individual Meshes{{ enableConnections }} <br />
           <input
@@ -55,17 +55,18 @@
             (change)="meshTypeStateHandler($event)"
           />
         </label>
-      </div>      
+      </div>       -->
       <div>
         <label for="enable">
-          Enable connections. {{ enableConnections }} <br />
           <input
-            type="checkbox"
-            name="enable"
-            id="enable"
-            [checked]="enableConnections"
-            (change)="connectionStateHandler($event)"
-          />
+          type="checkbox"
+          name="enable"
+          id="enable"
+          [checked]="enableConnections"
+          (change)="connectionStateHandler($event)"
+        />
+          Enable connections.
+
         </label>
       </div>
     </div>

@@ -17165,729 +17165,1050 @@
 
 /***/ }),
 
-/***/ "./node_modules/three.meshline/src/THREE.MeshLine.js":
-/*!***********************************************************!*\
-  !*** ./node_modules/three.meshline/src/THREE.MeshLine.js ***!
-  \***********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./node_modules/three/examples/jsm/lines/Line2.js":
+/*!********************************************************!*\
+  !*** ./node_modules/three/examples/jsm/lines/Line2.js ***!
+  \********************************************************/
+/*! exports provided: Line2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-;(function() {
-  'use strict'
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Line2", function() { return Line2; });
+/* harmony import */ var _lines_LineSegments2_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../lines/LineSegments2.js */ "./node_modules/three/examples/jsm/lines/LineSegments2.js");
+/* harmony import */ var _lines_LineGeometry_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../lines/LineGeometry.js */ "./node_modules/three/examples/jsm/lines/LineGeometry.js");
+/* harmony import */ var _lines_LineMaterial_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../lines/LineMaterial.js */ "./node_modules/three/examples/jsm/lines/LineMaterial.js");
 
-  var root = this
 
-  var has_require = "function" !== 'undefined'
 
-  var THREE = root.THREE || (has_require && __webpack_require__(/*! three */ "./node_modules/three/build/three.module.js"))
-  if (!THREE) throw new Error('MeshLine requires three.js')
 
-  function MeshLine() {
-    THREE.BufferGeometry.call(this)
-    this.type = 'MeshLine'
+var Line2 = function ( geometry, material ) {
 
-    this.positions = []
+	if ( geometry === undefined ) geometry = new _lines_LineGeometry_js__WEBPACK_IMPORTED_MODULE_1__["LineGeometry"]();
+	if ( material === undefined ) material = new _lines_LineMaterial_js__WEBPACK_IMPORTED_MODULE_2__["LineMaterial"]( { color: Math.random() * 0xffffff } );
 
-    this.previous = []
-    this.next = []
-    this.side = []
-    this.width = []
-    this.indices_array = []
-    this.uvs = []
-    this.counters = []
-    this._points = []
-    this._geom = null
+	_lines_LineSegments2_js__WEBPACK_IMPORTED_MODULE_0__["LineSegments2"].call( this, geometry, material );
 
-    this.widthCallback = null
+	this.type = 'Line2';
 
-    // Used to raycast
-    this.matrixWorld = new THREE.Matrix4()
+};
 
-    Object.defineProperties(this, {
-      // this is now a bufferGeometry
-      // add getter to support previous api
-      geometry: {
-        enumerable: true,
-        get: function() {
-          return this
-        },
-      },
-      geom: {
-        enumerable: true,
-        get: function() {
-          return this._geom
-        },
-        set: function(value) {
-          this.setGeometry(value, this.widthCallback)
-        },
-      },
-      // for declaritive architectures
-      // to return the same value that sets the points
-      // eg. this.points = points
-      // console.log(this.points) -> points
-      points: {
-        enumerable: true,
-        get: function() {
-          return this._points
-        },
-        set: function(value) {
-          this.setPoints(value, this.widthCallback)
-        },
-      },
-    })
-  }
+Line2.prototype = Object.assign( Object.create( _lines_LineSegments2_js__WEBPACK_IMPORTED_MODULE_0__["LineSegments2"].prototype ), {
 
-  MeshLine.prototype = Object.create(THREE.BufferGeometry.prototype)
-  MeshLine.prototype.constructor = MeshLine
-  MeshLine.prototype.isMeshLine = true
+	constructor: Line2,
 
-  MeshLine.prototype.setMatrixWorld = function(matrixWorld) {
-    this.matrixWorld = matrixWorld
-  }
+	isLine2: true
 
-  // setting via a geometry is rather superfluous
-  // as you're creating a unecessary geometry just to throw away
-  // but exists to support previous api
-  MeshLine.prototype.setGeometry = function(g, c) {
-		// as the input geometry are mutated we store them
-		// for later retreival when necessary (declaritive architectures)
-		this._geometry = g;
-		if (g instanceof THREE.Geometry) {
-			this.setPoints(g.vertices, c);
-		} else if (g instanceof THREE.BufferGeometry) {
-			this.setPoints(g.getAttribute("position").array, c);
-		} else {
-			this.setPoints(g, c);
+} );
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/three/examples/jsm/lines/LineGeometry.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/three/examples/jsm/lines/LineGeometry.js ***!
+  \***************************************************************/
+/*! exports provided: LineGeometry */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LineGeometry", function() { return LineGeometry; });
+/* harmony import */ var _lines_LineSegmentsGeometry_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../lines/LineSegmentsGeometry.js */ "./node_modules/three/examples/jsm/lines/LineSegmentsGeometry.js");
+
+
+var LineGeometry = function () {
+
+	_lines_LineSegmentsGeometry_js__WEBPACK_IMPORTED_MODULE_0__["LineSegmentsGeometry"].call( this );
+
+	this.type = 'LineGeometry';
+
+};
+
+LineGeometry.prototype = Object.assign( Object.create( _lines_LineSegmentsGeometry_js__WEBPACK_IMPORTED_MODULE_0__["LineSegmentsGeometry"].prototype ), {
+
+	constructor: LineGeometry,
+
+	isLineGeometry: true,
+
+	setPositions: function ( array ) {
+
+		// converts [ x1, y1, z1,  x2, y2, z2, ... ] to pairs format
+
+		var length = array.length - 3;
+		var points = new Float32Array( 2 * length );
+
+		for ( var i = 0; i < length; i += 3 ) {
+
+			points[ 2 * i ] = array[ i ];
+			points[ 2 * i + 1 ] = array[ i + 1 ];
+			points[ 2 * i + 2 ] = array[ i + 2 ];
+
+			points[ 2 * i + 3 ] = array[ i + 3 ];
+			points[ 2 * i + 4 ] = array[ i + 4 ];
+			points[ 2 * i + 5 ] = array[ i + 5 ];
+
 		}
-  }
 
-  MeshLine.prototype.setPoints = function(points, wcb) {
-		if (!(points instanceof Float32Array) && !(points instanceof Array)) {
-			console.error(
-				"ERROR: The BufferArray of points is not instancied correctly."
-			);
-			return;
+		_lines_LineSegmentsGeometry_js__WEBPACK_IMPORTED_MODULE_0__["LineSegmentsGeometry"].prototype.setPositions.call( this, points );
+
+		return this;
+
+	},
+
+	setColors: function ( array ) {
+
+		// converts [ r1, g1, b1,  r2, g2, b2, ... ] to pairs format
+
+		var length = array.length - 3;
+		var colors = new Float32Array( 2 * length );
+
+		for ( var i = 0; i < length; i += 3 ) {
+
+			colors[ 2 * i ] = array[ i ];
+			colors[ 2 * i + 1 ] = array[ i + 1 ];
+			colors[ 2 * i + 2 ] = array[ i + 2 ];
+
+			colors[ 2 * i + 3 ] = array[ i + 3 ];
+			colors[ 2 * i + 4 ] = array[ i + 4 ];
+			colors[ 2 * i + 5 ] = array[ i + 5 ];
+
 		}
-		// as the points are mutated we store them
-		// for later retreival when necessary (declaritive architectures)
-		this._points = points;
-		this.widthCallback = wcb;
-		this.positions = [];
-		this.counters = [];
-		if (points.length && points[0] instanceof THREE.Vector3) {
-			// could transform Vector3 array into the array used below
-			// but this approach will only loop through the array once
-			// and is more performant
-			for (var j = 0; j < points.length; j++) {
-				var p = points[j];
-				var c = j / points.length;
-				this.positions.push(p.x, p.y, p.z);
-				this.positions.push(p.x, p.y, p.z);
-				this.counters.push(c);
-				this.counters.push(c);
+
+		_lines_LineSegmentsGeometry_js__WEBPACK_IMPORTED_MODULE_0__["LineSegmentsGeometry"].prototype.setColors.call( this, colors );
+
+		return this;
+
+	},
+
+	fromLine: function ( line ) {
+
+		var geometry = line.geometry;
+
+		if ( geometry.isGeometry ) {
+
+			this.setPositions( geometry.vertices );
+
+		} else if ( geometry.isBufferGeometry ) {
+
+			this.setPositions( geometry.attributes.position.array ); // assumes non-indexed
+
+		}
+
+		// set colors, maybe
+
+		return this;
+
+	},
+
+	copy: function ( /* source */ ) {
+
+		// todo
+
+		return this;
+
+	}
+
+} );
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/three/examples/jsm/lines/LineMaterial.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/three/examples/jsm/lines/LineMaterial.js ***!
+  \***************************************************************/
+/*! exports provided: LineMaterial */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LineMaterial", function() { return LineMaterial; });
+/* harmony import */ var _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../build/three.module.js */ "./node_modules/three/build/three.module.js");
+
+
+/**
+ * parameters = {
+ *  color: <hex>,
+ *  linewidth: <float>,
+ *  dashed: <boolean>,
+ *  dashScale: <float>,
+ *  dashSize: <float>,
+ *  gapSize: <float>,
+ *  resolution: <Vector2>, // to be set by renderer
+ * }
+ */
+
+_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["UniformsLib"].line = {
+
+	linewidth: { value: 1 },
+	resolution: { value: new _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["Vector2"]( 1, 1 ) },
+	dashScale: { value: 1 },
+	dashSize: { value: 1 },
+	gapSize: { value: 1 }, // todo FIX - maybe change to totalSize
+	opacity: { value: 1 }
+
+};
+
+_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["ShaderLib"][ 'line' ] = {
+
+	uniforms: _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["UniformsUtils"].merge( [
+		_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["UniformsLib"].common,
+		_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["UniformsLib"].fog,
+		_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["UniformsLib"].line
+	] ),
+
+	vertexShader:
+		`
+		#include <common>
+		#include <color_pars_vertex>
+		#include <fog_pars_vertex>
+		#include <logdepthbuf_pars_vertex>
+		#include <clipping_planes_pars_vertex>
+
+		uniform float linewidth;
+		uniform vec2 resolution;
+
+		attribute vec3 instanceStart;
+		attribute vec3 instanceEnd;
+
+		attribute vec3 instanceColorStart;
+		attribute vec3 instanceColorEnd;
+
+		varying vec2 vUv;
+
+		#ifdef USE_DASH
+
+			uniform float dashScale;
+			attribute float instanceDistanceStart;
+			attribute float instanceDistanceEnd;
+			varying float vLineDistance;
+
+		#endif
+
+		void trimSegment( const in vec4 start, inout vec4 end ) {
+
+			// trim end segment so it terminates between the camera plane and the near plane
+
+			// conservative estimate of the near plane
+			float a = projectionMatrix[ 2 ][ 2 ]; // 3nd entry in 3th column
+			float b = projectionMatrix[ 3 ][ 2 ]; // 3nd entry in 4th column
+			float nearEstimate = - 0.5 * b / a;
+
+			float alpha = ( nearEstimate - start.z ) / ( end.z - start.z );
+
+			end.xyz = mix( start.xyz, end.xyz, alpha );
+
+		}
+
+		void main() {
+
+			#ifdef USE_COLOR
+
+				vColor.xyz = ( position.y < 0.5 ) ? instanceColorStart : instanceColorEnd;
+
+			#endif
+
+			#ifdef USE_DASH
+
+				vLineDistance = ( position.y < 0.5 ) ? dashScale * instanceDistanceStart : dashScale * instanceDistanceEnd;
+
+			#endif
+
+			float aspect = resolution.x / resolution.y;
+
+			vUv = uv;
+
+			// camera space
+			vec4 start = modelViewMatrix * vec4( instanceStart, 1.0 );
+			vec4 end = modelViewMatrix * vec4( instanceEnd, 1.0 );
+
+			// special case for perspective projection, and segments that terminate either in, or behind, the camera plane
+			// clearly the gpu firmware has a way of addressing this issue when projecting into ndc space
+			// but we need to perform ndc-space calculations in the shader, so we must address this issue directly
+			// perhaps there is a more elegant solution -- WestLangley
+
+			bool perspective = ( projectionMatrix[ 2 ][ 3 ] == - 1.0 ); // 4th entry in the 3rd column
+
+			if ( perspective ) {
+
+				if ( start.z < 0.0 && end.z >= 0.0 ) {
+
+					trimSegment( start, end );
+
+				} else if ( end.z < 0.0 && start.z >= 0.0 ) {
+
+					trimSegment( end, start );
+
+				}
+
 			}
-		} else {
-			for (var j = 0; j < points.length; j += 3) {
-				var c = j / points.length;
-				this.positions.push(points[j], points[j + 1], points[j + 2]);
-				this.positions.push(points[j], points[j + 1], points[j + 2]);
-				this.counters.push(c);
-				this.counters.push(c);
+
+			// clip space
+			vec4 clipStart = projectionMatrix * start;
+			vec4 clipEnd = projectionMatrix * end;
+
+			// ndc space
+			vec2 ndcStart = clipStart.xy / clipStart.w;
+			vec2 ndcEnd = clipEnd.xy / clipEnd.w;
+
+			// direction
+			vec2 dir = ndcEnd - ndcStart;
+
+			// account for clip-space aspect ratio
+			dir.x *= aspect;
+			dir = normalize( dir );
+
+			// perpendicular to dir
+			vec2 offset = vec2( dir.y, - dir.x );
+
+			// undo aspect ratio adjustment
+			dir.x /= aspect;
+			offset.x /= aspect;
+
+			// sign flip
+			if ( position.x < 0.0 ) offset *= - 1.0;
+
+			// endcaps
+			if ( position.y < 0.0 ) {
+
+				offset += - dir;
+
+			} else if ( position.y > 1.0 ) {
+
+				offset += dir;
+
 			}
+
+			// adjust for linewidth
+			offset *= linewidth;
+
+			// adjust for clip-space to screen-space conversion // maybe resolution should be based on viewport ...
+			offset /= resolution.y;
+
+			// select end
+			vec4 clip = ( position.y < 0.5 ) ? clipStart : clipEnd;
+
+			// back to clip space
+			offset *= clip.w;
+
+			clip.xy += offset;
+
+			gl_Position = clip;
+
+			vec4 mvPosition = ( position.y < 0.5 ) ? start : end; // this is an approximation
+
+			#include <logdepthbuf_vertex>
+			#include <clipping_planes_vertex>
+			#include <fog_vertex>
+
 		}
-		this.process();
-  }
+		`,
 
-  function MeshLineRaycast(raycaster, intersects) {
-    var inverseMatrix = new THREE.Matrix4()
-    var ray = new THREE.Ray()
-    var sphere = new THREE.Sphere()
-    var interRay = new THREE.Vector3()
-    var geometry = this.geometry
-    // Checking boundingSphere distance to ray
+	fragmentShader:
+		`
+		uniform vec3 diffuse;
+		uniform float opacity;
 
-    sphere.copy(geometry.boundingSphere)
-    sphere.applyMatrix4(this.matrixWorld)
+		#ifdef USE_DASH
 
-    if (raycaster.ray.intersectSphere(sphere, interRay) === false) {
-      return
-    }
+			uniform float dashSize;
+			uniform float gapSize;
 
-    inverseMatrix.getInverse(this.matrixWorld)
-    ray.copy(raycaster.ray).applyMatrix4(inverseMatrix)
+		#endif
 
-    var vStart = new THREE.Vector3()
-    var vEnd = new THREE.Vector3()
-    var interSegment = new THREE.Vector3()
-    var step = this instanceof THREE.LineSegments ? 2 : 1
-    var index = geometry.index
-    var attributes = geometry.attributes
+		varying float vLineDistance;
 
-    if (index !== null) {
-      var indices = index.array
-      var positions = attributes.position.array
-      var widths = attributes.width.array
+		#include <common>
+		#include <color_pars_fragment>
+		#include <fog_pars_fragment>
+		#include <logdepthbuf_pars_fragment>
+		#include <clipping_planes_pars_fragment>
 
-      for (var i = 0, l = indices.length - 1; i < l; i += step) {
-        var a = indices[i]
-        var b = indices[i + 1]
+		varying vec2 vUv;
 
-        vStart.fromArray(positions, a * 3)
-        vEnd.fromArray(positions, b * 3)
-        var width = widths[Math.floor(i / 3)] != undefined ? widths[Math.floor(i / 3)] : 1
-        var precision = raycaster.params.Line.threshold + (this.material.lineWidth * width) / 2
-        var precisionSq = precision * precision
+		void main() {
 
-        var distSq = ray.distanceSqToSegment(vStart, vEnd, interRay, interSegment)
+			#include <clipping_planes_fragment>
 
-        if (distSq > precisionSq) continue
+			#ifdef USE_DASH
 
-        interRay.applyMatrix4(this.matrixWorld) //Move back to world space for distance calculation
+				if ( vUv.y < - 1.0 || vUv.y > 1.0 ) discard; // discard endcaps
 
-        var distance = raycaster.ray.origin.distanceTo(interRay)
+				if ( mod( vLineDistance, dashSize + gapSize ) > dashSize ) discard; // todo - FIX
 
-        if (distance < raycaster.near || distance > raycaster.far) continue
+			#endif
 
-        intersects.push({
-          distance: distance,
-          // What do we want? intersection point on the ray or on the segment??
-          // point: raycaster.ray.at( distance ),
-          point: interSegment.clone().applyMatrix4(this.matrixWorld),
-          index: i,
-          face: null,
-          faceIndex: null,
-          object: this,
-        })
-        // make event only fire once
-        i = l
-      }
-    }
-  }
-  MeshLine.prototype.raycast = MeshLineRaycast
-  MeshLine.prototype.compareV3 = function(a, b) {
-    var aa = a * 6
-    var ab = b * 6
-    return (
-      this.positions[aa] === this.positions[ab] &&
-      this.positions[aa + 1] === this.positions[ab + 1] &&
-      this.positions[aa + 2] === this.positions[ab + 2]
-    )
-  }
+			if ( abs( vUv.y ) > 1.0 ) {
 
-  MeshLine.prototype.copyV3 = function(a) {
-    var aa = a * 6
-    return [this.positions[aa], this.positions[aa + 1], this.positions[aa + 2]]
-  }
+				float a = vUv.x;
+				float b = ( vUv.y > 0.0 ) ? vUv.y - 1.0 : vUv.y + 1.0;
+				float len2 = a * a + b * b;
 
-  MeshLine.prototype.process = function() {
-    var l = this.positions.length / 6
+				if ( len2 > 1.0 ) discard;
 
-    this.previous = []
-    this.next = []
-    this.side = []
-    this.width = []
-    this.indices_array = []
-    this.uvs = []
+			}
 
-    var w
+			vec4 diffuseColor = vec4( diffuse, opacity );
 
-    var v
-    // initial previous points
-    if (this.compareV3(0, l - 1)) {
-      v = this.copyV3(l - 2)
-    } else {
-      v = this.copyV3(0)
-    }
-    this.previous.push(v[0], v[1], v[2])
-    this.previous.push(v[0], v[1], v[2])
+			#include <logdepthbuf_fragment>
+			#include <color_fragment>
 
-    for (var j = 0; j < l; j++) {
-      // sides
-      this.side.push(1)
-      this.side.push(-1)
+			gl_FragColor = vec4( diffuseColor.rgb, diffuseColor.a );
 
-      // widths
-      if (this.widthCallback) w = this.widthCallback(j / (l - 1))
-      else w = 1
-      this.width.push(w)
-      this.width.push(w)
+			#include <tonemapping_fragment>
+			#include <encodings_fragment>
+			#include <fog_fragment>
+			#include <premultiplied_alpha_fragment>
 
-      // uvs
-      this.uvs.push(j / (l - 1), 0)
-      this.uvs.push(j / (l - 1), 1)
+		}
+		`
+};
 
-      if (j < l - 1) {
-        // points previous to poisitions
-        v = this.copyV3(j)
-        this.previous.push(v[0], v[1], v[2])
-        this.previous.push(v[0], v[1], v[2])
+var LineMaterial = function ( parameters ) {
 
-        // indices
-        var n = j * 2
-        this.indices_array.push(n, n + 1, n + 2)
-        this.indices_array.push(n + 2, n + 1, n + 3)
-      }
-      if (j > 0) {
-        // points after poisitions
-        v = this.copyV3(j)
-        this.next.push(v[0], v[1], v[2])
-        this.next.push(v[0], v[1], v[2])
-      }
-    }
+	_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["ShaderMaterial"].call( this, {
 
-    // last next point
-    if (this.compareV3(l - 1, 0)) {
-      v = this.copyV3(1)
-    } else {
-      v = this.copyV3(l - 1)
-    }
-    this.next.push(v[0], v[1], v[2])
-    this.next.push(v[0], v[1], v[2])
+		type: 'LineMaterial',
 
-    // redefining the attribute seems to prevent range errors
-    // if the user sets a differing number of vertices
-    if (!this._attributes || this._attributes.position.count !== this.positions.length) {
-      this._attributes = {
-        position: new THREE.BufferAttribute(new Float32Array(this.positions), 3),
-        previous: new THREE.BufferAttribute(new Float32Array(this.previous), 3),
-        next: new THREE.BufferAttribute(new Float32Array(this.next), 3),
-        side: new THREE.BufferAttribute(new Float32Array(this.side), 1),
-        width: new THREE.BufferAttribute(new Float32Array(this.width), 1),
-        uv: new THREE.BufferAttribute(new Float32Array(this.uvs), 2),
-        index: new THREE.BufferAttribute(new Uint16Array(this.indices_array), 1),
-        counters: new THREE.BufferAttribute(new Float32Array(this.counters), 1),
-      }
-    } else {
-      this._attributes.position.copyArray(new Float32Array(this.positions))
-      this._attributes.position.needsUpdate = true
-      this._attributes.previous.copyArray(new Float32Array(this.previous))
-      this._attributes.previous.needsUpdate = true
-      this._attributes.next.copyArray(new Float32Array(this.next))
-      this._attributes.next.needsUpdate = true
-      this._attributes.side.copyArray(new Float32Array(this.side))
-      this._attributes.side.needsUpdate = true
-      this._attributes.width.copyArray(new Float32Array(this.width))
-      this._attributes.width.needsUpdate = true
-      this._attributes.uv.copyArray(new Float32Array(this.uvs))
-      this._attributes.uv.needsUpdate = true
-      this._attributes.index.copyArray(new Uint16Array(this.indices_array))
-      this._attributes.index.needsUpdate = true
-    }
+		uniforms: _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["UniformsUtils"].clone( _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["ShaderLib"][ 'line' ].uniforms ),
 
-    this.setAttribute('position', this._attributes.position)
-    this.setAttribute('previous', this._attributes.previous)
-    this.setAttribute('next', this._attributes.next)
-    this.setAttribute('side', this._attributes.side)
-    this.setAttribute('width', this._attributes.width)
-    this.setAttribute('uv', this._attributes.uv)
-    this.setAttribute('counters', this._attributes.counters)
+		vertexShader: _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["ShaderLib"][ 'line' ].vertexShader,
+		fragmentShader: _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["ShaderLib"][ 'line' ].fragmentShader,
 
-    this.setIndex(this._attributes.index)
+		clipping: true // required for clipping support
 
-    this.computeBoundingSphere()
-    this.computeBoundingBox()
-  }
+	} );
 
-  function memcpy(src, srcOffset, dst, dstOffset, length) {
-    var i
+	this.dashed = false;
 
-    src = src.subarray || src.slice ? src : src.buffer
-    dst = dst.subarray || dst.slice ? dst : dst.buffer
+	Object.defineProperties( this, {
 
-    src = srcOffset
-      ? src.subarray
-        ? src.subarray(srcOffset, length && srcOffset + length)
-        : src.slice(srcOffset, length && srcOffset + length)
-      : src
+		color: {
 
-    if (dst.set) {
-      dst.set(src, dstOffset)
-    } else {
-      for (i = 0; i < src.length; i++) {
-        dst[i + dstOffset] = src[i]
-      }
-    }
+			enumerable: true,
 
-    return dst
-  }
+			get: function () {
 
-  /**
-   * Fast method to advance the line by one position.  The oldest position is removed.
-   * @param position
-   */
-  MeshLine.prototype.advance = function(position) {
-    var positions = this._attributes.position.array
-    var previous = this._attributes.previous.array
-    var next = this._attributes.next.array
-    var l = positions.length
+				return this.uniforms.diffuse.value;
 
-    // PREVIOUS
-    memcpy(positions, 0, previous, 0, l)
+			},
 
-    // POSITIONS
-    memcpy(positions, 6, positions, 0, l - 6)
+			set: function ( value ) {
 
-    positions[l - 6] = position.x
-    positions[l - 5] = position.y
-    positions[l - 4] = position.z
-    positions[l - 3] = position.x
-    positions[l - 2] = position.y
-    positions[l - 1] = position.z
+				this.uniforms.diffuse.value = value;
 
-    // NEXT
-    memcpy(positions, 6, next, 0, l - 6)
+			}
 
-    next[l - 6] = position.x
-    next[l - 5] = position.y
-    next[l - 4] = position.z
-    next[l - 3] = position.x
-    next[l - 2] = position.y
-    next[l - 1] = position.z
+		},
 
-    this._attributes.position.needsUpdate = true
-    this._attributes.previous.needsUpdate = true
-    this._attributes.next.needsUpdate = true
-  }
+		linewidth: {
 
-  THREE.ShaderChunk['meshline_vert'] = [
-    '',
-    THREE.ShaderChunk.logdepthbuf_pars_vertex,
-    THREE.ShaderChunk.fog_pars_vertex,
-    '',
-    'attribute vec3 previous;',
-    'attribute vec3 next;',
-    'attribute float side;',
-    'attribute float width;',
-    'attribute float counters;',
-    '',
-    'uniform vec2 resolution;',
-    'uniform float lineWidth;',
-    'uniform vec3 color;',
-    'uniform float opacity;',
-    'uniform float sizeAttenuation;',
-    '',
-    'varying vec2 vUV;',
-    'varying vec4 vColor;',
-    'varying float vCounters;',
-    '',
-    'vec2 fix( vec4 i, float aspect ) {',
-    '',
-    '    vec2 res = i.xy / i.w;',
-    '    res.x *= aspect;',
-    '	 vCounters = counters;',
-    '    return res;',
-    '',
-    '}',
-    '',
-    'void main() {',
-    '',
-    '    float aspect = resolution.x / resolution.y;',
-    '',
-    '    vColor = vec4( color, opacity );',
-    '    vUV = uv;',
-    '',
-    '    mat4 m = projectionMatrix * modelViewMatrix;',
-    '    vec4 finalPosition = m * vec4( position, 1.0 );',
-    '    vec4 prevPos = m * vec4( previous, 1.0 );',
-    '    vec4 nextPos = m * vec4( next, 1.0 );',
-    '',
-    '    vec2 currentP = fix( finalPosition, aspect );',
-    '    vec2 prevP = fix( prevPos, aspect );',
-    '    vec2 nextP = fix( nextPos, aspect );',
-    '',
-    '    float w = lineWidth * width;',
-    '',
-    '    vec2 dir;',
-    '    if( nextP == currentP ) dir = normalize( currentP - prevP );',
-    '    else if( prevP == currentP ) dir = normalize( nextP - currentP );',
-    '    else {',
-    '        vec2 dir1 = normalize( currentP - prevP );',
-    '        vec2 dir2 = normalize( nextP - currentP );',
-    '        dir = normalize( dir1 + dir2 );',
-    '',
-    '        vec2 perp = vec2( -dir1.y, dir1.x );',
-    '        vec2 miter = vec2( -dir.y, dir.x );',
-    '        //w = clamp( w / dot( miter, perp ), 0., 4. * lineWidth * width );',
-    '',
-    '    }',
-    '',
-    '    //vec2 normal = ( cross( vec3( dir, 0. ), vec3( 0., 0., 1. ) ) ).xy;',
-    '    vec4 normal = vec4( -dir.y, dir.x, 0., 1. );',
-    '    normal.xy *= .5 * w;',
-    '    normal *= projectionMatrix;',
-    '    if( sizeAttenuation == 0. ) {',
-    '        normal.xy *= finalPosition.w;',
-    '        normal.xy /= ( vec4( resolution, 0., 1. ) * projectionMatrix ).xy;',
-    '    }',
-    '',
-    '    finalPosition.xy += normal.xy * side;',
-    '',
-    '    gl_Position = finalPosition;',
-    '',
-    THREE.ShaderChunk.logdepthbuf_vertex,
-    THREE.ShaderChunk.fog_vertex && '    vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );',
-    THREE.ShaderChunk.fog_vertex,
-    '}',
-  ].join('\n')
+			enumerable: true,
 
-  THREE.ShaderChunk['meshline_frag'] = [
-    '',
-    THREE.ShaderChunk.fog_pars_fragment,
-    THREE.ShaderChunk.logdepthbuf_pars_fragment,
-    '',
-    'uniform sampler2D map;',
-    'uniform sampler2D alphaMap;',
-    'uniform float useMap;',
-    'uniform float useAlphaMap;',
-    'uniform float useDash;',
-    'uniform float dashArray;',
-    'uniform float dashOffset;',
-    'uniform float dashRatio;',
-    'uniform float visibility;',
-    'uniform float alphaTest;',
-    'uniform vec2 repeat;',
-    '',
-    'varying vec2 vUV;',
-    'varying vec4 vColor;',
-    'varying float vCounters;',
-    '',
-    'void main() {',
-    '',
-    THREE.ShaderChunk.logdepthbuf_fragment,
-    '',
-    '    vec4 c = vColor;',
-    '    if( useMap == 1. ) c *= texture2D( map, vUV * repeat );',
-    '    if( useAlphaMap == 1. ) c.a *= texture2D( alphaMap, vUV * repeat ).a;',
-    '    if( c.a < alphaTest ) discard;',
-    '    if( useDash == 1. ){',
-    '        c.a *= ceil(mod(vCounters + dashOffset, dashArray) - (dashArray * dashRatio));',
-    '    }',
-    '    gl_FragColor = c;',
-    '    gl_FragColor.a *= step(vCounters, visibility);',
-    '',
-    THREE.ShaderChunk.fog_fragment,
-    '}',
-  ].join('\n')
+			get: function () {
 
-  function MeshLineMaterial(parameters) {
-    THREE.ShaderMaterial.call(this, {
-      uniforms: Object.assign({}, THREE.UniformsLib.fog, {
-        lineWidth: { value: 1 },
-        map: { value: null },
-        useMap: { value: 0 },
-        alphaMap: { value: null },
-        useAlphaMap: { value: 0 },
-        color: { value: new THREE.Color(0xffffff) },
-        opacity: { value: 1 },
-        resolution: { value: new THREE.Vector2(1, 1) },
-        sizeAttenuation: { value: 1 },
-        dashArray: { value: 0 },
-        dashOffset: { value: 0 },
-        dashRatio: { value: 0.5 },
-        useDash: { value: 0 },
-        visibility: { value: 1 },
-        alphaTest: { value: 0 },
-        repeat: { value: new THREE.Vector2(1, 1) },
-      }),
+				return this.uniforms.linewidth.value;
 
-      vertexShader: THREE.ShaderChunk.meshline_vert,
+			},
 
-      fragmentShader: THREE.ShaderChunk.meshline_frag,
-    })
+			set: function ( value ) {
 
-    this.type = 'MeshLineMaterial'
+				this.uniforms.linewidth.value = value;
 
-    Object.defineProperties(this, {
-      lineWidth: {
-        enumerable: true,
-        get: function() {
-          return this.uniforms.lineWidth.value
-        },
-        set: function(value) {
-          this.uniforms.lineWidth.value = value
-        },
-      },
-      map: {
-        enumerable: true,
-        get: function() {
-          return this.uniforms.map.value
-        },
-        set: function(value) {
-          this.uniforms.map.value = value
-        },
-      },
-      useMap: {
-        enumerable: true,
-        get: function() {
-          return this.uniforms.useMap.value
-        },
-        set: function(value) {
-          this.uniforms.useMap.value = value
-        },
-      },
-      alphaMap: {
-        enumerable: true,
-        get: function() {
-          return this.uniforms.alphaMap.value
-        },
-        set: function(value) {
-          this.uniforms.alphaMap.value = value
-        },
-      },
-      useAlphaMap: {
-        enumerable: true,
-        get: function() {
-          return this.uniforms.useAlphaMap.value
-        },
-        set: function(value) {
-          this.uniforms.useAlphaMap.value = value
-        },
-      },
-      color: {
-        enumerable: true,
-        get: function() {
-          return this.uniforms.color.value
-        },
-        set: function(value) {
-          this.uniforms.color.value = value
-        },
-      },
-      opacity: {
-        enumerable: true,
-        get: function() {
-          return this.uniforms.opacity.value
-        },
-        set: function(value) {
-          this.uniforms.opacity.value = value
-        },
-      },
-      resolution: {
-        enumerable: true,
-        get: function() {
-          return this.uniforms.resolution.value
-        },
-        set: function(value) {
-          this.uniforms.resolution.value.copy(value)
-        },
-      },
-      sizeAttenuation: {
-        enumerable: true,
-        get: function() {
-          return this.uniforms.sizeAttenuation.value
-        },
-        set: function(value) {
-          this.uniforms.sizeAttenuation.value = value
-        },
-      },
-      dashArray: {
-        enumerable: true,
-        get: function() {
-          return this.uniforms.dashArray.value
-        },
-        set: function(value) {
-          this.uniforms.dashArray.value = value
-          this.useDash = value !== 0 ? 1 : 0
-        },
-      },
-      dashOffset: {
-        enumerable: true,
-        get: function() {
-          return this.uniforms.dashOffset.value
-        },
-        set: function(value) {
-          this.uniforms.dashOffset.value = value
-        },
-      },
-      dashRatio: {
-        enumerable: true,
-        get: function() {
-          return this.uniforms.dashRatio.value
-        },
-        set: function(value) {
-          this.uniforms.dashRatio.value = value
-        },
-      },
-      useDash: {
-        enumerable: true,
-        get: function() {
-          return this.uniforms.useDash.value
-        },
-        set: function(value) {
-          this.uniforms.useDash.value = value
-        },
-      },
-      visibility: {
-        enumerable: true,
-        get: function() {
-          return this.uniforms.visibility.value
-        },
-        set: function(value) {
-          this.uniforms.visibility.value = value
-        },
-      },
-      alphaTest: {
-        enumerable: true,
-        get: function() {
-          return this.uniforms.alphaTest.value
-        },
-        set: function(value) {
-          this.uniforms.alphaTest.value = value
-        },
-      },
-      repeat: {
-        enumerable: true,
-        get: function() {
-          return this.uniforms.repeat.value
-        },
-        set: function(value) {
-          this.uniforms.repeat.value.copy(value)
-        },
-      },
-    })
+			}
 
-    this.setValues(parameters)
-  }
+		},
 
-  MeshLineMaterial.prototype = Object.create(THREE.ShaderMaterial.prototype)
-  MeshLineMaterial.prototype.constructor = MeshLineMaterial
-  MeshLineMaterial.prototype.isMeshLineMaterial = true
+		dashScale: {
 
-  MeshLineMaterial.prototype.copy = function(source) {
-    THREE.ShaderMaterial.prototype.copy.call(this, source)
+			enumerable: true,
 
-    this.lineWidth = source.lineWidth
-    this.map = source.map
-    this.useMap = source.useMap
-    this.alphaMap = source.alphaMap
-    this.useAlphaMap = source.useAlphaMap
-    this.color.copy(source.color)
-    this.opacity = source.opacity
-    this.resolution.copy(source.resolution)
-    this.sizeAttenuation = source.sizeAttenuation
-    this.dashArray.copy(source.dashArray)
-    this.dashOffset.copy(source.dashOffset)
-    this.dashRatio.copy(source.dashRatio)
-    this.useDash = source.useDash
-    this.visibility = source.visibility
-    this.alphaTest = source.alphaTest
-    this.repeat.copy(source.repeat)
+			get: function () {
 
-    return this
-  }
+				return this.uniforms.dashScale.value;
 
-  if (true) {
-    if ( true && module.exports) {
-      exports = module.exports = {
-        MeshLine: MeshLine,
-        MeshLineMaterial: MeshLineMaterial,
-        MeshLineRaycast: MeshLineRaycast,
-      }
-    }
-    exports.MeshLine = MeshLine
-    exports.MeshLineMaterial = MeshLineMaterial
-    exports.MeshLineRaycast = MeshLineRaycast
-  } else {}
-}.call(this))
+			},
+
+			set: function ( value ) {
+
+				this.uniforms.dashScale.value = value;
+
+			}
+
+		},
+
+		dashSize: {
+
+			enumerable: true,
+
+			get: function () {
+
+				return this.uniforms.dashSize.value;
+
+			},
+
+			set: function ( value ) {
+
+				this.uniforms.dashSize.value = value;
+
+			}
+
+		},
+
+		gapSize: {
+
+			enumerable: true,
+
+			get: function () {
+
+				return this.uniforms.gapSize.value;
+
+			},
+
+			set: function ( value ) {
+
+				this.uniforms.gapSize.value = value;
+
+			}
+
+		},
+
+		opacity: {
+
+			enumerable: true,
+
+			get: function () {
+
+				return this.uniforms.opacity.value;
+
+			},
+
+			set: function ( value ) {
+
+				this.uniforms.opacity.value = value;
+
+			}
+
+		},
+
+		resolution: {
+
+			enumerable: true,
+
+			get: function () {
+
+				return this.uniforms.resolution.value;
+
+			},
+
+			set: function ( value ) {
+
+				this.uniforms.resolution.value.copy( value );
+
+			}
+
+		}
+
+	} );
+
+	this.setValues( parameters );
+
+};
+
+LineMaterial.prototype = Object.create( _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["ShaderMaterial"].prototype );
+LineMaterial.prototype.constructor = LineMaterial;
+
+LineMaterial.prototype.isLineMaterial = true;
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/three/examples/jsm/lines/LineSegments2.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/three/examples/jsm/lines/LineSegments2.js ***!
+  \****************************************************************/
+/*! exports provided: LineSegments2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LineSegments2", function() { return LineSegments2; });
+/* harmony import */ var _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../build/three.module.js */ "./node_modules/three/build/three.module.js");
+/* harmony import */ var _lines_LineSegmentsGeometry_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../lines/LineSegmentsGeometry.js */ "./node_modules/three/examples/jsm/lines/LineSegmentsGeometry.js");
+/* harmony import */ var _lines_LineMaterial_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../lines/LineMaterial.js */ "./node_modules/three/examples/jsm/lines/LineMaterial.js");
+
+
+
+
+var LineSegments2 = function ( geometry, material ) {
+
+	if ( geometry === undefined ) geometry = new _lines_LineSegmentsGeometry_js__WEBPACK_IMPORTED_MODULE_1__["LineSegmentsGeometry"]();
+	if ( material === undefined ) material = new _lines_LineMaterial_js__WEBPACK_IMPORTED_MODULE_2__["LineMaterial"]( { color: Math.random() * 0xffffff } );
+
+	_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["Mesh"].call( this, geometry, material );
+
+	this.type = 'LineSegments2';
+
+};
+
+LineSegments2.prototype = Object.assign( Object.create( _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["Mesh"].prototype ), {
+
+	constructor: LineSegments2,
+
+	isLineSegments2: true,
+
+	computeLineDistances: ( function () { // for backwards-compatability, but could be a method of LineSegmentsGeometry...
+
+		var start = new _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["Vector3"]();
+		var end = new _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["Vector3"]();
+
+		return function computeLineDistances() {
+
+			var geometry = this.geometry;
+
+			var instanceStart = geometry.attributes.instanceStart;
+			var instanceEnd = geometry.attributes.instanceEnd;
+			var lineDistances = new Float32Array( 2 * instanceStart.data.count );
+
+			for ( var i = 0, j = 0, l = instanceStart.data.count; i < l; i ++, j += 2 ) {
+
+				start.fromBufferAttribute( instanceStart, i );
+				end.fromBufferAttribute( instanceEnd, i );
+
+				lineDistances[ j ] = ( j === 0 ) ? 0 : lineDistances[ j - 1 ];
+				lineDistances[ j + 1 ] = lineDistances[ j ] + start.distanceTo( end );
+
+			}
+
+			var instanceDistanceBuffer = new _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["InstancedInterleavedBuffer"]( lineDistances, 2, 1 ); // d0, d1
+
+			geometry.setAttribute( 'instanceDistanceStart', new _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["InterleavedBufferAttribute"]( instanceDistanceBuffer, 1, 0 ) ); // d0
+			geometry.setAttribute( 'instanceDistanceEnd', new _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["InterleavedBufferAttribute"]( instanceDistanceBuffer, 1, 1 ) ); // d1
+
+			return this;
+
+		};
+
+	}() ),
+
+	raycast: ( function () {
+
+		var start = new _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["Vector4"]();
+		var end = new _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["Vector4"]();
+
+		var ssOrigin = new _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["Vector4"]();
+		var ssOrigin3 = new _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["Vector3"]();
+		var mvMatrix = new _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["Matrix4"]();
+		var line = new _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["Line3"]();
+		var closestPoint = new _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["Vector3"]();
+
+		return function raycast( raycaster, intersects ) {
+
+			if ( raycaster.camera === null ) {
+
+				console.error( 'LineSegments2: "Raycaster.camera" needs to be set in order to raycast against LineSegments2.' );
+
+			}
+
+			var threshold = ( raycaster.params.Line2 !== undefined ) ? raycaster.params.Line2.threshold || 0 : 0;
+
+			var ray = raycaster.ray;
+			var camera = raycaster.camera;
+			var projectionMatrix = camera.projectionMatrix;
+
+			var geometry = this.geometry;
+			var material = this.material;
+			var resolution = material.resolution;
+			var lineWidth = material.linewidth + threshold;
+
+			var instanceStart = geometry.attributes.instanceStart;
+			var instanceEnd = geometry.attributes.instanceEnd;
+
+			// pick a point 1 unit out along the ray to avoid the ray origin
+			// sitting at the camera origin which will cause "w" to be 0 when
+			// applying the projection matrix.
+			ray.at( 1, ssOrigin );
+
+			// ndc space [ - 1.0, 1.0 ]
+			ssOrigin.w = 1;
+			ssOrigin.applyMatrix4( camera.matrixWorldInverse );
+			ssOrigin.applyMatrix4( projectionMatrix );
+			ssOrigin.multiplyScalar( 1 / ssOrigin.w );
+
+			// screen space
+			ssOrigin.x *= resolution.x / 2;
+			ssOrigin.y *= resolution.y / 2;
+			ssOrigin.z = 0;
+
+			ssOrigin3.copy( ssOrigin );
+
+			var matrixWorld = this.matrixWorld;
+			mvMatrix.multiplyMatrices( camera.matrixWorldInverse, matrixWorld );
+
+			for ( var i = 0, l = instanceStart.count; i < l; i ++ ) {
+
+				start.fromBufferAttribute( instanceStart, i );
+				end.fromBufferAttribute( instanceEnd, i );
+
+				start.w = 1;
+				end.w = 1;
+
+				// camera space
+				start.applyMatrix4( mvMatrix );
+				end.applyMatrix4( mvMatrix );
+
+				// clip space
+				start.applyMatrix4( projectionMatrix );
+				end.applyMatrix4( projectionMatrix );
+
+				// ndc space [ - 1.0, 1.0 ]
+				start.multiplyScalar( 1 / start.w );
+				end.multiplyScalar( 1 / end.w );
+
+				// skip the segment if it's outside the camera near and far planes
+				var isBehindCameraNear = start.z < - 1 && end.z < - 1;
+				var isPastCameraFar = start.z > 1 && end.z > 1;
+				if ( isBehindCameraNear || isPastCameraFar ) {
+
+					continue;
+
+				}
+
+				// screen space
+				start.x *= resolution.x / 2;
+				start.y *= resolution.y / 2;
+
+				end.x *= resolution.x / 2;
+				end.y *= resolution.y / 2;
+
+				// create 2d segment
+				line.start.copy( start );
+				line.start.z = 0;
+
+				line.end.copy( end );
+				line.end.z = 0;
+
+				// get closest point on ray to segment
+				var param = line.closestPointToPointParameter( ssOrigin3, true );
+				line.at( param, closestPoint );
+
+				// check if the intersection point is within clip space
+				var zPos = _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["MathUtils"].lerp( start.z, end.z, param );
+				var isInClipSpace = zPos >= - 1 && zPos <= 1;
+
+				var isInside = ssOrigin3.distanceTo( closestPoint ) < lineWidth * 0.5;
+
+				if ( isInClipSpace && isInside ) {
+
+					line.start.fromBufferAttribute( instanceStart, i );
+					line.end.fromBufferAttribute( instanceEnd, i );
+
+					line.start.applyMatrix4( matrixWorld );
+					line.end.applyMatrix4( matrixWorld );
+
+					var pointOnLine = new _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["Vector3"]();
+					var point = new _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["Vector3"]();
+
+					ray.distanceSqToSegment( line.start, line.end, point, pointOnLine );
+
+					intersects.push( {
+
+						point: point,
+						pointOnLine: pointOnLine,
+						distance: ray.origin.distanceTo( point ),
+
+						object: this,
+						face: null,
+						faceIndex: i,
+						uv: null,
+						uv2: null,
+
+					} );
+
+				}
+
+			}
+
+		};
+
+	}() )
+
+} );
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/three/examples/jsm/lines/LineSegmentsGeometry.js":
+/*!***********************************************************************!*\
+  !*** ./node_modules/three/examples/jsm/lines/LineSegmentsGeometry.js ***!
+  \***********************************************************************/
+/*! exports provided: LineSegmentsGeometry */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LineSegmentsGeometry", function() { return LineSegmentsGeometry; });
+/* harmony import */ var _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../build/three.module.js */ "./node_modules/three/build/three.module.js");
+
+
+var LineSegmentsGeometry = function () {
+
+	_build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["InstancedBufferGeometry"].call( this );
+
+	this.type = 'LineSegmentsGeometry';
+
+	var positions = [ - 1, 2, 0, 1, 2, 0, - 1, 1, 0, 1, 1, 0, - 1, 0, 0, 1, 0, 0, - 1, - 1, 0, 1, - 1, 0 ];
+	var uvs = [ - 1, 2, 1, 2, - 1, 1, 1, 1, - 1, - 1, 1, - 1, - 1, - 2, 1, - 2 ];
+	var index = [ 0, 2, 1, 2, 3, 1, 2, 4, 3, 4, 5, 3, 4, 6, 5, 6, 7, 5 ];
+
+	this.setIndex( index );
+	this.setAttribute( 'position', new _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["Float32BufferAttribute"]( positions, 3 ) );
+	this.setAttribute( 'uv', new _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["Float32BufferAttribute"]( uvs, 2 ) );
+
+};
+
+LineSegmentsGeometry.prototype = Object.assign( Object.create( _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["InstancedBufferGeometry"].prototype ), {
+
+	constructor: LineSegmentsGeometry,
+
+	isLineSegmentsGeometry: true,
+
+	applyMatrix4: function ( matrix ) {
+
+		var start = this.attributes.instanceStart;
+		var end = this.attributes.instanceEnd;
+
+		if ( start !== undefined ) {
+
+			start.applyMatrix4( matrix );
+
+			end.applyMatrix4( matrix );
+
+			start.needsUpdate = true;
+
+		}
+
+		if ( this.boundingBox !== null ) {
+
+			this.computeBoundingBox();
+
+		}
+
+		if ( this.boundingSphere !== null ) {
+
+			this.computeBoundingSphere();
+
+		}
+
+		return this;
+
+	},
+
+	setPositions: function ( array ) {
+
+		var lineSegments;
+
+		if ( array instanceof Float32Array ) {
+
+			lineSegments = array;
+
+		} else if ( Array.isArray( array ) ) {
+
+			lineSegments = new Float32Array( array );
+
+		}
+
+		var instanceBuffer = new _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["InstancedInterleavedBuffer"]( lineSegments, 6, 1 ); // xyz, xyz
+
+		this.setAttribute( 'instanceStart', new _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["InterleavedBufferAttribute"]( instanceBuffer, 3, 0 ) ); // xyz
+		this.setAttribute( 'instanceEnd', new _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["InterleavedBufferAttribute"]( instanceBuffer, 3, 3 ) ); // xyz
+
+		//
+
+		this.computeBoundingBox();
+		this.computeBoundingSphere();
+
+		return this;
+
+	},
+
+	setColors: function ( array ) {
+
+		var colors;
+
+		if ( array instanceof Float32Array ) {
+
+			colors = array;
+
+		} else if ( Array.isArray( array ) ) {
+
+			colors = new Float32Array( array );
+
+		}
+
+		var instanceColorBuffer = new _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["InstancedInterleavedBuffer"]( colors, 6, 1 ); // rgb, rgb
+
+		this.setAttribute( 'instanceColorStart', new _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["InterleavedBufferAttribute"]( instanceColorBuffer, 3, 0 ) ); // rgb
+		this.setAttribute( 'instanceColorEnd', new _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["InterleavedBufferAttribute"]( instanceColorBuffer, 3, 3 ) ); // rgb
+
+		return this;
+
+	},
+
+	fromWireframeGeometry: function ( geometry ) {
+
+		this.setPositions( geometry.attributes.position.array );
+
+		return this;
+
+	},
+
+	fromEdgesGeometry: function ( geometry ) {
+
+		this.setPositions( geometry.attributes.position.array );
+
+		return this;
+
+	},
+
+	fromMesh: function ( mesh ) {
+
+		this.fromWireframeGeometry( new _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["WireframeGeometry"]( mesh.geometry ) );
+
+		// set colors, maybe
+
+		return this;
+
+	},
+
+	fromLineSegments: function ( lineSegments ) {
+
+		var geometry = lineSegments.geometry;
+
+		if ( geometry.isGeometry ) {
+
+			this.setPositions( geometry.vertices );
+
+		} else if ( geometry.isBufferGeometry ) {
+
+			this.setPositions( geometry.attributes.position.array ); // assumes non-indexed
+
+		}
+
+		// set colors, maybe
+
+		return this;
+
+	},
+
+	computeBoundingBox: function () {
+
+		var box = new _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["Box3"]();
+
+		return function computeBoundingBox() {
+
+			if ( this.boundingBox === null ) {
+
+				this.boundingBox = new _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["Box3"]();
+
+			}
+
+			var start = this.attributes.instanceStart;
+			var end = this.attributes.instanceEnd;
+
+			if ( start !== undefined && end !== undefined ) {
+
+				this.boundingBox.setFromBufferAttribute( start );
+
+				box.setFromBufferAttribute( end );
+
+				this.boundingBox.union( box );
+
+			}
+
+		};
+
+	}(),
+
+	computeBoundingSphere: function () {
+
+		var vector = new _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["Vector3"]();
+
+		return function computeBoundingSphere() {
+
+			if ( this.boundingSphere === null ) {
+
+				this.boundingSphere = new _build_three_module_js__WEBPACK_IMPORTED_MODULE_0__["Sphere"]();
+
+			}
+
+			if ( this.boundingBox === null ) {
+
+				this.computeBoundingBox();
+
+			}
+
+			var start = this.attributes.instanceStart;
+			var end = this.attributes.instanceEnd;
+
+			if ( start !== undefined && end !== undefined ) {
+
+				var center = this.boundingSphere.center;
+
+				this.boundingBox.getCenter( center );
+
+				var maxRadiusSq = 0;
+
+				for ( var i = 0, il = start.count; i < il; i ++ ) {
+
+					vector.fromBufferAttribute( start, i );
+					maxRadiusSq = Math.max( maxRadiusSq, center.distanceToSquared( vector ) );
+
+					vector.fromBufferAttribute( end, i );
+					maxRadiusSq = Math.max( maxRadiusSq, center.distanceToSquared( vector ) );
+
+				}
+
+				this.boundingSphere.radius = Math.sqrt( maxRadiusSq );
+
+				if ( isNaN( this.boundingSphere.radius ) ) {
+
+					console.error( 'THREE.LineSegmentsGeometry.computeBoundingSphere(): Computed radius is NaN. The instanced position data is likely to have NaN values.', this );
+
+				}
+
+			}
+
+		};
+
+	}(),
+
+	toJSON: function () {
+
+		// todo
+
+	},
+
+	applyMatrix: function ( matrix ) {
+
+		console.warn( 'THREE.LineSegmentsGeometry: applyMatrix() has been renamed to applyMatrix4().' );
+
+		return this.applyMatrix4( matrix );
+
+	}
+
+} );
+
+
 
 
 /***/ }),
@@ -17926,22 +18247,16 @@ __webpack_require__.r(__webpack_exports__);
 var styles_GroupLayoutComponent = [_group_layout_component_scss_shim_ngstyle__WEBPACK_IMPORTED_MODULE_0__["styles"]];
 var RenderType_GroupLayoutComponent = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵcrt"]({ encapsulation: 0, styles: styles_GroupLayoutComponent, data: {} });
 
-function View_GroupLayoutComponent_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵqud"](671088640, 1, { canvasEl: 0 }), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵqud"](671088640, 2, { statsEl: 0 }), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](2, 0, [[2, 0], ["stats", 1]], null, 38, "section", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](3, 0, null, null, 1, "h5", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, ["Group Layout"])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](5, 0, null, null, 1, "h5", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](6, null, ["Render Calls: ", ""])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](7, 0, null, null, 32, "section", [["style", "display: flex; border: solid 1px; padding: 10px; margin: 10px"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](8, 0, null, null, 9, "div", [["style", "flex: 1 0 0; padding: 10px; border: solid 1px"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](9, 0, null, null, 1, "h5", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, ["Node Metric"])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](11, 0, null, null, 2, "div", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](12, 0, null, null, 1, "h5", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](13, null, ["Object Count: ", ""])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](14, 0, null, null, 3, "div", [["class", "app--margin__vertical object-range"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](15, 0, null, null, 2, "label", [["for", "points"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, ["Node Count "])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](17, 0, null, null, 0, "input", [["id", "points"], ["max", "10000"], ["min", "4"], ["name", "points"], ["step", "10"], ["type", "range"]], [[8, "value", 0]], [[null, "change"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("change" === en)) {
+function View_GroupLayoutComponent_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵqud"](671088640, 1, { canvasEl: 0 }), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵqud"](671088640, 2, { statsEl: 0 }), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](2, 0, [[2, 0], ["stats", 1]], null, 28, "section", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](3, 0, null, null, 1, "h5", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, ["Group Layout"])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](5, 0, null, null, 1, "h5", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](6, null, ["Render Calls: ", ""])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](7, 0, null, null, 22, "section", [["style", "display: flex; border: solid 1px; padding: 10px; margin: 10px"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](8, 0, null, null, 9, "div", [["style", "flex: 1 0 0; padding: 10px; border: solid 1px"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](9, 0, null, null, 1, "h5", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, ["Node Metric"])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](11, 0, null, null, 2, "div", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](12, 0, null, null, 1, "h5", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](13, null, ["Object Count: ", ""])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](14, 0, null, null, 3, "div", [["class", "app--margin__vertical object-range"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](15, 0, null, null, 2, "label", [["for", "points"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, ["Node Count "])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](17, 0, null, null, 0, "input", [["id", "points"], ["max", "10000"], ["min", "4"], ["name", "points"], ["step", "10"], ["type", "range"]], [[8, "value", 0]], [[null, "change"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("change" === en)) {
         var pd_0 = (_co.objectCountChangeHandler($event) !== false);
         ad = (pd_0 && ad);
-    } return ad; }, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](18, 0, null, null, 21, "div", [["style", "flex: 1 0 0; padding: 10px; border: solid 1px"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](19, 0, null, null, 1, "h5", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, ["Connection Metric"])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](21, 0, null, null, 4, "div", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](22, 0, null, null, 1, "h5", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](23, null, ["Max Connections (N * N) : ", ""])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](24, 0, null, null, 1, "h5", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](25, null, ["Connection Count: ", ""])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](26, 0, null, null, 3, "div", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](27, 0, null, null, 2, "label", [["for", "step"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](28, 0, null, null, 0, "input", [["id", "step"], ["min", "1"], ["name", "points"], ["step", "1"], ["type", "range"]], [[8, "max", 0], [8, "value", 0]], [[null, "change"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("change" === en)) {
-        var pd_0 = (_co.connectionStepHandler($event) !== false);
-        ad = (pd_0 && ad);
-    } return ad; }, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](29, null, ["connection node step : ", " "])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](30, 0, null, null, 4, "div", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](31, 0, null, null, 3, "label", [["for", "noMesh"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](32, null, [" Individual Meshes", " "])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](33, 0, null, null, 0, "br", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](34, 0, null, null, 0, "input", [["id", "noMesh"], ["name", "noMesh"], ["type", "checkbox"]], [[8, "checked", 0]], [[null, "change"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("change" === en)) {
-        var pd_0 = (_co.meshTypeStateHandler($event) !== false);
-        ad = (pd_0 && ad);
-    } return ad; }, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](35, 0, null, null, 4, "div", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](36, 0, null, null, 3, "label", [["for", "enable"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](37, null, [" Enable connections. ", " "])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](38, 0, null, null, 0, "br", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](39, 0, null, null, 0, "input", [["id", "enable"], ["name", "enable"], ["type", "checkbox"]], [[8, "checked", 0]], [[null, "change"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("change" === en)) {
+    } return ad; }, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](18, 0, null, null, 11, "div", [["style", "flex: 1 0 0; padding: 10px; border: solid 1px"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](19, 0, null, null, 1, "h5", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, ["Connection Metric"])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](21, 0, null, null, 4, "div", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](22, 0, null, null, 1, "h5", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](23, null, ["Max Connections (N * N) : ", ""])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](24, 0, null, null, 1, "h5", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](25, null, ["Connection Count: ", ""])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](26, 0, null, null, 3, "div", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](27, 0, null, null, 2, "label", [["for", "enable"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](28, 0, null, null, 0, "input", [["id", "enable"], ["name", "enable"], ["type", "checkbox"]], [[8, "checked", 0]], [[null, "change"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("change" === en)) {
         var pd_0 = (_co.connectionStateHandler($event) !== false);
         ad = (pd_0 && ad);
-    } return ad; }, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](40, 0, [[1, 0], ["canvasEl", 1]], null, 0, "canvas", [["height", "500"], ["width", "1000"]], null, [[null, "click"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("click" === en)) {
+    } return ad; }, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, [" Enable connections. "])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](30, 0, [[1, 0], ["canvasEl", 1]], null, 0, "canvas", [["height", "500"], ["width", "1000"]], null, [[null, "click"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("click" === en)) {
         var pd_0 = (_co.clickHandler($event) !== false);
         ad = (pd_0 && ad);
-    } return ad; }, null, null))], null, function (_ck, _v) { var _co = _v.component; var currVal_0 = _co.renderCalls; _ck(_v, 6, 0, currVal_0); var currVal_1 = _co.objectCount; _ck(_v, 13, 0, currVal_1); var currVal_2 = _co.objectCount; _ck(_v, 17, 0, currVal_2); var currVal_3 = (_co.objectCount * _co.objectCount); _ck(_v, 23, 0, currVal_3); var currVal_4 = _co.connectionCount; _ck(_v, 25, 0, currVal_4); var currVal_5 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵinlineInterpolate"](1, "", _co.objectCount, ""); var currVal_6 = _co.connectionStep; _ck(_v, 28, 0, currVal_5, currVal_6); var currVal_7 = _co.connectionStep; _ck(_v, 29, 0, currVal_7); var currVal_8 = _co.enableConnections; _ck(_v, 32, 0, currVal_8); var currVal_9 = _co.noConnectionMesh; _ck(_v, 34, 0, currVal_9); var currVal_10 = _co.enableConnections; _ck(_v, 37, 0, currVal_10); var currVal_11 = _co.enableConnections; _ck(_v, 39, 0, currVal_11); }); }
+    } return ad; }, null, null))], null, function (_ck, _v) { var _co = _v.component; var currVal_0 = _co.renderCalls; _ck(_v, 6, 0, currVal_0); var currVal_1 = _co.objectCount; _ck(_v, 13, 0, currVal_1); var currVal_2 = _co.objectCount; _ck(_v, 17, 0, currVal_2); var currVal_3 = (_co.objectCount * _co.objectCount); _ck(_v, 23, 0, currVal_3); var currVal_4 = _co.connectionCount; _ck(_v, 25, 0, currVal_4); var currVal_5 = _co.enableConnections; _ck(_v, 28, 0, currVal_5); }); }
 function View_GroupLayoutComponent_Host_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](0, 0, null, null, 1, "app-group-layout", [], null, null, null, View_GroupLayoutComponent_0, RenderType_GroupLayoutComponent)), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](1, 4308992, null, 0, _group_layout_component__WEBPACK_IMPORTED_MODULE_2__["GroupLayoutComponent"], [_three_services_three_service__WEBPACK_IMPORTED_MODULE_3__["ThreeService"], _services_network_graph_request_service__WEBPACK_IMPORTED_MODULE_4__["NetworkGraphRequestService"], _services_three_factory_service__WEBPACK_IMPORTED_MODULE_5__["ThreeFactoryService"]], null, null)], function (_ck, _v) { _ck(_v, 1, 0); }, null); }
 var GroupLayoutComponentNgFactory = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵccf"]("app-group-layout", _group_layout_component__WEBPACK_IMPORTED_MODULE_2__["GroupLayoutComponent"], View_GroupLayoutComponent_Host_0, {}, {}, []);
 
@@ -17986,14 +18301,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
 /* harmony import */ var three__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! three */ "./node_modules/three/build/three.module.js");
-/* harmony import */ var three_meshline__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! three.meshline */ "./node_modules/three.meshline/src/THREE.MeshLine.js");
-/* harmony import */ var three_meshline__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(three_meshline__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _node_modules_stats_js_build_stats_min_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../node_modules/stats.js/build/stats.min.js */ "./node_modules/stats.js/build/stats.min.js");
-/* harmony import */ var _node_modules_stats_js_build_stats_min_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_node_modules_stats_js_build_stats_min_js__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _node_modules_stats_js_build_stats_min_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../node_modules/stats.js/build/stats.min.js */ "./node_modules/stats.js/build/stats.min.js");
+/* harmony import */ var _node_modules_stats_js_build_stats_min_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_node_modules_stats_js_build_stats_min_js__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _node_modules_three_examples_jsm_lines_LineGeometry_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../../../../../node_modules/three/examples/jsm/lines/LineGeometry.js */ "./node_modules/three/examples/jsm/lines/LineGeometry.js");
+/* harmony import */ var _node_modules_three_examples_jsm_lines_LineMaterial_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../../../../../node_modules/three/examples/jsm/lines/LineMaterial.js */ "./node_modules/three/examples/jsm/lines/LineMaterial.js");
+/* harmony import */ var _node_modules_three_examples_jsm_lines_Line2__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./../../../../../node_modules/three/examples/jsm/lines/Line2 */ "./node_modules/three/examples/jsm/lines/Line2.js");
 /**
  * TODO: check if other possibilities are there for loaded mesh. current 'Group'.
  * TODO: Groups Texture.
  */
+
+
 
 
 
@@ -18009,6 +18327,7 @@ class GroupLayoutComponent {
         this.previousObjectCount = 0;
         this.connectionPoints = [];
         this.connectionStep = 1;
+        this.connectionCount = "not specified";
         this.enableConnections = false;
         this.noConnectionMesh = false;
         this.raycaster = new three__WEBPACK_IMPORTED_MODULE_3__["Raycaster"]();
@@ -18026,7 +18345,7 @@ class GroupLayoutComponent {
         this.threeCommon.renderer.setPixelRatio(window.devicePixelRatio);
         this.threeCommon.scene.background = "black";
         this.threeCommon.camera.updateProjectionMatrix();
-        this.threeCommon.scene.add(new three__WEBPACK_IMPORTED_MODULE_3__["AxesHelper"](100));
+        // this.threeCommon.scene.add(new THREE.AxesHelper(100));
         this.threeCommon.controls.addEventListener("change", Object(lodash__WEBPACK_IMPORTED_MODULE_1__["throttle"])(this.renderView.bind(this), 50));
     }
     initRequests() {
@@ -18085,93 +18404,52 @@ class GroupLayoutComponent {
         matrix.compose(position, quaternion, scale);
         return matrix;
     }
-    renderView() {
-        if (this.mouse) {
-            this.raycaster.setFromCamera(this.mouse, this.threeCommon.camera);
-        }
-        const nodeInstersections = this.raycaster.intersectObjects([
-            this.instancedNodeMesh,
-        ]);
-        // if (this.meshConnections) {
-        //   const lineIntersection = MeshLineRaycast(
-        //     this.raycaster,
-        //     this.meshConnections
-        //   );
-        //   console.log(lineIntersection);
-        // }
-        // const connectionIntersections =
-        if (nodeInstersections.length > 0) {
-            var rotationMatrix = new three__WEBPACK_IMPORTED_MODULE_3__["Matrix4"]().makeRotationY(0.3);
-            var instanceMatrix = new three__WEBPACK_IMPORTED_MODULE_3__["Matrix4"]();
-            var instanceId = nodeInstersections[0].instanceId;
-            const matrix = new three__WEBPACK_IMPORTED_MODULE_3__["Matrix4"]();
-            this.instancedNodeMesh.getMatrixAt(nodeInstersections[0].instanceId, instanceMatrix);
-            matrix.multiplyMatrices(instanceMatrix, rotationMatrix);
-            this.instancedNodeMesh.setMatrixAt(nodeInstersections[0].instanceId, matrix);
-            this.instancedNodeMesh.instanceMatrix.needsUpdate = true;
-        }
-        this.threeCommon.renderer.render(this.threeCommon.scene, this.threeCommon.camera);
-        this.renderCalls = this.threeCommon.renderer.info.render.calls;
-    }
     sceneController() {
         this.constructNodes();
         if (this.enableConnections) {
-            this.constructMeshlineConnections();
+            this.configureConnections();
+            // this.constructMeshlineConnections();
         }
         this.renderView();
     }
-    constructMeshlineConnections() {
-        var connectionData = [];
-        for (let index = 0; index < this.connectionPoints.length; index++) {
-            for (let _index = this.connectionPoints.length - 1; _index >= 0; _index = _index - this.connectionStep) {
-                connectionData.push(this.connectionPoints[index], this.connectionPoints[_index]);
-            }
-        }
-        this.createConnectionMesh(connectionData);
-    }
-    createConnectionMesh(connectionData) {
-        this.connectionCount = connectionData.length / 2;
-        if (this.noConnectionMesh) {
-            const material = new three_meshline__WEBPACK_IMPORTED_MODULE_4__["MeshLineMaterial"]({
-                color: new three__WEBPACK_IMPORTED_MODULE_3__["Color"]("rgb(39,124,178)"),
-                opacity: 1,
-                lineWidth: 0.05,
-                depthTest: true,
-                transparent: false,
+    configureConnections() {
+        this.connectionCount = 0;
+        for (let index = 0; index < this.connectionPoints.length - 1; index += 2) {
+            this.connectionCount++;
+            const source = this.connectionPoints[index];
+            const target = this.connectionPoints[index + 1];
+            const lineGeometry = new _node_modules_three_examples_jsm_lines_LineGeometry_js__WEBPACK_IMPORTED_MODULE_5__["LineGeometry"]();
+            const color = new three__WEBPACK_IMPORTED_MODULE_3__["Color"](0x277cb2);
+            lineGeometry.setPositions([
+                source.x,
+                source.y,
+                source.z,
+                target.x,
+                target.y,
+                target.z,
+            ]);
+            const matLine = new _node_modules_three_examples_jsm_lines_LineMaterial_js__WEBPACK_IMPORTED_MODULE_6__["LineMaterial"]({
+                color: 0x277cb2,
+                vertexColors: true,
+                dashed: false,
+                linewidth: 5,
             });
-            let meshCount = 0;
-            this.connectionsData.forEach((connection, i) => {
-                if (connectionData[i + 1] && i % 2 === 0) {
-                    const meshline = new three_meshline__WEBPACK_IMPORTED_MODULE_4__["MeshLine"]();
-                    meshline.setPoints([connectionData[i], connectionData[i + 1]]);
-                    var mesh = new three__WEBPACK_IMPORTED_MODULE_3__["Mesh"](meshline, material);
-                    mesh.frustumCulled = false;
-                    meshCount++;
-                    this.threeCommon.scene.add(mesh);
-                }
-            });
-            console.log(meshCount);
-        }
-        else {
-            this.meshline = new three_meshline__WEBPACK_IMPORTED_MODULE_4__["MeshLine"]();
-            console.log("connectionData", connectionData);
-            this.meshline.setPoints(connectionData);
-            const material = new three_meshline__WEBPACK_IMPORTED_MODULE_4__["MeshLineMaterial"]({
-                color: new three__WEBPACK_IMPORTED_MODULE_3__["Color"]("rgb(39,124,178)"),
-                opacity: 1,
-                lineWidth: 0.05,
-                depthTest: true,
-                transparent: false,
-            });
-            this.meshConnections = new three__WEBPACK_IMPORTED_MODULE_3__["Mesh"](this.meshline, material);
-            this.meshConnections.frustumCulled = false;
-            this.meshConnections.renderOrder = 10;
-            this.meshConnections.raycast = three_meshline__WEBPACK_IMPORTED_MODULE_4__["MeshLineRaycast"];
-            this.threeCommon.scene.add(this.meshConnections);
+            matLine.resolution.set(this.canvasEl.nativeElement.offsetWidth, this.canvasEl.nativeElement.offsetHeight);
+            lineGeometry.setColors([
+                color.r,
+                color.b,
+                color.g,
+                color.r,
+                color.b,
+                color.g,
+            ]);
+            const line = new _node_modules_three_examples_jsm_lines_Line2__WEBPACK_IMPORTED_MODULE_7__["Line2"](lineGeometry, matLine);
+            this.threeCommon.scene.add(line);
         }
     }
+    lineClickHandler() { }
     setUpStats() {
-        this.stats = new _node_modules_stats_js_build_stats_min_js__WEBPACK_IMPORTED_MODULE_5__();
+        this.stats = new _node_modules_stats_js_build_stats_min_js__WEBPACK_IMPORTED_MODULE_4__();
         this.stats.showPanel(1); // 0: fps, 1: ms, 2: mb, 3+: custom
         this.statsEl.nativeElement.appendChild(this.stats.dom);
         this.updateStats();
@@ -18215,7 +18493,6 @@ class GroupLayoutComponent {
         this.threeService.cleanScene(this.threeCommon);
         this.connectionPoints = [];
         this.enableConnections = $event.target.checked;
-        console.log(this.enableConnections);
         this.sceneController();
     }
     meshTypeStateHandler($event) {
@@ -18224,7 +18501,195 @@ class GroupLayoutComponent {
         this.noConnectionMesh = $event.target.checked;
         this.sceneController();
     }
+    renderView() {
+        // this.configureRaycast();
+        this.threeCommon.renderer.render(this.threeCommon.scene, this.threeCommon.camera);
+        this.renderCalls = this.threeCommon.renderer.info.render.calls;
+    }
+    configureRaycast() {
+        // if (this.mouse) {
+        //   this.raycaster.setFromCamera(this.mouse, this.threeCommon.camera);
+        //   // const intersects = this.raycaster.intersectObjects(
+        //   //   this.threeCommon.scene.children
+        //   // );
+        //   // console.log(intersects);
+        //   const linemeshRaycast = this.raycaster.intersectObjects([this.line]);
+        //   console.log("linemeshRaycast", linemeshRaycast);
+        // }
+    }
 }
+/**
+ *  Cylindrical connections.
+ */
+// constructCylindricalConnections(connectionData, instanceMesh?) {
+//   var material = new THREE.MeshLambertMaterial({ color: 0x277cb2 });
+//   if (instanceMesh) {
+//     var cylinder = new THREE.CylinderGeometry(0.1, 0.1, 1, 10, 10, false);
+//     this.connectionInstancedMesh = new THREE.InstancedMesh(
+//       this.nodeMesh.geometry,
+//       material,
+//       10000
+//     );
+//   }
+//   var HALF_PI = Math.PI * 0.5;
+//   connectionData.forEach((c) => {
+//     var distance = c.source.distanceTo(c.target);
+//     var cylinder = new THREE.CylinderGeometry(
+//       0.1,
+//       0.1,
+//       distance,
+//       10,
+//       10,
+//       false
+//     );
+//     // orient the cylinder
+//     var position = c.target.clone().add(c.source).divideScalar(2);
+//     var orientation = new THREE.Matrix4(); //a new orientation matrix to offset pivot
+//     var offsetRotation = new THREE.Matrix4(); //a matrix to fix pivot rotation
+//     var offsetPosition = new THREE.Matrix4(); //a matrix to fix pivot position
+//     orientation.lookAt(c.source, c.target, new THREE.Vector3(0, 1, 0)); //look at destination
+//     offsetRotation.makeRotationX(HALF_PI); //rotate 90 degs on X
+//     orientation.multiply(offsetRotation); //combine orientation with rotation transformations
+//     cylinder.applyMatrix4(orientation);
+//     const mesh = new THREE.Mesh(cylinder, material);
+//     mesh.position.set(position.x, position.y, position.z);
+//     mesh.userData["__visualiserObj"] = "traffic";
+//     this.threeCommon.scene.add(mesh);
+//   });
+//   // var cylinder = new THREE.CylinderGeometry(
+//   //   0.1,
+//   //   0.1,
+//   //   distance,
+//   //   10,
+//   //   10,
+//   //   false
+//   // );
+//   // var orientation = new THREE.Matrix4(); //a new orientation matrix to offset pivot
+//   // var offsetRotation = new THREE.Matrix4(); //a matrix to fix pivot rotation
+//   // var offsetPosition = new THREE.Matrix4(); //a matrix to fix pivot position
+//   // orientation.lookAt(
+//   //   sourceVector,
+//   //   destinationVector,
+//   //   new THREE.Vector3(0, 1, 0)
+//   // ); //look at destination
+//   // offsetRotation.makeRotationX(HALF_PI); //rotate 90 degs on X
+//   // orientation.multiply(offsetRotation); //combine orientation with rotation transformations
+//   // cylinder.applyMatrix4(orientation);
+//   // var mesh = new THREE.Mesh(cylinder, material);
+//   // mesh.position.set(position.x, position.y, position.z);
+//   // return mesh;
+// }
+/**
+ * Connection mesh
+ */
+// private createConnectionMesh(connectionData: any[]) {
+//   this.connectionCount = connectionData.length / 2;
+//   if (this.noConnectionMesh) {
+//     const material = new MeshLineMaterial({
+//       color: new THREE.Color("rgb(39,124,178)"),
+//       opacity: 1,
+//       lineWidth: 0.05,
+//       depthTest: true,
+//       transparent: false,
+//     });
+//     this.trafficGroup = [];
+//     connectionData.forEach((connection, i) => {
+//       if (connectionData[i + 1]) {
+//         const meshline = new MeshLine();
+//         meshline.setPoints([connectionData[i], connectionData[i + 1]]);
+//         var mesh = new THREE.Mesh(meshline, material);
+//         mesh["dt"] = { test: i };
+//         this.trafficGroup.push(mesh);
+//         this.threeCommon.scene.add(mesh);
+//       }
+//     });
+//   } else {
+//     this.meshline = new MeshLine();
+//     this.meshline.setPoints(connectionData);
+//     const material = new MeshLineMaterial({
+//       color: new THREE.Color("rgb(39,124,178)"),
+//       opacity: 1,
+//       lineWidth: 0.05,
+//       depthTest: true,
+//       transparent: false,
+//     });
+//     this.meshConnections = new THREE.Mesh(this.meshline, material);
+//     this.meshConnections.frustumCulled = false;
+//     this.meshConnections.renderOrder = 10;
+//     this.meshConnections.raycast = MeshLineRaycast;
+//     this.threeCommon.scene.add(this.meshConnections);
+//   }
+// }
+// private generateDistinctConnections(indexed) {
+//   // connectionData.push();
+//   var connectionData = [];
+//   for (let index = 0; index < this.connectionPoints.length; index++) {
+//     for (
+//       let _index = this.connectionPoints.length - 1;
+//       _index >= 0;
+//       _index = _index - this.connectionStep
+//     ) {
+//       if (indexed) {
+//         // connectionData.push(
+//         //   this.connectionPoints[index],
+//         //   this.connectionPoints[_index]
+//         // );
+//         connectionData.push(
+//           this.connectionPoints[index].x,
+//           this.connectionPoints[index].y,
+//           this.connectionPoints[index].z,
+//           this.connectionPoints[_index].x,
+//           this.connectionPoints[_index].y,
+//           this.connectionPoints[_index].z
+//         );
+//       } else {
+//         connectionData.push({
+//           source: this.connectionPoints[index],
+//           target: this.connectionPoints[_index],
+//         });
+//       }
+//     }
+//   }
+//   return connectionData;
+// }
+// private generateRandomConnections() {
+//   var connectionData = [];
+//   for (let index = 0; index < this.connectionPoints.length; index++) {
+//     for (
+//       let _index = this.connectionPoints.length - 1;
+//       _index >= 0;
+//       _index = _index - this.connectionStep
+//     ) {
+//       connectionData.push(
+//         this.connectionPoints[index],
+//         this.connectionPoints[_index]
+//       );
+//     }
+//   }
+//   return connectionData;
+// }
+// private generateSequentialConnections() {
+//   var connectionData = [];
+//   let _connectionCount = 0;
+//   const len = this.connectionPoints.length / 2;
+//   for (let index = 0; index < len; index += 30) {
+//     _connectionCount += 1;
+//     let _index = len + index;
+//     if (this.connectionPoints[index] && this.connectionPoints[_index]) {
+//       connectionData.push(
+//         this.connectionPoints[index].x,
+//         this.connectionPoints[index].y,
+//         this.connectionPoints[index].z,
+//         this.connectionPoints[_index].x,
+//         this.connectionPoints[_index].y,
+//         this.connectionPoints[_index].z
+//       );
+//     }
+//   }
+//   console.log("connectionCount", this.connectionCount);
+//   this.connectionCount = _connectionCount;
+//   return connectionData;
+// }
 
 
 /***/ }),
