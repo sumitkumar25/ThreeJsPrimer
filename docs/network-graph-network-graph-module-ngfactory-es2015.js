@@ -17165,733 +17165,6 @@
 
 /***/ }),
 
-/***/ "./node_modules/three.meshline/src/THREE.MeshLine.js":
-/*!***********************************************************!*\
-  !*** ./node_modules/three.meshline/src/THREE.MeshLine.js ***!
-  \***********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-;(function() {
-  'use strict'
-
-  var root = this
-
-  var has_require = "function" !== 'undefined'
-
-  var THREE = root.THREE || (has_require && __webpack_require__(/*! three */ "./node_modules/three/build/three.module.js"))
-  if (!THREE) throw new Error('MeshLine requires three.js')
-
-  function MeshLine() {
-    THREE.BufferGeometry.call(this)
-    this.type = 'MeshLine'
-
-    this.positions = []
-
-    this.previous = []
-    this.next = []
-    this.side = []
-    this.width = []
-    this.indices_array = []
-    this.uvs = []
-    this.counters = []
-    this._points = []
-    this._geom = null
-
-    this.widthCallback = null
-
-    // Used to raycast
-    this.matrixWorld = new THREE.Matrix4()
-
-    Object.defineProperties(this, {
-      // this is now a bufferGeometry
-      // add getter to support previous api
-      geometry: {
-        enumerable: true,
-        get: function() {
-          return this
-        },
-      },
-      geom: {
-        enumerable: true,
-        get: function() {
-          return this._geom
-        },
-        set: function(value) {
-          this.setGeometry(value, this.widthCallback)
-        },
-      },
-      // for declaritive architectures
-      // to return the same value that sets the points
-      // eg. this.points = points
-      // console.log(this.points) -> points
-      points: {
-        enumerable: true,
-        get: function() {
-          return this._points
-        },
-        set: function(value) {
-          this.setPoints(value, this.widthCallback)
-        },
-      },
-    })
-  }
-
-  MeshLine.prototype = Object.create(THREE.BufferGeometry.prototype)
-  MeshLine.prototype.constructor = MeshLine
-  MeshLine.prototype.isMeshLine = true
-
-  MeshLine.prototype.setMatrixWorld = function(matrixWorld) {
-    this.matrixWorld = matrixWorld
-  }
-
-  // setting via a geometry is rather superfluous
-  // as you're creating a unecessary geometry just to throw away
-  // but exists to support previous api
-  MeshLine.prototype.setGeometry = function(g, c) {
-		// as the input geometry are mutated we store them
-		// for later retreival when necessary (declaritive architectures)
-		this._geometry = g;
-		if (g instanceof THREE.Geometry) {
-			this.setPoints(g.vertices, c);
-		} else if (g instanceof THREE.BufferGeometry) {
-			this.setPoints(g.getAttribute("position").array, c);
-		} else {
-			this.setPoints(g, c);
-		}
-  }
-
-  MeshLine.prototype.setPoints = function(points, wcb) {
-		if (!(points instanceof Float32Array) && !(points instanceof Array)) {
-			console.error(
-				"ERROR: The BufferArray of points is not instancied correctly."
-			);
-			return;
-		}
-		// as the points are mutated we store them
-		// for later retreival when necessary (declaritive architectures)
-		this._points = points;
-		this.widthCallback = wcb;
-		this.positions = [];
-		this.counters = [];
-		if (points.length && points[0] instanceof THREE.Vector3) {
-			// could transform Vector3 array into the array used below
-			// but this approach will only loop through the array once
-			// and is more performant
-			for (var j = 0; j < points.length; j++) {
-				var p = points[j];
-				var c = j / points.length;
-				this.positions.push(p.x, p.y, p.z);
-				this.positions.push(p.x, p.y, p.z);
-				this.counters.push(c);
-				this.counters.push(c);
-			}
-		} else {
-			for (var j = 0; j < points.length; j += 3) {
-				var c = j / points.length;
-				this.positions.push(points[j], points[j + 1], points[j + 2]);
-				this.positions.push(points[j], points[j + 1], points[j + 2]);
-				this.counters.push(c);
-				this.counters.push(c);
-			}
-		}
-		this.process();
-  }
-
-  function MeshLineRaycast(raycaster, intersects) {
-    var inverseMatrix = new THREE.Matrix4()
-    var ray = new THREE.Ray()
-    var sphere = new THREE.Sphere()
-    var interRay = new THREE.Vector3()
-    var geometry = this.geometry
-    // Checking boundingSphere distance to ray
-
-    sphere.copy(geometry.boundingSphere)
-    sphere.applyMatrix4(this.matrixWorld)
-
-    if (raycaster.ray.intersectSphere(sphere, interRay) === false) {
-      return
-    }
-
-    inverseMatrix.getInverse(this.matrixWorld)
-    ray.copy(raycaster.ray).applyMatrix4(inverseMatrix)
-
-    var vStart = new THREE.Vector3()
-    var vEnd = new THREE.Vector3()
-    var interSegment = new THREE.Vector3()
-    var step = this instanceof THREE.LineSegments ? 2 : 1
-    var index = geometry.index
-    var attributes = geometry.attributes
-
-    if (index !== null) {
-      var indices = index.array
-      var positions = attributes.position.array
-      var widths = attributes.width.array
-
-      for (var i = 0, l = indices.length - 1; i < l; i += step) {
-        var a = indices[i]
-        var b = indices[i + 1]
-
-        vStart.fromArray(positions, a * 3)
-        vEnd.fromArray(positions, b * 3)
-        var width = widths[Math.floor(i / 3)] != undefined ? widths[Math.floor(i / 3)] : 1
-        var precision = raycaster.params.Line.threshold + (this.material.lineWidth * width) / 2
-        var precisionSq = precision * precision
-
-        var distSq = ray.distanceSqToSegment(vStart, vEnd, interRay, interSegment)
-
-        if (distSq > precisionSq) continue
-
-        interRay.applyMatrix4(this.matrixWorld) //Move back to world space for distance calculation
-
-        var distance = raycaster.ray.origin.distanceTo(interRay)
-
-        if (distance < raycaster.near || distance > raycaster.far) continue
-
-        intersects.push({
-          distance: distance,
-          // What do we want? intersection point on the ray or on the segment??
-          // point: raycaster.ray.at( distance ),
-          point: interSegment.clone().applyMatrix4(this.matrixWorld),
-          index: i,
-          face: null,
-          faceIndex: null,
-          object: this,
-        })
-        // make event only fire once
-        i = l
-      }
-    }
-  }
-  MeshLine.prototype.raycast = MeshLineRaycast
-  MeshLine.prototype.compareV3 = function(a, b) {
-    var aa = a * 6
-    var ab = b * 6
-    return (
-      this.positions[aa] === this.positions[ab] &&
-      this.positions[aa + 1] === this.positions[ab + 1] &&
-      this.positions[aa + 2] === this.positions[ab + 2]
-    )
-  }
-
-  MeshLine.prototype.copyV3 = function(a) {
-    var aa = a * 6
-    return [this.positions[aa], this.positions[aa + 1], this.positions[aa + 2]]
-  }
-
-  MeshLine.prototype.process = function() {
-    var l = this.positions.length / 6
-
-    this.previous = []
-    this.next = []
-    this.side = []
-    this.width = []
-    this.indices_array = []
-    this.uvs = []
-
-    var w
-
-    var v
-    // initial previous points
-    if (this.compareV3(0, l - 1)) {
-      v = this.copyV3(l - 2)
-    } else {
-      v = this.copyV3(0)
-    }
-    this.previous.push(v[0], v[1], v[2])
-    this.previous.push(v[0], v[1], v[2])
-
-    for (var j = 0; j < l; j++) {
-      // sides
-      this.side.push(1)
-      this.side.push(-1)
-
-      // widths
-      if (this.widthCallback) w = this.widthCallback(j / (l - 1))
-      else w = 1
-      this.width.push(w)
-      this.width.push(w)
-
-      // uvs
-      this.uvs.push(j / (l - 1), 0)
-      this.uvs.push(j / (l - 1), 1)
-
-      if (j < l - 1) {
-        // points previous to poisitions
-        v = this.copyV3(j)
-        this.previous.push(v[0], v[1], v[2])
-        this.previous.push(v[0], v[1], v[2])
-
-        // indices
-        var n = j * 2
-        this.indices_array.push(n, n + 1, n + 2)
-        this.indices_array.push(n + 2, n + 1, n + 3)
-      }
-      if (j > 0) {
-        // points after poisitions
-        v = this.copyV3(j)
-        this.next.push(v[0], v[1], v[2])
-        this.next.push(v[0], v[1], v[2])
-      }
-    }
-
-    // last next point
-    if (this.compareV3(l - 1, 0)) {
-      v = this.copyV3(1)
-    } else {
-      v = this.copyV3(l - 1)
-    }
-    this.next.push(v[0], v[1], v[2])
-    this.next.push(v[0], v[1], v[2])
-
-    // redefining the attribute seems to prevent range errors
-    // if the user sets a differing number of vertices
-    if (!this._attributes || this._attributes.position.count !== this.positions.length) {
-      this._attributes = {
-        position: new THREE.BufferAttribute(new Float32Array(this.positions), 3),
-        previous: new THREE.BufferAttribute(new Float32Array(this.previous), 3),
-        next: new THREE.BufferAttribute(new Float32Array(this.next), 3),
-        side: new THREE.BufferAttribute(new Float32Array(this.side), 1),
-        width: new THREE.BufferAttribute(new Float32Array(this.width), 1),
-        uv: new THREE.BufferAttribute(new Float32Array(this.uvs), 2),
-        index: new THREE.BufferAttribute(new Uint16Array(this.indices_array), 1),
-        counters: new THREE.BufferAttribute(new Float32Array(this.counters), 1),
-      }
-    } else {
-      this._attributes.position.copyArray(new Float32Array(this.positions))
-      this._attributes.position.needsUpdate = true
-      this._attributes.previous.copyArray(new Float32Array(this.previous))
-      this._attributes.previous.needsUpdate = true
-      this._attributes.next.copyArray(new Float32Array(this.next))
-      this._attributes.next.needsUpdate = true
-      this._attributes.side.copyArray(new Float32Array(this.side))
-      this._attributes.side.needsUpdate = true
-      this._attributes.width.copyArray(new Float32Array(this.width))
-      this._attributes.width.needsUpdate = true
-      this._attributes.uv.copyArray(new Float32Array(this.uvs))
-      this._attributes.uv.needsUpdate = true
-      this._attributes.index.copyArray(new Uint16Array(this.indices_array))
-      this._attributes.index.needsUpdate = true
-    }
-
-    this.setAttribute('position', this._attributes.position)
-    this.setAttribute('previous', this._attributes.previous)
-    this.setAttribute('next', this._attributes.next)
-    this.setAttribute('side', this._attributes.side)
-    this.setAttribute('width', this._attributes.width)
-    this.setAttribute('uv', this._attributes.uv)
-    this.setAttribute('counters', this._attributes.counters)
-
-    this.setIndex(this._attributes.index)
-
-    this.computeBoundingSphere()
-    this.computeBoundingBox()
-  }
-
-  function memcpy(src, srcOffset, dst, dstOffset, length) {
-    var i
-
-    src = src.subarray || src.slice ? src : src.buffer
-    dst = dst.subarray || dst.slice ? dst : dst.buffer
-
-    src = srcOffset
-      ? src.subarray
-        ? src.subarray(srcOffset, length && srcOffset + length)
-        : src.slice(srcOffset, length && srcOffset + length)
-      : src
-
-    if (dst.set) {
-      dst.set(src, dstOffset)
-    } else {
-      for (i = 0; i < src.length; i++) {
-        dst[i + dstOffset] = src[i]
-      }
-    }
-
-    return dst
-  }
-
-  /**
-   * Fast method to advance the line by one position.  The oldest position is removed.
-   * @param position
-   */
-  MeshLine.prototype.advance = function(position) {
-    var positions = this._attributes.position.array
-    var previous = this._attributes.previous.array
-    var next = this._attributes.next.array
-    var l = positions.length
-
-    // PREVIOUS
-    memcpy(positions, 0, previous, 0, l)
-
-    // POSITIONS
-    memcpy(positions, 6, positions, 0, l - 6)
-
-    positions[l - 6] = position.x
-    positions[l - 5] = position.y
-    positions[l - 4] = position.z
-    positions[l - 3] = position.x
-    positions[l - 2] = position.y
-    positions[l - 1] = position.z
-
-    // NEXT
-    memcpy(positions, 6, next, 0, l - 6)
-
-    next[l - 6] = position.x
-    next[l - 5] = position.y
-    next[l - 4] = position.z
-    next[l - 3] = position.x
-    next[l - 2] = position.y
-    next[l - 1] = position.z
-
-    this._attributes.position.needsUpdate = true
-    this._attributes.previous.needsUpdate = true
-    this._attributes.next.needsUpdate = true
-  }
-
-  THREE.ShaderChunk['meshline_vert'] = [
-    '',
-    THREE.ShaderChunk.logdepthbuf_pars_vertex,
-    THREE.ShaderChunk.fog_pars_vertex,
-    '',
-    'attribute vec3 previous;',
-    'attribute vec3 next;',
-    'attribute float side;',
-    'attribute float width;',
-    'attribute float counters;',
-    '',
-    'uniform vec2 resolution;',
-    'uniform float lineWidth;',
-    'uniform vec3 color;',
-    'uniform float opacity;',
-    'uniform float sizeAttenuation;',
-    '',
-    'varying vec2 vUV;',
-    'varying vec4 vColor;',
-    'varying float vCounters;',
-    '',
-    'vec2 fix( vec4 i, float aspect ) {',
-    '',
-    '    vec2 res = i.xy / i.w;',
-    '    res.x *= aspect;',
-    '	 vCounters = counters;',
-    '    return res;',
-    '',
-    '}',
-    '',
-    'void main() {',
-    '',
-    '    float aspect = resolution.x / resolution.y;',
-    '',
-    '    vColor = vec4( color, opacity );',
-    '    vUV = uv;',
-    '',
-    '    mat4 m = projectionMatrix * modelViewMatrix;',
-    '    vec4 finalPosition = m * vec4( position, 1.0 );',
-    '    vec4 prevPos = m * vec4( previous, 1.0 );',
-    '    vec4 nextPos = m * vec4( next, 1.0 );',
-    '',
-    '    vec2 currentP = fix( finalPosition, aspect );',
-    '    vec2 prevP = fix( prevPos, aspect );',
-    '    vec2 nextP = fix( nextPos, aspect );',
-    '',
-    '    float w = lineWidth * width;',
-    '',
-    '    vec2 dir;',
-    '    if( nextP == currentP ) dir = normalize( currentP - prevP );',
-    '    else if( prevP == currentP ) dir = normalize( nextP - currentP );',
-    '    else {',
-    '        vec2 dir1 = normalize( currentP - prevP );',
-    '        vec2 dir2 = normalize( nextP - currentP );',
-    '        dir = normalize( dir1 + dir2 );',
-    '',
-    '        vec2 perp = vec2( -dir1.y, dir1.x );',
-    '        vec2 miter = vec2( -dir.y, dir.x );',
-    '        //w = clamp( w / dot( miter, perp ), 0., 4. * lineWidth * width );',
-    '',
-    '    }',
-    '',
-    '    //vec2 normal = ( cross( vec3( dir, 0. ), vec3( 0., 0., 1. ) ) ).xy;',
-    '    vec4 normal = vec4( -dir.y, dir.x, 0., 1. );',
-    '    normal.xy *= .5 * w;',
-    '    normal *= projectionMatrix;',
-    '    if( sizeAttenuation == 0. ) {',
-    '        normal.xy *= finalPosition.w;',
-    '        normal.xy /= ( vec4( resolution, 0., 1. ) * projectionMatrix ).xy;',
-    '    }',
-    '',
-    '    finalPosition.xy += normal.xy * side;',
-    '',
-    '    gl_Position = finalPosition;',
-    '',
-    THREE.ShaderChunk.logdepthbuf_vertex,
-    THREE.ShaderChunk.fog_vertex && '    vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );',
-    THREE.ShaderChunk.fog_vertex,
-    '}',
-  ].join('\n')
-
-  THREE.ShaderChunk['meshline_frag'] = [
-    '',
-    THREE.ShaderChunk.fog_pars_fragment,
-    THREE.ShaderChunk.logdepthbuf_pars_fragment,
-    '',
-    'uniform sampler2D map;',
-    'uniform sampler2D alphaMap;',
-    'uniform float useMap;',
-    'uniform float useAlphaMap;',
-    'uniform float useDash;',
-    'uniform float dashArray;',
-    'uniform float dashOffset;',
-    'uniform float dashRatio;',
-    'uniform float visibility;',
-    'uniform float alphaTest;',
-    'uniform vec2 repeat;',
-    '',
-    'varying vec2 vUV;',
-    'varying vec4 vColor;',
-    'varying float vCounters;',
-    '',
-    'void main() {',
-    '',
-    THREE.ShaderChunk.logdepthbuf_fragment,
-    '',
-    '    vec4 c = vColor;',
-    '    if( useMap == 1. ) c *= texture2D( map, vUV * repeat );',
-    '    if( useAlphaMap == 1. ) c.a *= texture2D( alphaMap, vUV * repeat ).a;',
-    '    if( c.a < alphaTest ) discard;',
-    '    if( useDash == 1. ){',
-    '        c.a *= ceil(mod(vCounters + dashOffset, dashArray) - (dashArray * dashRatio));',
-    '    }',
-    '    gl_FragColor = c;',
-    '    gl_FragColor.a *= step(vCounters, visibility);',
-    '',
-    THREE.ShaderChunk.fog_fragment,
-    '}',
-  ].join('\n')
-
-  function MeshLineMaterial(parameters) {
-    THREE.ShaderMaterial.call(this, {
-      uniforms: Object.assign({}, THREE.UniformsLib.fog, {
-        lineWidth: { value: 1 },
-        map: { value: null },
-        useMap: { value: 0 },
-        alphaMap: { value: null },
-        useAlphaMap: { value: 0 },
-        color: { value: new THREE.Color(0xffffff) },
-        opacity: { value: 1 },
-        resolution: { value: new THREE.Vector2(1, 1) },
-        sizeAttenuation: { value: 1 },
-        dashArray: { value: 0 },
-        dashOffset: { value: 0 },
-        dashRatio: { value: 0.5 },
-        useDash: { value: 0 },
-        visibility: { value: 1 },
-        alphaTest: { value: 0 },
-        repeat: { value: new THREE.Vector2(1, 1) },
-      }),
-
-      vertexShader: THREE.ShaderChunk.meshline_vert,
-
-      fragmentShader: THREE.ShaderChunk.meshline_frag,
-    })
-
-    this.type = 'MeshLineMaterial'
-
-    Object.defineProperties(this, {
-      lineWidth: {
-        enumerable: true,
-        get: function() {
-          return this.uniforms.lineWidth.value
-        },
-        set: function(value) {
-          this.uniforms.lineWidth.value = value
-        },
-      },
-      map: {
-        enumerable: true,
-        get: function() {
-          return this.uniforms.map.value
-        },
-        set: function(value) {
-          this.uniforms.map.value = value
-        },
-      },
-      useMap: {
-        enumerable: true,
-        get: function() {
-          return this.uniforms.useMap.value
-        },
-        set: function(value) {
-          this.uniforms.useMap.value = value
-        },
-      },
-      alphaMap: {
-        enumerable: true,
-        get: function() {
-          return this.uniforms.alphaMap.value
-        },
-        set: function(value) {
-          this.uniforms.alphaMap.value = value
-        },
-      },
-      useAlphaMap: {
-        enumerable: true,
-        get: function() {
-          return this.uniforms.useAlphaMap.value
-        },
-        set: function(value) {
-          this.uniforms.useAlphaMap.value = value
-        },
-      },
-      color: {
-        enumerable: true,
-        get: function() {
-          return this.uniforms.color.value
-        },
-        set: function(value) {
-          this.uniforms.color.value = value
-        },
-      },
-      opacity: {
-        enumerable: true,
-        get: function() {
-          return this.uniforms.opacity.value
-        },
-        set: function(value) {
-          this.uniforms.opacity.value = value
-        },
-      },
-      resolution: {
-        enumerable: true,
-        get: function() {
-          return this.uniforms.resolution.value
-        },
-        set: function(value) {
-          this.uniforms.resolution.value.copy(value)
-        },
-      },
-      sizeAttenuation: {
-        enumerable: true,
-        get: function() {
-          return this.uniforms.sizeAttenuation.value
-        },
-        set: function(value) {
-          this.uniforms.sizeAttenuation.value = value
-        },
-      },
-      dashArray: {
-        enumerable: true,
-        get: function() {
-          return this.uniforms.dashArray.value
-        },
-        set: function(value) {
-          this.uniforms.dashArray.value = value
-          this.useDash = value !== 0 ? 1 : 0
-        },
-      },
-      dashOffset: {
-        enumerable: true,
-        get: function() {
-          return this.uniforms.dashOffset.value
-        },
-        set: function(value) {
-          this.uniforms.dashOffset.value = value
-        },
-      },
-      dashRatio: {
-        enumerable: true,
-        get: function() {
-          return this.uniforms.dashRatio.value
-        },
-        set: function(value) {
-          this.uniforms.dashRatio.value = value
-        },
-      },
-      useDash: {
-        enumerable: true,
-        get: function() {
-          return this.uniforms.useDash.value
-        },
-        set: function(value) {
-          this.uniforms.useDash.value = value
-        },
-      },
-      visibility: {
-        enumerable: true,
-        get: function() {
-          return this.uniforms.visibility.value
-        },
-        set: function(value) {
-          this.uniforms.visibility.value = value
-        },
-      },
-      alphaTest: {
-        enumerable: true,
-        get: function() {
-          return this.uniforms.alphaTest.value
-        },
-        set: function(value) {
-          this.uniforms.alphaTest.value = value
-        },
-      },
-      repeat: {
-        enumerable: true,
-        get: function() {
-          return this.uniforms.repeat.value
-        },
-        set: function(value) {
-          this.uniforms.repeat.value.copy(value)
-        },
-      },
-    })
-
-    this.setValues(parameters)
-  }
-
-  MeshLineMaterial.prototype = Object.create(THREE.ShaderMaterial.prototype)
-  MeshLineMaterial.prototype.constructor = MeshLineMaterial
-  MeshLineMaterial.prototype.isMeshLineMaterial = true
-
-  MeshLineMaterial.prototype.copy = function(source) {
-    THREE.ShaderMaterial.prototype.copy.call(this, source)
-
-    this.lineWidth = source.lineWidth
-    this.map = source.map
-    this.useMap = source.useMap
-    this.alphaMap = source.alphaMap
-    this.useAlphaMap = source.useAlphaMap
-    this.color.copy(source.color)
-    this.opacity = source.opacity
-    this.resolution.copy(source.resolution)
-    this.sizeAttenuation = source.sizeAttenuation
-    this.dashArray.copy(source.dashArray)
-    this.dashOffset.copy(source.dashOffset)
-    this.dashRatio.copy(source.dashRatio)
-    this.useDash = source.useDash
-    this.visibility = source.visibility
-    this.alphaTest = source.alphaTest
-    this.repeat.copy(source.repeat)
-
-    return this
-  }
-
-  if (true) {
-    if ( true && module.exports) {
-      exports = module.exports = {
-        MeshLine: MeshLine,
-        MeshLineMaterial: MeshLineMaterial,
-        MeshLineRaycast: MeshLineRaycast,
-      }
-    }
-    exports.MeshLine = MeshLine
-    exports.MeshLineMaterial = MeshLineMaterial
-    exports.MeshLineRaycast = MeshLineRaycast
-  } else {}
-}.call(this))
-
-
-/***/ }),
-
 /***/ "./node_modules/three/examples/jsm/lines/Line2.js":
 /*!********************************************************!*\
   !*** ./node_modules/three/examples/jsm/lines/Line2.js ***!
@@ -18974,22 +18247,16 @@ __webpack_require__.r(__webpack_exports__);
 var styles_GroupLayoutComponent = [_group_layout_component_scss_shim_ngstyle__WEBPACK_IMPORTED_MODULE_0__["styles"]];
 var RenderType_GroupLayoutComponent = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵcrt"]({ encapsulation: 0, styles: styles_GroupLayoutComponent, data: {} });
 
-function View_GroupLayoutComponent_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵqud"](671088640, 1, { canvasEl: 0 }), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵqud"](671088640, 2, { statsEl: 0 }), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](2, 0, [[2, 0], ["stats", 1]], null, 38, "section", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](3, 0, null, null, 1, "h5", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, ["Group Layout"])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](5, 0, null, null, 1, "h5", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](6, null, ["Render Calls: ", ""])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](7, 0, null, null, 32, "section", [["style", "display: flex; border: solid 1px; padding: 10px; margin: 10px"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](8, 0, null, null, 9, "div", [["style", "flex: 1 0 0; padding: 10px; border: solid 1px"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](9, 0, null, null, 1, "h5", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, ["Node Metric"])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](11, 0, null, null, 2, "div", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](12, 0, null, null, 1, "h5", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](13, null, ["Object Count: ", ""])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](14, 0, null, null, 3, "div", [["class", "app--margin__vertical object-range"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](15, 0, null, null, 2, "label", [["for", "points"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, ["Node Count "])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](17, 0, null, null, 0, "input", [["id", "points"], ["max", "10000"], ["min", "4"], ["name", "points"], ["step", "10"], ["type", "range"]], [[8, "value", 0]], [[null, "change"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("change" === en)) {
+function View_GroupLayoutComponent_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵqud"](671088640, 1, { canvasEl: 0 }), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵqud"](671088640, 2, { statsEl: 0 }), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](2, 0, [[2, 0], ["stats", 1]], null, 28, "section", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](3, 0, null, null, 1, "h5", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, ["Group Layout"])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](5, 0, null, null, 1, "h5", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](6, null, ["Render Calls: ", ""])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](7, 0, null, null, 22, "section", [["style", "display: flex; border: solid 1px; padding: 10px; margin: 10px"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](8, 0, null, null, 9, "div", [["style", "flex: 1 0 0; padding: 10px; border: solid 1px"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](9, 0, null, null, 1, "h5", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, ["Node Metric"])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](11, 0, null, null, 2, "div", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](12, 0, null, null, 1, "h5", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](13, null, ["Object Count: ", ""])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](14, 0, null, null, 3, "div", [["class", "app--margin__vertical object-range"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](15, 0, null, null, 2, "label", [["for", "points"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, ["Node Count "])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](17, 0, null, null, 0, "input", [["id", "points"], ["max", "10000"], ["min", "4"], ["name", "points"], ["step", "10"], ["type", "range"]], [[8, "value", 0]], [[null, "change"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("change" === en)) {
         var pd_0 = (_co.objectCountChangeHandler($event) !== false);
         ad = (pd_0 && ad);
-    } return ad; }, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](18, 0, null, null, 21, "div", [["style", "flex: 1 0 0; padding: 10px; border: solid 1px"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](19, 0, null, null, 1, "h5", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, ["Connection Metric"])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](21, 0, null, null, 4, "div", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](22, 0, null, null, 1, "h5", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](23, null, ["Max Connections (N * N) : ", ""])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](24, 0, null, null, 1, "h5", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](25, null, ["Connection Count: ", ""])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](26, 0, null, null, 3, "div", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](27, 0, null, null, 2, "label", [["for", "step"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](28, 0, null, null, 0, "input", [["id", "step"], ["min", "1"], ["name", "points"], ["step", "1"], ["type", "range"]], [[8, "max", 0], [8, "value", 0]], [[null, "change"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("change" === en)) {
-        var pd_0 = (_co.connectionStepHandler($event) !== false);
-        ad = (pd_0 && ad);
-    } return ad; }, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](29, null, ["connection node step : ", " "])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](30, 0, null, null, 4, "div", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](31, 0, null, null, 3, "label", [["for", "noMesh"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](32, null, [" Individual Meshes", " "])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](33, 0, null, null, 0, "br", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](34, 0, null, null, 0, "input", [["id", "noMesh"], ["name", "noMesh"], ["type", "checkbox"]], [[8, "checked", 0]], [[null, "change"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("change" === en)) {
-        var pd_0 = (_co.meshTypeStateHandler($event) !== false);
-        ad = (pd_0 && ad);
-    } return ad; }, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](35, 0, null, null, 4, "div", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](36, 0, null, null, 3, "label", [["for", "enable"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](37, null, [" Enable connections. ", " "])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](38, 0, null, null, 0, "br", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](39, 0, null, null, 0, "input", [["id", "enable"], ["name", "enable"], ["type", "checkbox"]], [[8, "checked", 0]], [[null, "change"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("change" === en)) {
+    } return ad; }, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](18, 0, null, null, 11, "div", [["style", "flex: 1 0 0; padding: 10px; border: solid 1px"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](19, 0, null, null, 1, "h5", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, ["Connection Metric"])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](21, 0, null, null, 4, "div", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](22, 0, null, null, 1, "h5", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](23, null, ["Max Connections (N * N) : ", ""])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](24, 0, null, null, 1, "h5", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](25, null, ["Connection Count: ", ""])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](26, 0, null, null, 3, "div", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](27, 0, null, null, 2, "label", [["for", "enable"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](28, 0, null, null, 0, "input", [["id", "enable"], ["name", "enable"], ["type", "checkbox"]], [[8, "checked", 0]], [[null, "change"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("change" === en)) {
         var pd_0 = (_co.connectionStateHandler($event) !== false);
         ad = (pd_0 && ad);
-    } return ad; }, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](40, 0, [[1, 0], ["canvasEl", 1]], null, 0, "canvas", [["height", "500"], ["width", "1000"]], null, [[null, "click"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("click" === en)) {
+    } return ad; }, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, [" Enable connections. "])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](30, 0, [[1, 0], ["canvasEl", 1]], null, 0, "canvas", [["height", "500"], ["width", "1000"]], null, [[null, "click"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("click" === en)) {
         var pd_0 = (_co.clickHandler($event) !== false);
         ad = (pd_0 && ad);
-    } return ad; }, null, null))], null, function (_ck, _v) { var _co = _v.component; var currVal_0 = _co.renderCalls; _ck(_v, 6, 0, currVal_0); var currVal_1 = _co.objectCount; _ck(_v, 13, 0, currVal_1); var currVal_2 = _co.objectCount; _ck(_v, 17, 0, currVal_2); var currVal_3 = (_co.objectCount * _co.objectCount); _ck(_v, 23, 0, currVal_3); var currVal_4 = _co.connectionCount; _ck(_v, 25, 0, currVal_4); var currVal_5 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵinlineInterpolate"](1, "", _co.objectCount, ""); var currVal_6 = _co.connectionStep; _ck(_v, 28, 0, currVal_5, currVal_6); var currVal_7 = _co.connectionStep; _ck(_v, 29, 0, currVal_7); var currVal_8 = _co.enableConnections; _ck(_v, 32, 0, currVal_8); var currVal_9 = _co.noConnectionMesh; _ck(_v, 34, 0, currVal_9); var currVal_10 = _co.enableConnections; _ck(_v, 37, 0, currVal_10); var currVal_11 = _co.enableConnections; _ck(_v, 39, 0, currVal_11); }); }
+    } return ad; }, null, null))], null, function (_ck, _v) { var _co = _v.component; var currVal_0 = _co.renderCalls; _ck(_v, 6, 0, currVal_0); var currVal_1 = _co.objectCount; _ck(_v, 13, 0, currVal_1); var currVal_2 = _co.objectCount; _ck(_v, 17, 0, currVal_2); var currVal_3 = (_co.objectCount * _co.objectCount); _ck(_v, 23, 0, currVal_3); var currVal_4 = _co.connectionCount; _ck(_v, 25, 0, currVal_4); var currVal_5 = _co.enableConnections; _ck(_v, 28, 0, currVal_5); }); }
 function View_GroupLayoutComponent_Host_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](0, 0, null, null, 1, "app-group-layout", [], null, null, null, View_GroupLayoutComponent_0, RenderType_GroupLayoutComponent)), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](1, 4308992, null, 0, _group_layout_component__WEBPACK_IMPORTED_MODULE_2__["GroupLayoutComponent"], [_three_services_three_service__WEBPACK_IMPORTED_MODULE_3__["ThreeService"], _services_network_graph_request_service__WEBPACK_IMPORTED_MODULE_4__["NetworkGraphRequestService"], _services_three_factory_service__WEBPACK_IMPORTED_MODULE_5__["ThreeFactoryService"]], null, null)], function (_ck, _v) { _ck(_v, 1, 0); }, null); }
 var GroupLayoutComponentNgFactory = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵccf"]("app-group-layout", _group_layout_component__WEBPACK_IMPORTED_MODULE_2__["GroupLayoutComponent"], View_GroupLayoutComponent_Host_0, {}, {}, []);
 
@@ -19034,19 +18301,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
 /* harmony import */ var three__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! three */ "./node_modules/three/build/three.module.js");
-/* harmony import */ var three_meshline__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! three.meshline */ "./node_modules/three.meshline/src/THREE.MeshLine.js");
-/* harmony import */ var three_meshline__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(three_meshline__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _node_modules_stats_js_build_stats_min_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../node_modules/stats.js/build/stats.min.js */ "./node_modules/stats.js/build/stats.min.js");
-/* harmony import */ var _node_modules_stats_js_build_stats_min_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_node_modules_stats_js_build_stats_min_js__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _node_modules_three_examples_jsm_lines_Line2_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../../../../../node_modules/three/examples/jsm/lines/Line2.js */ "./node_modules/three/examples/jsm/lines/Line2.js");
-/* harmony import */ var _node_modules_three_examples_jsm_lines_LineMaterial_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./../../../../../node_modules/three/examples/jsm/lines/LineMaterial.js */ "./node_modules/three/examples/jsm/lines/LineMaterial.js");
-/* harmony import */ var _node_modules_three_examples_jsm_lines_LineGeometry_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./../../../../../node_modules/three/examples/jsm/lines/LineGeometry.js */ "./node_modules/three/examples/jsm/lines/LineGeometry.js");
+/* harmony import */ var _node_modules_stats_js_build_stats_min_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../node_modules/stats.js/build/stats.min.js */ "./node_modules/stats.js/build/stats.min.js");
+/* harmony import */ var _node_modules_stats_js_build_stats_min_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_node_modules_stats_js_build_stats_min_js__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _node_modules_three_examples_jsm_lines_LineGeometry_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../../../../../node_modules/three/examples/jsm/lines/LineGeometry.js */ "./node_modules/three/examples/jsm/lines/LineGeometry.js");
+/* harmony import */ var _node_modules_three_examples_jsm_lines_LineMaterial_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../../../../../node_modules/three/examples/jsm/lines/LineMaterial.js */ "./node_modules/three/examples/jsm/lines/LineMaterial.js");
+/* harmony import */ var _node_modules_three_examples_jsm_lines_Line2__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./../../../../../node_modules/three/examples/jsm/lines/Line2 */ "./node_modules/three/examples/jsm/lines/Line2.js");
 /**
  * TODO: check if other possibilities are there for loaded mesh. current 'Group'.
  * TODO: Groups Texture.
  */
-
-
 
 
 
@@ -19064,6 +18327,7 @@ class GroupLayoutComponent {
         this.previousObjectCount = 0;
         this.connectionPoints = [];
         this.connectionStep = 1;
+        this.connectionCount = "not specified";
         this.enableConnections = false;
         this.noConnectionMesh = false;
         this.raycaster = new three__WEBPACK_IMPORTED_MODULE_3__["Raycaster"]();
@@ -19081,7 +18345,7 @@ class GroupLayoutComponent {
         this.threeCommon.renderer.setPixelRatio(window.devicePixelRatio);
         this.threeCommon.scene.background = "black";
         this.threeCommon.camera.updateProjectionMatrix();
-        this.threeCommon.scene.add(new three__WEBPACK_IMPORTED_MODULE_3__["AxesHelper"](100));
+        // this.threeCommon.scene.add(new THREE.AxesHelper(100));
         this.threeCommon.controls.addEventListener("change", Object(lodash__WEBPACK_IMPORTED_MODULE_1__["throttle"])(this.renderView.bind(this), 50));
     }
     initRequests() {
@@ -19140,233 +18404,52 @@ class GroupLayoutComponent {
         matrix.compose(position, quaternion, scale);
         return matrix;
     }
-    renderView() {
-        if (this.mouse) {
-            this.raycaster.setFromCamera(this.mouse, this.threeCommon.camera);
-            const intersects = this.raycaster.intersectObjects(this.threeCommon.scene.children);
-            console.log(intersects[0]);
-        }
-        // const nodeInstersections = this.raycaster.intersectObjects([
-        //   this.instancedNodeMesh,
-        // ]);
-        // if (this.meshConnections) {
-        //   const connectionInterSects = [];
-        //   this.meshConnections.raycast(this.raycaster, connectionInterSects);
-        //   console.log({connectionInterSects});
-        // }
-        // if(this.trafficGroup){
-        //   // this.meshConnections.raycast(this.raycaster, trafficGroupSects);
-        //   const trafficGroupSects = this.raycaster.intersectObjects(
-        //     this.trafficGroup
-        //   );
-        //   console.log({trafficGroupSects})
-        // }
-        // const connectionIntersections =
-        // if (nodeInstersections.length > 0) {
-        //   var rotationMatrix = new THREE.Matrix4().makeRotationY(0.3);
-        //   var instanceMatrix = new THREE.Matrix4();
-        //   var instanceId = nodeInstersections[0].instanceId;
-        //   const matrix = new THREE.Matrix4();
-        //   this.instancedNodeMesh.getMatrixAt(
-        //     nodeInstersections[0].instanceId,
-        //     instanceMatrix
-        //   );
-        //   matrix.multiplyMatrices(instanceMatrix, rotationMatrix);
-        //   this.instancedNodeMesh.setMatrixAt(
-        //     nodeInstersections[0].instanceId,
-        //     matrix
-        //   );
-        //   this.instancedNodeMesh.instanceMatrix.needsUpdate = true;
-        // }
-        this.threeCommon.renderer.render(this.threeCommon.scene, this.threeCommon.camera);
-        this.renderCalls = this.threeCommon.renderer.info.render.calls;
-    }
     sceneController() {
         this.constructNodes();
         if (this.enableConnections) {
-            this.configureConnections("cylindrical");
+            this.configureConnections();
             // this.constructMeshlineConnections();
         }
         this.renderView();
     }
-    configureConnections(type) {
-        let connectionData = this.generateRandomConnections();
-        switch (type) {
-            case "meshline":
-                this.constructMeshlineConnections(connectionData);
-                break;
-            case "curveLine":
-                this.constructCurveLineConnections(connectionData);
-                break;
-            case "lineSegment2":
-                this.constructlineSegment2Connections(connectionData);
-                break;
-            case "fatlines":
-                connectionData = this.generateDistinctConnections();
-                this.constructlinefatLineConnections(connectionData);
-                break;
-            case "line3":
-                connectionData = this.generateDistinctConnections();
-                this.constructline3Connections(connectionData);
-                break;
-            case "cylindrical":
-                connectionData = this.generateDistinctConnections();
-                this.constructCylindricalConnections(connectionData);
-            default:
-                break;
-        }
-    }
-    constructline3Connections(connectionData) {
-        let matLine = new _node_modules_three_examples_jsm_lines_LineMaterial_js__WEBPACK_IMPORTED_MODULE_7__["LineMaterial"]({
-            color: 0xffffff,
-            linewidth: 5,
-            vertexColors: true,
-            //resolution:  // to be set by renderer, eventually
-            dashed: false,
-        });
-        let geometry = new three__WEBPACK_IMPORTED_MODULE_3__["Geometry"]();
-        connectionData.forEach((c) => {
-            geometry.vertices.push(c.source, c.target);
-            let line = new three__WEBPACK_IMPORTED_MODULE_3__["Line3"](c.source, c.target);
-            // const lineMesh = new THREE.Mesh(line,matLine);
-            this.threeCommon.scene.add(line);
-        });
-    }
-    constructlinefatLineConnections(connectionData) {
-        three__WEBPACK_IMPORTED_MODULE_3__["GeometryUtils"];
-        const geometry = new _node_modules_three_examples_jsm_lines_LineGeometry_js__WEBPACK_IMPORTED_MODULE_8__["LineGeometry"]();
-        let matLine = new _node_modules_three_examples_jsm_lines_LineMaterial_js__WEBPACK_IMPORTED_MODULE_7__["LineMaterial"]({
-            color: 0xffffff,
-            linewidth: 5,
-            vertexColors: true,
-            //resolution:  // to be set by renderer, eventually
-            dashed: false,
-        });
-        connectionData.forEach((c) => {
-            geometry.setFromPoints([
-                c.source.x,
-                c.source.y,
-                c.source.z,
-                c.target.x,
-                c.target.y,
-                c.target.z,
+    configureConnections() {
+        this.connectionCount = 0;
+        for (let index = 0; index < this.connectionPoints.length - 1; index += 2) {
+            this.connectionCount++;
+            const source = this.connectionPoints[index];
+            const target = this.connectionPoints[index + 1];
+            const lineGeometry = new _node_modules_three_examples_jsm_lines_LineGeometry_js__WEBPACK_IMPORTED_MODULE_5__["LineGeometry"]();
+            const color = new three__WEBPACK_IMPORTED_MODULE_3__["Color"](0x277cb2);
+            lineGeometry.setPositions([
+                source.x,
+                source.y,
+                source.z,
+                target.x,
+                target.y,
+                target.z,
             ]);
-            let line = new _node_modules_three_examples_jsm_lines_Line2_js__WEBPACK_IMPORTED_MODULE_6__["Line2"](geometry, matLine);
-            line.computeLineDistances();
-            line.scale.set(1, 1, 1);
+            const matLine = new _node_modules_three_examples_jsm_lines_LineMaterial_js__WEBPACK_IMPORTED_MODULE_6__["LineMaterial"]({
+                color: 0x277cb2,
+                vertexColors: true,
+                dashed: false,
+                linewidth: 5,
+            });
+            matLine.resolution.set(this.canvasEl.nativeElement.offsetWidth, this.canvasEl.nativeElement.offsetHeight);
+            lineGeometry.setColors([
+                color.r,
+                color.b,
+                color.g,
+                color.r,
+                color.b,
+                color.g,
+            ]);
+            const line = new _node_modules_three_examples_jsm_lines_Line2__WEBPACK_IMPORTED_MODULE_7__["Line2"](lineGeometry, matLine);
             this.threeCommon.scene.add(line);
-        });
-    }
-    constructlineSegment2Connections(connectionData) { }
-    constructCurveLineConnections(connectionData) { }
-    constructMeshlineConnections(connectionData) {
-        this.createConnectionMesh(connectionData);
-    }
-    constructCylindricalConnections(connectionData) {
-        var HALF_PI = Math.PI * 0.5;
-        var material = new three__WEBPACK_IMPORTED_MODULE_3__["MeshLambertMaterial"]({ color: 0x277cb2 });
-        connectionData.forEach((c) => {
-            var distance = c.source.distanceTo(c.target);
-            var cylinder = new three__WEBPACK_IMPORTED_MODULE_3__["CylinderGeometry"](0.1, 0.1, distance, 10, 10, false);
-            // orient the cylinder
-            var position = c.target.clone().add(c.source).divideScalar(2);
-            var orientation = new three__WEBPACK_IMPORTED_MODULE_3__["Matrix4"](); //a new orientation matrix to offset pivot
-            var offsetRotation = new three__WEBPACK_IMPORTED_MODULE_3__["Matrix4"](); //a matrix to fix pivot rotation
-            var offsetPosition = new three__WEBPACK_IMPORTED_MODULE_3__["Matrix4"](); //a matrix to fix pivot position
-            orientation.lookAt(c.source, c.target, new three__WEBPACK_IMPORTED_MODULE_3__["Vector3"](0, 1, 0)); //look at destination
-            offsetRotation.makeRotationX(HALF_PI); //rotate 90 degs on X
-            orientation.multiply(offsetRotation); //combine orientation with rotation transformations
-            cylinder.applyMatrix4(orientation);
-            const mesh = new three__WEBPACK_IMPORTED_MODULE_3__["Mesh"](cylinder, material);
-            mesh.position.set(position.x, position.y, position.z);
-            mesh.userData['__visualiserObj'] = "traffic";
-            this.threeCommon.scene.add(mesh);
-        });
-        // var cylinder = new THREE.CylinderGeometry(
-        //   0.1,
-        //   0.1,
-        //   distance,
-        //   10,
-        //   10,
-        //   false
-        // );
-        // var orientation = new THREE.Matrix4(); //a new orientation matrix to offset pivot
-        // var offsetRotation = new THREE.Matrix4(); //a matrix to fix pivot rotation
-        // var offsetPosition = new THREE.Matrix4(); //a matrix to fix pivot position
-        // orientation.lookAt(
-        //   sourceVector,
-        //   destinationVector,
-        //   new THREE.Vector3(0, 1, 0)
-        // ); //look at destination
-        // offsetRotation.makeRotationX(HALF_PI); //rotate 90 degs on X
-        // orientation.multiply(offsetRotation); //combine orientation with rotation transformations
-        // cylinder.applyMatrix4(orientation);
-        // var mesh = new THREE.Mesh(cylinder, material);
-        // mesh.position.set(position.x, position.y, position.z);
-        // return mesh;
-    }
-    generateDistinctConnections() {
-        var connectionData = [];
-        for (let index = 0; index < this.connectionPoints.length; index++) {
-            for (let _index = this.connectionPoints.length - 1; _index >= 0; _index = _index - this.connectionStep) {
-                connectionData.push({
-                    source: this.connectionPoints[index],
-                    target: this.connectionPoints[_index],
-                });
-            }
-        }
-        return connectionData;
-    }
-    generateRandomConnections() {
-        var connectionData = [];
-        for (let index = 0; index < this.connectionPoints.length; index++) {
-            for (let _index = this.connectionPoints.length - 1; _index >= 0; _index = _index - this.connectionStep) {
-                connectionData.push(this.connectionPoints[index], this.connectionPoints[_index]);
-            }
-        }
-        return connectionData;
-    }
-    createConnectionMesh(connectionData) {
-        this.connectionCount = connectionData.length / 2;
-        if (this.noConnectionMesh) {
-            const material = new three_meshline__WEBPACK_IMPORTED_MODULE_4__["MeshLineMaterial"]({
-                color: new three__WEBPACK_IMPORTED_MODULE_3__["Color"]("rgb(39,124,178)"),
-                opacity: 1,
-                lineWidth: 0.05,
-                depthTest: true,
-                transparent: false,
-            });
-            this.trafficGroup = [];
-            connectionData.forEach((connection, i) => {
-                if (connectionData[i + 1]) {
-                    const meshline = new three_meshline__WEBPACK_IMPORTED_MODULE_4__["MeshLine"]();
-                    meshline.setPoints([connectionData[i], connectionData[i + 1]]);
-                    var mesh = new three__WEBPACK_IMPORTED_MODULE_3__["Mesh"](meshline, material);
-                    mesh["dt"] = { test: i };
-                    this.trafficGroup.push(mesh);
-                    this.threeCommon.scene.add(mesh);
-                }
-            });
-        }
-        else {
-            this.meshline = new three_meshline__WEBPACK_IMPORTED_MODULE_4__["MeshLine"]();
-            this.meshline.setPoints(connectionData);
-            const material = new three_meshline__WEBPACK_IMPORTED_MODULE_4__["MeshLineMaterial"]({
-                color: new three__WEBPACK_IMPORTED_MODULE_3__["Color"]("rgb(39,124,178)"),
-                opacity: 1,
-                lineWidth: 0.05,
-                depthTest: true,
-                transparent: false,
-            });
-            this.meshConnections = new three__WEBPACK_IMPORTED_MODULE_3__["Mesh"](this.meshline, material);
-            this.meshConnections.frustumCulled = false;
-            this.meshConnections.renderOrder = 10;
-            this.meshConnections.raycast = three_meshline__WEBPACK_IMPORTED_MODULE_4__["MeshLineRaycast"];
-            this.threeCommon.scene.add(this.meshConnections);
         }
     }
+    lineClickHandler() { }
     setUpStats() {
-        this.stats = new _node_modules_stats_js_build_stats_min_js__WEBPACK_IMPORTED_MODULE_5__();
+        this.stats = new _node_modules_stats_js_build_stats_min_js__WEBPACK_IMPORTED_MODULE_4__();
         this.stats.showPanel(1); // 0: fps, 1: ms, 2: mb, 3+: custom
         this.statsEl.nativeElement.appendChild(this.stats.dom);
         this.updateStats();
@@ -19410,7 +18493,6 @@ class GroupLayoutComponent {
         this.threeService.cleanScene(this.threeCommon);
         this.connectionPoints = [];
         this.enableConnections = $event.target.checked;
-        console.log(this.enableConnections);
         this.sceneController();
     }
     meshTypeStateHandler($event) {
@@ -19419,7 +18501,195 @@ class GroupLayoutComponent {
         this.noConnectionMesh = $event.target.checked;
         this.sceneController();
     }
+    renderView() {
+        // this.configureRaycast();
+        this.threeCommon.renderer.render(this.threeCommon.scene, this.threeCommon.camera);
+        this.renderCalls = this.threeCommon.renderer.info.render.calls;
+    }
+    configureRaycast() {
+        // if (this.mouse) {
+        //   this.raycaster.setFromCamera(this.mouse, this.threeCommon.camera);
+        //   // const intersects = this.raycaster.intersectObjects(
+        //   //   this.threeCommon.scene.children
+        //   // );
+        //   // console.log(intersects);
+        //   const linemeshRaycast = this.raycaster.intersectObjects([this.line]);
+        //   console.log("linemeshRaycast", linemeshRaycast);
+        // }
+    }
 }
+/**
+ *  Cylindrical connections.
+ */
+// constructCylindricalConnections(connectionData, instanceMesh?) {
+//   var material = new THREE.MeshLambertMaterial({ color: 0x277cb2 });
+//   if (instanceMesh) {
+//     var cylinder = new THREE.CylinderGeometry(0.1, 0.1, 1, 10, 10, false);
+//     this.connectionInstancedMesh = new THREE.InstancedMesh(
+//       this.nodeMesh.geometry,
+//       material,
+//       10000
+//     );
+//   }
+//   var HALF_PI = Math.PI * 0.5;
+//   connectionData.forEach((c) => {
+//     var distance = c.source.distanceTo(c.target);
+//     var cylinder = new THREE.CylinderGeometry(
+//       0.1,
+//       0.1,
+//       distance,
+//       10,
+//       10,
+//       false
+//     );
+//     // orient the cylinder
+//     var position = c.target.clone().add(c.source).divideScalar(2);
+//     var orientation = new THREE.Matrix4(); //a new orientation matrix to offset pivot
+//     var offsetRotation = new THREE.Matrix4(); //a matrix to fix pivot rotation
+//     var offsetPosition = new THREE.Matrix4(); //a matrix to fix pivot position
+//     orientation.lookAt(c.source, c.target, new THREE.Vector3(0, 1, 0)); //look at destination
+//     offsetRotation.makeRotationX(HALF_PI); //rotate 90 degs on X
+//     orientation.multiply(offsetRotation); //combine orientation with rotation transformations
+//     cylinder.applyMatrix4(orientation);
+//     const mesh = new THREE.Mesh(cylinder, material);
+//     mesh.position.set(position.x, position.y, position.z);
+//     mesh.userData["__visualiserObj"] = "traffic";
+//     this.threeCommon.scene.add(mesh);
+//   });
+//   // var cylinder = new THREE.CylinderGeometry(
+//   //   0.1,
+//   //   0.1,
+//   //   distance,
+//   //   10,
+//   //   10,
+//   //   false
+//   // );
+//   // var orientation = new THREE.Matrix4(); //a new orientation matrix to offset pivot
+//   // var offsetRotation = new THREE.Matrix4(); //a matrix to fix pivot rotation
+//   // var offsetPosition = new THREE.Matrix4(); //a matrix to fix pivot position
+//   // orientation.lookAt(
+//   //   sourceVector,
+//   //   destinationVector,
+//   //   new THREE.Vector3(0, 1, 0)
+//   // ); //look at destination
+//   // offsetRotation.makeRotationX(HALF_PI); //rotate 90 degs on X
+//   // orientation.multiply(offsetRotation); //combine orientation with rotation transformations
+//   // cylinder.applyMatrix4(orientation);
+//   // var mesh = new THREE.Mesh(cylinder, material);
+//   // mesh.position.set(position.x, position.y, position.z);
+//   // return mesh;
+// }
+/**
+ * Connection mesh
+ */
+// private createConnectionMesh(connectionData: any[]) {
+//   this.connectionCount = connectionData.length / 2;
+//   if (this.noConnectionMesh) {
+//     const material = new MeshLineMaterial({
+//       color: new THREE.Color("rgb(39,124,178)"),
+//       opacity: 1,
+//       lineWidth: 0.05,
+//       depthTest: true,
+//       transparent: false,
+//     });
+//     this.trafficGroup = [];
+//     connectionData.forEach((connection, i) => {
+//       if (connectionData[i + 1]) {
+//         const meshline = new MeshLine();
+//         meshline.setPoints([connectionData[i], connectionData[i + 1]]);
+//         var mesh = new THREE.Mesh(meshline, material);
+//         mesh["dt"] = { test: i };
+//         this.trafficGroup.push(mesh);
+//         this.threeCommon.scene.add(mesh);
+//       }
+//     });
+//   } else {
+//     this.meshline = new MeshLine();
+//     this.meshline.setPoints(connectionData);
+//     const material = new MeshLineMaterial({
+//       color: new THREE.Color("rgb(39,124,178)"),
+//       opacity: 1,
+//       lineWidth: 0.05,
+//       depthTest: true,
+//       transparent: false,
+//     });
+//     this.meshConnections = new THREE.Mesh(this.meshline, material);
+//     this.meshConnections.frustumCulled = false;
+//     this.meshConnections.renderOrder = 10;
+//     this.meshConnections.raycast = MeshLineRaycast;
+//     this.threeCommon.scene.add(this.meshConnections);
+//   }
+// }
+// private generateDistinctConnections(indexed) {
+//   // connectionData.push();
+//   var connectionData = [];
+//   for (let index = 0; index < this.connectionPoints.length; index++) {
+//     for (
+//       let _index = this.connectionPoints.length - 1;
+//       _index >= 0;
+//       _index = _index - this.connectionStep
+//     ) {
+//       if (indexed) {
+//         // connectionData.push(
+//         //   this.connectionPoints[index],
+//         //   this.connectionPoints[_index]
+//         // );
+//         connectionData.push(
+//           this.connectionPoints[index].x,
+//           this.connectionPoints[index].y,
+//           this.connectionPoints[index].z,
+//           this.connectionPoints[_index].x,
+//           this.connectionPoints[_index].y,
+//           this.connectionPoints[_index].z
+//         );
+//       } else {
+//         connectionData.push({
+//           source: this.connectionPoints[index],
+//           target: this.connectionPoints[_index],
+//         });
+//       }
+//     }
+//   }
+//   return connectionData;
+// }
+// private generateRandomConnections() {
+//   var connectionData = [];
+//   for (let index = 0; index < this.connectionPoints.length; index++) {
+//     for (
+//       let _index = this.connectionPoints.length - 1;
+//       _index >= 0;
+//       _index = _index - this.connectionStep
+//     ) {
+//       connectionData.push(
+//         this.connectionPoints[index],
+//         this.connectionPoints[_index]
+//       );
+//     }
+//   }
+//   return connectionData;
+// }
+// private generateSequentialConnections() {
+//   var connectionData = [];
+//   let _connectionCount = 0;
+//   const len = this.connectionPoints.length / 2;
+//   for (let index = 0; index < len; index += 30) {
+//     _connectionCount += 1;
+//     let _index = len + index;
+//     if (this.connectionPoints[index] && this.connectionPoints[_index]) {
+//       connectionData.push(
+//         this.connectionPoints[index].x,
+//         this.connectionPoints[index].y,
+//         this.connectionPoints[index].z,
+//         this.connectionPoints[_index].x,
+//         this.connectionPoints[_index].y,
+//         this.connectionPoints[_index].z
+//       );
+//     }
+//   }
+//   console.log("connectionCount", this.connectionCount);
+//   this.connectionCount = _connectionCount;
+//   return connectionData;
+// }
 
 
 /***/ }),
