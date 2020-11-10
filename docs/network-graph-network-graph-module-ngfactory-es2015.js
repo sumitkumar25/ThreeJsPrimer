@@ -18399,7 +18399,7 @@ class GroupLayoutComponent {
         position.x = (offset * Math.sin(i)) / Math.sqrt(i + 1);
         position.y = (offset * Math.cos(i)) / Math.sqrt(i + 1);
         position.z = i / 10;
-        this.connectionPoints.push(position);
+        this.connectionPoints.push({ position, nodeIndex: i });
         var scale = new three__WEBPACK_IMPORTED_MODULE_3__["Vector3"]();
         quaternion.setFromEuler(rotation);
         scale.x = scale.y = scale.z = 1;
@@ -18426,7 +18426,7 @@ class GroupLayoutComponent {
             this.connectionCount++;
             const source = this.connectionPoints[index];
             const target = this.connectionPoints[index + 1];
-            positions.push(source, target);
+            positions.push(source.position, target);
             colors.push(0x277cb2, 0x277cb2);
         }
         lineGeometry.setFromPoints(positions);
@@ -18453,13 +18453,15 @@ class GroupLayoutComponent {
             linewidth: 5,
         });
         matLine.resolution.set(this.canvasEl.nativeElement.offsetWidth, this.canvasEl.nativeElement.offsetHeight);
+        let trafficindex = 0;
         for (let index = 0; index < this.connectionPoints.length - 1; index += 2) {
-            this.connectionCount++;
             const source = this.connectionPoints[index];
             const target = this.connectionPoints[index + 1];
-            this.traffic[this.connectionCount] = { source, target };
-            positions.push(source.x, source.y, source.z, target.x, target.y, target.z);
+            this.traffic[trafficindex] = { source, target };
+            trafficindex++;
+            positions.push(source.position.x, source.position.y, source.position.z, target.position.x, target.position.y, target.position.z);
             colors.push(color.r, color.b, color.g, color.r, color.b, color.g);
+            this.connectionCount++;
         }
         lineGeometry.setPositions(positions);
         lineGeometry.setColors(colors);
@@ -18504,7 +18506,7 @@ class GroupLayoutComponent {
     }
     lineClickHandler(raycastObj) {
         const _connection = this.traffic[raycastObj.faceIndex];
-        console.log(_connection);
+        console.log('faceIndex', raycastObj.faceIndex, _connection);
     }
     setUpStats() {
         this.stats = new _node_modules_stats_js_build_stats_min_js__WEBPACK_IMPORTED_MODULE_4__();

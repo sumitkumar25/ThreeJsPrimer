@@ -159,7 +159,7 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
     position.x = (offset * Math.sin(i)) / Math.sqrt(i + 1);
     position.y = (offset * Math.cos(i)) / Math.sqrt(i + 1);
     position.z = i / 10;
-    this.connectionPoints.push(position);
+    this.connectionPoints.push({position,nodeIndex:i});
     var scale = new THREE.Vector3();
     quaternion.setFromEuler(rotation);
     scale.x = scale.y = scale.z = 1;
@@ -189,7 +189,7 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
       this.connectionCount++;
       const source = this.connectionPoints[index];
       const target = this.connectionPoints[index + 1];
-      positions.push(source, target);
+      positions.push(source.position, target);
       colors.push(0x277cb2, 0x277cb2);
     }
 
@@ -223,20 +223,22 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
       this.canvasEl.nativeElement.offsetWidth,
       this.canvasEl.nativeElement.offsetHeight
     );
+    let trafficindex = 0;
     for (let index = 0; index < this.connectionPoints.length - 1; index += 2) {
-      this.connectionCount++;
       const source = this.connectionPoints[index];
       const target = this.connectionPoints[index + 1];
-      this.traffic[this.connectionCount] = { source, target };
+      this.traffic[trafficindex] = { source, target };
+      trafficindex++;
       positions.push(
-        source.x,
-        source.y,
-        source.z,
-        target.x,
-        target.y,
-        target.z
+        source.position.x,
+        source.position.y,
+        source.position.z,
+        target.position.x,
+        target.position.y,
+        target.position.z
       );
       colors.push(color.r, color.b, color.g, color.r, color.b, color.g);
+      this.connectionCount++;
     }
     lineGeometry.setPositions(positions);
     lineGeometry.setColors(colors);
@@ -286,7 +288,7 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
 
   private lineClickHandler(raycastObj) {
     const _connection = this.traffic[raycastObj.faceIndex];
-    console.log(_connection);
+    console.log('faceIndex',raycastObj.faceIndex,_connection);
   }
 
   setUpStats() {
