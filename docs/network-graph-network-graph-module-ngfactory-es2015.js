@@ -18247,7 +18247,7 @@ __webpack_require__.r(__webpack_exports__);
 var styles_GroupLayoutComponent = [_group_layout_component_scss_shim_ngstyle__WEBPACK_IMPORTED_MODULE_0__["styles"]];
 var RenderType_GroupLayoutComponent = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵcrt"]({ encapsulation: 0, styles: styles_GroupLayoutComponent, data: {} });
 
-function View_GroupLayoutComponent_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵqud"](671088640, 1, { canvasEl: 0 }), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵqud"](671088640, 2, { statsEl: 0 }), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](2, 0, [[2, 0], ["stats", 1]], null, 28, "section", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](3, 0, null, null, 1, "h5", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, ["Group Layout"])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](5, 0, null, null, 1, "h5", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](6, null, ["Render Calls: ", ""])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](7, 0, null, null, 22, "section", [["style", "display: flex; border: solid 1px; padding: 10px; margin: 10px"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](8, 0, null, null, 9, "div", [["style", "flex: 1 0 0; padding: 10px; border: solid 1px"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](9, 0, null, null, 1, "h5", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, ["Node Metric"])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](11, 0, null, null, 2, "div", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](12, 0, null, null, 1, "h5", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](13, null, ["Object Count: ", ""])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](14, 0, null, null, 3, "div", [["class", "app--margin__vertical object-range"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](15, 0, null, null, 2, "label", [["for", "points"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, ["Node Count "])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](17, 0, null, null, 0, "input", [["id", "points"], ["max", "10000"], ["min", "4"], ["name", "points"], ["step", "10"], ["type", "range"]], [[8, "value", 0]], [[null, "change"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("change" === en)) {
+function View_GroupLayoutComponent_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵqud"](671088640, 1, { canvasEl: 0 }), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵqud"](671088640, 2, { statsEl: 0 }), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](2, 0, [[2, 0], ["stats", 1]], null, 28, "section", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](3, 0, null, null, 1, "h5", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, ["Group Layout"])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](5, 0, null, null, 1, "h5", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](6, null, ["Render Calls: ", ""])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](7, 0, null, null, 22, "section", [["style", "display: flex; border: solid 1px; padding: 10px; margin: 10px"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](8, 0, null, null, 9, "div", [["style", "flex: 1 0 0; padding: 10px; border: solid 1px"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](9, 0, null, null, 1, "h5", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, ["Node Metric"])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](11, 0, null, null, 2, "div", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](12, 0, null, null, 1, "h5", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](13, null, ["Object Count: ", ""])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](14, 0, null, null, 3, "div", [["class", "app--margin__vertical object-range"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](15, 0, null, null, 2, "label", [["for", "points"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, ["Node Count "])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](17, 0, null, null, 0, "input", [["id", "points"], ["max", "10000"], ["min", "2"], ["name", "points"], ["step", "1"], ["type", "range"]], [[8, "value", 0]], [[null, "change"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("change" === en)) {
         var pd_0 = (_co.objectCountChangeHandler($event) !== false);
         ad = (pd_0 && ad);
     } return ad; }, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](18, 0, null, null, 11, "div", [["style", "flex: 1 0 0; padding: 10px; border: solid 1px"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](19, 0, null, null, 1, "h5", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, ["Connection Metric"])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](21, 0, null, null, 4, "div", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](22, 0, null, null, 1, "h5", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](23, null, ["Max Connections (N * N) : ", ""])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](24, 0, null, null, 1, "h5", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](25, null, ["Connection Count: ", ""])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](26, 0, null, null, 3, "div", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](27, 0, null, null, 2, "label", [["for", "enable"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](28, 0, null, null, 0, "input", [["id", "enable"], ["name", "enable"], ["type", "checkbox"]], [[8, "checked", 0]], [[null, "change"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("change" === en)) {
@@ -18306,10 +18306,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_three_examples_jsm_lines_LineGeometry_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../../../../../node_modules/three/examples/jsm/lines/LineGeometry.js */ "./node_modules/three/examples/jsm/lines/LineGeometry.js");
 /* harmony import */ var _node_modules_three_examples_jsm_lines_LineMaterial_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../../../../../node_modules/three/examples/jsm/lines/LineMaterial.js */ "./node_modules/three/examples/jsm/lines/LineMaterial.js");
 /* harmony import */ var _node_modules_three_examples_jsm_lines_Line2__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./../../../../../node_modules/three/examples/jsm/lines/Line2 */ "./node_modules/three/examples/jsm/lines/Line2.js");
+/* harmony import */ var three_examples_jsm_lines_LineSegments2__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! three/examples/jsm/lines/LineSegments2 */ "./node_modules/three/examples/jsm/lines/LineSegments2.js");
 /**
  * TODO: check if other possibilities are there for loaded mesh. current 'Group'.
  * TODO: Groups Texture.
  */
+
 
 
 
@@ -18326,7 +18328,7 @@ class GroupLayoutComponent {
         this.threeFactory = threeFactory;
         this.objectCount = 3;
         this.previousObjectCount = 0;
-        this.connectionPoints = [];
+        this.nodePositionCollection = [];
         this.connectionStep = 1;
         this.connectionCount = "not specified";
         this.enableConnections = false;
@@ -18399,7 +18401,7 @@ class GroupLayoutComponent {
         position.x = (offset * Math.sin(i)) / Math.sqrt(i + 1);
         position.y = (offset * Math.cos(i)) / Math.sqrt(i + 1);
         position.z = i / 10;
-        this.connectionPoints.push({ position, nodeIndex: i });
+        this.nodePositionCollection.push({ position, nodeIndex: i });
         var scale = new three__WEBPACK_IMPORTED_MODULE_3__["Vector3"]();
         quaternion.setFromEuler(rotation);
         scale.x = scale.y = scale.z = 1;
@@ -18409,39 +18411,48 @@ class GroupLayoutComponent {
     sceneController() {
         this.constructNodes();
         if (this.enableConnections) {
+            this.configureVertextSegmentsConnections();
             // this.configureIndividualConnections();
-            this.configureVertextIdentificationConnections();
+            // this.configureVertextIdentificationConnections();
             // this.configureVertexLineSegmentsConnections();
             // this.testSegments();
         }
         this.renderView();
     }
-    configureVertexLineSegmentsConnections() {
+    // configureVertexLineSegmentsConnections() {
+    //   this.connectionCount = 0;
+    //   const lineGeometry = new BufferGeometry();
+    //   const color = new THREE.Color(0x277cb2);
+    //   const positions = [];
+    //   const colors = [];
+    //   for (
+    //     let index = 0;
+    //     index < this.nodePositionCollection.length - 1;
+    //     index += 2
+    //   ) {
+    //     this.connectionCount++;
+    //     const source = this.nodePositionCollection[index];
+    //     const target = this.nodePositionCollection[index + 1];
+    //     positions.push(source.position, target);
+    //     colors.push(0x277cb2, 0x277cb2);
+    //   }
+    //   lineGeometry.setFromPoints(positions);
+    //   lineGeometry.setAttribute(
+    //     "color",
+    //     new THREE.BufferAttribute(new Float32Array(colors), 1)
+    //   );
+    //   var mat = new THREE.LineBasicMaterial({
+    //     color: 0x277cb2,
+    //     vertexColors: true,
+    //     linewidth: 5,
+    //   });
+    //   this.line = new THREE.LineSegments(lineGeometry, mat);
+    //   this.line.userData = { __graphObj: "connection" };
+    //   this.threeCommon.scene.add(this.line);
+    // }
+    configureVertextSegmentsConnections() {
         this.connectionCount = 0;
-        const lineGeometry = new three__WEBPACK_IMPORTED_MODULE_3__["BufferGeometry"]();
-        const color = new three__WEBPACK_IMPORTED_MODULE_3__["Color"](0x277cb2);
-        const positions = [];
-        const colors = [];
-        for (let index = 0; index < this.connectionPoints.length - 1; index += 2) {
-            this.connectionCount++;
-            const source = this.connectionPoints[index];
-            const target = this.connectionPoints[index + 1];
-            positions.push(source.position, target);
-            colors.push(0x277cb2, 0x277cb2);
-        }
-        lineGeometry.setFromPoints(positions);
-        lineGeometry.setAttribute("color", new three__WEBPACK_IMPORTED_MODULE_3__["BufferAttribute"](new Float32Array(colors), 1));
-        var mat = new three__WEBPACK_IMPORTED_MODULE_3__["LineBasicMaterial"]({
-            color: 0x277cb2,
-            vertexColors: true,
-            linewidth: 5,
-        });
-        this.line = new three__WEBPACK_IMPORTED_MODULE_3__["LineSegments"](lineGeometry, mat);
-        this.line.userData = { __graphObj: "connection" };
-        this.threeCommon.scene.add(this.line);
-    }
-    configureVertextIdentificationConnections() {
-        this.connectionCount = 0;
+        this.traffic = {};
         const lineGeometry = new _node_modules_three_examples_jsm_lines_LineGeometry_js__WEBPACK_IMPORTED_MODULE_5__["LineGeometry"]();
         const color = new three__WEBPACK_IMPORTED_MODULE_3__["Color"](0x277cb2);
         const positions = [];
@@ -18453,12 +18464,41 @@ class GroupLayoutComponent {
             linewidth: 5,
         });
         matLine.resolution.set(this.canvasEl.nativeElement.offsetWidth, this.canvasEl.nativeElement.offsetHeight);
-        let trafficindex = 0;
-        for (let index = 0; index < this.connectionPoints.length - 1; index += 2) {
-            const source = this.connectionPoints[index];
-            const target = this.connectionPoints[index + 1];
-            this.traffic[trafficindex] = { source, target };
-            trafficindex++;
+        let _faceIndex = 0;
+        for (let index = 1; index < this.nodePositionCollection.length; index++) {
+            const source = this.nodePositionCollection[0];
+            const target = this.nodePositionCollection[index];
+            this.traffic[_faceIndex] = { source, target };
+            _faceIndex += 2;
+            positions.push(source.position.x, source.position.y, source.position.z, target.position.x, target.position.y, target.position.z);
+            colors.push(color.r, color.b, color.g, color.r, color.b, color.g);
+            this.connectionCount++;
+        }
+        console.log("position", positions.length, positions);
+        lineGeometry.setPositions(new Float32Array(positions));
+        lineGeometry.setColors(colors);
+        this.line = new three_examples_jsm_lines_LineSegments2__WEBPACK_IMPORTED_MODULE_8__["LineSegments2"](lineGeometry, matLine);
+        this.line.userData = { __graphObj: "connection" };
+        this.threeCommon.scene.add(this.line);
+    }
+    configureVertextIdentificationConnections() {
+        this.connectionCount = 0;
+        this.traffic = {};
+        const lineGeometry = new _node_modules_three_examples_jsm_lines_LineGeometry_js__WEBPACK_IMPORTED_MODULE_5__["LineGeometry"]();
+        const color = new three__WEBPACK_IMPORTED_MODULE_3__["Color"](0x277cb2);
+        const positions = [];
+        const colors = [];
+        const matLine = new _node_modules_three_examples_jsm_lines_LineMaterial_js__WEBPACK_IMPORTED_MODULE_6__["LineMaterial"]({
+            color: 0x277cb2,
+            vertexColors: true,
+            dashed: false,
+            linewidth: 5,
+        });
+        matLine.resolution.set(this.canvasEl.nativeElement.offsetWidth, this.canvasEl.nativeElement.offsetHeight);
+        for (let index = 1; index < this.nodePositionCollection.length; index++) {
+            const source = this.nodePositionCollection[0];
+            const target = this.nodePositionCollection[index];
+            this.traffic[index - 1] = { source, target };
             positions.push(source.position.x, source.position.y, source.position.z, target.position.x, target.position.y, target.position.z);
             colors.push(color.r, color.b, color.g, color.r, color.b, color.g);
             this.connectionCount++;
@@ -18471,10 +18511,10 @@ class GroupLayoutComponent {
     }
     configureIndividualConnections() {
         this.connectionCount = 0;
-        for (let index = 0; index < this.connectionPoints.length - 1; index += 2) {
+        for (let index = 0; index < this.nodePositionCollection.length - 1; index += 2) {
             this.connectionCount++;
-            const source = this.connectionPoints[index];
-            const target = this.connectionPoints[index + 1];
+            const source = this.nodePositionCollection[index];
+            const target = this.nodePositionCollection[index + 1];
             const lineGeometry = new _node_modules_three_examples_jsm_lines_LineGeometry_js__WEBPACK_IMPORTED_MODULE_5__["LineGeometry"]();
             const color = new three__WEBPACK_IMPORTED_MODULE_3__["Color"](0x277cb2);
             lineGeometry.setPositions([
@@ -18506,7 +18546,7 @@ class GroupLayoutComponent {
     }
     lineClickHandler(raycastObj) {
         const _connection = this.traffic[raycastObj.faceIndex];
-        console.log('faceIndex', raycastObj.faceIndex, _connection);
+        console.log("faceIndex", raycastObj.faceIndex, _connection);
     }
     setUpStats() {
         this.stats = new _node_modules_stats_js_build_stats_min_js__WEBPACK_IMPORTED_MODULE_4__();
@@ -18537,7 +18577,7 @@ class GroupLayoutComponent {
     }
     objectCountChangeHandler($event) {
         this.threeService.cleanScene(this.threeCommon);
-        this.connectionPoints = [];
+        this.nodePositionCollection = [];
         this.previousObjectCount = this.objectCount;
         this.objectCount = Number.parseInt($event.target.value, 10);
         this.connectionStep = this.objectCount;
@@ -18545,19 +18585,19 @@ class GroupLayoutComponent {
     }
     connectionStepHandler($event) {
         this.threeService.cleanScene(this.threeCommon);
-        this.connectionPoints = [];
+        this.nodePositionCollection = [];
         this.connectionStep = Number.parseInt($event.target.value, 10);
         this.sceneController();
     }
     connectionStateHandler($event) {
         this.threeService.cleanScene(this.threeCommon);
-        this.connectionPoints = [];
+        this.nodePositionCollection = [];
         this.enableConnections = $event.target.checked;
         this.sceneController();
     }
     meshTypeStateHandler($event) {
         this.threeService.cleanScene(this.threeCommon);
-        this.connectionPoints = [];
+        this.nodePositionCollection = [];
         this.noConnectionMesh = $event.target.checked;
         this.sceneController();
     }

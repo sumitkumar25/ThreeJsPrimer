@@ -27,6 +27,7 @@ import { ThreeFactoryService } from "../../services/three-factory.service.js";
 import { LineGeometry } from "./../../../../../node_modules/three/examples/jsm/lines/LineGeometry.js";
 import { LineMaterial } from "./../../../../../node_modules/three/examples/jsm/lines/LineMaterial.js";
 import { Line2 } from "./../../../../../node_modules/three/examples/jsm/lines/Line2";
+import { LineSegments2 } from "three/examples/jsm/lines/LineSegments2";
 @Component({
   selector: "app-group-layout",
   templateUrl: "./group-layout.component.html",
@@ -59,7 +60,7 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
 
   //events
   meshline: any;
-  connectionPoints: any = [];
+  nodePositionCollection: any = [];
   connectionStep: number = 1;
   connectionCount: number | string = "not specified";
   enableConnections = false;
@@ -68,7 +69,7 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
   raycaster = new THREE.Raycaster();
   meshConnections: THREE.Mesh<any, any>;
   connectionInstancedMesh: THREE.InstancedMesh<any, any>;
-  line: Line2 | LineSegments;
+  line: Line2 | LineSegments | LineSegments2;
 
   traffic = {};
   constructor(
@@ -159,7 +160,7 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
     position.x = (offset * Math.sin(i)) / Math.sqrt(i + 1);
     position.y = (offset * Math.cos(i)) / Math.sqrt(i + 1);
     position.z = i / 10;
-    this.connectionPoints.push({position,nodeIndex:i});
+    this.nodePositionCollection.push({ position, nodeIndex: i });
     var scale = new THREE.Vector3();
     quaternion.setFromEuler(rotation);
     scale.x = scale.y = scale.z = 1;
@@ -170,45 +171,51 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
   private sceneController() {
     this.constructNodes();
     if (this.enableConnections) {
+      this.configureVertextSegmentsConnections();
       // this.configureIndividualConnections();
-      this.configureVertextIdentificationConnections();
+      // this.configureVertextIdentificationConnections();
       // this.configureVertexLineSegmentsConnections();
       // this.testSegments();
     }
     this.renderView();
   }
 
-  configureVertexLineSegmentsConnections() {
-    this.connectionCount = 0;
-    const lineGeometry = new BufferGeometry();
-    const color = new THREE.Color(0x277cb2);
-    const positions = [];
-    const colors = [];
+  // configureVertexLineSegmentsConnections() {
+  //   this.connectionCount = 0;
+  //   const lineGeometry = new BufferGeometry();
+  //   const color = new THREE.Color(0x277cb2);
+  //   const positions = [];
+  //   const colors = [];
 
-    for (let index = 0; index < this.connectionPoints.length - 1; index += 2) {
-      this.connectionCount++;
-      const source = this.connectionPoints[index];
-      const target = this.connectionPoints[index + 1];
-      positions.push(source.position, target);
-      colors.push(0x277cb2, 0x277cb2);
-    }
+  //   for (
+  //     let index = 0;
+  //     index < this.nodePositionCollection.length - 1;
+  //     index += 2
+  //   ) {
+  //     this.connectionCount++;
+  //     const source = this.nodePositionCollection[index];
+  //     const target = this.nodePositionCollection[index + 1];
+  //     positions.push(source.position, target);
+  //     colors.push(0x277cb2, 0x277cb2);
+  //   }
 
-    lineGeometry.setFromPoints(positions);
-    lineGeometry.setAttribute(
-      "color",
-      new THREE.BufferAttribute(new Float32Array(colors), 1)
-    );
-    var mat = new THREE.LineBasicMaterial({
-      color: 0x277cb2,
-      vertexColors: true,
-      linewidth: 5,
-    });
-    this.line = new THREE.LineSegments(lineGeometry, mat);
-    this.line.userData = { __graphObj: "connection" };
-    this.threeCommon.scene.add(this.line);
-  }
-  configureVertextIdentificationConnections() {
+  //   lineGeometry.setFromPoints(positions);
+  //   lineGeometry.setAttribute(
+  //     "color",
+  //     new THREE.BufferAttribute(new Float32Array(colors), 1)
+  //   );
+  //   var mat = new THREE.LineBasicMaterial({
+  //     color: 0x277cb2,
+  //     vertexColors: true,
+  //     linewidth: 5,
+  //   });
+  //   this.line = new THREE.LineSegments(lineGeometry, mat);
+  //   this.line.userData = { __graphObj: "connection" };
+  //   this.threeCommon.scene.add(this.line);
+  // }
+  configureVertextSegmentsConnections() {
     this.connectionCount = 0;
+    this.traffic = {};
     const lineGeometry = new LineGeometry();
     const color = new THREE.Color(0x277cb2);
     const positions = [];
@@ -223,12 +230,51 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
       this.canvasEl.nativeElement.offsetWidth,
       this.canvasEl.nativeElement.offsetHeight
     );
-    let trafficindex = 0;
-    for (let index = 0; index < this.connectionPoints.length - 1; index += 2) {
-      const source = this.connectionPoints[index];
-      const target = this.connectionPoints[index + 1];
-      this.traffic[trafficindex] = { source, target };
-      trafficindex++;
+    let _faceIndex = 0
+    for (let index = 1; index < this.nodePositionCollection.length; index++) {
+      const source = this.nodePositionCollection[0];
+      const target = this.nodePositionCollection[index];
+      this.traffic[_faceIndex] = { source, target };
+      _faceIndex+=2;
+      positions.push(
+        source.position.x,
+        source.position.y,
+        source.position.z,
+        target.position.x,
+        target.position.y,
+        target.position.z
+      );
+      colors.push(color.r, color.b, color.g, color.r, color.b, color.g);
+      this.connectionCount++;
+    }
+    console.log("position", positions.length,positions);
+    lineGeometry.setPositions(new Float32Array(positions));
+    lineGeometry.setColors(colors);
+    this.line = new LineSegments2(lineGeometry, matLine);
+    this.line.userData = { __graphObj: "connection" };
+    this.threeCommon.scene.add(this.line);
+  }
+  configureVertextIdentificationConnections() {
+    this.connectionCount = 0;
+    this.traffic = {};
+    const lineGeometry = new LineGeometry();
+    const color = new THREE.Color(0x277cb2);
+    const positions = [];
+    const colors = [];
+    const matLine = new LineMaterial({
+      color: 0x277cb2,
+      vertexColors: true,
+      dashed: false,
+      linewidth: 5,
+    });
+    matLine.resolution.set(
+      this.canvasEl.nativeElement.offsetWidth,
+      this.canvasEl.nativeElement.offsetHeight
+    );
+    for (let index = 1; index < this.nodePositionCollection.length; index++) {
+      const source = this.nodePositionCollection[0];
+      const target = this.nodePositionCollection[index];
+      this.traffic[index - 1] = { source, target };
       positions.push(
         source.position.x,
         source.position.y,
@@ -249,10 +295,14 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
 
   private configureIndividualConnections() {
     this.connectionCount = 0;
-    for (let index = 0; index < this.connectionPoints.length - 1; index += 2) {
+    for (
+      let index = 0;
+      index < this.nodePositionCollection.length - 1;
+      index += 2
+    ) {
       this.connectionCount++;
-      const source = this.connectionPoints[index];
-      const target = this.connectionPoints[index + 1];
+      const source = this.nodePositionCollection[index];
+      const target = this.nodePositionCollection[index + 1];
       const lineGeometry = new LineGeometry();
       const color = new THREE.Color(0x277cb2);
       lineGeometry.setPositions([
@@ -288,7 +338,7 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
 
   private lineClickHandler(raycastObj) {
     const _connection = this.traffic[raycastObj.faceIndex];
-    console.log('faceIndex',raycastObj.faceIndex,_connection);
+    console.log("faceIndex", raycastObj.faceIndex, _connection);
   }
 
   setUpStats() {
@@ -323,7 +373,7 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
 
   objectCountChangeHandler($event) {
     this.threeService.cleanScene(this.threeCommon);
-    this.connectionPoints = [];
+    this.nodePositionCollection = [];
     this.previousObjectCount = this.objectCount;
     this.objectCount = Number.parseInt($event.target.value, 10);
     this.connectionStep = this.objectCount;
@@ -332,21 +382,21 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
 
   connectionStepHandler($event) {
     this.threeService.cleanScene(this.threeCommon);
-    this.connectionPoints = [];
+    this.nodePositionCollection = [];
     this.connectionStep = Number.parseInt($event.target.value, 10);
     this.sceneController();
   }
 
   connectionStateHandler($event) {
     this.threeService.cleanScene(this.threeCommon);
-    this.connectionPoints = [];
+    this.nodePositionCollection = [];
     this.enableConnections = $event.target.checked;
     this.sceneController();
   }
 
   meshTypeStateHandler($event) {
     this.threeService.cleanScene(this.threeCommon);
-    this.connectionPoints = [];
+    this.nodePositionCollection = [];
     this.noConnectionMesh = $event.target.checked;
     this.sceneController();
   }
