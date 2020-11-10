@@ -18320,6 +18320,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 var GroupLayoutComponent = /** @class */ (function () {
     function GroupLayoutComponent(threeService, graphRequestService, threeFactory) {
         this.threeService = threeService;
@@ -18333,6 +18334,7 @@ var GroupLayoutComponent = /** @class */ (function () {
         this.enableConnections = false;
         this.noConnectionMesh = false;
         this.raycaster = new three__WEBPACK_IMPORTED_MODULE_4__["Raycaster"]();
+        this.traffic = {};
     }
     GroupLayoutComponent.prototype.ngOnInit = function () {
         this.initRequests();
@@ -18411,12 +18413,65 @@ var GroupLayoutComponent = /** @class */ (function () {
     GroupLayoutComponent.prototype.sceneController = function () {
         this.constructNodes();
         if (this.enableConnections) {
-            this.configureConnections();
-            // this.constructMeshlineConnections();
+            // this.configureIndividualConnections();
+            this.configureVertextIdentificationConnections();
+            // this.configureVertexLineSegmentsConnections();
+            // this.testSegments();
         }
         this.renderView();
     };
-    GroupLayoutComponent.prototype.configureConnections = function () {
+    GroupLayoutComponent.prototype.configureVertexLineSegmentsConnections = function () {
+        this.connectionCount = 0;
+        var lineGeometry = new three__WEBPACK_IMPORTED_MODULE_4__["BufferGeometry"]();
+        var color = new three__WEBPACK_IMPORTED_MODULE_4__["Color"](0x277cb2);
+        var positions = [];
+        var colors = [];
+        for (var index = 0; index < this.connectionPoints.length - 1; index += 2) {
+            this.connectionCount++;
+            var source = this.connectionPoints[index];
+            var target = this.connectionPoints[index + 1];
+            positions.push(source, target);
+            colors.push(0x277cb2, 0x277cb2);
+        }
+        lineGeometry.setFromPoints(positions);
+        lineGeometry.setAttribute("color", new three__WEBPACK_IMPORTED_MODULE_4__["BufferAttribute"](new Float32Array(colors), 1));
+        var mat = new three__WEBPACK_IMPORTED_MODULE_4__["LineBasicMaterial"]({
+            color: 0x277cb2,
+            vertexColors: true,
+            linewidth: 5,
+        });
+        this.line = new three__WEBPACK_IMPORTED_MODULE_4__["LineSegments"](lineGeometry, mat);
+        this.line.userData = { __graphObj: "connection" };
+        this.threeCommon.scene.add(this.line);
+    };
+    GroupLayoutComponent.prototype.configureVertextIdentificationConnections = function () {
+        this.connectionCount = 0;
+        var lineGeometry = new _node_modules_three_examples_jsm_lines_LineGeometry_js__WEBPACK_IMPORTED_MODULE_6__["LineGeometry"]();
+        var color = new three__WEBPACK_IMPORTED_MODULE_4__["Color"](0x277cb2);
+        var positions = [];
+        var colors = [];
+        var matLine = new _node_modules_three_examples_jsm_lines_LineMaterial_js__WEBPACK_IMPORTED_MODULE_7__["LineMaterial"]({
+            color: 0x277cb2,
+            vertexColors: true,
+            dashed: false,
+            linewidth: 5,
+        });
+        matLine.resolution.set(this.canvasEl.nativeElement.offsetWidth, this.canvasEl.nativeElement.offsetHeight);
+        for (var index = 0; index < this.connectionPoints.length - 1; index += 2) {
+            this.connectionCount++;
+            var source = this.connectionPoints[index];
+            var target = this.connectionPoints[index + 1];
+            this.traffic[this.connectionCount] = { source: source, target: target };
+            positions.push(source.x, source.y, source.z, target.x, target.y, target.z);
+            colors.push(color.r, color.b, color.g, color.r, color.b, color.g);
+        }
+        lineGeometry.setPositions(positions);
+        lineGeometry.setColors(colors);
+        this.line = new _node_modules_three_examples_jsm_lines_Line2__WEBPACK_IMPORTED_MODULE_8__["Line2"](lineGeometry, matLine);
+        this.line.userData = { __graphObj: "connection" };
+        this.threeCommon.scene.add(this.line);
+    };
+    GroupLayoutComponent.prototype.configureIndividualConnections = function () {
         this.connectionCount = 0;
         for (var index = 0; index < this.connectionPoints.length - 1; index += 2) {
             this.connectionCount++;
@@ -18451,7 +18506,10 @@ var GroupLayoutComponent = /** @class */ (function () {
             this.threeCommon.scene.add(line);
         }
     };
-    GroupLayoutComponent.prototype.lineClickHandler = function () { };
+    GroupLayoutComponent.prototype.lineClickHandler = function (raycastObj) {
+        var _connection = this.traffic[raycastObj.faceIndex];
+        console.log(_connection);
+    };
     GroupLayoutComponent.prototype.setUpStats = function () {
         this.stats = new _node_modules_stats_js_build_stats_min_js__WEBPACK_IMPORTED_MODULE_5__();
         this.stats.showPanel(1); // 0: fps, 1: ms, 2: mb, 3+: custom
@@ -18506,20 +18564,26 @@ var GroupLayoutComponent = /** @class */ (function () {
         this.sceneController();
     };
     GroupLayoutComponent.prototype.renderView = function () {
-        // this.configureRaycast();
+        this.configureRaycast();
         this.threeCommon.renderer.render(this.threeCommon.scene, this.threeCommon.camera);
         this.renderCalls = this.threeCommon.renderer.info.render.calls;
     };
     GroupLayoutComponent.prototype.configureRaycast = function () {
-        // if (this.mouse) {
-        //   this.raycaster.setFromCamera(this.mouse, this.threeCommon.camera);
-        //   // const intersects = this.raycaster.intersectObjects(
-        //   //   this.threeCommon.scene.children
-        //   // );
-        //   // console.log(intersects);
-        //   const linemeshRaycast = this.raycaster.intersectObjects([this.line]);
-        //   console.log("linemeshRaycast", linemeshRaycast);
-        // }
+        if (this.mouse) {
+            this.raycaster.setFromCamera(this.mouse, this.threeCommon.camera);
+            // const intersects = this.raycaster.intersectObjects(
+            //   this.threeCommon.scene.children
+            // );
+            // console.log(intersects);
+            var lineRaycast = this.raycaster.intersectObjects([this.line]);
+            if (lineRaycast &&
+                lineRaycast[0] &&
+                lineRaycast[0].object &&
+                lineRaycast[0].object.userData &&
+                lineRaycast[0].object.userData.__graphObj === "connection") {
+                this.lineClickHandler(lineRaycast[0]);
+            }
+        }
     };
     return GroupLayoutComponent;
 }());
