@@ -13,7 +13,13 @@ import { throttle } from "lodash";
 import { forkJoin } from "rxjs";
 import { ThreeService } from "src/app/three/services/three.service";
 import * as THREE from "three";
-import { Geometry, Line3 } from "three";
+import {
+  BufferAttribute,
+  BufferGeometry,
+  Geometry,
+  Line3,
+  LineSegments,
+} from "three";
 import { MeshLine, MeshLineMaterial, MeshLineRaycast } from "three.meshline";
 import * as Stats from "../../../../../node_modules/stats.js/build/stats.min.js";
 import { NetworkGraphRequestService } from "../../services/network-graph-request.service.js";
@@ -61,9 +67,10 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
   mouse: any;
   raycaster = new THREE.Raycaster();
   meshConnections: THREE.Mesh<any, any>;
-  trafficGroup;
   connectionInstancedMesh: THREE.InstancedMesh<any, any>;
-  line: Line2;
+  line: Line2 | LineSegments;
+
+  traffic = {};
   constructor(
     private threeService: ThreeService,
     private graphRequestService: NetworkGraphRequestService,
@@ -163,12 +170,82 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
   private sceneController() {
     this.constructNodes();
     if (this.enableConnections) {
-      this.configureConnections();
-      // this.constructMeshlineConnections();
+      // this.configureIndividualConnections();
+      this.configureVertextIdentificationConnections();
+      // this.configureVertexLineSegmentsConnections();
+      // this.testSegments();
     }
     this.renderView();
   }
-  private configureConnections() {
+
+  configureVertexLineSegmentsConnections() {
+    this.connectionCount = 0;
+    const lineGeometry = new BufferGeometry();
+    const color = new THREE.Color(0x277cb2);
+    const positions = [];
+    const colors = [];
+
+    for (let index = 0; index < this.connectionPoints.length - 1; index += 2) {
+      this.connectionCount++;
+      const source = this.connectionPoints[index];
+      const target = this.connectionPoints[index + 1];
+      positions.push(source, target);
+      colors.push(0x277cb2, 0x277cb2);
+    }
+
+    lineGeometry.setFromPoints(positions);
+    lineGeometry.setAttribute(
+      "color",
+      new THREE.BufferAttribute(new Float32Array(colors), 1)
+    );
+    var mat = new THREE.LineBasicMaterial({
+      color: 0x277cb2,
+      vertexColors: true,
+      linewidth: 5,
+    });
+    this.line = new THREE.LineSegments(lineGeometry, mat);
+    this.line.userData = { __graphObj: "connection" };
+    this.threeCommon.scene.add(this.line);
+  }
+  configureVertextIdentificationConnections() {
+    this.connectionCount = 0;
+    const lineGeometry = new LineGeometry();
+    const color = new THREE.Color(0x277cb2);
+    const positions = [];
+    const colors = [];
+    const matLine = new LineMaterial({
+      color: 0x277cb2,
+      vertexColors: true,
+      dashed: false,
+      linewidth: 5,
+    });
+    matLine.resolution.set(
+      this.canvasEl.nativeElement.offsetWidth,
+      this.canvasEl.nativeElement.offsetHeight
+    );
+    for (let index = 0; index < this.connectionPoints.length - 1; index += 2) {
+      this.connectionCount++;
+      const source = this.connectionPoints[index];
+      const target = this.connectionPoints[index + 1];
+      this.traffic[this.connectionCount] = { source, target };
+      positions.push(
+        source.x,
+        source.y,
+        source.z,
+        target.x,
+        target.y,
+        target.z
+      );
+      colors.push(color.r, color.b, color.g, color.r, color.b, color.g);
+    }
+    lineGeometry.setPositions(positions);
+    lineGeometry.setColors(colors);
+    this.line = new Line2(lineGeometry, matLine);
+    this.line.userData = { __graphObj: "connection" };
+    this.threeCommon.scene.add(this.line);
+  }
+
+  private configureIndividualConnections() {
     this.connectionCount = 0;
     for (let index = 0; index < this.connectionPoints.length - 1; index += 2) {
       this.connectionCount++;
@@ -207,8 +284,11 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
     }
   }
 
-  private lineClickHandler() {}
-  
+  private lineClickHandler(raycastObj) {
+    const _connection = this.traffic[raycastObj.faceIndex];
+    console.log(_connection);
+  }
+
   setUpStats() {
     this.stats = new Stats();
     this.stats.showPanel(1); // 0: fps, 1: ms, 2: mb, 3+: custom
@@ -225,249 +305,257 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
     let canvasBounds = this.threeCommon.renderer.context.canvas.getBoundingClientRect();
     this.mouse = this.mouse || new THREE.Vector3();
     this.mouse.x =
-    ((event.clientX - canvasBounds.left) /
-    (canvasBounds.right - canvasBounds.left)) *
-    2 -
-    1;
-    this.mouse.y =
-    -(
-      (event.clientY - canvasBounds.top) /
-      (canvasBounds.bottom - canvasBounds.top)
-      ) *
-      2 +
+      ((event.clientX - canvasBounds.left) /
+        (canvasBounds.right - canvasBounds.left)) *
+        2 -
       1;
-      this.renderView();
-    }
-    
-    objectCountChangeHandler($event) {
-      this.threeService.cleanScene(this.threeCommon);
-      this.connectionPoints = [];
-      this.previousObjectCount = this.objectCount;
-      this.objectCount = Number.parseInt($event.target.value, 10);
-      this.connectionStep = this.objectCount;
-      this.sceneController();
-    }
-    
-    connectionStepHandler($event) {
-      this.threeService.cleanScene(this.threeCommon);
-      this.connectionPoints = [];
-      this.connectionStep = Number.parseInt($event.target.value, 10);
-      this.sceneController();
-    }
-    
-    connectionStateHandler($event) {
-      this.threeService.cleanScene(this.threeCommon);
-      this.connectionPoints = [];
-      this.enableConnections = $event.target.checked;
-      this.sceneController();
-    }
-    
-    meshTypeStateHandler($event) {
-      this.threeService.cleanScene(this.threeCommon);
-      this.connectionPoints = [];
-      this.noConnectionMesh = $event.target.checked;
-      this.sceneController();
-    }
-    
-    renderView() {
-      // this.configureRaycast();
-      this.threeCommon.renderer.render(
-        this.threeCommon.scene,
-        this.threeCommon.camera
-        );
-        this.renderCalls = this.threeCommon.renderer.info.render.calls;
+    this.mouse.y =
+      -(
+        (event.clientY - canvasBounds.top) /
+        (canvasBounds.bottom - canvasBounds.top)
+      ) *
+        2 +
+      1;
+    this.renderView();
+  }
+
+  objectCountChangeHandler($event) {
+    this.threeService.cleanScene(this.threeCommon);
+    this.connectionPoints = [];
+    this.previousObjectCount = this.objectCount;
+    this.objectCount = Number.parseInt($event.target.value, 10);
+    this.connectionStep = this.objectCount;
+    this.sceneController();
+  }
+
+  connectionStepHandler($event) {
+    this.threeService.cleanScene(this.threeCommon);
+    this.connectionPoints = [];
+    this.connectionStep = Number.parseInt($event.target.value, 10);
+    this.sceneController();
+  }
+
+  connectionStateHandler($event) {
+    this.threeService.cleanScene(this.threeCommon);
+    this.connectionPoints = [];
+    this.enableConnections = $event.target.checked;
+    this.sceneController();
+  }
+
+  meshTypeStateHandler($event) {
+    this.threeService.cleanScene(this.threeCommon);
+    this.connectionPoints = [];
+    this.noConnectionMesh = $event.target.checked;
+    this.sceneController();
+  }
+
+  renderView() {
+    this.configureRaycast();
+    this.threeCommon.renderer.render(
+      this.threeCommon.scene,
+      this.threeCommon.camera
+    );
+    this.renderCalls = this.threeCommon.renderer.info.render.calls;
+  }
+
+  private configureRaycast() {
+    if (this.mouse) {
+      this.raycaster.setFromCamera(this.mouse, this.threeCommon.camera);
+      // const intersects = this.raycaster.intersectObjects(
+      //   this.threeCommon.scene.children
+      // );
+      // console.log(intersects);
+      const lineRaycast = this.raycaster.intersectObjects([this.line]);
+      if (
+        lineRaycast &&
+        lineRaycast[0] &&
+        lineRaycast[0].object &&
+        lineRaycast[0].object.userData &&
+        lineRaycast[0].object.userData.__graphObj === "connection"
+      ) {
+        this.lineClickHandler(lineRaycast[0]);
       }
-      
-      private configureRaycast() {
-        // if (this.mouse) {
-          //   this.raycaster.setFromCamera(this.mouse, this.threeCommon.camera);
-          //   // const intersects = this.raycaster.intersectObjects(
-            //   //   this.threeCommon.scene.children
-            //   // );
-            //   // console.log(intersects);
-            //   const linemeshRaycast = this.raycaster.intersectObjects([this.line]);
-            //   console.log("linemeshRaycast", linemeshRaycast);
-            // }
-          }
-        }
-        
-        /**
-         *  Cylindrical connections.
-         */
-        
-        // constructCylindricalConnections(connectionData, instanceMesh?) {
-          //   var material = new THREE.MeshLambertMaterial({ color: 0x277cb2 });
-          //   if (instanceMesh) {
-            //     var cylinder = new THREE.CylinderGeometry(0.1, 0.1, 1, 10, 10, false);
-            //     this.connectionInstancedMesh = new THREE.InstancedMesh(
-              //       this.nodeMesh.geometry,
-              //       material,
-              //       10000
-              //     );
-              //   }
-              //   var HALF_PI = Math.PI * 0.5;
-              //   connectionData.forEach((c) => {
-                //     var distance = c.source.distanceTo(c.target);
-                //     var cylinder = new THREE.CylinderGeometry(
-                  //       0.1,
-                  //       0.1,
-                  //       distance,
-                  //       10,
-                  //       10,
-                  //       false
-                  //     );
-                  //     // orient the cylinder
-                  //     var position = c.target.clone().add(c.source).divideScalar(2);
-                  
-                  //     var orientation = new THREE.Matrix4(); //a new orientation matrix to offset pivot
-                  //     var offsetRotation = new THREE.Matrix4(); //a matrix to fix pivot rotation
-                  //     var offsetPosition = new THREE.Matrix4(); //a matrix to fix pivot position
-                  //     orientation.lookAt(c.source, c.target, new THREE.Vector3(0, 1, 0)); //look at destination
-                  //     offsetRotation.makeRotationX(HALF_PI); //rotate 90 degs on X
-                  //     orientation.multiply(offsetRotation); //combine orientation with rotation transformations
-                  //     cylinder.applyMatrix4(orientation);
-                  //     const mesh = new THREE.Mesh(cylinder, material);
-                  //     mesh.position.set(position.x, position.y, position.z);
-                  //     mesh.userData["__visualiserObj"] = "traffic";
-                  //     this.threeCommon.scene.add(mesh);
-                  //   });
-                  //   // var cylinder = new THREE.CylinderGeometry(
-                    //   //   0.1,
-                    //   //   0.1,
-                    //   //   distance,
-                    //   //   10,
-                    //   //   10,
-                    //   //   false
-                    //   // );
-                    //   // var orientation = new THREE.Matrix4(); //a new orientation matrix to offset pivot
-                    //   // var offsetRotation = new THREE.Matrix4(); //a matrix to fix pivot rotation
-                    //   // var offsetPosition = new THREE.Matrix4(); //a matrix to fix pivot position
-                    //   // orientation.lookAt(
-                      //   //   sourceVector,
-                      //   //   destinationVector,
-                      //   //   new THREE.Vector3(0, 1, 0)
-                      //   // ); //look at destination
-                      //   // offsetRotation.makeRotationX(HALF_PI); //rotate 90 degs on X
-                      //   // orientation.multiply(offsetRotation); //combine orientation with rotation transformations
-                      //   // cylinder.applyMatrix4(orientation);
-                      //   // var mesh = new THREE.Mesh(cylinder, material);
-                      //   // mesh.position.set(position.x, position.y, position.z);
-                      //   // return mesh;
-                      // }
-                      
-                      /**
-                       * Connection mesh
-                       */
-                      
-                      // private createConnectionMesh(connectionData: any[]) {
-                        //   this.connectionCount = connectionData.length / 2;
-                        //   if (this.noConnectionMesh) {
-                          //     const material = new MeshLineMaterial({
-                            //       color: new THREE.Color("rgb(39,124,178)"),
-                            //       opacity: 1,
-                            //       lineWidth: 0.05,
-                            //       depthTest: true,
-                            //       transparent: false,
-                            //     });
-                            //     this.trafficGroup = [];
-                            //     connectionData.forEach((connection, i) => {
-                              //       if (connectionData[i + 1]) {
-                                //         const meshline = new MeshLine();
-                                //         meshline.setPoints([connectionData[i], connectionData[i + 1]]);
-                                //         var mesh = new THREE.Mesh(meshline, material);
-                                //         mesh["dt"] = { test: i };
-                                //         this.trafficGroup.push(mesh);
-                                //         this.threeCommon.scene.add(mesh);
-                                //       }
-                                //     });
-                                //   } else {
-                                  //     this.meshline = new MeshLine();
-                                  //     this.meshline.setPoints(connectionData);
-                                  //     const material = new MeshLineMaterial({
-                                    //       color: new THREE.Color("rgb(39,124,178)"),
-                                    //       opacity: 1,
-                                    //       lineWidth: 0.05,
-                                    //       depthTest: true,
-                                    //       transparent: false,
-                                    //     });
-                                    //     this.meshConnections = new THREE.Mesh(this.meshline, material);
-                                    //     this.meshConnections.frustumCulled = false;
-                                    //     this.meshConnections.renderOrder = 10;
-                                    //     this.meshConnections.raycast = MeshLineRaycast;
-                                    
-                                    //     this.threeCommon.scene.add(this.meshConnections);
-                                    //   }
-                                    // }
-                                    
-                                    // private generateDistinctConnections(indexed) {
-                                      //   // connectionData.push();
-                                      //   var connectionData = [];
-                                      //   for (let index = 0; index < this.connectionPoints.length; index++) {
-                                        //     for (
-                                          //       let _index = this.connectionPoints.length - 1;
-                                          //       _index >= 0;
-                                          //       _index = _index - this.connectionStep
-                                          //     ) {
-                                            //       if (indexed) {
-                                              //         // connectionData.push(
-                                                //         //   this.connectionPoints[index],
-                                                //         //   this.connectionPoints[_index]
-                                                //         // );
-                                                //         connectionData.push(
-                                                  //           this.connectionPoints[index].x,
-                                                  //           this.connectionPoints[index].y,
-                                                  //           this.connectionPoints[index].z,
-                                                  //           this.connectionPoints[_index].x,
-                                                  //           this.connectionPoints[_index].y,
-                                                  //           this.connectionPoints[_index].z
-                                                  //         );
-                                                  //       } else {
-                                                    //         connectionData.push({
-                                                      //           source: this.connectionPoints[index],
-                                                      //           target: this.connectionPoints[_index],
-                                                      //         });
-                                                      //       }
-                                                      //     }
-                                                      //   }
-                                                      //   return connectionData;
-                                                      // }
-                                                      // private generateRandomConnections() {
-                                                        //   var connectionData = [];
-                                                        //   for (let index = 0; index < this.connectionPoints.length; index++) {
-                                                          //     for (
-                                                            //       let _index = this.connectionPoints.length - 1;
-                                                            //       _index >= 0;
-                                                            //       _index = _index - this.connectionStep
-                                                            //     ) {
-                                                              //       connectionData.push(
-                                                                //         this.connectionPoints[index],
-                                                                //         this.connectionPoints[_index]
-                                                                //       );
-                                                                //     }
-                                                                //   }
-                                                                //   return connectionData;
-                                                                // }
-                                                                
-                                                                // private generateSequentialConnections() {
-                                                                //   var connectionData = [];
-                                                                //   let _connectionCount = 0;
-                                                                //   const len = this.connectionPoints.length / 2;
-                                                                //   for (let index = 0; index < len; index += 30) {
-                                                                //     _connectionCount += 1;
-                                                                //     let _index = len + index;
-                                                                //     if (this.connectionPoints[index] && this.connectionPoints[_index]) {
-                                                                //       connectionData.push(
-                                                                //         this.connectionPoints[index].x,
-                                                                //         this.connectionPoints[index].y,
-                                                                //         this.connectionPoints[index].z,
-                                                                //         this.connectionPoints[_index].x,
-                                                                //         this.connectionPoints[_index].y,
-                                                                //         this.connectionPoints[_index].z
-                                                                //       );
-                                                                //     }
-                                                                //   }
-                                                                //   console.log("connectionCount", this.connectionCount);
-                                                              
-                                                                //   this.connectionCount = _connectionCount;
-                                                                //   return connectionData;
-                                                                // }
+    }
+  }
+}
+
+/**
+ *  Cylindrical connections.
+ */
+
+// constructCylindricalConnections(connectionData, instanceMesh?) {
+//   var material = new THREE.MeshLambertMaterial({ color: 0x277cb2 });
+//   if (instanceMesh) {
+//     var cylinder = new THREE.CylinderGeometry(0.1, 0.1, 1, 10, 10, false);
+//     this.connectionInstancedMesh = new THREE.InstancedMesh(
+//       this.nodeMesh.geometry,
+//       material,
+//       10000
+//     );
+//   }
+//   var HALF_PI = Math.PI * 0.5;
+//   connectionData.forEach((c) => {
+//     var distance = c.source.distanceTo(c.target);
+//     var cylinder = new THREE.CylinderGeometry(
+//       0.1,
+//       0.1,
+//       distance,
+//       10,
+//       10,
+//       false
+//     );
+//     // orient the cylinder
+//     var position = c.target.clone().add(c.source).divideScalar(2);
+
+//     var orientation = new THREE.Matrix4(); //a new orientation matrix to offset pivot
+//     var offsetRotation = new THREE.Matrix4(); //a matrix to fix pivot rotation
+//     var offsetPosition = new THREE.Matrix4(); //a matrix to fix pivot position
+//     orientation.lookAt(c.source, c.target, new THREE.Vector3(0, 1, 0)); //look at destination
+//     offsetRotation.makeRotationX(HALF_PI); //rotate 90 degs on X
+//     orientation.multiply(offsetRotation); //combine orientation with rotation transformations
+//     cylinder.applyMatrix4(orientation);
+//     const mesh = new THREE.Mesh(cylinder, material);
+//     mesh.position.set(position.x, position.y, position.z);
+//     mesh.userData["__visualiserObj"] = "traffic";
+//     this.threeCommon.scene.add(mesh);
+//   });
+//   // var cylinder = new THREE.CylinderGeometry(
+//   //   0.1,
+//   //   0.1,
+//   //   distance,
+//   //   10,
+//   //   10,
+//   //   false
+//   // );
+//   // var orientation = new THREE.Matrix4(); //a new orientation matrix to offset pivot
+//   // var offsetRotation = new THREE.Matrix4(); //a matrix to fix pivot rotation
+//   // var offsetPosition = new THREE.Matrix4(); //a matrix to fix pivot position
+//   // orientation.lookAt(
+//   //   sourceVector,
+//   //   destinationVector,
+//   //   new THREE.Vector3(0, 1, 0)
+//   // ); //look at destination
+//   // offsetRotation.makeRotationX(HALF_PI); //rotate 90 degs on X
+//   // orientation.multiply(offsetRotation); //combine orientation with rotation transformations
+//   // cylinder.applyMatrix4(orientation);
+//   // var mesh = new THREE.Mesh(cylinder, material);
+//   // mesh.position.set(position.x, position.y, position.z);
+//   // return mesh;
+// }
+
+/**
+ * Connection mesh
+ */
+
+// private createConnectionMesh(connectionData: any[]) {
+//   this.connectionCount = connectionData.length / 2;
+//   if (this.noConnectionMesh) {
+//     const material = new MeshLineMaterial({
+//       color: new THREE.Color("rgb(39,124,178)"),
+//       opacity: 1,
+//       lineWidth: 0.05,
+//       depthTest: true,
+//       transparent: false,
+//     });
+//     this.trafficGroup = [];
+//     connectionData.forEach((connection, i) => {
+//       if (connectionData[i + 1]) {
+//         const meshline = new MeshLine();
+//         meshline.setPoints([connectionData[i], connectionData[i + 1]]);
+//         var mesh = new THREE.Mesh(meshline, material);
+//         mesh["dt"] = { test: i };
+//         this.trafficGroup.push(mesh);
+//         this.threeCommon.scene.add(mesh);
+//       }
+//     });
+//   } else {
+//     this.meshline = new MeshLine();
+//     this.meshline.setPoints(connectionData);
+//     const material = new MeshLineMaterial({
+//       color: new THREE.Color("rgb(39,124,178)"),
+//       opacity: 1,
+//       lineWidth: 0.05,
+//       depthTest: true,
+//       transparent: false,
+//     });
+//     this.meshConnections = new THREE.Mesh(this.meshline, material);
+//     this.meshConnections.frustumCulled = false;
+//     this.meshConnections.renderOrder = 10;
+//     this.meshConnections.raycast = MeshLineRaycast;
+
+//     this.threeCommon.scene.add(this.meshConnections);
+//   }
+// }
+
+// private generateDistinctConnections(indexed) {
+//   // connectionData.push();
+//   var connectionData = [];
+//   for (let index = 0; index < this.connectionPoints.length; index++) {
+//     for (
+//       let _index = this.connectionPoints.length - 1;
+//       _index >= 0;
+//       _index = _index - this.connectionStep
+//     ) {
+//       if (indexed) {
+//         // connectionData.push(
+//         //   this.connectionPoints[index],
+//         //   this.connectionPoints[_index]
+//         // );
+//         connectionData.push(
+//           this.connectionPoints[index].x,
+//           this.connectionPoints[index].y,
+//           this.connectionPoints[index].z,
+//           this.connectionPoints[_index].x,
+//           this.connectionPoints[_index].y,
+//           this.connectionPoints[_index].z
+//         );
+//       } else {
+//         connectionData.push({
+//           source: this.connectionPoints[index],
+//           target: this.connectionPoints[_index],
+//         });
+//       }
+//     }
+//   }
+//   return connectionData;
+// }
+// private generateRandomConnections() {
+//   var connectionData = [];
+//   for (let index = 0; index < this.connectionPoints.length; index++) {
+//     for (
+//       let _index = this.connectionPoints.length - 1;
+//       _index >= 0;
+//       _index = _index - this.connectionStep
+//     ) {
+//       connectionData.push(
+//         this.connectionPoints[index],
+//         this.connectionPoints[_index]
+//       );
+//     }
+//   }
+//   return connectionData;
+// }
+
+// private generateSequentialConnections() {
+//   var connectionData = [];
+//   let _connectionCount = 0;
+//   const len = this.connectionPoints.length / 2;
+//   for (let index = 0; index < len; index += 30) {
+//     _connectionCount += 1;
+//     let _index = len + index;
+//     if (this.connectionPoints[index] && this.connectionPoints[_index]) {
+//       connectionData.push(
+//         this.connectionPoints[index].x,
+//         this.connectionPoints[index].y,
+//         this.connectionPoints[index].z,
+//         this.connectionPoints[_index].x,
+//         this.connectionPoints[_index].y,
+//         this.connectionPoints[_index].z
+//       );
+//     }
+//   }
+//   console.log("connectionCount", this.connectionCount);
+
+//   this.connectionCount = _connectionCount;
+//   return connectionData;
+// }
