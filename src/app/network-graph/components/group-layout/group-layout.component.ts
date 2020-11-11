@@ -28,6 +28,7 @@ import { LineGeometry } from "./../../../../../node_modules/three/examples/jsm/l
 import { LineMaterial } from "./../../../../../node_modules/three/examples/jsm/lines/LineMaterial.js";
 import { Line2 } from "./../../../../../node_modules/three/examples/jsm/lines/Line2";
 import { LineSegments2 } from "three/examples/jsm/lines/LineSegments2";
+import { LineSegmentsGeometry } from 'three/examples/jsm/lines/LineSegmentsGeometry';
 @Component({
   selector: "app-group-layout",
   templateUrl: "./group-layout.component.html",
@@ -216,7 +217,7 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
   configureVertextSegmentsConnections() {
     this.connectionCount = 0;
     this.traffic = {};
-    const lineGeometry = new LineGeometry();
+    const lineGeometry = new LineSegmentsGeometry();
     const color = new THREE.Color(0x277cb2);
     const positions = [];
     const colors = [];
@@ -230,12 +231,10 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
       this.canvasEl.nativeElement.offsetWidth,
       this.canvasEl.nativeElement.offsetHeight
     );
-    let _faceIndex = 0
     for (let index = 1; index < this.nodePositionCollection.length; index++) {
       const source = this.nodePositionCollection[0];
       const target = this.nodePositionCollection[index];
-      this.traffic[_faceIndex] = { source, target };
-      _faceIndex+=2;
+      this.traffic[index-1] = { source, target };
       positions.push(
         source.position.x,
         source.position.y,
@@ -247,7 +246,6 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
       colors.push(color.r, color.b, color.g, color.r, color.b, color.g);
       this.connectionCount++;
     }
-    console.log("position", positions.length,positions);
     lineGeometry.setPositions(new Float32Array(positions));
     lineGeometry.setColors(colors);
     this.line = new LineSegments2(lineGeometry, matLine);

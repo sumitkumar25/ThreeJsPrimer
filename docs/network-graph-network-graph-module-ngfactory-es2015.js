@@ -18307,10 +18307,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_three_examples_jsm_lines_LineMaterial_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../../../../../node_modules/three/examples/jsm/lines/LineMaterial.js */ "./node_modules/three/examples/jsm/lines/LineMaterial.js");
 /* harmony import */ var _node_modules_three_examples_jsm_lines_Line2__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./../../../../../node_modules/three/examples/jsm/lines/Line2 */ "./node_modules/three/examples/jsm/lines/Line2.js");
 /* harmony import */ var three_examples_jsm_lines_LineSegments2__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! three/examples/jsm/lines/LineSegments2 */ "./node_modules/three/examples/jsm/lines/LineSegments2.js");
+/* harmony import */ var three_examples_jsm_lines_LineSegmentsGeometry__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! three/examples/jsm/lines/LineSegmentsGeometry */ "./node_modules/three/examples/jsm/lines/LineSegmentsGeometry.js");
 /**
  * TODO: check if other possibilities are there for loaded mesh. current 'Group'.
  * TODO: Groups Texture.
  */
+
 
 
 
@@ -18453,7 +18455,7 @@ class GroupLayoutComponent {
     configureVertextSegmentsConnections() {
         this.connectionCount = 0;
         this.traffic = {};
-        const lineGeometry = new _node_modules_three_examples_jsm_lines_LineGeometry_js__WEBPACK_IMPORTED_MODULE_5__["LineGeometry"]();
+        const lineGeometry = new three_examples_jsm_lines_LineSegmentsGeometry__WEBPACK_IMPORTED_MODULE_9__["LineSegmentsGeometry"]();
         const color = new three__WEBPACK_IMPORTED_MODULE_3__["Color"](0x277cb2);
         const positions = [];
         const colors = [];
@@ -18464,17 +18466,14 @@ class GroupLayoutComponent {
             linewidth: 5,
         });
         matLine.resolution.set(this.canvasEl.nativeElement.offsetWidth, this.canvasEl.nativeElement.offsetHeight);
-        let _faceIndex = 0;
         for (let index = 1; index < this.nodePositionCollection.length; index++) {
             const source = this.nodePositionCollection[0];
             const target = this.nodePositionCollection[index];
-            this.traffic[_faceIndex] = { source, target };
-            _faceIndex += 2;
+            this.traffic[index - 1] = { source, target };
             positions.push(source.position.x, source.position.y, source.position.z, target.position.x, target.position.y, target.position.z);
             colors.push(color.r, color.b, color.g, color.r, color.b, color.g);
             this.connectionCount++;
         }
-        console.log("position", positions.length, positions);
         lineGeometry.setPositions(new Float32Array(positions));
         lineGeometry.setColors(colors);
         this.line = new three_examples_jsm_lines_LineSegments2__WEBPACK_IMPORTED_MODULE_8__["LineSegments2"](lineGeometry, matLine);
