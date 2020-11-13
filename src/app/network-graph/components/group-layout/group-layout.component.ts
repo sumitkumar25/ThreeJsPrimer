@@ -7,21 +7,17 @@ import {
   Component,
   ElementRef,
   OnInit,
-  ViewChild
+  ViewChild,
 } from "@angular/core";
 import { throttle } from "lodash";
 import { forkJoin } from "rxjs";
 import { ThreeService } from "src/app/three/services/three.service";
 import * as THREE from "three";
-import {
-  LineSegments, Vector3
-} from "three";
 import { LineSegments2 } from "three/examples/jsm/lines/LineSegments2";
 import { LineSegmentsGeometry } from "three/examples/jsm/lines/LineSegmentsGeometry";
 import * as Stats from "../../../../../node_modules/stats.js/build/stats.min.js";
 import { NetworkGraphRequestService } from "../../services/network-graph-request.service.js";
 import { ThreeFactoryService } from "../../services/three-factory.service.js";
-import { Line2 } from "./../../../../../node_modules/three/examples/jsm/lines/Line2";
 import { LineMaterial } from "./../../../../../node_modules/three/examples/jsm/lines/LineMaterial.js";
 @Component({
   selector: "app-group-layout",
@@ -65,6 +61,7 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
   traffic = {};
 
   directionInstanceMesh;
+  trafficColor = 0x378ef0;
   constructor(
     private threeService: ThreeService,
     private graphRequestService: NetworkGraphRequestService,
@@ -139,23 +136,20 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
     }
     this.threeCommon.scene.add(this.instancedNodeMesh);
   }
- 
-    
+
   setPositionFromTraffic(trafficLink: any): any {
     const source = trafficLink.source.position;
     const target = trafficLink.target.position;
-
+    const axis = new THREE.Vector3(0, 1, 0);
     const matrix = new THREE.Matrix4();
-    var rotation = new THREE.Euler();
-    var quaternion = new THREE.Quaternion();
-    var position = new THREE.Vector3();
-    //center
-    // target.sub(source).normalize()
-    position.x = (source.x + target.x)/2;
-    position.y = (source.y + target.y)/2;
-    position.z = (source.z + target.z)/2;
-    var scale = new THREE.Vector3();
-    scale.x = scale.y = scale.z = 1;
+    const quaternion = new THREE.Quaternion();
+    const position = new THREE.Vector3(
+      (source.x + target.x) / 2,
+      (source.y + target.y) / 2,
+      (source.z + target.z) / 2
+    );
+    const scale = new THREE.Vector3(1, 1, 1);
+    quaternion.setFromUnitVectors(axis, target.sub(source).normalize());
     matrix.compose(position, quaternion, scale);
     return matrix;
   }
@@ -188,10 +182,9 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
   configureDirectionalArrows() {
     let newMesh = !this.directionInstanceMesh;
     if (newMesh) {
-      const geometry = new THREE.ConeGeometry(0.4, 0.6);
-      const material = new THREE.MeshPhongMaterial({
-        color: 0x2984cf,
-        emissive: 0x2984cf,
+      const geometry = new THREE.ConeBufferGeometry(0.3, 0.8);
+      const material = new THREE.MeshBasicMaterial({
+        color: this.trafficColor,
       });
       this.directionInstanceMesh = new THREE.InstancedMesh(
         geometry,
@@ -201,37 +194,39 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
     } else {
       this.directionInstanceMesh.instanceMatrix.needsUpdate = true;
     }
-    Object.keys(this.traffic).forEach((key,index) =>{
-      this.directionInstanceMesh.setMatrixAt(index, this.setPositionFromTraffic(this.traffic[key]));
+    Object.keys(this.traffic).forEach((key, index) => {
+      this.directionInstanceMesh.setMatrixAt(
+        index,
+        this.setPositionFromTraffic(this.traffic[key])
+      );
     });
     this.threeCommon.scene.add(this.directionInstanceMesh);
 
-//     const geometry = new THREE.ConeGeometry(0.2, 0.6);
-//  const material = new THREE.MeshPhongMaterial({
-//   color: 0x2984cf,
-//  emissive: 0x2984cf
-//  });
-//  const cone = new THREE.Mesh(geometry, material);
-//  cone.position.y = target.distanceTo(source) / 2;
-//  cone.scale.set(0.5, 0.5, 0.5);
-//  target.sub(source).normalize();
-//  this.arrowHelper = new THREE.ArrowHelper(target, source, 0);
-//  this.arrowHelper.cone.copy(cone);
-//  this.threeCommon.scene.add(this.arrowHelper);
+    //     const geometry = new THREE.ConeGeometry(0.2, 0.6);
+    //  const material = new THREE.MeshPhongMaterial({
+    //   color: 0x2984cf,
+    //  emissive: 0x2984cf
+    //  });
+    //  const cone = new THREE.Mesh(geometry, material);
+    //  cone.position.y = target.distanceTo(source) / 2;
+    //  cone.scale.set(0.5, 0.5, 0.5);
+    //  target.sub(source).normalize();
+    //  this.arrowHelper = new THREE.ArrowHelper(target, source, 0);
+    //  this.arrowHelper.cone.copy(cone);
+    //  this.threeCommon.scene.add(this.arrowHelper);
   }
 
   configureLineSegmentConnections() {
     this.connectionCount = 0;
     this.traffic = {};
     const lineGeometry = new LineSegmentsGeometry();
-    const color = new THREE.Color(0x2984cf);
     const positions = [];
     const colors = [];
     const matLine = new LineMaterial({
-      color: 0x2984cf,
+      color: this.trafficColor,
       vertexColors: true,
       dashed: false,
-      linewidth: 5,
+      linewidth: 3,
     });
     matLine.resolution.set(
       this.canvasEl.nativeElement.offsetWidth,
@@ -249,9 +244,18 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
         target.position.y,
         target.position.z
       );
-      colors.push(color.r, color.g, color.b, color.r, color.g, color.b);
+      const colorRGB = new THREE.Color(this.trafficColor).convertLinearToSRGB();
+      colors.push(
+        colorRGB.r,
+        colorRGB.g,
+        colorRGB.b,
+        colorRGB.r,
+        colorRGB.g,
+        colorRGB.b
+      );
       this.connectionCount++;
     }
+    console.log();
     lineGeometry.setPositions(new Float32Array(positions));
     lineGeometry.setColors(colors);
     this.line = new LineSegments2(lineGeometry, matLine);

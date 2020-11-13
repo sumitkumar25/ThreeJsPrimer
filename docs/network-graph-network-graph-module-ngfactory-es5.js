@@ -18181,6 +18181,7 @@ var GroupLayoutComponent = /** @class */ (function () {
         this.noConnectionMesh = false;
         this.raycaster = new three__WEBPACK_IMPORTED_MODULE_4__["Raycaster"]();
         this.traffic = {};
+        this.trafficColor = 0x378ef0;
     }
     GroupLayoutComponent.prototype.ngOnInit = function () {
         this.initRequests();
@@ -18239,17 +18240,12 @@ var GroupLayoutComponent = /** @class */ (function () {
     GroupLayoutComponent.prototype.setPositionFromTraffic = function (trafficLink) {
         var source = trafficLink.source.position;
         var target = trafficLink.target.position;
+        var axis = new three__WEBPACK_IMPORTED_MODULE_4__["Vector3"](0, 1, 0);
         var matrix = new three__WEBPACK_IMPORTED_MODULE_4__["Matrix4"]();
-        var rotation = new three__WEBPACK_IMPORTED_MODULE_4__["Euler"]();
         var quaternion = new three__WEBPACK_IMPORTED_MODULE_4__["Quaternion"]();
-        var position = new three__WEBPACK_IMPORTED_MODULE_4__["Vector3"]();
-        //center
-        // target.sub(source).normalize()
-        position.x = (source.x + target.x) / 2;
-        position.y = (source.y + target.y) / 2;
-        position.z = (source.z + target.z) / 2;
-        var scale = new three__WEBPACK_IMPORTED_MODULE_4__["Vector3"]();
-        scale.x = scale.y = scale.z = 1;
+        var position = new three__WEBPACK_IMPORTED_MODULE_4__["Vector3"]((source.x + target.x) / 2, (source.y + target.y) / 2, (source.z + target.z) / 2);
+        var scale = new three__WEBPACK_IMPORTED_MODULE_4__["Vector3"](1, 1, 1);
+        quaternion.setFromUnitVectors(axis, target.sub(source).normalize());
         matrix.compose(position, quaternion, scale);
         return matrix;
     };
@@ -18281,10 +18277,9 @@ var GroupLayoutComponent = /** @class */ (function () {
         var _this = this;
         var newMesh = !this.directionInstanceMesh;
         if (newMesh) {
-            var geometry = new three__WEBPACK_IMPORTED_MODULE_4__["ConeGeometry"](0.4, 0.6);
-            var material = new three__WEBPACK_IMPORTED_MODULE_4__["MeshPhongMaterial"]({
-                color: 0x2984cf,
-                emissive: 0x2984cf,
+            var geometry = new three__WEBPACK_IMPORTED_MODULE_4__["ConeBufferGeometry"](0.3, 0.8);
+            var material = new three__WEBPACK_IMPORTED_MODULE_4__["MeshBasicMaterial"]({
+                color: this.trafficColor,
             });
             this.directionInstanceMesh = new three__WEBPACK_IMPORTED_MODULE_4__["InstancedMesh"](geometry, material, 10000);
         }
@@ -18312,14 +18307,13 @@ var GroupLayoutComponent = /** @class */ (function () {
         this.connectionCount = 0;
         this.traffic = {};
         var lineGeometry = new three_examples_jsm_lines_LineSegmentsGeometry__WEBPACK_IMPORTED_MODULE_6__["LineSegmentsGeometry"]();
-        var color = new three__WEBPACK_IMPORTED_MODULE_4__["Color"](0x2984cf);
         var positions = [];
         var colors = [];
         var matLine = new _node_modules_three_examples_jsm_lines_LineMaterial_js__WEBPACK_IMPORTED_MODULE_8__["LineMaterial"]({
-            color: 0x2984cf,
+            color: this.trafficColor,
             vertexColors: true,
             dashed: false,
-            linewidth: 5,
+            linewidth: 3,
         });
         matLine.resolution.set(this.canvasEl.nativeElement.offsetWidth, this.canvasEl.nativeElement.offsetHeight);
         for (var index = 1; index < this.nodePositionCollection.length; index++) {
@@ -18327,9 +18321,11 @@ var GroupLayoutComponent = /** @class */ (function () {
             var target = this.nodePositionCollection[index];
             this.traffic[index - 1] = { source: source, target: target };
             positions.push(source.position.x, source.position.y, source.position.z, target.position.x, target.position.y, target.position.z);
-            colors.push(color.r, color.g, color.b, color.r, color.g, color.b);
+            var colorRGB = new three__WEBPACK_IMPORTED_MODULE_4__["Color"](this.trafficColor).convertLinearToSRGB();
+            colors.push(colorRGB.r, colorRGB.g, colorRGB.b, colorRGB.r, colorRGB.g, colorRGB.b);
             this.connectionCount++;
         }
+        console.log();
         lineGeometry.setPositions(new Float32Array(positions));
         lineGeometry.setColors(colors);
         this.line = new three_examples_jsm_lines_LineSegments2__WEBPACK_IMPORTED_MODULE_5__["LineSegments2"](lineGeometry, matLine);
