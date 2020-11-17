@@ -18245,7 +18245,7 @@ var GroupLayoutComponent = /** @class */ (function () {
         var quaternion = new three__WEBPACK_IMPORTED_MODULE_4__["Quaternion"]();
         var position = new three__WEBPACK_IMPORTED_MODULE_4__["Vector3"]((source.x + target.x) / 2, (source.y + target.y) / 2, (source.z + target.z) / 2);
         var scale = new three__WEBPACK_IMPORTED_MODULE_4__["Vector3"](1, 1, 1);
-        quaternion.setFromUnitVectors(axis, target.sub(source).normalize());
+        quaternion.setFromUnitVectors(axis, (target.clone()).sub(source.clone()).normalize());
         matrix.compose(position, quaternion, scale);
         return matrix;
     };
@@ -18254,7 +18254,7 @@ var GroupLayoutComponent = /** @class */ (function () {
         var rotation = new three__WEBPACK_IMPORTED_MODULE_4__["Euler"]();
         var quaternion = new three__WEBPACK_IMPORTED_MODULE_4__["Quaternion"]();
         var position = new three__WEBPACK_IMPORTED_MODULE_4__["Vector3"]();
-        var offset = i * 3;
+        var offset = i * 5;
         position.x = (offset * Math.sin(i)) / Math.sqrt(i + 1);
         position.y = (offset * Math.cos(i)) / Math.sqrt(i + 1);
         position.z = i / 10;
@@ -18316,16 +18316,15 @@ var GroupLayoutComponent = /** @class */ (function () {
             linewidth: 3,
         });
         matLine.resolution.set(this.canvasEl.nativeElement.offsetWidth, this.canvasEl.nativeElement.offsetHeight);
-        for (var index = 1; index < this.nodePositionCollection.length; index++) {
-            var source = this.nodePositionCollection[0];
-            var target = this.nodePositionCollection[index];
-            this.traffic[index - 1] = { source: source, target: target };
+        var colorRGB = new three__WEBPACK_IMPORTED_MODULE_4__["Color"](this.trafficColor).convertLinearToSRGB();
+        for (var index = 0; index < this.nodePositionCollection.length - 1; index++) {
+            var source = this.nodePositionCollection[index];
+            var target = this.nodePositionCollection[index + 1];
+            this.traffic[index] = { source: source, target: target };
             positions.push(source.position.x, source.position.y, source.position.z, target.position.x, target.position.y, target.position.z);
-            var colorRGB = new three__WEBPACK_IMPORTED_MODULE_4__["Color"](this.trafficColor).convertLinearToSRGB();
             colors.push(colorRGB.r, colorRGB.g, colorRGB.b, colorRGB.r, colorRGB.g, colorRGB.b);
             this.connectionCount++;
         }
-        console.log();
         lineGeometry.setPositions(new Float32Array(positions));
         lineGeometry.setColors(colors);
         this.line = new three_examples_jsm_lines_LineSegments2__WEBPACK_IMPORTED_MODULE_5__["LineSegments2"](lineGeometry, matLine);

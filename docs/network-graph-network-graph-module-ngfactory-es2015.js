@@ -18241,7 +18241,7 @@ class GroupLayoutComponent {
         const quaternion = new three__WEBPACK_IMPORTED_MODULE_3__["Quaternion"]();
         const position = new three__WEBPACK_IMPORTED_MODULE_3__["Vector3"]((source.x + target.x) / 2, (source.y + target.y) / 2, (source.z + target.z) / 2);
         const scale = new three__WEBPACK_IMPORTED_MODULE_3__["Vector3"](1, 1, 1);
-        quaternion.setFromUnitVectors(axis, target.sub(source).normalize());
+        quaternion.setFromUnitVectors(axis, (target.clone()).sub(source.clone()).normalize());
         matrix.compose(position, quaternion, scale);
         return matrix;
     }
@@ -18250,7 +18250,7 @@ class GroupLayoutComponent {
         var rotation = new three__WEBPACK_IMPORTED_MODULE_3__["Euler"]();
         var quaternion = new three__WEBPACK_IMPORTED_MODULE_3__["Quaternion"]();
         var position = new three__WEBPACK_IMPORTED_MODULE_3__["Vector3"]();
-        var offset = i * 3;
+        var offset = i * 5;
         position.x = (offset * Math.sin(i)) / Math.sqrt(i + 1);
         position.y = (offset * Math.cos(i)) / Math.sqrt(i + 1);
         position.z = i / 10;
@@ -18311,16 +18311,15 @@ class GroupLayoutComponent {
             linewidth: 3,
         });
         matLine.resolution.set(this.canvasEl.nativeElement.offsetWidth, this.canvasEl.nativeElement.offsetHeight);
-        for (let index = 1; index < this.nodePositionCollection.length; index++) {
-            const source = this.nodePositionCollection[0];
-            const target = this.nodePositionCollection[index];
-            this.traffic[index - 1] = { source, target };
+        const colorRGB = new three__WEBPACK_IMPORTED_MODULE_3__["Color"](this.trafficColor).convertLinearToSRGB();
+        for (let index = 0; index < this.nodePositionCollection.length - 1; index++) {
+            const source = this.nodePositionCollection[index];
+            const target = this.nodePositionCollection[index + 1];
+            this.traffic[index] = { source, target };
             positions.push(source.position.x, source.position.y, source.position.z, target.position.x, target.position.y, target.position.z);
-            const colorRGB = new three__WEBPACK_IMPORTED_MODULE_3__["Color"](this.trafficColor).convertLinearToSRGB();
             colors.push(colorRGB.r, colorRGB.g, colorRGB.b, colorRGB.r, colorRGB.g, colorRGB.b);
             this.connectionCount++;
         }
-        console.log();
         lineGeometry.setPositions(new Float32Array(positions));
         lineGeometry.setColors(colors);
         this.line = new three_examples_jsm_lines_LineSegments2__WEBPACK_IMPORTED_MODULE_4__["LineSegments2"](lineGeometry, matLine);
