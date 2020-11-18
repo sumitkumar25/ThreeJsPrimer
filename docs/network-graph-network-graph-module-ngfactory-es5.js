@@ -18245,7 +18245,7 @@ var GroupLayoutComponent = /** @class */ (function () {
         var quaternion = new three__WEBPACK_IMPORTED_MODULE_4__["Quaternion"]();
         var position = new three__WEBPACK_IMPORTED_MODULE_4__["Vector3"]((source.x + target.x) / 2, (source.y + target.y) / 2, (source.z + target.z) / 2);
         var scale = new three__WEBPACK_IMPORTED_MODULE_4__["Vector3"](1, 1, 1);
-        quaternion.setFromUnitVectors(axis, (target.clone()).sub(source.clone()).normalize());
+        quaternion.setFromUnitVectors(axis, target.clone().sub(source.clone()).normalize());
         matrix.compose(position, quaternion, scale);
         return matrix;
     };
@@ -18285,6 +18285,10 @@ var GroupLayoutComponent = /** @class */ (function () {
         }
         else {
             this.directionInstanceMesh.instanceMatrix.needsUpdate = true;
+        }
+        console.log(this.directionInstanceMesh.countx);
+        for (var index = 0; index < this.directionInstanceMesh.count; index++) {
+            this.directionInstanceMesh.setMatrixAt(index, new three__WEBPACK_IMPORTED_MODULE_4__["Matrix4"]());
         }
         Object.keys(this.traffic).forEach(function (key, index) {
             _this.directionInstanceMesh.setMatrixAt(index, _this.setPositionFromTraffic(_this.traffic[key]));
@@ -18394,21 +18398,23 @@ var GroupLayoutComponent = /** @class */ (function () {
         this.renderCalls = this.threeCommon.renderer.info.render.calls;
     };
     GroupLayoutComponent.prototype.configureRaycast = function () {
-        if (this.mouse) {
-            this.raycaster.setFromCamera(this.mouse, this.threeCommon.camera);
-            // const intersects = this.raycaster.intersectObjects(
-            //   this.threeCommon.scene.children
-            // );
-            // console.log(intersects);
-            var lineRaycast = this.raycaster.intersectObjects([this.line]);
-            if (lineRaycast &&
-                lineRaycast[0] &&
-                lineRaycast[0].object &&
-                lineRaycast[0].object.userData &&
-                lineRaycast[0].object.userData.__graphObj === "connection") {
-                this.lineClickHandler(lineRaycast[0]);
-            }
-        }
+        // if (this.mouse) {
+        //   this.raycaster.setFromCamera(this.mouse, this.threeCommon.camera);
+        //   // const intersects = this.raycaster.intersectObjects(
+        //   //   this.threeCommon.scene.children
+        //   // );
+        //   // console.log(intersects);
+        //   const lineRaycast = this.raycaster.intersectObjects([this.line]);
+        //   if (
+        //     lineRaycast &&
+        //     lineRaycast[0] &&
+        //     lineRaycast[0].object &&
+        //     lineRaycast[0].object.userData &&
+        //     lineRaycast[0].object.userData.__graphObj === "connection"
+        //   ) {
+        //     this.lineClickHandler(lineRaycast[0]);
+        //   }
+        // }
     };
     return GroupLayoutComponent;
 }());

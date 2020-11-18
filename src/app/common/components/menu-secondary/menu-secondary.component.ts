@@ -27,7 +27,7 @@ export class MenuSecondaryComponent implements OnInit {
   ngOnInit() {
     this.routerSubscription = this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd && event.url) {
-        this.currentMainRoute = event.url.split("/")[1] || "three-optimized";
+        this.currentMainRoute = event.url.split("/")[1] || "network-graph";
       }
     });
   }

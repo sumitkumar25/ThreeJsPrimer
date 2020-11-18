@@ -543,7 +543,7 @@ var MenuSecondaryComponent = /** @class */ (function () {
         var _this = this;
         this.routerSubscription = this.router.events.subscribe(function (event) {
             if (event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_1__["NavigationEnd"] && event.url) {
-                _this.currentMainRoute = event.url.split("/")[1] || "three-optimized";
+                _this.currentMainRoute = event.url.split("/")[1] || "network-graph";
             }
         });
     };

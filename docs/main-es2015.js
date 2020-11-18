@@ -516,7 +516,7 @@ class MenuSecondaryComponent {
     ngOnInit() {
         this.routerSubscription = this.router.events.subscribe((event) => {
             if (event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_1__["NavigationEnd"] && event.url) {
-                this.currentMainRoute = event.url.split("/")[1] || "three-optimized";
+                this.currentMainRoute = event.url.split("/")[1] || "network-graph";
             }
         });
     }
