@@ -37,7 +37,7 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
   objectCount: number = 3;
   previousObjectCount = 0;
   layoutMesh: THREE.Mesh<THREE.Geometry, THREE.MeshBasicMaterial>;
-  nodeMesh: THREE.InstancedMesh<any, THREE.MeshNormalMaterial | any>;
+  nodeMesh: THREE.InstancedMesh<any, THREE.MeshNormalMaterial | any> | any;
   instancedNodeMesh: THREE.InstancedMesh<
     THREE.InstancedBufferGeometry | THREE.BufferGeometry,
     THREE.MeshBasicMaterial
@@ -62,6 +62,7 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
 
   directionInstanceMesh;
   trafficColor = 0x378ef0;
+  renderRequested: any;
   constructor(
     private threeService: ThreeService,
     private graphRequestService: NetworkGraphRequestService,
@@ -82,12 +83,16 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
     this.threeCommon.camera.aspect =
       this.canvasEl.nativeElement.offsetWidth /
       this.canvasEl.nativeElement.offsetHeight;
-    this.threeCommon.renderer.setPixelRatio(window.devicePixelRatio);
+    this.threeCommon.renderer.setPixelRatio(2);
     this.threeCommon.scene.background = "black";
     this.threeCommon.camera.updateProjectionMatrix();
     this.threeCommon.controls.addEventListener(
       "change",
-      throttle(this.renderView.bind(this), 50)
+      this.requestRenderIfNotRequested.bind(this)
+    );
+    window.addEventListener(
+      "resize",
+      this.requestRenderIfNotRequested.bind(this)
     );
   }
 
@@ -96,13 +101,19 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
       this.graphRequestService.getGroups(),
       this.graphRequestService.getNodeMesh()
     ).subscribe(([groupData, mesh]) => {
-      this.nodeMeshResponseHandler(mesh);
+      this.nodeMeshResponseHandler(mesh,true);
       this.groupsResponseHandler(groupData);
     });
   }
 
-  nodeMeshResponseHandler(mesh) {
-    if (mesh.type && mesh.type === "Group") {
+  nodeMeshResponseHandler(mesh,useSphere) {
+    if(useSphere){
+      this.nodeMesh = {
+        geometry : new THREE.SphereBufferGeometry(),
+        material : new THREE.MeshBasicMaterial()
+      }
+    }
+    else if (mesh.type && mesh.type === "Group") {
       this.nodeMesh = mesh.children[0];
     } else {
       this.nodeMesh = mesh;
@@ -340,14 +351,39 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
   }
 
   renderView() {
-    this.configureRaycast();
+    // this.configureRaycast();
+    this.renderRequested = false;
+    if (this.resizeRendererToDisplaySize(this.threeCommon.renderer)) {
+      const canvas = this.threeCommon.renderer.domElement;
+      this.threeCommon.camera.aspect = canvas.clientWidth / canvas.clientHeight;
+      this.threeCommon.camera.updateProjectionMatrix();
+    }
     this.threeCommon.renderer.render(
       this.threeCommon.scene,
       this.threeCommon.camera
     );
-    this.renderCalls = this.threeCommon.renderer.info.render.calls;
+    this.renderCalls = this.threeService.getRendererCallCount(
+      this.threeCommon.renderer
+    );
   }
 
+  resizeRendererToDisplaySize(renderer) {
+    const canvas = renderer.domElement;
+    const width = canvas.clientWidth;
+    const height = canvas.clientHeight;
+    const needResize = canvas.width !== width || canvas.height !== height;
+    if (needResize) {
+      renderer.setSize(width, height, false);
+    }
+    return needResize;
+  }
+
+  requestRenderIfNotRequested() {
+    if (!this.renderRequested) {
+      this.renderRequested = true;
+      window.requestAnimationFrame(this.renderView.bind(this))
+    }
+  }
   private configureRaycast() {
     // if (this.mouse) {
     //   this.raycaster.setFromCamera(this.mouse, this.threeCommon.camera);

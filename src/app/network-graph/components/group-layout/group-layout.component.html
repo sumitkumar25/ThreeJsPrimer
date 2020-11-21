@@ -5,7 +5,22 @@
     style="display: flex; border: solid 1px; padding: 10px; margin: 10px"
   >
     <div style="flex: 1 0 0; padding: 10px; border: solid 1px">
-      <h5>Node Metric</h5>
+      <h5>Node Metrics</h5>
+      <!-- <div>
+        <div>Node Geometry</div>
+        <div>
+          <label for="geometry">
+            <input
+              type="checkbox"
+              name="enable"
+              id="enable"
+              [checked]="enableConnections"
+              (change)="connectionStateHandler($event)"
+            />
+            Enable connections.
+          </label>
+        </div>
+      </div> -->
       <div>
         <h5>Object Count: {{ objectCount }}</h5>
       </div>
@@ -59,14 +74,13 @@
       <div>
         <label for="enable">
           <input
-          type="checkbox"
-          name="enable"
-          id="enable"
-          [checked]="enableConnections"
-          (change)="connectionStateHandler($event)"
-        />
+            type="checkbox"
+            name="enable"
+            id="enable"
+            [checked]="enableConnections"
+            (change)="connectionStateHandler($event)"
+          />
           Enable connections.
-
         </label>
       </div>
     </div>
