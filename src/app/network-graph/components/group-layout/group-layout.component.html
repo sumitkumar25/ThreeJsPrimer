@@ -6,6 +6,26 @@
   >
     <div style="flex: 1 0 0; padding: 10px; border: solid 1px">
       <h5>Node Metrics</h5>
+      <div>
+        <label>
+          <input
+            type="radio"
+            value="obj"
+            name="nodeGeometryType"
+            (change)="nodeGeometryChangeHandler($event)"
+          />
+          Obj file
+        </label>
+        <label>
+          <input
+            type="radio"
+            value="buffer"
+            name="nodeGeometryType"
+            (change)="nodeGeometryChangeHandler($event)"
+          />
+          Buffer geometry
+        </label>
+      </div>
       <!-- <div>
         <div>Node Geometry</div>
         <div>

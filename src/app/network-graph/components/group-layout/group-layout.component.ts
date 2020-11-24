@@ -63,6 +63,11 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
   directionInstanceMesh;
   trafficColor = 0x378ef0;
   renderRequested: any;
+  loadObjModel: boolean;
+  nodeMeshBuffer: {
+    geometry: THREE.SphereBufferGeometry;
+    material: THREE.MeshBasicMaterial;
+  };
   constructor(
     private threeService: ThreeService,
     private graphRequestService: NetworkGraphRequestService,
@@ -101,19 +106,17 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
       this.graphRequestService.getGroups(),
       this.graphRequestService.getNodeMesh()
     ).subscribe(([groupData, mesh]) => {
-      this.nodeMeshResponseHandler(mesh,true);
+      this.nodeMeshResponseHandler(mesh);
       this.groupsResponseHandler(groupData);
     });
   }
 
-  nodeMeshResponseHandler(mesh,useSphere) {
-    if(useSphere){
-      this.nodeMesh = {
-        geometry : new THREE.SphereBufferGeometry(),
-        material : new THREE.MeshBasicMaterial()
-      }
-    }
-    else if (mesh.type && mesh.type === "Group") {
+  nodeMeshResponseHandler(mesh) {
+    this.nodeMeshBuffer = {
+      geometry: new THREE.SphereBufferGeometry(1,10,10),
+      material: new THREE.MeshPhongMaterial({ color: 0xefefef }),
+    };
+    if (mesh.type && mesh.type === "Group") {
       this.nodeMesh = mesh.children[0];
     } else {
       this.nodeMesh = mesh;
@@ -124,12 +127,18 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
     this.sceneController();
   }
 
-  constructNodes() {
-    let newMesh = !this.instancedNodeMesh;
+  constructNodes(forceNewMesh) {
+    let newMesh = forceNewMesh || !this.instancedNodeMesh;
     if (newMesh) {
+      if (this.instancedNodeMesh) {
+        this.instancedNodeMesh.geometry.dispose();
+        this.instancedNodeMesh.material.dispose();
+        this.threeCommon.scene.remove(this.instancedNodeMesh);
+      }
+      const attrObj = this.loadObjModel ? this.nodeMesh : this.nodeMeshBuffer;
       this.instancedNodeMesh = new THREE.InstancedMesh(
-        this.nodeMesh.geometry,
-        this.nodeMesh.material,
+        attrObj.geometry,
+        attrObj.material,
         10000
       );
     } else {
@@ -185,8 +194,8 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
     return matrix;
   }
 
-  private sceneController() {
-    this.constructNodes();
+  private sceneController(newMesh?) {
+    this.constructNodes(!!newMesh);
     if (this.enableConnections) {
       this.configureLineSegmentConnections();
       this.configureDirectionalArrows();
@@ -350,6 +359,12 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
     this.sceneController();
   }
 
+  nodeGeometryChangeHandler($event) {
+    this.threeService.cleanScene(this.threeCommon);
+    this.loadObjModel = $event.target.value === "obj";
+    this.sceneController(true);
+  }
+
   renderView() {
     // this.configureRaycast();
     this.renderRequested = false;
@@ -381,7 +396,7 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
   requestRenderIfNotRequested() {
     if (!this.renderRequested) {
       this.renderRequested = true;
-      window.requestAnimationFrame(this.renderView.bind(this))
+      window.requestAnimationFrame(this.renderView.bind(this));
     }
   }
   private configureRaycast() {
