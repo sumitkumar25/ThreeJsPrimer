@@ -431,8 +431,12 @@ var ThreeService = /** @class */ (function () {
     };
     ThreeService.prototype.cleanScene = function (threeCommon) {
         var meshes = [];
+        var sprites = [];
         threeCommon.scene.traverse(function (object) {
-            if (object.isMesh && !object.isInstancedMesh) {
+            if ((object.isMesh && !object.isInstancedMesh) || object.type === "Sprite") {
+                if (object.type === "Sprite") {
+                    console.log('disposing sprite');
+                }
                 meshes.push(object);
             }
         });
