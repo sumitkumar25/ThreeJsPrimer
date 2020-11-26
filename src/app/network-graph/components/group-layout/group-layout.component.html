@@ -1,108 +1,63 @@
-<section #stats>
-  <h5>Group Layout</h5>
-  <h5>Render Calls: {{ renderCalls }}</h5>
-  <section
-    style="display: flex; border: solid 1px; padding: 10px; margin: 10px"
-  >
-    <div style="flex: 1 0 0; padding: 10px; border: solid 1px">
-      <h5>Node Metrics</h5>
-      <div>
-        <label>
-          <input
-            type="radio"
-            value="obj"
-            name="nodeGeometryType"
-            (change)="nodeGeometryChangeHandler($event)"
-          />
-          Obj file
-        </label>
-        <label>
-          <input
-            type="radio"
-            value="buffer"
-            name="nodeGeometryType"
-            (change)="nodeGeometryChangeHandler($event)"
-          />
-          Buffer geometry
-        </label>
-      </div>
-      <!-- <div>
-        <div>Node Geometry</div>
-        <div>
-          <label for="geometry">
-            <input
-              type="checkbox"
-              name="enable"
-              id="enable"
-              [checked]="enableConnections"
-              (change)="connectionStateHandler($event)"
-            />
-            Enable connections.
-          </label>
-        </div>
-      </div> -->
-      <div>
-        <h5>Object Count: {{ objectCount }}</h5>
-      </div>
-      <div class="app--margin__vertical object-range">
-        <label for="points"
-          >Node Count
-          <input
-            type="range"
-            id="points"
-            name="points"
-            min="2"
-            max="10000"
-            step="1"
-            (change)="objectCountChangeHandler($event)"
-            [value]="objectCount"
-          />
-        </label>
-      </div>
+<section #stats style="position: relative">
+  <section class="metrices">
+    <div>Render Calls: {{ renderCalls }}</div>
+    <div>
+      Node type
+      <label>
+        <input
+          type="radio"
+          value="obj"
+          name="nodeGeometryType"
+          (change)="nodeGeometryChangeHandler($event)"
+        />
+        Imported Model
+      </label>
+      <label>
+        <input
+          type="radio"
+          value="buffer"
+          name="nodeGeometryType"
+          (change)="nodeGeometryChangeHandler($event)"
+        />
+        Buffer geometry
+      </label>
     </div>
-    <div style="flex: 1 0 0; padding: 10px; border: solid 1px">
-      <h5>Connection Metric</h5>
-      <div>
-        <h5>Max Connections (N * N) : {{ objectCount * objectCount }}</h5>
-        <h5>Connection Count: {{ connectionCount }}</h5>
-      </div>
-      <!-- <div>
-        <label for="step">
-          <input
-            type="range"
-            name="points"
-            id="step"
-            min="1"
-            max="{{ objectCount }}"
-            step="1"
-            (change)="connectionStepHandler($event)"
-            [value]="connectionStep"
-        />connection node step : {{ connectionStep }} </label>
-      </div> -->
-      <!-- <div>
-        <label for="noMesh">
-          Individual Meshes{{ enableConnections }} <br />
-          <input
-            type="checkbox"
-            name="noMesh"
-            id="noMesh"
-            [checked]="noConnectionMesh"
-            (change)="meshTypeStateHandler($event)"
-          />
-        </label>
-      </div>       -->
-      <div>
-        <label for="enable">
-          <input
-            type="checkbox"
-            name="enable"
-            id="enable"
-            [checked]="enableConnections"
-            (change)="connectionStateHandler($event)"
-          />
-          Enable connections.
-        </label>
-      </div>
+    <div>
+      <label for="points"
+        >Node Count 
+        <input
+          type="number"
+          id="points"
+          name="points"
+          (change)="objectCountChangeHandler($event)"
+          [value]="objectCount"
+        />
+      </label>
+    </div>
+    <div>Connections: {{ connectionCount }}</div>
+    <div>
+      <label for="enable">
+        <input
+          type="checkbox"
+          name="enable"
+          id="enable"
+          [checked]="enableConnections"
+          (change)="connectionStateHandler($event)"
+        />
+        connections Enabled
+      </label>
+    </div>
+    <div>
+      <label for="enableLabels">
+        <input
+          type="checkbox"
+          name="enableLabels"
+          id="enableLabels"
+          [checked]="enableLabels"
+          (change)="labelsStateHandler($event)"
+        />
+        labels Enabled
+      </label>
     </div>
   </section>
   <canvas

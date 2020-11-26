@@ -69,6 +69,7 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
     geometry: THREE.SphereBufferGeometry;
     material: THREE.MeshBasicMaterial;
   };
+  enableLabels: any;
   constructor(
     private threeService: ThreeService,
     private graphRequestService: NetworkGraphRequestService,
@@ -201,7 +202,9 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
       this.configureLineSegmentConnections();
       this.configureDirectionalArrows();
     }
-    this.constructSpriteText();
+    if(this.enableLabels){
+      this.constructSpriteText();
+    }
     this.renderView();
   }
   constructSpriteText() {
@@ -216,7 +219,7 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
       // matrix.copyPosition(position);
       position.setFromMatrixPosition(matrix);
       sprite.position.setX(position.x);
-      sprite.position.setY(position.y +1.2);
+      sprite.position.setY(position.y + 1.2);
       this.threeCommon.scene.add(sprite);
     }
   }
@@ -381,6 +384,12 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
     this.threeService.cleanScene(this.threeCommon);
     this.loadObjModel = $event.target.value === "obj";
     this.sceneController(true);
+  }
+
+  labelsStateHandler($event) {
+    this.threeService.cleanScene(this.threeCommon);
+    this.enableLabels = $event.target.checked;
+    this.sceneController();
   }
 
   renderView() {

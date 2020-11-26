@@ -1,0 +1,17 @@
+.metrices {
+  position: fixed;
+  width: 90vw;
+  top: 0;
+  height: 50px;
+  left: 81px;
+  overflow: scroll;
+  border: solid 1px #333;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  background-color: white;
+  div{
+    border-right: solid 5px #333;
+    padding: 0 5px;
+  }
+}

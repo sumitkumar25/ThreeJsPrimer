@@ -4,13 +4,17 @@ main {
   display: flex;
 }
 .sub-nav {
-  flex: 0 0 20%;
-  padding: 20px;
-  padding-top: 60px;
+  flex: 0 0 10%;
+  padding: 5px;
+  padding-top: 50px;
 }
 .main-flex {
-  padding: 20px;
-  flex: 0 0 70%;
+  padding: 5px;
+  flex: 0 0 80%;
+}
+.metric-flex{
+  flex: 0 0 10%;
+  padding: 5px; 
 }
 header {
   display: flex;
