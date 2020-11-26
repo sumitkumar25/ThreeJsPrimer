@@ -13,6 +13,7 @@ import { throttle } from "lodash";
 import { forkJoin } from "rxjs";
 import { ThreeService } from "src/app/three/services/three.service";
 import * as THREE from "three";
+import SpriteText from "three-spritetext";
 import { LineSegments2 } from "three/examples/jsm/lines/LineSegments2";
 import { LineSegmentsGeometry } from "three/examples/jsm/lines/LineSegmentsGeometry";
 import * as Stats from "../../../../../node_modules/stats.js/build/stats.min.js";
@@ -113,7 +114,7 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
 
   nodeMeshResponseHandler(mesh) {
     this.nodeMeshBuffer = {
-      geometry: new THREE.SphereBufferGeometry(1,10,10),
+      geometry: new THREE.SphereBufferGeometry(1, 10, 10),
       material: new THREE.MeshPhongMaterial({ color: 0xefefef }),
     };
     if (mesh.type && mesh.type === "Group") {
@@ -200,7 +201,24 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
       this.configureLineSegmentConnections();
       this.configureDirectionalArrows();
     }
+    this.constructSpriteText();
     this.renderView();
+  }
+  constructSpriteText() {
+    for (let index = 0; index < this.objectCount; index++) {
+      const sprite = new SpriteText(`node index ${index}`);
+      sprite.color = "#b3b3b3";
+      sprite.textHeight = 0.25;
+      sprite.visible = true;
+      let matrix = new THREE.Matrix4();
+      this.instancedNodeMesh.getMatrixAt(index, matrix);
+      const position = new THREE.Vector3();
+      // matrix.copyPosition(position);
+      position.setFromMatrixPosition(matrix);
+      sprite.position.setX(position.x);
+      sprite.position.setY(position.y +1.2);
+      this.threeCommon.scene.add(sprite);
+    }
   }
   configureDirectionalArrows() {
     let newMesh = !this.directionInstanceMesh;
