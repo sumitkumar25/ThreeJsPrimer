@@ -1360,7 +1360,7 @@ __webpack_require__.r(__webpack_exports__);
 var styles_GroupLayoutComponent = [_group_layout_component_scss_shim_ngstyle__WEBPACK_IMPORTED_MODULE_0__["styles"]];
 var RenderType_GroupLayoutComponent = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵcrt"]({ encapsulation: 0, styles: styles_GroupLayoutComponent, data: {} });
 
-function View_GroupLayoutComponent_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵqud"](671088640, 1, { canvasEl: 0 }), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵqud"](671088640, 2, { statsEl: 0 }), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](2, 0, [[2, 0], ["stats", 1]], null, 26, "section", [["style", "position: relative"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](3, 0, null, null, 24, "section", [["class", "metrices"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](4, 0, null, null, 1, "div", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](5, null, ["Render Calls: ", ""])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](6, 0, null, null, 7, "div", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, [" Node type "])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](8, 0, null, null, 2, "label", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](9, 0, null, null, 0, "input", [["name", "nodeGeometryType"], ["type", "radio"], ["value", "obj"]], null, [[null, "change"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("change" === en)) {
+function View_GroupLayoutComponent_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵqud"](671088640, 1, { canvasEl: 0 }), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵqud"](671088640, 2, { statsEl: 0 }), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](2, 0, [[2, 0], ["stats", 1]], null, 28, "section", [["style", "position: relative"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](3, 0, null, null, 24, "section", [["class", "metrices"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](4, 0, null, null, 1, "div", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](5, null, ["Render Calls: ", ""])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](6, 0, null, null, 7, "div", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, [" Node type "])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](8, 0, null, null, 2, "label", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](9, 0, null, null, 0, "input", [["name", "nodeGeometryType"], ["type", "radio"], ["value", "obj"]], null, [[null, "change"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("change" === en)) {
         var pd_0 = (_co.nodeGeometryChangeHandler($event) !== false);
         ad = (pd_0 && ad);
     } return ad; }, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, [" Imported Model "])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](11, 0, null, null, 2, "label", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](12, 0, null, null, 0, "input", [["name", "nodeGeometryType"], ["type", "radio"], ["value", "buffer"]], null, [[null, "change"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("change" === en)) {
@@ -1375,10 +1375,10 @@ function View_GroupLayoutComponent_0(_l) { return _angular_core__WEBPACK_IMPORTE
     } return ad; }, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, [" connections Enabled "])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](24, 0, null, null, 3, "div", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](25, 0, null, null, 2, "label", [["for", "enableLabels"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](26, 0, null, null, 0, "input", [["id", "enableLabels"], ["name", "enableLabels"], ["type", "checkbox"]], [[8, "checked", 0]], [[null, "change"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("change" === en)) {
         var pd_0 = (_co.labelsStateHandler($event) !== false);
         ad = (pd_0 && ad);
-    } return ad; }, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, [" labels Enabled "])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](28, 0, [[1, 0], ["canvasEl", 1]], null, 0, "canvas", [["height", "500"], ["width", "1000"]], null, [[null, "click"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("click" === en)) {
+    } return ad; }, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, [" labels Enabled "])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](28, 0, null, null, 2, "div", [["style", "position: relative;width: 1002px;\n  height: 502px;margin: 0 auto;"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](29, 0, [[1, 0], ["canvasEl", 1]], null, 0, "canvas", [["height", "500"], ["width", "1000"]], null, [[null, "click"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("click" === en)) {
         var pd_0 = (_co.clickHandler($event) !== false);
         ad = (pd_0 && ad);
-    } return ad; }, null, null))], null, function (_ck, _v) { var _co = _v.component; var currVal_0 = _co.renderCalls; _ck(_v, 5, 0, currVal_0); var currVal_1 = _co.objectCount; _ck(_v, 17, 0, currVal_1); var currVal_2 = _co.connectionCount; _ck(_v, 19, 0, currVal_2); var currVal_3 = _co.enableConnections; _ck(_v, 22, 0, currVal_3); var currVal_4 = _co.enableLabels; _ck(_v, 26, 0, currVal_4); }); }
+    } return ad; }, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](30, 0, null, null, 0, "div", [["id", "labels"]], null, null, null, null, null))], null, function (_ck, _v) { var _co = _v.component; var currVal_0 = _co.renderCalls; _ck(_v, 5, 0, currVal_0); var currVal_1 = _co.objectCount; _ck(_v, 17, 0, currVal_1); var currVal_2 = _co.connectionCount; _ck(_v, 19, 0, currVal_2); var currVal_3 = _co.enableConnections; _ck(_v, 22, 0, currVal_3); var currVal_4 = _co.enableLabels; _ck(_v, 26, 0, currVal_4); }); }
 function View_GroupLayoutComponent_Host_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](0, 0, null, null, 1, "app-group-layout", [], null, null, null, View_GroupLayoutComponent_0, RenderType_GroupLayoutComponent)), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](1, 4308992, null, 0, _group_layout_component__WEBPACK_IMPORTED_MODULE_2__["GroupLayoutComponent"], [_three_services_three_service__WEBPACK_IMPORTED_MODULE_3__["ThreeService"], _services_network_graph_request_service__WEBPACK_IMPORTED_MODULE_4__["NetworkGraphRequestService"], _services_three_factory_service__WEBPACK_IMPORTED_MODULE_5__["ThreeFactoryService"]], null, null)], function (_ck, _v) { _ck(_v, 1, 0); }, null); }
 var GroupLayoutComponentNgFactory = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵccf"]("app-group-layout", _group_layout_component__WEBPACK_IMPORTED_MODULE_2__["GroupLayoutComponent"], View_GroupLayoutComponent_Host_0, {}, {}, []);
 
@@ -1402,7 +1402,7 @@ __webpack_require__.r(__webpack_exports__);
  * @suppress {suspiciousCode,uselessCode,missingProperties,missingOverride,checkTypes}
  * tslint:disable
  */ 
-var styles = [".metrices[_ngcontent-%COMP%] {\n  position: fixed;\n  width: 90vw;\n  top: 0;\n  height: 50px;\n  left: 81px;\n  overflow: scroll;\n  border: solid 1px #333;\n  border-radius: 10px;\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n  background-color: white;\n}\n.metrices[_ngcontent-%COMP%]   div[_ngcontent-%COMP%] {\n  border-right: solid 5px #333;\n  padding: 0 5px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9zdW1pdC5rdW1hci9Xb3Jrc3BhY2UvZ2l0aHViL3NvdXJjZWNvZGUvVGhyZWVKc1ByaW1lci9zcmMvYXBwL25ldHdvcmstZ3JhcGgvY29tcG9uZW50cy9ncm91cC1sYXlvdXQvZ3JvdXAtbGF5b3V0LmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9uZXR3b3JrLWdyYXBoL2NvbXBvbmVudHMvZ3JvdXAtbGF5b3V0L2dyb3VwLWxheW91dC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGVBQUE7RUFDQSxXQUFBO0VBQ0EsTUFBQTtFQUNBLFlBQUE7RUFDQSxVQUFBO0VBQ0EsZ0JBQUE7RUFDQSxzQkFBQTtFQUNBLG1CQUFBO0VBQ0Esb0JBQUE7RUFBQSxhQUFBO0VBQ0EseUJBQUE7VUFBQSxtQkFBQTtFQUNBLHVCQUFBO0FDQ0Y7QURBRTtFQUNFLDRCQUFBO0VBQ0EsY0FBQTtBQ0VKIiwiZmlsZSI6InNyYy9hcHAvbmV0d29yay1ncmFwaC9jb21wb25lbnRzL2dyb3VwLWxheW91dC9ncm91cC1sYXlvdXQuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIubWV0cmljZXMge1xuICBwb3NpdGlvbjogZml4ZWQ7XG4gIHdpZHRoOiA5MHZ3O1xuICB0b3A6IDA7XG4gIGhlaWdodDogNTBweDtcbiAgbGVmdDogODFweDtcbiAgb3ZlcmZsb3c6IHNjcm9sbDtcbiAgYm9yZGVyOiBzb2xpZCAxcHggIzMzMztcbiAgYm9yZGVyLXJhZGl1czogMTBweDtcbiAgZGlzcGxheTogZmxleDtcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgYmFja2dyb3VuZC1jb2xvcjogd2hpdGU7XG4gIGRpdntcbiAgICBib3JkZXItcmlnaHQ6IHNvbGlkIDVweCAjMzMzO1xuICAgIHBhZGRpbmc6IDAgNXB4O1xuICB9XG59XG4iLCIubWV0cmljZXMge1xuICBwb3NpdGlvbjogZml4ZWQ7XG4gIHdpZHRoOiA5MHZ3O1xuICB0b3A6IDA7XG4gIGhlaWdodDogNTBweDtcbiAgbGVmdDogODFweDtcbiAgb3ZlcmZsb3c6IHNjcm9sbDtcbiAgYm9yZGVyOiBzb2xpZCAxcHggIzMzMztcbiAgYm9yZGVyLXJhZGl1czogMTBweDtcbiAgZGlzcGxheTogZmxleDtcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgYmFja2dyb3VuZC1jb2xvcjogd2hpdGU7XG59XG4ubWV0cmljZXMgZGl2IHtcbiAgYm9yZGVyLXJpZ2h0OiBzb2xpZCA1cHggIzMzMztcbiAgcGFkZGluZzogMCA1cHg7XG59Il19 */"];
+var styles = [".metrices[_ngcontent-%COMP%] {\n  position: fixed;\n  width: 90vw;\n  top: 0;\n  height: 50px;\n  left: 81px;\n  overflow: scroll;\n  border: solid 1px #333;\n  border-radius: 10px;\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n  background-color: white;\n}\n.metrices[_ngcontent-%COMP%]   div[_ngcontent-%COMP%] {\n  border-right: solid 5px #333;\n  padding: 0 5px;\n}\n#labels[_ngcontent-%COMP%] {\n  position: absolute;\n  \n  z-index: 0;\n  \n  left: 0;\n  \n  top: 0;\n  color: #ec0303;\n}\n#labels[_ngcontent-%COMP%]    > div[_ngcontent-%COMP%] {\n  position: absolute;\n  \n  left: 0;\n  \n  top: 0;\n  cursor: pointer;\n  \n  font-size: small;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  \n  pointer-events: none;\n  \n  text-shadow: -1px -1px 0 #000, 0 -1px 0 #000, 1px -1px 0 #000, 1px 0 0 #000, 1px 1px 0 #000, 0 1px 0 #000, -1px 1px 0 #000, -1px 0 0 #000;\n  width: 100px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9zdW1pdC5rdW1hci9Xb3Jrc3BhY2UvZ2l0aHViL3NvdXJjZWNvZGUvVGhyZWVKc1ByaW1lci9zcmMvYXBwL25ldHdvcmstZ3JhcGgvY29tcG9uZW50cy9ncm91cC1sYXlvdXQvZ3JvdXAtbGF5b3V0LmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9uZXR3b3JrLWdyYXBoL2NvbXBvbmVudHMvZ3JvdXAtbGF5b3V0L2dyb3VwLWxheW91dC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGVBQUE7RUFDQSxXQUFBO0VBQ0EsTUFBQTtFQUNBLFlBQUE7RUFDQSxVQUFBO0VBQ0EsZ0JBQUE7RUFDQSxzQkFBQTtFQUNBLG1CQUFBO0VBQ0Esb0JBQUE7RUFBQSxhQUFBO0VBQ0EseUJBQUE7VUFBQSxtQkFBQTtFQUNBLHVCQUFBO0FDQ0Y7QURBRTtFQUNFLDRCQUFBO0VBQ0EsY0FBQTtBQ0VKO0FEQ0E7RUFDRSxrQkFBQTtFQUFvQixpREFBQTtFQUNwQixVQUFBO0VBQVkseUVBQUE7RUFDWixPQUFBO0VBQVMsb0RBQUE7RUFDVCxNQUFBO0VBQ0EsY0FBQTtBQ0tGO0FESEE7RUFDRSxrQkFBQTtFQUFvQiw4Q0FBQTtFQUNwQixPQUFBO0VBQVMsOERBQUE7RUFDVCxNQUFBO0VBQ0EsZUFBQTtFQUFpQiw2Q0FBQTtFQUNqQixnQkFBQTtFQUNBLHlCQUFBO0tBQUEsc0JBQUE7TUFBQSxxQkFBQTtVQUFBLGlCQUFBO0VBQW1CLG9DQUFBO0VBQ25CLG9CQUFBO0VBQXNCLHFDQUFBO0VBQ3RCLHlJQUFBO0VBR0EsWUFBQTtBQ1NGIiwiZmlsZSI6InNyYy9hcHAvbmV0d29yay1ncmFwaC9jb21wb25lbnRzL2dyb3VwLWxheW91dC9ncm91cC1sYXlvdXQuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIubWV0cmljZXMge1xuICBwb3NpdGlvbjogZml4ZWQ7XG4gIHdpZHRoOiA5MHZ3O1xuICB0b3A6IDA7XG4gIGhlaWdodDogNTBweDtcbiAgbGVmdDogODFweDtcbiAgb3ZlcmZsb3c6IHNjcm9sbDtcbiAgYm9yZGVyOiBzb2xpZCAxcHggIzMzMztcbiAgYm9yZGVyLXJhZGl1czogMTBweDtcbiAgZGlzcGxheTogZmxleDtcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgYmFja2dyb3VuZC1jb2xvcjogd2hpdGU7XG4gIGRpdiB7XG4gICAgYm9yZGVyLXJpZ2h0OiBzb2xpZCA1cHggIzMzMztcbiAgICBwYWRkaW5nOiAwIDVweDtcbiAgfVxufVxuI2xhYmVscyB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTsgLyogbGV0IHVzIHBvc2l0aW9uIG91cnNlbGYgaW5zaWRlIHRoZSBjb250YWluZXIgKi9cbiAgei1pbmRleDogMDsgLyogbWFrZSBhIG5ldyBzdGFja2luZyBjb250ZXh0IHNvIGNoaWxkcmVuIGRvbid0IHNvcnQgd2l0aCByZXN0IG9mIHBhZ2UgKi9cbiAgbGVmdDogMDsgLyogbWFrZSBvdXIgcG9zaXRpb24gdGhlIHRvcCBsZWZ0IG9mIHRoZSBjb250YWluZXIgKi9cbiAgdG9wOiAwO1xuICBjb2xvcjogcmdiKDIzNiwgMywgMyk7XG59XG4jbGFiZWxzID4gZGl2IHtcbiAgcG9zaXRpb246IGFic29sdXRlOyAvKiBsZXQgdXMgcG9zaXRpb24gdGhlbSBpbnNpZGUgdGhlIGNvbnRhaW5lciAqL1xuICBsZWZ0OiAwOyAvKiBtYWtlIHRoZWlyIGRlZmF1bHQgcG9zaXRpb24gdGhlIHRvcCBsZWZ0IG9mIHRoZSBjb250YWluZXIgKi9cbiAgdG9wOiAwO1xuICBjdXJzb3I6IHBvaW50ZXI7IC8qIGNoYW5nZSB0aGUgY3Vyc29yIHRvIGEgaGFuZCB3aGVuIG92ZXIgdXMgKi9cbiAgZm9udC1zaXplOiBzbWFsbDtcbiAgdXNlci1zZWxlY3Q6IG5vbmU7IC8qIGRvbid0IGxldCB0aGUgdGV4dCBnZXQgc2VsZWN0ZWQgKi9cbiAgcG9pbnRlci1ldmVudHM6IG5vbmU7IC8qIG1ha2UgdXMgaW52aXNpYmxlIHRvIHRoZSBwb2ludGVyICovXG4gIHRleHQtc2hhZG93OiAgICAgICAgIC8qIGNyZWF0ZSBhIGJsYWNrIG91dGxpbmUgKi8gLTFweCAtMXB4IDAgIzAwMCxcbiAgICAwIC0xcHggMCAjMDAwLCAxcHggLTFweCAwICMwMDAsIDFweCAwIDAgIzAwMCwgMXB4IDFweCAwICMwMDAsIDAgMXB4IDAgIzAwMCxcbiAgICAtMXB4IDFweCAwICMwMDAsIC0xcHggMCAwICMwMDA7XG4gIHdpZHRoOiAxMDBweDtcbn1cbiIsIi5tZXRyaWNlcyB7XG4gIHBvc2l0aW9uOiBmaXhlZDtcbiAgd2lkdGg6IDkwdnc7XG4gIHRvcDogMDtcbiAgaGVpZ2h0OiA1MHB4O1xuICBsZWZ0OiA4MXB4O1xuICBvdmVyZmxvdzogc2Nyb2xsO1xuICBib3JkZXI6IHNvbGlkIDFweCAjMzMzO1xuICBib3JkZXItcmFkaXVzOiAxMHB4O1xuICBkaXNwbGF5OiBmbGV4O1xuICBhbGlnbi1pdGVtczogY2VudGVyO1xuICBiYWNrZ3JvdW5kLWNvbG9yOiB3aGl0ZTtcbn1cbi5tZXRyaWNlcyBkaXYge1xuICBib3JkZXItcmlnaHQ6IHNvbGlkIDVweCAjMzMzO1xuICBwYWRkaW5nOiAwIDVweDtcbn1cblxuI2xhYmVscyB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgLyogbGV0IHVzIHBvc2l0aW9uIG91cnNlbGYgaW5zaWRlIHRoZSBjb250YWluZXIgKi9cbiAgei1pbmRleDogMDtcbiAgLyogbWFrZSBhIG5ldyBzdGFja2luZyBjb250ZXh0IHNvIGNoaWxkcmVuIGRvbid0IHNvcnQgd2l0aCByZXN0IG9mIHBhZ2UgKi9cbiAgbGVmdDogMDtcbiAgLyogbWFrZSBvdXIgcG9zaXRpb24gdGhlIHRvcCBsZWZ0IG9mIHRoZSBjb250YWluZXIgKi9cbiAgdG9wOiAwO1xuICBjb2xvcjogI2VjMDMwMztcbn1cblxuI2xhYmVscyA+IGRpdiB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgLyogbGV0IHVzIHBvc2l0aW9uIHRoZW0gaW5zaWRlIHRoZSBjb250YWluZXIgKi9cbiAgbGVmdDogMDtcbiAgLyogbWFrZSB0aGVpciBkZWZhdWx0IHBvc2l0aW9uIHRoZSB0b3AgbGVmdCBvZiB0aGUgY29udGFpbmVyICovXG4gIHRvcDogMDtcbiAgY3Vyc29yOiBwb2ludGVyO1xuICAvKiBjaGFuZ2UgdGhlIGN1cnNvciB0byBhIGhhbmQgd2hlbiBvdmVyIHVzICovXG4gIGZvbnQtc2l6ZTogc21hbGw7XG4gIHVzZXItc2VsZWN0OiBub25lO1xuICAvKiBkb24ndCBsZXQgdGhlIHRleHQgZ2V0IHNlbGVjdGVkICovXG4gIHBvaW50ZXItZXZlbnRzOiBub25lO1xuICAvKiBtYWtlIHVzIGludmlzaWJsZSB0byB0aGUgcG9pbnRlciAqL1xuICB0ZXh0LXNoYWRvdzogLTFweCAtMXB4IDAgIzAwMCwgMCAtMXB4IDAgIzAwMCwgMXB4IC0xcHggMCAjMDAwLCAxcHggMCAwICMwMDAsIDFweCAxcHggMCAjMDAwLCAwIDFweCAwICMwMDAsIC0xcHggMXB4IDAgIzAwMCwgLTFweCAwIDAgIzAwMDtcbiAgd2lkdGg6IDEwMHB4O1xufSJdfQ== */"];
 
 
 
@@ -1456,6 +1456,7 @@ var GroupLayoutComponent = /** @class */ (function () {
         this.raycaster = new three__WEBPACK_IMPORTED_MODULE_3__["Raycaster"]();
         this.traffic = {};
         this.trafficColor = 0x378ef0;
+        this.labelsElements = {};
     }
     GroupLayoutComponent.prototype.ngOnInit = function () {
         this.initRequests();
@@ -1556,22 +1557,65 @@ var GroupLayoutComponent = /** @class */ (function () {
             this.configureLineSegmentConnections();
             this.configureDirectionalArrows();
         }
-        if (this.enableLabels) {
-            this.constructSpriteText();
-        }
+        // if (this.enableLabels) {
+        // this.constructSpriteText();
+        this.constructHtmlText();
+        // }
         this.renderView();
     };
-    GroupLayoutComponent.prototype.constructSpriteText = function () {
+    GroupLayoutComponent.prototype.constructHtmlText = function () {
+        var labelParentElem = document.querySelector("#labels");
+        labelParentElem.innerHTML = "";
+        var docFrag = document.createDocumentFragment();
+        var canvasBounds = this.threeCommon.renderer.context.canvas.getBoundingClientRect();
+        this.threeCommon.camera.updateMatrix();
+        this.threeCommon.camera.updateMatrixWorld();
+        var frustum = new three__WEBPACK_IMPORTED_MODULE_3__["Frustum"]();
+        frustum.setFromProjectionMatrix(new three__WEBPACK_IMPORTED_MODULE_3__["Matrix4"]().multiplyMatrices(this.threeCommon.camera.projectionMatrix, this.threeCommon.camera.matrixWorldInverse));
         for (var index = 0; index < this.objectCount; index++) {
+            var elem = document.createElement("div");
+            elem.className = "label-div";
+            elem.textContent = "node name " + index;
+            // docFrag.appendChild(elem);
+            var matrix = new three__WEBPACK_IMPORTED_MODULE_3__["Matrix4"]();
+            this.instancedNodeMesh.getMatrixAt(index, matrix);
+            var position = new three__WEBPACK_IMPORTED_MODULE_3__["Vector3"]();
+            position.setFromMatrixPosition(matrix);
+            position.project(this.threeCommon.camera);
+            if (frustum.containsPoint(position)) {
+                // convert to unit  vector.
+                position.normalize();
+                if (Number.isNaN(position.x)) {
+                    position.x = 0;
+                }
+                if (Number.isNaN(position.y)) {
+                    position.y = 0;
+                }
+                var x = ((position.x + 1) * canvasBounds.width) / 2;
+                var y = ((1 - position.y) * canvasBounds.height) / 2 + 40;
+                elem.style.left = x + "px";
+                elem.style.top = y + "px";
+                elem.style.position = "absolute";
+                elem.style.zIndex = "10";
+                elem.style.minWidth = "100px";
+                elem.style.translate = "translate(-50%,-50%)";
+                docFrag.appendChild(elem);
+            }
+        }
+        labelParentElem.append(docFrag);
+    };
+    GroupLayoutComponent.prototype.constructSpriteText = function () {
+        var cameraPosition = this.threeCommon.controls.target;
+        for (var index = 0; index < this.objectCount; index++) {
+            var matrix = new three__WEBPACK_IMPORTED_MODULE_3__["Matrix4"]();
+            this.instancedNodeMesh.getMatrixAt(index, matrix);
+            var position = new three__WEBPACK_IMPORTED_MODULE_3__["Vector3"]();
+            position.setFromMatrixPosition(matrix);
+            // console.log(cameraPosition.distanceTo(position), `node index ${index}`);
             var sprite = new three_spritetext__WEBPACK_IMPORTED_MODULE_4__["default"]("node index " + index);
             sprite.color = "#b3b3b3";
             sprite.textHeight = 0.25;
             sprite.visible = true;
-            var matrix = new three__WEBPACK_IMPORTED_MODULE_3__["Matrix4"]();
-            this.instancedNodeMesh.getMatrixAt(index, matrix);
-            var position = new three__WEBPACK_IMPORTED_MODULE_3__["Vector3"]();
-            // matrix.copyPosition(position);
-            position.setFromMatrixPosition(matrix);
             sprite.position.setX(position.x);
             sprite.position.setY(position.y + 1.2);
             this.threeCommon.scene.add(sprite);
@@ -1654,6 +1698,15 @@ var GroupLayoutComponent = /** @class */ (function () {
         window.requestAnimationFrame(this.updateStats.bind(this));
     };
     // event handlers
+    /**
+     *
+     * @param event
+     * this.mouse.x =
+        ((event.clientX - canvasBounds.left) /
+          (canvasBounds.right - canvasBounds.left))
+          
+        (x + 1)/2 *
+     */
     GroupLayoutComponent.prototype.clickHandler = function (event) {
         event.preventDefault();
         var canvasBounds = this.threeCommon.renderer.context.canvas.getBoundingClientRect();
@@ -1708,6 +1761,7 @@ var GroupLayoutComponent = /** @class */ (function () {
     };
     GroupLayoutComponent.prototype.renderView = function () {
         // this.configureRaycast();
+        this.constructHtmlText();
         this.renderRequested = false;
         if (this.resizeRendererToDisplaySize(this.threeCommon.renderer)) {
             var canvas = this.threeCommon.renderer.domElement;
