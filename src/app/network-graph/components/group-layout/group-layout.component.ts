@@ -70,6 +70,7 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
     material: THREE.MeshBasicMaterial;
   };
   enableLabels: any;
+  labelsElements: any = {};
   constructor(
     private threeService: ThreeService,
     private graphRequestService: NetworkGraphRequestService,
@@ -202,22 +203,73 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
       this.configureLineSegmentConnections();
       this.configureDirectionalArrows();
     }
-    if(this.enableLabels){
-      this.constructSpriteText();
-    }
+    // if (this.enableLabels) {
+    // this.constructSpriteText();
+    this.constructHtmlText();
+    // }
     this.renderView();
   }
-  constructSpriteText() {
+  constructHtmlText() {
+    const labelParentElem = document.querySelector("#labels");
+    labelParentElem.innerHTML = "";
+    const docFrag = document.createDocumentFragment();
+    let canvasBounds = this.threeCommon.renderer.context.canvas.getBoundingClientRect();
+    this.threeCommon.camera.updateMatrix();
+    this.threeCommon.camera.updateMatrixWorld();
+    var frustum = new THREE.Frustum();
+    frustum.setFromProjectionMatrix(
+      new THREE.Matrix4().multiplyMatrices(
+        this.threeCommon.camera.projectionMatrix,
+        this.threeCommon.camera.matrixWorldInverse
+      )
+    );
+
     for (let index = 0; index < this.objectCount; index++) {
+      const elem = document.createElement("div");
+      elem.className = "label-div";
+      elem.textContent = "node name " + index;
+      // docFrag.appendChild(elem);
+      let matrix = new THREE.Matrix4();
+      this.instancedNodeMesh.getMatrixAt(index, matrix);
+      const position = new THREE.Vector3();
+      position.setFromMatrixPosition(matrix);
+      position.project(this.threeCommon.camera);
+      if (frustum.containsPoint(position)) {
+        // convert to unit  vector.
+        position.normalize();
+        if (Number.isNaN(position.x)) {
+          position.x = 0;
+        }
+        if (Number.isNaN(position.y)) {
+          position.y = 0;
+        }
+        const x = ((position.x + 1) * canvasBounds.width) / 2;
+        const y = ((1 - position.y) * canvasBounds.height) / 2 + 40;
+        elem.style.left = `${x}px`;
+        elem.style.top = `${y}px`;
+        elem.style.position = `absolute`;
+        elem.style.zIndex = "10";
+        elem.style.minWidth = "100px";
+        elem.style.translate = "translate(-50%,-50%)";
+        docFrag.appendChild(elem);
+
+      }
+    }
+    labelParentElem.append(docFrag);
+  }
+
+  constructSpriteText() {
+    const cameraPosition = this.threeCommon.controls.target;
+    for (let index = 0; index < this.objectCount; index++) {
+      let matrix = new THREE.Matrix4();
+      this.instancedNodeMesh.getMatrixAt(index, matrix);
+      const position = new THREE.Vector3();
+      position.setFromMatrixPosition(matrix);
+      // console.log(cameraPosition.distanceTo(position), `node index ${index}`);
       const sprite = new SpriteText(`node index ${index}`);
       sprite.color = "#b3b3b3";
       sprite.textHeight = 0.25;
       sprite.visible = true;
-      let matrix = new THREE.Matrix4();
-      this.instancedNodeMesh.getMatrixAt(index, matrix);
-      const position = new THREE.Vector3();
-      // matrix.copyPosition(position);
-      position.setFromMatrixPosition(matrix);
       sprite.position.setX(position.x);
       sprite.position.setY(position.y + 1.2);
       this.threeCommon.scene.add(sprite);
@@ -331,6 +383,15 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
     window.requestAnimationFrame(this.updateStats.bind(this));
   }
   // event handlers
+  /**
+   * 
+   * @param event     
+   * this.mouse.x =
+      ((event.clientX - canvasBounds.left) /
+        (canvasBounds.right - canvasBounds.left))
+        
+      (x + 1)/2 *
+   */
   clickHandler(event) {
     event.preventDefault();
     let canvasBounds = this.threeCommon.renderer.context.canvas.getBoundingClientRect();
@@ -394,6 +455,7 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
 
   renderView() {
     // this.configureRaycast();
+    this.constructHtmlText();
     this.renderRequested = false;
     if (this.resizeRendererToDisplaySize(this.threeCommon.renderer)) {
       const canvas = this.threeCommon.renderer.domElement;

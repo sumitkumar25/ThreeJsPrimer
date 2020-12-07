@@ -24,7 +24,7 @@
     </div>
     <div>
       <label for="points"
-        >Node Count 
+        >Node Count
         <input
           type="number"
           id="points"
@@ -60,10 +60,14 @@
       </label>
     </div>
   </section>
-  <canvas
-    height="500"
-    width="1000"
-    #canvasEl
-    (click)="clickHandler($event)"
-  ></canvas>
+  <div style="position: relative;width: 1002px;
+  height: 502px;margin: 0 auto;">
+    <canvas
+      height="500"
+      width="1000"
+      #canvasEl
+      (click)="clickHandler($event)"
+    ></canvas>
+    <div id="labels"></div>
+  </div>
 </section>
