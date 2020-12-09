@@ -13,6 +13,7 @@ import { throttle } from "lodash";
 import { forkJoin } from "rxjs";
 import { ThreeService } from "src/app/three/services/three.service";
 import * as THREE from "three";
+import { Matrix4 } from "three";
 import SpriteText from "three-spritetext";
 import { LineSegments2 } from "three/examples/jsm/lines/LineSegments2";
 import { LineSegmentsGeometry } from "three/examples/jsm/lines/LineSegmentsGeometry";
@@ -73,8 +74,7 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
   labelsElements: any = {};
   constructor(
     private threeService: ThreeService,
-    private graphRequestService: NetworkGraphRequestService,
-    private threeFactory: ThreeFactoryService
+    private graphRequestService: NetworkGraphRequestService
   ) {}
 
   ngOnInit() {
@@ -88,10 +88,10 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
     );
     this.setUpStats();
     this.threeCommon.camera.position.z = 10;
-    this.threeCommon.camera.aspect =
-      this.canvasEl.nativeElement.offsetWidth /
-      this.canvasEl.nativeElement.offsetHeight;
-    this.threeCommon.renderer.setPixelRatio(2);
+    // this.threeCommon.camera.aspect =
+    //   this.canvasEl.nativeElement.offsetWidth /
+    //   this.canvasEl.nativeElement.offsetHeight;
+    // this.threeCommon.renderer.setPixelRatio(2);
     this.threeCommon.scene.background = "black";
     this.threeCommon.camera.updateProjectionMatrix();
     this.threeCommon.controls.addEventListener(
@@ -102,6 +102,8 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
       "resize",
       this.requestRenderIfNotRequested.bind(this)
     );
+    const helper = new THREE.CameraHelper(this.threeCommon.camera);
+    this.threeCommon.scene.add(helper);
   }
 
   initRequests() {
@@ -214,15 +216,7 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
     labelParentElem.innerHTML = "";
     const docFrag = document.createDocumentFragment();
     let canvasBounds = this.threeCommon.renderer.context.canvas.getBoundingClientRect();
-    this.threeCommon.camera.updateMatrix();
-    this.threeCommon.camera.updateMatrixWorld();
-    var frustum = new THREE.Frustum();
-    frustum.setFromProjectionMatrix(
-      new THREE.Matrix4().multiplyMatrices(
-        this.threeCommon.camera.projectionMatrix,
-        this.threeCommon.camera.matrixWorldInverse
-      )
-    );
+    const frustum = new THREE.Frustum();
 
     for (let index = 0; index < this.objectCount; index++) {
       const elem = document.createElement("div");
@@ -233,8 +227,22 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
       this.instancedNodeMesh.getMatrixAt(index, matrix);
       const position = new THREE.Vector3();
       position.setFromMatrixPosition(matrix);
-      position.project(this.threeCommon.camera);
-      if (frustum.containsPoint(position)) {
+      this.threeCommon.camera.updateMatrix();
+      this.threeCommon.camera.updateMatrixWorld();
+      // this.threeCommon.camera.matrixWorldInverse.getInverse(
+      //   this.threeCommon.camera.matrixWorld
+      // );
+      frustum.setFromProjectionMatrix(
+        new THREE.Matrix4().multiplyMatrices(
+          this.threeCommon.camera.projectionMatrix,
+          this.threeCommon.camera.matrixWorldInverse
+        )
+      );
+      // console.log(index,frustum.containsPoint(position))
+
+      if (frustum.containsPoint(position) && this.threeCommon.camera.position.distanceTo(position) < 25) {
+        position.setY(position.y - 1);
+        position.project(this.threeCommon.camera);
         // convert to unit  vector.
         position.normalize();
         if (Number.isNaN(position.x)) {
@@ -244,15 +252,15 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
           position.y = 0;
         }
         const x = ((position.x + 1) * canvasBounds.width) / 2;
-        const y = ((1 - position.y) * canvasBounds.height) / 2 + 40;
-        elem.style.left = `${x}px`;
-        elem.style.top = `${y}px`;
-        elem.style.position = `absolute`;
-        elem.style.zIndex = "10";
+        const y = ((1 - position.y) * canvasBounds.height) / 2;
+        // elem.style.left = `${0}px`;
+        // elem.style.top = `${0}px`;
+        // elem.style.position = `absolute`;
+        elem.style.zIndex = (((-position.z * 0.5 + 0.5) * 100000) | 0) + "";
         elem.style.minWidth = "100px";
-        elem.style.translate = "translate(-50%,-50%)";
+        elem.style.transform = `translate(${x}px,${y}px)`;
+        // "translate(-50%,-50%)";
         docFrag.appendChild(elem);
-
       }
     }
     labelParentElem.append(docFrag);
