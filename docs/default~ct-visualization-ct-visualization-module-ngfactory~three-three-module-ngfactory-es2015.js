@@ -25433,6 +25433,7 @@ class ThreeService {
     cleanScene(threeCommon) {
         var meshes = [];
         var sprites = [];
+        document.querySelector("#labels").innerHTML = '';
         threeCommon.scene.traverse(function (object) {
             if ((object.isMesh && !object.isInstancedMesh) || object.type === "Sprite") {
                 if (object.type === "Sprite") {
