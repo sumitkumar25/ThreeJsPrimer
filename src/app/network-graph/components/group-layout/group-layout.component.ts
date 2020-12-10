@@ -70,7 +70,7 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
     geometry: THREE.SphereBufferGeometry;
     material: THREE.MeshBasicMaterial;
   };
-  enableLabels: any;
+  labelSpriteText: any;
   labelsElements: any = {};
   constructor(
     private threeService: ThreeService,
@@ -205,10 +205,6 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
       this.configureLineSegmentConnections();
       this.configureDirectionalArrows();
     }
-    // if (this.enableLabels) {
-    // this.constructSpriteText();
-    this.constructHtmlText();
-    // }
     this.renderView();
   }
   constructHtmlText() {
@@ -222,25 +218,24 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
       const elem = document.createElement("div");
       elem.className = "label-div";
       elem.textContent = "node name " + index;
-      // docFrag.appendChild(elem);
       let matrix = new THREE.Matrix4();
       this.instancedNodeMesh.getMatrixAt(index, matrix);
       const position = new THREE.Vector3();
       position.setFromMatrixPosition(matrix);
       this.threeCommon.camera.updateMatrix();
       this.threeCommon.camera.updateMatrixWorld();
-      // this.threeCommon.camera.matrixWorldInverse.getInverse(
-      //   this.threeCommon.camera.matrixWorld
-      // );
+
       frustum.setFromProjectionMatrix(
         new THREE.Matrix4().multiplyMatrices(
           this.threeCommon.camera.projectionMatrix,
           this.threeCommon.camera.matrixWorldInverse
         )
       );
-      // console.log(index,frustum.containsPoint(position))
 
-      if (frustum.containsPoint(position) && this.threeCommon.camera.position.distanceTo(position) < 25) {
+      // if (
+      //   frustum.containsPoint(position) &&
+      //   this.threeCommon.camera.position.distanceTo(position) < 25
+      // ) {
         position.setY(position.y - 1);
         position.project(this.threeCommon.camera);
         // convert to unit  vector.
@@ -253,15 +248,15 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
         }
         const x = ((position.x + 1) * canvasBounds.width) / 2;
         const y = ((1 - position.y) * canvasBounds.height) / 2;
-        // elem.style.left = `${0}px`;
-        // elem.style.top = `${0}px`;
-        // elem.style.position = `absolute`;
+        elem.style.left = `${0}px`;
+        elem.style.top = `${0}px`;
+        elem.style.position = `absolute`;
         elem.style.zIndex = (((-position.z * 0.5 + 0.5) * 100000) | 0) + "";
         elem.style.minWidth = "100px";
         elem.style.transform = `translate(${x}px,${y}px)`;
         // "translate(-50%,-50%)";
         docFrag.appendChild(elem);
-      }
+      // }
     }
     labelParentElem.append(docFrag);
   }
@@ -457,14 +452,18 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
 
   labelsStateHandler($event) {
     this.threeService.cleanScene(this.threeCommon);
-    this.enableLabels = $event.target.checked;
+    this.labelSpriteText = $event.target.value === "sprite";
     this.sceneController();
   }
 
   renderView() {
     // this.configureRaycast();
-    this.constructHtmlText();
     this.renderRequested = false;
+    if (this.labelSpriteText) {
+      this.constructSpriteText();
+    }else{
+      this.constructHtmlText();
+    }
     if (this.resizeRendererToDisplaySize(this.threeCommon.renderer)) {
       const canvas = this.threeCommon.renderer.domElement;
       this.threeCommon.camera.aspect = canvas.clientWidth / canvas.clientHeight;

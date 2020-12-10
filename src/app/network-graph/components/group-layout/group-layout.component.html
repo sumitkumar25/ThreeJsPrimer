@@ -48,7 +48,7 @@
       </label>
     </div>
     <div>
-      <label for="enableLabels">
+      <!-- <label for="enableLabels">
         <input
           type="checkbox"
           name="enableLabels"
@@ -57,11 +57,34 @@
           (change)="labelsStateHandler($event)"
         />
         labels Enabled
-      </label>
+      </label> -->
+      <div>
+        <div>
+          <label>
+            <input
+              type="radio"
+              value="html"
+              name="labelType"
+              (change)="labelsStateHandler($event)"
+            />
+            Html
+          </label>
+        </div>
+        <div>
+          <label>
+            <input
+              type="radio"
+              value="sprite"
+              name="labelType"
+              (change)="labelsStateHandler($event)"
+            />
+            Sprite
+          </label>
+        </div>
+      </div>
     </div>
   </section>
-  <div style="position: relative;width: 1002px;
-  height: 502px;margin: 0 auto;">
+  <div style="position: relative; width: 1002px; height: 502px; margin: 0 auto">
     <canvas
       height="500"
       width="1000"
