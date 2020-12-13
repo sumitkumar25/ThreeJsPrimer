@@ -44,44 +44,49 @@
           [checked]="enableConnections"
           (change)="connectionStateHandler($event)"
         />
-        connections Enabled
+        connections
       </label>
     </div>
-    <div>
-      <!-- <label for="enableLabels">
+    <div style="height: 100%;overflow: auto;">
+      <label>
         <input
-          type="checkbox"
-          name="enableLabels"
-          id="enableLabels"
-          [checked]="enableLabels"
+          type="radio"
+          value="html"
+          name="labelType"
           (change)="labelsStateHandler($event)"
         />
-        labels Enabled
-      </label> -->
-      <div>
-        <div>
-          <label>
-            <input
-              type="radio"
-              value="html"
-              name="labelType"
-              (change)="labelsStateHandler($event)"
-            />
-            Html
-          </label>
-        </div>
-        <div>
-          <label>
-            <input
-              type="radio"
-              value="sprite"
-              name="labelType"
-              (change)="labelsStateHandler($event)"
-            />
-            Sprite
-          </label>
-        </div>
-      </div>
+        Html
+      </label>
+      <hr />
+      <label>
+        <input
+          type="radio"
+          value="sprite"
+          name="labelType"
+          (change)="labelsStateHandler($event)"
+        />
+        npm SpriteText
+      </label>
+      <hr />
+      <label>
+        <input
+          type="radio"
+          value="mouseSprite"
+          name="labelType"
+          (change)="labelsStateHandler($event)"
+        />
+        npm Mouse Sprite
+      </label>
+      <hr />
+      <label>
+        <input
+          type="radio"
+          value="mouseSpriteNative"
+          name="labelType"
+          (change)="labelsStateHandler($event)"
+        />
+        native Mouse Sprite
+      </label>
     </div>
   </section>
   <div style="position: relative; width: 1002px; height: 502px; margin: 0 auto">
@@ -91,6 +96,8 @@
       #canvasEl
       (click)="clickHandler($event)"
     ></canvas>
+    <!-- (mouseover)="clickHandler($event)" -->
+
     <div id="labels"></div>
   </div>
 </section>

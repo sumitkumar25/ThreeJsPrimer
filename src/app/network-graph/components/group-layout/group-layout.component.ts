@@ -9,17 +9,14 @@ import {
   OnInit,
   ViewChild,
 } from "@angular/core";
-import { throttle } from "lodash";
 import { forkJoin } from "rxjs";
 import { ThreeService } from "src/app/three/services/three.service";
 import * as THREE from "three";
-import { Matrix4 } from "three";
 import SpriteText from "three-spritetext";
 import { LineSegments2 } from "three/examples/jsm/lines/LineSegments2";
 import { LineSegmentsGeometry } from "three/examples/jsm/lines/LineSegmentsGeometry";
 import * as Stats from "../../../../../node_modules/stats.js/build/stats.min.js";
 import { NetworkGraphRequestService } from "../../services/network-graph-request.service.js";
-import { ThreeFactoryService } from "../../services/three-factory.service.js";
 import { LineMaterial } from "./../../../../../node_modules/three/examples/jsm/lines/LineMaterial.js";
 @Component({
   selector: "app-group-layout",
@@ -72,6 +69,7 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
   };
   labelSpriteText: any;
   labelsElements: any = {};
+
   constructor(
     private threeService: ThreeService,
     private graphRequestService: NetworkGraphRequestService
@@ -92,7 +90,7 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
     //   this.canvasEl.nativeElement.offsetWidth /
     //   this.canvasEl.nativeElement.offsetHeight;
     // this.threeCommon.renderer.setPixelRatio(2);
-    this.threeCommon.scene.background = "black";
+    this.threeCommon.scene.background = new THREE.Color(0x000000);
     this.threeCommon.camera.updateProjectionMatrix();
     this.threeCommon.controls.addEventListener(
       "change",
@@ -102,8 +100,6 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
       "resize",
       this.requestRenderIfNotRequested.bind(this)
     );
-    const helper = new THREE.CameraHelper(this.threeCommon.camera);
-    this.threeCommon.scene.add(helper);
   }
 
   initRequests() {
@@ -113,6 +109,7 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
     ).subscribe(([groupData, mesh]) => {
       this.nodeMeshResponseHandler(mesh);
       this.groupsResponseHandler(groupData);
+      this.renderView();
     });
   }
 
@@ -146,6 +143,7 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
         attrObj.material,
         10000
       );
+      this.instancedNodeMesh.userData = { __graphObj: "nodeMesh" };
     } else {
       this.instancedNodeMesh.instanceMatrix.needsUpdate = true;
     }
@@ -236,26 +234,26 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
       //   frustum.containsPoint(position) &&
       //   this.threeCommon.camera.position.distanceTo(position) < 25
       // ) {
-        position.setY(position.y - 1);
-        position.project(this.threeCommon.camera);
-        // convert to unit  vector.
-        position.normalize();
-        if (Number.isNaN(position.x)) {
-          position.x = 0;
-        }
-        if (Number.isNaN(position.y)) {
-          position.y = 0;
-        }
-        const x = ((position.x + 1) * canvasBounds.width) / 2;
-        const y = ((1 - position.y) * canvasBounds.height) / 2;
-        elem.style.left = `${0}px`;
-        elem.style.top = `${0}px`;
-        elem.style.position = `absolute`;
-        elem.style.zIndex = (((-position.z * 0.5 + 0.5) * 100000) | 0) + "";
-        elem.style.minWidth = "100px";
-        elem.style.transform = `translate(${x}px,${y}px)`;
-        // "translate(-50%,-50%)";
-        docFrag.appendChild(elem);
+      position.setY(position.y - 1);
+      position.project(this.threeCommon.camera);
+      // convert to unit  vector.
+      position.normalize();
+      if (Number.isNaN(position.x)) {
+        position.x = 0;
+      }
+      if (Number.isNaN(position.y)) {
+        position.y = 0;
+      }
+      const x = ((position.x + 1) * canvasBounds.width) / 2;
+      const y = ((1 - position.y) * canvasBounds.height) / 2;
+      elem.style.left = `${0}px`;
+      elem.style.top = `${0}px`;
+      elem.style.position = `absolute`;
+      elem.style.zIndex = (((-position.z * 0.5 + 0.5) * 100000) | 0) + "";
+      elem.style.minWidth = "100px";
+      elem.style.transform = `translate(${x}px,${y}px)`;
+      // "translate(-50%,-50%)";
+      docFrag.appendChild(elem);
       // }
     }
     labelParentElem.append(docFrag);
@@ -452,18 +450,15 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
 
   labelsStateHandler($event) {
     this.threeService.cleanScene(this.threeCommon);
-    this.labelSpriteText = $event.target.value === "sprite";
+    this.labelSpriteText = $event.target.value;
     this.sceneController();
   }
 
   renderView() {
-    // this.configureRaycast();
+    this.configureRaycast();
+    this.configureLabels();
     this.renderRequested = false;
-    if (this.labelSpriteText) {
-      this.constructSpriteText();
-    }else{
-      this.constructHtmlText();
-    }
+
     if (this.resizeRendererToDisplaySize(this.threeCommon.renderer)) {
       const canvas = this.threeCommon.renderer.domElement;
       this.threeCommon.camera.aspect = canvas.clientWidth / canvas.clientHeight;
@@ -476,6 +471,22 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
     this.renderCalls = this.threeService.getRendererCallCount(
       this.threeCommon.renderer
     );
+  }
+
+  private configureLabels() {
+    if (this.labelSpriteText === "html") {
+      this.constructHtmlText();
+    } else if (this.labelSpriteText === "sprite") {
+      this.constructSpriteText();
+    }
+  }
+
+  private configureEventBasedLabels(intersects) {
+    if (this.labelSpriteText === "mouseSprite") {
+      this.addSpriteTextLabel(intersects);
+    } else if (this.labelSpriteText === "mouseSpriteNative") {
+      this.addSpriteNativeLabel(intersects);
+    }
   }
 
   resizeRendererToDisplaySize(renderer) {
@@ -513,5 +524,84 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
     //     this.lineClickHandler(lineRaycast[0]);
     //   }
     // }
+
+    if (this.mouse) {
+      this.raycaster.setFromCamera(this.mouse, this.threeCommon.camera);
+
+      // label
+      var intersects = this.raycaster.intersectObjects(
+        this.threeCommon.scene.children
+      );
+      if (
+        intersects &&
+        intersects[0] &&
+        intersects[0].object &&
+        intersects[0].object.userData.__graphObj === "nodeMesh"
+      ) {
+        this.configureEventBasedLabels(intersects);
+      }
+    }
+  }
+
+  private addSpriteTextLabel(intersects: THREE.Intersection[]) {
+    const sprite = new SpriteText("node label" + intersects[0].instanceId);
+    sprite.color = "#ffffff";
+    sprite.textHeight = 0.7;
+    sprite.visible = true;
+    const position = this.getLabelPosition(intersects);
+    sprite.position.set(position.x, position.y - 1.5, position.z);
+    this.threeCommon.scene.add(sprite);
+  }
+
+  addSpriteNativeLabel(intersects: any) {
+    const sprite = this.constructTooltipLabelSprite(
+      "node label" + intersects[0].instanceId
+    );
+    const position = this.getLabelPosition(intersects);
+    sprite.position.set(position.x, position.y - 3, position.z);
+    this.threeCommon.scene.add(sprite);
+  }
+
+  constructTooltipLabelSprite(text): any {
+    var font = "Arial";
+    var size = 130;
+    var color = "#ffffff";
+    var font = "bold " + size + "px " + font;
+
+    var canvas = document.createElement("canvas");
+    var context = canvas.getContext("2d");
+    context.font = font;
+
+    // get size data (height depends only on font size)
+    var metrics = context.measureText(text),
+      textWidth = metrics.width;
+
+    canvas.width = textWidth + 3;
+    canvas.height = size + 3;
+
+    context.font = font;
+    context.fillStyle = color;
+    context.fillText(text, 0, size + 3);
+    //context.style.border="3px solid blue";
+
+    // canvas contents will be used for a texture
+    var texture = new THREE.Texture(canvas);
+    texture.needsUpdate = true;
+
+    ////////////////////////////////////////
+
+    var spriteMaterial = new THREE.SpriteMaterial({ map: texture });
+
+    let sprite1 = new THREE.Sprite(spriteMaterial);
+    sprite1.scale.set(4, 1, 1.0);
+    return sprite1;
+  }
+
+  private getLabelPosition(intersects: THREE.Intersection[]) {
+    let matrix = new THREE.Matrix4();
+    this.instancedNodeMesh.getMatrixAt(intersects[0].instanceId, matrix);
+    const position = new THREE.Vector3();
+    position.setFromMatrixPosition(matrix);
+    return position;
   }
 }

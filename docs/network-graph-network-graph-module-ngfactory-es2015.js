@@ -1358,7 +1358,7 @@ __webpack_require__.r(__webpack_exports__);
 var styles_GroupLayoutComponent = [_group_layout_component_scss_shim_ngstyle__WEBPACK_IMPORTED_MODULE_0__["styles"]];
 var RenderType_GroupLayoutComponent = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵcrt"]({ encapsulation: 0, styles: styles_GroupLayoutComponent, data: {} });
 
-function View_GroupLayoutComponent_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵqud"](671088640, 1, { canvasEl: 0 }), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵqud"](671088640, 2, { statsEl: 0 }), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](2, 0, [[2, 0], ["stats", 1]], null, 34, "section", [["style", "position: relative"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](3, 0, null, null, 30, "section", [["class", "metrices"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](4, 0, null, null, 1, "div", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](5, null, ["Render Calls: ", ""])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](6, 0, null, null, 7, "div", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, [" Node type "])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](8, 0, null, null, 2, "label", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](9, 0, null, null, 0, "input", [["name", "nodeGeometryType"], ["type", "radio"], ["value", "obj"]], null, [[null, "change"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("change" === en)) {
+function View_GroupLayoutComponent_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵqud"](671088640, 1, { canvasEl: 0 }), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵqud"](671088640, 2, { statsEl: 0 }), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](2, 0, [[2, 0], ["stats", 1]], null, 40, "section", [["style", "position: relative"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](3, 0, null, null, 36, "section", [["class", "metrices"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](4, 0, null, null, 1, "div", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](5, null, ["Render Calls: ", ""])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](6, 0, null, null, 7, "div", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, [" Node type "])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](8, 0, null, null, 2, "label", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](9, 0, null, null, 0, "input", [["name", "nodeGeometryType"], ["type", "radio"], ["value", "obj"]], null, [[null, "change"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("change" === en)) {
         var pd_0 = (_co.nodeGeometryChangeHandler($event) !== false);
         ad = (pd_0 && ad);
     } return ad; }, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, [" Imported Model "])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](11, 0, null, null, 2, "label", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](12, 0, null, null, 0, "input", [["name", "nodeGeometryType"], ["type", "radio"], ["value", "buffer"]], null, [[null, "change"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("change" === en)) {
@@ -1370,16 +1370,22 @@ function View_GroupLayoutComponent_0(_l) { return _angular_core__WEBPACK_IMPORTE
     } return ad; }, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](18, 0, null, null, 1, "div", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](19, null, ["Connections: ", ""])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](20, 0, null, null, 3, "div", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](21, 0, null, null, 2, "label", [["for", "enable"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](22, 0, null, null, 0, "input", [["id", "enable"], ["name", "enable"], ["type", "checkbox"]], [[8, "checked", 0]], [[null, "change"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("change" === en)) {
         var pd_0 = (_co.connectionStateHandler($event) !== false);
         ad = (pd_0 && ad);
-    } return ad; }, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, [" connections Enabled "])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](24, 0, null, null, 9, "div", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](25, 0, null, null, 8, "div", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](26, 0, null, null, 3, "div", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](27, 0, null, null, 2, "label", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](28, 0, null, null, 0, "input", [["name", "labelType"], ["type", "radio"], ["value", "html"]], null, [[null, "change"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("change" === en)) {
+    } return ad; }, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, [" connections "])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](24, 0, null, null, 15, "div", [["style", "height: 100%;overflow: auto;"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](25, 0, null, null, 2, "label", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](26, 0, null, null, 0, "input", [["name", "labelType"], ["type", "radio"], ["value", "html"]], null, [[null, "change"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("change" === en)) {
         var pd_0 = (_co.labelsStateHandler($event) !== false);
         ad = (pd_0 && ad);
-    } return ad; }, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, [" Html "])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](30, 0, null, null, 3, "div", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](31, 0, null, null, 2, "label", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](32, 0, null, null, 0, "input", [["name", "labelType"], ["type", "radio"], ["value", "sprite"]], null, [[null, "change"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("change" === en)) {
+    } return ad; }, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, [" Html "])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](28, 0, null, null, 0, "hr", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](29, 0, null, null, 2, "label", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](30, 0, null, null, 0, "input", [["name", "labelType"], ["type", "radio"], ["value", "sprite"]], null, [[null, "change"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("change" === en)) {
         var pd_0 = (_co.labelsStateHandler($event) !== false);
         ad = (pd_0 && ad);
-    } return ad; }, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, [" Sprite "])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](34, 0, null, null, 2, "div", [["style", "position: relative; width: 1002px; height: 502px; margin: 0 auto"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](35, 0, [[1, 0], ["canvasEl", 1]], null, 0, "canvas", [["height", "500"], ["width", "1000"]], null, [[null, "click"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("click" === en)) {
+    } return ad; }, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, [" npm SpriteText "])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](32, 0, null, null, 0, "hr", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](33, 0, null, null, 2, "label", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](34, 0, null, null, 0, "input", [["name", "labelType"], ["type", "radio"], ["value", "mouseSprite"]], null, [[null, "change"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("change" === en)) {
+        var pd_0 = (_co.labelsStateHandler($event) !== false);
+        ad = (pd_0 && ad);
+    } return ad; }, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, [" npm Mouse Sprite "])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](36, 0, null, null, 0, "hr", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](37, 0, null, null, 2, "label", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](38, 0, null, null, 0, "input", [["name", "labelType"], ["type", "radio"], ["value", "mouseSpriteNative"]], null, [[null, "change"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("change" === en)) {
+        var pd_0 = (_co.labelsStateHandler($event) !== false);
+        ad = (pd_0 && ad);
+    } return ad; }, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, [" native Mouse Sprite "])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](40, 0, null, null, 2, "div", [["style", "position: relative; width: 1002px; height: 502px; margin: 0 auto"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](41, 0, [[1, 0], ["canvasEl", 1]], null, 0, "canvas", [["height", "500"], ["width", "1000"]], null, [[null, "click"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("click" === en)) {
         var pd_0 = (_co.clickHandler($event) !== false);
         ad = (pd_0 && ad);
-    } return ad; }, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](36, 0, null, null, 0, "div", [["id", "labels"]], null, null, null, null, null))], null, function (_ck, _v) { var _co = _v.component; var currVal_0 = _co.renderCalls; _ck(_v, 5, 0, currVal_0); var currVal_1 = _co.objectCount; _ck(_v, 17, 0, currVal_1); var currVal_2 = _co.connectionCount; _ck(_v, 19, 0, currVal_2); var currVal_3 = _co.enableConnections; _ck(_v, 22, 0, currVal_3); }); }
+    } return ad; }, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](42, 0, null, null, 0, "div", [["id", "labels"]], null, null, null, null, null))], null, function (_ck, _v) { var _co = _v.component; var currVal_0 = _co.renderCalls; _ck(_v, 5, 0, currVal_0); var currVal_1 = _co.objectCount; _ck(_v, 17, 0, currVal_1); var currVal_2 = _co.connectionCount; _ck(_v, 19, 0, currVal_2); var currVal_3 = _co.enableConnections; _ck(_v, 22, 0, currVal_3); }); }
 function View_GroupLayoutComponent_Host_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](0, 0, null, null, 1, "app-group-layout", [], null, null, null, View_GroupLayoutComponent_0, RenderType_GroupLayoutComponent)), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](1, 4308992, null, 0, _group_layout_component__WEBPACK_IMPORTED_MODULE_2__["GroupLayoutComponent"], [_three_services_three_service__WEBPACK_IMPORTED_MODULE_3__["ThreeService"], _services_network_graph_request_service__WEBPACK_IMPORTED_MODULE_4__["NetworkGraphRequestService"]], null, null)], function (_ck, _v) { _ck(_v, 1, 0); }, null); }
 var GroupLayoutComponentNgFactory = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵccf"]("app-group-layout", _group_layout_component__WEBPACK_IMPORTED_MODULE_2__["GroupLayoutComponent"], View_GroupLayoutComponent_Host_0, {}, {}, []);
 
@@ -1467,17 +1473,16 @@ class GroupLayoutComponent {
         //   this.canvasEl.nativeElement.offsetWidth /
         //   this.canvasEl.nativeElement.offsetHeight;
         // this.threeCommon.renderer.setPixelRatio(2);
-        this.threeCommon.scene.background = "black";
+        this.threeCommon.scene.background = new three__WEBPACK_IMPORTED_MODULE_2__["Color"](0x000000);
         this.threeCommon.camera.updateProjectionMatrix();
         this.threeCommon.controls.addEventListener("change", this.requestRenderIfNotRequested.bind(this));
         window.addEventListener("resize", this.requestRenderIfNotRequested.bind(this));
-        const helper = new three__WEBPACK_IMPORTED_MODULE_2__["CameraHelper"](this.threeCommon.camera);
-        this.threeCommon.scene.add(helper);
     }
     initRequests() {
         Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["forkJoin"])(this.graphRequestService.getGroups(), this.graphRequestService.getNodeMesh()).subscribe(([groupData, mesh]) => {
             this.nodeMeshResponseHandler(mesh);
             this.groupsResponseHandler(groupData);
+            this.renderView();
         });
     }
     nodeMeshResponseHandler(mesh) {
@@ -1505,6 +1510,7 @@ class GroupLayoutComponent {
             }
             const attrObj = this.loadObjModel ? this.nodeMesh : this.nodeMeshBuffer;
             this.instancedNodeMesh = new three__WEBPACK_IMPORTED_MODULE_2__["InstancedMesh"](attrObj.geometry, attrObj.material, 10000);
+            this.instancedNodeMesh.userData = { __graphObj: "nodeMesh" };
         }
         else {
             this.instancedNodeMesh.instanceMatrix.needsUpdate = true;
@@ -1753,18 +1759,13 @@ class GroupLayoutComponent {
     }
     labelsStateHandler($event) {
         this.threeService.cleanScene(this.threeCommon);
-        this.labelSpriteText = $event.target.value === "sprite";
+        this.labelSpriteText = $event.target.value;
         this.sceneController();
     }
     renderView() {
-        // this.configureRaycast();
+        this.configureRaycast();
+        this.configureLabels();
         this.renderRequested = false;
-        if (this.labelSpriteText) {
-            this.constructSpriteText();
-        }
-        else {
-            this.constructHtmlText();
-        }
         if (this.resizeRendererToDisplaySize(this.threeCommon.renderer)) {
             const canvas = this.threeCommon.renderer.domElement;
             this.threeCommon.camera.aspect = canvas.clientWidth / canvas.clientHeight;
@@ -1772,6 +1773,22 @@ class GroupLayoutComponent {
         }
         this.threeCommon.renderer.render(this.threeCommon.scene, this.threeCommon.camera);
         this.renderCalls = this.threeService.getRendererCallCount(this.threeCommon.renderer);
+    }
+    configureLabels() {
+        if (this.labelSpriteText === "html") {
+            this.constructHtmlText();
+        }
+        else if (this.labelSpriteText === "sprite") {
+            this.constructSpriteText();
+        }
+    }
+    configureEventBasedLabels(intersects) {
+        if (this.labelSpriteText === "mouseSprite") {
+            this.addSpriteTextLabel(intersects);
+        }
+        else if (this.labelSpriteText === "mouseSpriteNative") {
+            this.addSpriteNativeLabel(intersects);
+        }
     }
     resizeRendererToDisplaySize(renderer) {
         const canvas = renderer.domElement;
@@ -1807,6 +1824,64 @@ class GroupLayoutComponent {
         //     this.lineClickHandler(lineRaycast[0]);
         //   }
         // }
+        if (this.mouse) {
+            this.raycaster.setFromCamera(this.mouse, this.threeCommon.camera);
+            // label
+            var intersects = this.raycaster.intersectObjects(this.threeCommon.scene.children);
+            if (intersects &&
+                intersects[0] &&
+                intersects[0].object &&
+                intersects[0].object.userData.__graphObj === "nodeMesh") {
+                this.configureEventBasedLabels(intersects);
+            }
+        }
+    }
+    addSpriteTextLabel(intersects) {
+        const sprite = new three_spritetext__WEBPACK_IMPORTED_MODULE_3__["default"]("node label" + intersects[0].instanceId);
+        sprite.color = "#ffffff";
+        sprite.textHeight = 0.7;
+        sprite.visible = true;
+        const position = this.getLabelPosition(intersects);
+        sprite.position.set(position.x, position.y - 1.5, position.z);
+        this.threeCommon.scene.add(sprite);
+    }
+    addSpriteNativeLabel(intersects) {
+        const sprite = this.constructTooltipLabelSprite("node label" + intersects[0].instanceId);
+        const position = this.getLabelPosition(intersects);
+        sprite.position.set(position.x, position.y - 3, position.z);
+        this.threeCommon.scene.add(sprite);
+    }
+    constructTooltipLabelSprite(text) {
+        var font = "Arial";
+        var size = 130;
+        var color = "#ffffff";
+        var font = "bold " + size + "px " + font;
+        var canvas = document.createElement("canvas");
+        var context = canvas.getContext("2d");
+        context.font = font;
+        // get size data (height depends only on font size)
+        var metrics = context.measureText(text), textWidth = metrics.width;
+        canvas.width = textWidth + 3;
+        canvas.height = size + 3;
+        context.font = font;
+        context.fillStyle = color;
+        context.fillText(text, 0, size + 3);
+        //context.style.border="3px solid blue";
+        // canvas contents will be used for a texture
+        var texture = new three__WEBPACK_IMPORTED_MODULE_2__["Texture"](canvas);
+        texture.needsUpdate = true;
+        ////////////////////////////////////////
+        var spriteMaterial = new three__WEBPACK_IMPORTED_MODULE_2__["SpriteMaterial"]({ map: texture });
+        let sprite1 = new three__WEBPACK_IMPORTED_MODULE_2__["Sprite"](spriteMaterial);
+        sprite1.scale.set(4, 1, 1.0);
+        return sprite1;
+    }
+    getLabelPosition(intersects) {
+        let matrix = new three__WEBPACK_IMPORTED_MODULE_2__["Matrix4"]();
+        this.instancedNodeMesh.getMatrixAt(intersects[0].instanceId, matrix);
+        const position = new three__WEBPACK_IMPORTED_MODULE_2__["Vector3"]();
+        position.setFromMatrixPosition(matrix);
+        return position;
     }
 }
 
