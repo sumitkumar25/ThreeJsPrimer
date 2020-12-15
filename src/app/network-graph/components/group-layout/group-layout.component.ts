@@ -92,10 +92,11 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
     // this.threeCommon.renderer.setPixelRatio(2);
     this.threeCommon.scene.background = new THREE.Color(0x000000);
     this.threeCommon.camera.updateProjectionMatrix();
-    this.threeCommon.controls.addEventListener(
-      "change",
-      this.requestRenderIfNotRequested.bind(this)
-    );
+    this.threeCommon.controls.addEventListener("change", () => {
+      // this.configureRaycast();
+      // this.configureLabels();
+      this.requestRenderIfNotRequested();
+    });
     window.addEventListener(
       "resize",
       this.requestRenderIfNotRequested.bind(this)
@@ -109,7 +110,6 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
     ).subscribe(([groupData, mesh]) => {
       this.nodeMeshResponseHandler(mesh);
       this.groupsResponseHandler(groupData);
-      this.renderView();
     });
   }
 
@@ -203,79 +203,11 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
       this.configureLineSegmentConnections();
       this.configureDirectionalArrows();
     }
-    this.renderView();
-  }
-  constructHtmlText() {
-    const labelParentElem = document.querySelector("#labels");
-    labelParentElem.innerHTML = "";
-    const docFrag = document.createDocumentFragment();
-    let canvasBounds = this.threeCommon.renderer.context.canvas.getBoundingClientRect();
-    const frustum = new THREE.Frustum();
-
-    for (let index = 0; index < this.objectCount; index++) {
-      const elem = document.createElement("div");
-      elem.className = "label-div";
-      elem.textContent = "node name " + index;
-      let matrix = new THREE.Matrix4();
-      this.instancedNodeMesh.getMatrixAt(index, matrix);
-      const position = new THREE.Vector3();
-      position.setFromMatrixPosition(matrix);
-      this.threeCommon.camera.updateMatrix();
-      this.threeCommon.camera.updateMatrixWorld();
-
-      frustum.setFromProjectionMatrix(
-        new THREE.Matrix4().multiplyMatrices(
-          this.threeCommon.camera.projectionMatrix,
-          this.threeCommon.camera.matrixWorldInverse
-        )
-      );
-
-      // if (
-      //   frustum.containsPoint(position) &&
-      //   this.threeCommon.camera.position.distanceTo(position) < 25
-      // ) {
-      position.setY(position.y - 1);
-      position.project(this.threeCommon.camera);
-      // convert to unit  vector.
-      position.normalize();
-      if (Number.isNaN(position.x)) {
-        position.x = 0;
-      }
-      if (Number.isNaN(position.y)) {
-        position.y = 0;
-      }
-      const x = ((position.x + 1) * canvasBounds.width) / 2;
-      const y = ((1 - position.y) * canvasBounds.height) / 2;
-      elem.style.left = `${0}px`;
-      elem.style.top = `${0}px`;
-      elem.style.position = `absolute`;
-      elem.style.zIndex = (((-position.z * 0.5 + 0.5) * 100000) | 0) + "";
-      elem.style.minWidth = "100px";
-      elem.style.transform = `translate(${x}px,${y}px)`;
-      // "translate(-50%,-50%)";
-      docFrag.appendChild(elem);
-      // }
-    }
-    labelParentElem.append(docFrag);
+    this.configureRaycast();
+    this.configureLabels();
+    this.requestRenderIfNotRequested();
   }
 
-  constructSpriteText() {
-    const cameraPosition = this.threeCommon.controls.target;
-    for (let index = 0; index < this.objectCount; index++) {
-      let matrix = new THREE.Matrix4();
-      this.instancedNodeMesh.getMatrixAt(index, matrix);
-      const position = new THREE.Vector3();
-      position.setFromMatrixPosition(matrix);
-      // console.log(cameraPosition.distanceTo(position), `node index ${index}`);
-      const sprite = new SpriteText(`node index ${index}`);
-      sprite.color = "#b3b3b3";
-      sprite.textHeight = 0.25;
-      sprite.visible = true;
-      sprite.position.setX(position.x);
-      sprite.position.setY(position.y + 1.2);
-      this.threeCommon.scene.add(sprite);
-    }
-  }
   configureDirectionalArrows() {
     let newMesh = !this.directionInstanceMesh;
     if (newMesh) {
@@ -409,7 +341,8 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
       ) *
         2 +
       1;
-    this.renderView();
+    this.configureRaycast();
+    this.configureLabels();
   }
 
   objectCountChangeHandler($event) {
@@ -455,10 +388,7 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
   }
 
   renderView() {
-    this.configureRaycast();
-    this.configureLabels();
     this.renderRequested = false;
-
     if (this.resizeRendererToDisplaySize(this.threeCommon.renderer)) {
       const canvas = this.threeCommon.renderer.domElement;
       this.threeCommon.camera.aspect = canvas.clientWidth / canvas.clientHeight;
@@ -475,17 +405,19 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
 
   private configureLabels() {
     if (this.labelSpriteText === "html") {
-      this.constructHtmlText();
+      this.htmlOverlayAllLabels();
     } else if (this.labelSpriteText === "sprite") {
-      this.constructSpriteText();
+      this.npmSpriteAllLabels();
+    } else if (this.labelSpriteText === "allMouseSpriteNative") {
+      this.nativeSpriteAllLabels();
     }
   }
 
   private configureEventBasedLabels(intersects) {
     if (this.labelSpriteText === "mouseSprite") {
-      this.addSpriteTextLabel(intersects);
+      this.npmSpriteOnEvent(intersects);
     } else if (this.labelSpriteText === "mouseSpriteNative") {
-      this.addSpriteNativeLabel(intersects);
+      this.nativeSpriteOnEvent(intersects);
     }
   }
 
@@ -542,27 +474,118 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
       }
     }
   }
-
-  private addSpriteTextLabel(intersects: THREE.Intersection[]) {
+  /**
+   * NPM sprite text. On mouse click
+   */
+  private npmSpriteOnEvent(intersects: THREE.Intersection[]) {
     const sprite = new SpriteText("node label" + intersects[0].instanceId);
     sprite.color = "#ffffff";
     sprite.textHeight = 0.7;
     sprite.visible = true;
-    const position = this.getLabelPosition(intersects);
-    sprite.position.set(position.x, position.y - 1.5, position.z);
+    const position = this.getLabelPosition(intersects, null);
+    sprite.position.set(position.x, position.y - 2, position.z);
     this.threeCommon.scene.add(sprite);
   }
-
-  addSpriteNativeLabel(intersects: any) {
-    const sprite = this.constructTooltipLabelSprite(
+  /**
+   * NPM sprite text. all labels
+   */
+  npmSpriteAllLabels() {
+    for (let index = 0; index < this.objectCount; index++) {
+      let matrix = new THREE.Matrix4();
+      this.instancedNodeMesh.getMatrixAt(index, matrix);
+      const position = new THREE.Vector3();
+      position.setFromMatrixPosition(matrix);
+      // console.log(cameraPosition.distanceTo(position), `node index ${index}`);
+      const sprite = new SpriteText(`node index ${index}`);
+      sprite.color = "#b3b3b3";
+      sprite.textHeight = 0.25;
+      sprite.visible = true;
+      sprite.position.setX(position.x);
+      sprite.position.setY(position.y + 1.2);
+      this.threeCommon.scene.add(sprite);
+    }
+  }
+  /**
+   * Native canvas sprite text. On mouse click
+   */
+  private nativeSpriteOnEvent(intersects: any) {
+    const sprite = this.createNativeSpriteLabel(
       "node label" + intersects[0].instanceId
     );
-    const position = this.getLabelPosition(intersects);
-    sprite.position.set(position.x, position.y - 3, position.z);
+    const position = this.getLabelPosition(intersects, null);
+    sprite.position.set(position.x, position.y - 2, position.z);
     this.threeCommon.scene.add(sprite);
   }
 
-  constructTooltipLabelSprite(text): any {
+  /**
+   * Native canvas sprite text. all labels
+   */
+  nativeSpriteAllLabels() {
+    for (let index = 0; index < this.objectCount; index++) {
+      const position = this.getLabelPosition(null, index);
+      const sprite = this.createNativeSpriteLabel(`node index ${index}`);
+      sprite.position.setX(position.x);
+      sprite.position.setY(position.y - 2);
+      this.threeCommon.scene.add(sprite);
+    }
+  }
+  /**
+   * HTML overlay. all labels
+   */
+  htmlOverlayAllLabels() {
+    const labelParentElem = document.querySelector("#labels");
+    labelParentElem.innerHTML = "";
+    const docFrag = document.createDocumentFragment();
+    let canvasBounds = this.threeCommon.renderer.context.canvas.getBoundingClientRect();
+    const frustum = new THREE.Frustum();
+
+    for (let index = 0; index < this.objectCount; index++) {
+      const elem = document.createElement("div");
+      elem.className = "label-div";
+      elem.textContent = "node name " + index;
+      elem.setAttribute("data-matrix-id", index + "");
+      let matrix = new THREE.Matrix4();
+      this.instancedNodeMesh.getMatrixAt(index, matrix);
+      const position = new THREE.Vector3();
+      position.setFromMatrixPosition(matrix);
+      this.threeCommon.camera.updateMatrix();
+      this.threeCommon.camera.updateMatrixWorld();
+
+      frustum.setFromProjectionMatrix(
+        new THREE.Matrix4().multiplyMatrices(
+          this.threeCommon.camera.projectionMatrix,
+          this.threeCommon.camera.matrixWorldInverse
+        )
+      );
+
+      // if (
+      //   frustum.containsPoint(position) &&
+      //   this.threeCommon.camera.position.distanceTo(position) < 25
+      // ) {
+      position.setY(position.y - 1);
+      position.project(this.threeCommon.camera);
+      // convert to unit  vector.
+      position.normalize();
+      if (Number.isNaN(position.x)) {
+        position.x = 0;
+      }
+      if (Number.isNaN(position.y)) {
+        position.y = 0;
+      }
+      const x = ((position.x + 1) * canvasBounds.width) / 2;
+      const y = ((1 - position.y) * canvasBounds.height) / 2;
+      elem.style.left = `${0}px`;
+      elem.style.top = `${0}px`;
+      elem.style.position = `absolute`;
+      elem.style.zIndex = (((-position.z * 0.5 + 0.5) * 100000) | 0) + "";
+      elem.style.minWidth = "100px";
+      elem.style.transform = `translate(${x}px,${y}px)`;
+      docFrag.appendChild(elem);
+    }
+    labelParentElem.append(docFrag);
+  }
+
+  createNativeSpriteLabel(text): any {
     var font = "Arial";
     var size = 130;
     var color = "#ffffff";
@@ -571,8 +594,6 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
     var canvas = document.createElement("canvas");
     var context = canvas.getContext("2d");
     context.font = font;
-
-    // get size data (height depends only on font size)
     var metrics = context.measureText(text),
       textWidth = metrics.width;
 
@@ -582,13 +603,8 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
     context.font = font;
     context.fillStyle = color;
     context.fillText(text, 0, size + 3);
-    //context.style.border="3px solid blue";
-
-    // canvas contents will be used for a texture
     var texture = new THREE.Texture(canvas);
     texture.needsUpdate = true;
-
-    ////////////////////////////////////////
 
     var spriteMaterial = new THREE.SpriteMaterial({ map: texture });
 
@@ -597,9 +613,10 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
     return sprite1;
   }
 
-  private getLabelPosition(intersects: THREE.Intersection[]) {
+  private getLabelPosition(intersects: THREE.Intersection[], index) {
+    const _index = intersects[0].instanceId || index;
     let matrix = new THREE.Matrix4();
-    this.instancedNodeMesh.getMatrixAt(intersects[0].instanceId, matrix);
+    this.instancedNodeMesh.getMatrixAt(_index, matrix);
     const position = new THREE.Vector3();
     position.setFromMatrixPosition(matrix);
     return position;

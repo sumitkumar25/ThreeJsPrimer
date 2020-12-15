@@ -47,7 +47,7 @@
         connections
       </label>
     </div>
-    <div style="height: 100%;overflow: auto;">
+    <div class="text-metrices">
       <label>
         <input
           type="radio"
@@ -55,7 +55,7 @@
           name="labelType"
           (change)="labelsStateHandler($event)"
         />
-        Html
+        All Html
       </label>
       <hr />
       <label>
@@ -65,9 +65,20 @@
           name="labelType"
           (change)="labelsStateHandler($event)"
         />
-        npm SpriteText
+        All npm SpriteText
       </label>
       <hr />
+      <label>
+        <input
+          type="radio"
+          value="allMouseSpriteNative"
+          name="labelType"
+          (change)="labelsStateHandler($event)"
+        />
+        All native Mouse Sprite
+      </label>
+      <hr />
+
       <label>
         <input
           type="radio"
@@ -75,7 +86,7 @@
           name="labelType"
           (change)="labelsStateHandler($event)"
         />
-        npm Mouse Sprite
+        Event npm SpriteText
       </label>
       <hr />
       <label>
@@ -85,7 +96,7 @@
           name="labelType"
           (change)="labelsStateHandler($event)"
         />
-        native Mouse Sprite
+        Event native Mouse Sprite
       </label>
     </div>
   </section>

@@ -35,3 +35,14 @@
     -1px 1px 0 #000, -1px 0 0 #000;
   width: 100px;
 }
+
+.text-metrices {
+  overflow: auto;
+  position: fixed;
+  right: 0;
+  width: 160px;
+  background-color: white;
+  top: 10px;
+  border: solid;
+  padding: 10px;
+}

@@ -1358,7 +1358,7 @@ __webpack_require__.r(__webpack_exports__);
 var styles_GroupLayoutComponent = [_group_layout_component_scss_shim_ngstyle__WEBPACK_IMPORTED_MODULE_0__["styles"]];
 var RenderType_GroupLayoutComponent = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵcrt"]({ encapsulation: 0, styles: styles_GroupLayoutComponent, data: {} });
 
-function View_GroupLayoutComponent_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵqud"](671088640, 1, { canvasEl: 0 }), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵqud"](671088640, 2, { statsEl: 0 }), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](2, 0, [[2, 0], ["stats", 1]], null, 40, "section", [["style", "position: relative"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](3, 0, null, null, 36, "section", [["class", "metrices"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](4, 0, null, null, 1, "div", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](5, null, ["Render Calls: ", ""])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](6, 0, null, null, 7, "div", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, [" Node type "])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](8, 0, null, null, 2, "label", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](9, 0, null, null, 0, "input", [["name", "nodeGeometryType"], ["type", "radio"], ["value", "obj"]], null, [[null, "change"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("change" === en)) {
+function View_GroupLayoutComponent_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵqud"](671088640, 1, { canvasEl: 0 }), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵqud"](671088640, 2, { statsEl: 0 }), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](2, 0, [[2, 0], ["stats", 1]], null, 44, "section", [["style", "position: relative"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](3, 0, null, null, 40, "section", [["class", "metrices"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](4, 0, null, null, 1, "div", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](5, null, ["Render Calls: ", ""])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](6, 0, null, null, 7, "div", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, [" Node type "])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](8, 0, null, null, 2, "label", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](9, 0, null, null, 0, "input", [["name", "nodeGeometryType"], ["type", "radio"], ["value", "obj"]], null, [[null, "change"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("change" === en)) {
         var pd_0 = (_co.nodeGeometryChangeHandler($event) !== false);
         ad = (pd_0 && ad);
     } return ad; }, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, [" Imported Model "])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](11, 0, null, null, 2, "label", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](12, 0, null, null, 0, "input", [["name", "nodeGeometryType"], ["type", "radio"], ["value", "buffer"]], null, [[null, "change"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("change" === en)) {
@@ -1370,22 +1370,25 @@ function View_GroupLayoutComponent_0(_l) { return _angular_core__WEBPACK_IMPORTE
     } return ad; }, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](18, 0, null, null, 1, "div", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](19, null, ["Connections: ", ""])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](20, 0, null, null, 3, "div", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](21, 0, null, null, 2, "label", [["for", "enable"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](22, 0, null, null, 0, "input", [["id", "enable"], ["name", "enable"], ["type", "checkbox"]], [[8, "checked", 0]], [[null, "change"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("change" === en)) {
         var pd_0 = (_co.connectionStateHandler($event) !== false);
         ad = (pd_0 && ad);
-    } return ad; }, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, [" connections "])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](24, 0, null, null, 15, "div", [["style", "height: 100%;overflow: auto;"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](25, 0, null, null, 2, "label", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](26, 0, null, null, 0, "input", [["name", "labelType"], ["type", "radio"], ["value", "html"]], null, [[null, "change"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("change" === en)) {
+    } return ad; }, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, [" connections "])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](24, 0, null, null, 19, "div", [["class", "text-metrices"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](25, 0, null, null, 2, "label", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](26, 0, null, null, 0, "input", [["name", "labelType"], ["type", "radio"], ["value", "html"]], null, [[null, "change"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("change" === en)) {
         var pd_0 = (_co.labelsStateHandler($event) !== false);
         ad = (pd_0 && ad);
-    } return ad; }, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, [" Html "])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](28, 0, null, null, 0, "hr", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](29, 0, null, null, 2, "label", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](30, 0, null, null, 0, "input", [["name", "labelType"], ["type", "radio"], ["value", "sprite"]], null, [[null, "change"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("change" === en)) {
+    } return ad; }, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, [" All Html "])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](28, 0, null, null, 0, "hr", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](29, 0, null, null, 2, "label", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](30, 0, null, null, 0, "input", [["name", "labelType"], ["type", "radio"], ["value", "sprite"]], null, [[null, "change"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("change" === en)) {
         var pd_0 = (_co.labelsStateHandler($event) !== false);
         ad = (pd_0 && ad);
-    } return ad; }, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, [" npm SpriteText "])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](32, 0, null, null, 0, "hr", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](33, 0, null, null, 2, "label", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](34, 0, null, null, 0, "input", [["name", "labelType"], ["type", "radio"], ["value", "mouseSprite"]], null, [[null, "change"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("change" === en)) {
+    } return ad; }, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, [" All npm SpriteText "])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](32, 0, null, null, 0, "hr", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](33, 0, null, null, 2, "label", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](34, 0, null, null, 0, "input", [["name", "labelType"], ["type", "radio"], ["value", "allMouseSpriteNative"]], null, [[null, "change"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("change" === en)) {
         var pd_0 = (_co.labelsStateHandler($event) !== false);
         ad = (pd_0 && ad);
-    } return ad; }, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, [" npm Mouse Sprite "])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](36, 0, null, null, 0, "hr", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](37, 0, null, null, 2, "label", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](38, 0, null, null, 0, "input", [["name", "labelType"], ["type", "radio"], ["value", "mouseSpriteNative"]], null, [[null, "change"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("change" === en)) {
+    } return ad; }, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, [" All native Mouse Sprite "])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](36, 0, null, null, 0, "hr", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](37, 0, null, null, 2, "label", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](38, 0, null, null, 0, "input", [["name", "labelType"], ["type", "radio"], ["value", "mouseSprite"]], null, [[null, "change"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("change" === en)) {
         var pd_0 = (_co.labelsStateHandler($event) !== false);
         ad = (pd_0 && ad);
-    } return ad; }, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, [" native Mouse Sprite "])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](40, 0, null, null, 2, "div", [["style", "position: relative; width: 1002px; height: 502px; margin: 0 auto"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](41, 0, [[1, 0], ["canvasEl", 1]], null, 0, "canvas", [["height", "500"], ["width", "1000"]], null, [[null, "click"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("click" === en)) {
+    } return ad; }, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, [" Event npm SpriteText "])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](40, 0, null, null, 0, "hr", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](41, 0, null, null, 2, "label", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](42, 0, null, null, 0, "input", [["name", "labelType"], ["type", "radio"], ["value", "mouseSpriteNative"]], null, [[null, "change"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("change" === en)) {
+        var pd_0 = (_co.labelsStateHandler($event) !== false);
+        ad = (pd_0 && ad);
+    } return ad; }, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, [" Event native Mouse Sprite "])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](44, 0, null, null, 2, "div", [["style", "position: relative; width: 1002px; height: 502px; margin: 0 auto"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](45, 0, [[1, 0], ["canvasEl", 1]], null, 0, "canvas", [["height", "500"], ["width", "1000"]], null, [[null, "click"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("click" === en)) {
         var pd_0 = (_co.clickHandler($event) !== false);
         ad = (pd_0 && ad);
-    } return ad; }, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](42, 0, null, null, 0, "div", [["id", "labels"]], null, null, null, null, null))], null, function (_ck, _v) { var _co = _v.component; var currVal_0 = _co.renderCalls; _ck(_v, 5, 0, currVal_0); var currVal_1 = _co.objectCount; _ck(_v, 17, 0, currVal_1); var currVal_2 = _co.connectionCount; _ck(_v, 19, 0, currVal_2); var currVal_3 = _co.enableConnections; _ck(_v, 22, 0, currVal_3); }); }
+    } return ad; }, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](46, 0, null, null, 0, "div", [["id", "labels"]], null, null, null, null, null))], null, function (_ck, _v) { var _co = _v.component; var currVal_0 = _co.renderCalls; _ck(_v, 5, 0, currVal_0); var currVal_1 = _co.objectCount; _ck(_v, 17, 0, currVal_1); var currVal_2 = _co.connectionCount; _ck(_v, 19, 0, currVal_2); var currVal_3 = _co.enableConnections; _ck(_v, 22, 0, currVal_3); }); }
 function View_GroupLayoutComponent_Host_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](0, 0, null, null, 1, "app-group-layout", [], null, null, null, View_GroupLayoutComponent_0, RenderType_GroupLayoutComponent)), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](1, 4308992, null, 0, _group_layout_component__WEBPACK_IMPORTED_MODULE_2__["GroupLayoutComponent"], [_three_services_three_service__WEBPACK_IMPORTED_MODULE_3__["ThreeService"], _services_network_graph_request_service__WEBPACK_IMPORTED_MODULE_4__["NetworkGraphRequestService"]], null, null)], function (_ck, _v) { _ck(_v, 1, 0); }, null); }
 var GroupLayoutComponentNgFactory = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵccf"]("app-group-layout", _group_layout_component__WEBPACK_IMPORTED_MODULE_2__["GroupLayoutComponent"], View_GroupLayoutComponent_Host_0, {}, {}, []);
 
@@ -1409,7 +1412,7 @@ __webpack_require__.r(__webpack_exports__);
  * @suppress {suspiciousCode,uselessCode,missingProperties,missingOverride,checkTypes}
  * tslint:disable
  */ 
-var styles = [".metrices[_ngcontent-%COMP%] {\n  position: fixed;\n  width: 90vw;\n  top: 0;\n  height: 50px;\n  left: 81px;\n  overflow: scroll;\n  border: solid 1px #333;\n  border-radius: 10px;\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n  background-color: white;\n}\n.metrices[_ngcontent-%COMP%]   div[_ngcontent-%COMP%] {\n  border-right: solid 5px #333;\n  padding: 0 5px;\n}\n#labels[_ngcontent-%COMP%] {\n  position: absolute;\n  \n  z-index: 0;\n  \n  left: 0;\n  \n  top: 0;\n  color: #ec0303;\n}\n#labels[_ngcontent-%COMP%]    > div[_ngcontent-%COMP%] {\n  position: absolute;\n  \n  left: 0;\n  \n  top: 0;\n  cursor: pointer;\n  \n  font-size: small;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  \n  pointer-events: none;\n  \n  text-shadow: -1px -1px 0 #000, 0 -1px 0 #000, 1px -1px 0 #000, 1px 0 0 #000, 1px 1px 0 #000, 0 1px 0 #000, -1px 1px 0 #000, -1px 0 0 #000;\n  width: 100px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9zdW1pdC5rdW1hci9Xb3Jrc3BhY2UvZ2l0aHViL3NvdXJjZWNvZGUvVGhyZWVKc1ByaW1lci9zcmMvYXBwL25ldHdvcmstZ3JhcGgvY29tcG9uZW50cy9ncm91cC1sYXlvdXQvZ3JvdXAtbGF5b3V0LmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9uZXR3b3JrLWdyYXBoL2NvbXBvbmVudHMvZ3JvdXAtbGF5b3V0L2dyb3VwLWxheW91dC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGVBQUE7RUFDQSxXQUFBO0VBQ0EsTUFBQTtFQUNBLFlBQUE7RUFDQSxVQUFBO0VBQ0EsZ0JBQUE7RUFDQSxzQkFBQTtFQUNBLG1CQUFBO0VBQ0Esb0JBQUE7RUFBQSxhQUFBO0VBQ0EseUJBQUE7VUFBQSxtQkFBQTtFQUNBLHVCQUFBO0FDQ0Y7QURBRTtFQUNFLDRCQUFBO0VBQ0EsY0FBQTtBQ0VKO0FEQ0E7RUFDRSxrQkFBQTtFQUFvQixpREFBQTtFQUNwQixVQUFBO0VBQVkseUVBQUE7RUFDWixPQUFBO0VBQVMsb0RBQUE7RUFDVCxNQUFBO0VBQ0EsY0FBQTtBQ0tGO0FESEE7RUFDRSxrQkFBQTtFQUFvQiw4Q0FBQTtFQUNwQixPQUFBO0VBQVMsOERBQUE7RUFDVCxNQUFBO0VBQ0EsZUFBQTtFQUFpQiw2Q0FBQTtFQUNqQixnQkFBQTtFQUNBLHlCQUFBO0tBQUEsc0JBQUE7TUFBQSxxQkFBQTtVQUFBLGlCQUFBO0VBQW1CLG9DQUFBO0VBQ25CLG9CQUFBO0VBQXNCLHFDQUFBO0VBQ3RCLHlJQUFBO0VBR0EsWUFBQTtBQ1NGIiwiZmlsZSI6InNyYy9hcHAvbmV0d29yay1ncmFwaC9jb21wb25lbnRzL2dyb3VwLWxheW91dC9ncm91cC1sYXlvdXQuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIubWV0cmljZXMge1xuICBwb3NpdGlvbjogZml4ZWQ7XG4gIHdpZHRoOiA5MHZ3O1xuICB0b3A6IDA7XG4gIGhlaWdodDogNTBweDtcbiAgbGVmdDogODFweDtcbiAgb3ZlcmZsb3c6IHNjcm9sbDtcbiAgYm9yZGVyOiBzb2xpZCAxcHggIzMzMztcbiAgYm9yZGVyLXJhZGl1czogMTBweDtcbiAgZGlzcGxheTogZmxleDtcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgYmFja2dyb3VuZC1jb2xvcjogd2hpdGU7XG4gIGRpdiB7XG4gICAgYm9yZGVyLXJpZ2h0OiBzb2xpZCA1cHggIzMzMztcbiAgICBwYWRkaW5nOiAwIDVweDtcbiAgfVxufVxuI2xhYmVscyB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTsgLyogbGV0IHVzIHBvc2l0aW9uIG91cnNlbGYgaW5zaWRlIHRoZSBjb250YWluZXIgKi9cbiAgei1pbmRleDogMDsgLyogbWFrZSBhIG5ldyBzdGFja2luZyBjb250ZXh0IHNvIGNoaWxkcmVuIGRvbid0IHNvcnQgd2l0aCByZXN0IG9mIHBhZ2UgKi9cbiAgbGVmdDogMDsgLyogbWFrZSBvdXIgcG9zaXRpb24gdGhlIHRvcCBsZWZ0IG9mIHRoZSBjb250YWluZXIgKi9cbiAgdG9wOiAwO1xuICBjb2xvcjogcmdiKDIzNiwgMywgMyk7XG59XG4jbGFiZWxzID4gZGl2IHtcbiAgcG9zaXRpb246IGFic29sdXRlOyAvKiBsZXQgdXMgcG9zaXRpb24gdGhlbSBpbnNpZGUgdGhlIGNvbnRhaW5lciAqL1xuICBsZWZ0OiAwOyAvKiBtYWtlIHRoZWlyIGRlZmF1bHQgcG9zaXRpb24gdGhlIHRvcCBsZWZ0IG9mIHRoZSBjb250YWluZXIgKi9cbiAgdG9wOiAwO1xuICBjdXJzb3I6IHBvaW50ZXI7IC8qIGNoYW5nZSB0aGUgY3Vyc29yIHRvIGEgaGFuZCB3aGVuIG92ZXIgdXMgKi9cbiAgZm9udC1zaXplOiBzbWFsbDtcbiAgdXNlci1zZWxlY3Q6IG5vbmU7IC8qIGRvbid0IGxldCB0aGUgdGV4dCBnZXQgc2VsZWN0ZWQgKi9cbiAgcG9pbnRlci1ldmVudHM6IG5vbmU7IC8qIG1ha2UgdXMgaW52aXNpYmxlIHRvIHRoZSBwb2ludGVyICovXG4gIHRleHQtc2hhZG93OiAgICAgICAgIC8qIGNyZWF0ZSBhIGJsYWNrIG91dGxpbmUgKi8gLTFweCAtMXB4IDAgIzAwMCxcbiAgICAwIC0xcHggMCAjMDAwLCAxcHggLTFweCAwICMwMDAsIDFweCAwIDAgIzAwMCwgMXB4IDFweCAwICMwMDAsIDAgMXB4IDAgIzAwMCxcbiAgICAtMXB4IDFweCAwICMwMDAsIC0xcHggMCAwICMwMDA7XG4gIHdpZHRoOiAxMDBweDtcbn1cbiIsIi5tZXRyaWNlcyB7XG4gIHBvc2l0aW9uOiBmaXhlZDtcbiAgd2lkdGg6IDkwdnc7XG4gIHRvcDogMDtcbiAgaGVpZ2h0OiA1MHB4O1xuICBsZWZ0OiA4MXB4O1xuICBvdmVyZmxvdzogc2Nyb2xsO1xuICBib3JkZXI6IHNvbGlkIDFweCAjMzMzO1xuICBib3JkZXItcmFkaXVzOiAxMHB4O1xuICBkaXNwbGF5OiBmbGV4O1xuICBhbGlnbi1pdGVtczogY2VudGVyO1xuICBiYWNrZ3JvdW5kLWNvbG9yOiB3aGl0ZTtcbn1cbi5tZXRyaWNlcyBkaXYge1xuICBib3JkZXItcmlnaHQ6IHNvbGlkIDVweCAjMzMzO1xuICBwYWRkaW5nOiAwIDVweDtcbn1cblxuI2xhYmVscyB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgLyogbGV0IHVzIHBvc2l0aW9uIG91cnNlbGYgaW5zaWRlIHRoZSBjb250YWluZXIgKi9cbiAgei1pbmRleDogMDtcbiAgLyogbWFrZSBhIG5ldyBzdGFja2luZyBjb250ZXh0IHNvIGNoaWxkcmVuIGRvbid0IHNvcnQgd2l0aCByZXN0IG9mIHBhZ2UgKi9cbiAgbGVmdDogMDtcbiAgLyogbWFrZSBvdXIgcG9zaXRpb24gdGhlIHRvcCBsZWZ0IG9mIHRoZSBjb250YWluZXIgKi9cbiAgdG9wOiAwO1xuICBjb2xvcjogI2VjMDMwMztcbn1cblxuI2xhYmVscyA+IGRpdiB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgLyogbGV0IHVzIHBvc2l0aW9uIHRoZW0gaW5zaWRlIHRoZSBjb250YWluZXIgKi9cbiAgbGVmdDogMDtcbiAgLyogbWFrZSB0aGVpciBkZWZhdWx0IHBvc2l0aW9uIHRoZSB0b3AgbGVmdCBvZiB0aGUgY29udGFpbmVyICovXG4gIHRvcDogMDtcbiAgY3Vyc29yOiBwb2ludGVyO1xuICAvKiBjaGFuZ2UgdGhlIGN1cnNvciB0byBhIGhhbmQgd2hlbiBvdmVyIHVzICovXG4gIGZvbnQtc2l6ZTogc21hbGw7XG4gIHVzZXItc2VsZWN0OiBub25lO1xuICAvKiBkb24ndCBsZXQgdGhlIHRleHQgZ2V0IHNlbGVjdGVkICovXG4gIHBvaW50ZXItZXZlbnRzOiBub25lO1xuICAvKiBtYWtlIHVzIGludmlzaWJsZSB0byB0aGUgcG9pbnRlciAqL1xuICB0ZXh0LXNoYWRvdzogLTFweCAtMXB4IDAgIzAwMCwgMCAtMXB4IDAgIzAwMCwgMXB4IC0xcHggMCAjMDAwLCAxcHggMCAwICMwMDAsIDFweCAxcHggMCAjMDAwLCAwIDFweCAwICMwMDAsIC0xcHggMXB4IDAgIzAwMCwgLTFweCAwIDAgIzAwMDtcbiAgd2lkdGg6IDEwMHB4O1xufSJdfQ== */"];
+var styles = [".metrices[_ngcontent-%COMP%] {\n  position: fixed;\n  width: 90vw;\n  top: 0;\n  height: 50px;\n  left: 81px;\n  overflow: scroll;\n  border: solid 1px #333;\n  border-radius: 10px;\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n  background-color: white;\n}\n.metrices[_ngcontent-%COMP%]   div[_ngcontent-%COMP%] {\n  border-right: solid 5px #333;\n  padding: 0 5px;\n}\n#labels[_ngcontent-%COMP%] {\n  position: absolute;\n  \n  z-index: 0;\n  \n  left: 0;\n  \n  top: 0;\n  color: #ec0303;\n}\n#labels[_ngcontent-%COMP%]    > div[_ngcontent-%COMP%] {\n  position: absolute;\n  \n  left: 0;\n  \n  top: 0;\n  cursor: pointer;\n  \n  font-size: small;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  \n  pointer-events: none;\n  \n  text-shadow: -1px -1px 0 #000, 0 -1px 0 #000, 1px -1px 0 #000, 1px 0 0 #000, 1px 1px 0 #000, 0 1px 0 #000, -1px 1px 0 #000, -1px 0 0 #000;\n  width: 100px;\n}\n.text-metrices[_ngcontent-%COMP%] {\n  overflow: auto;\n  position: fixed;\n  right: 0;\n  width: 160px;\n  background-color: white;\n  top: 10px;\n  border: solid;\n  padding: 10px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9zdW1pdC5rdW1hci9Xb3Jrc3BhY2UvZ2l0aHViL3NvdXJjZWNvZGUvVGhyZWVKc1ByaW1lci9zcmMvYXBwL25ldHdvcmstZ3JhcGgvY29tcG9uZW50cy9ncm91cC1sYXlvdXQvZ3JvdXAtbGF5b3V0LmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9uZXR3b3JrLWdyYXBoL2NvbXBvbmVudHMvZ3JvdXAtbGF5b3V0L2dyb3VwLWxheW91dC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGVBQUE7RUFDQSxXQUFBO0VBQ0EsTUFBQTtFQUNBLFlBQUE7RUFDQSxVQUFBO0VBQ0EsZ0JBQUE7RUFDQSxzQkFBQTtFQUNBLG1CQUFBO0VBQ0Esb0JBQUE7RUFBQSxhQUFBO0VBQ0EseUJBQUE7VUFBQSxtQkFBQTtFQUNBLHVCQUFBO0FDQ0Y7QURBRTtFQUNFLDRCQUFBO0VBQ0EsY0FBQTtBQ0VKO0FEQ0E7RUFDRSxrQkFBQTtFQUFvQixpREFBQTtFQUNwQixVQUFBO0VBQVkseUVBQUE7RUFDWixPQUFBO0VBQVMsb0RBQUE7RUFDVCxNQUFBO0VBQ0EsY0FBQTtBQ0tGO0FESEE7RUFDRSxrQkFBQTtFQUFvQiw4Q0FBQTtFQUNwQixPQUFBO0VBQVMsOERBQUE7RUFDVCxNQUFBO0VBQ0EsZUFBQTtFQUFpQiw2Q0FBQTtFQUNqQixnQkFBQTtFQUNBLHlCQUFBO0tBQUEsc0JBQUE7TUFBQSxxQkFBQTtVQUFBLGlCQUFBO0VBQW1CLG9DQUFBO0VBQ25CLG9CQUFBO0VBQXNCLHFDQUFBO0VBQ3RCLHlJQUFBO0VBR0EsWUFBQTtBQ1NGO0FETkE7RUFDRSxjQUFBO0VBQ0EsZUFBQTtFQUNBLFFBQUE7RUFDQSxZQUFBO0VBQ0EsdUJBQUE7RUFDQSxTQUFBO0VBQ0EsYUFBQTtFQUNBLGFBQUE7QUNTRiIsImZpbGUiOiJzcmMvYXBwL25ldHdvcmstZ3JhcGgvY29tcG9uZW50cy9ncm91cC1sYXlvdXQvZ3JvdXAtbGF5b3V0LmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLm1ldHJpY2VzIHtcbiAgcG9zaXRpb246IGZpeGVkO1xuICB3aWR0aDogOTB2dztcbiAgdG9wOiAwO1xuICBoZWlnaHQ6IDUwcHg7XG4gIGxlZnQ6IDgxcHg7XG4gIG92ZXJmbG93OiBzY3JvbGw7XG4gIGJvcmRlcjogc29saWQgMXB4ICMzMzM7XG4gIGJvcmRlci1yYWRpdXM6IDEwcHg7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG4gIGJhY2tncm91bmQtY29sb3I6IHdoaXRlO1xuICBkaXYge1xuICAgIGJvcmRlci1yaWdodDogc29saWQgNXB4ICMzMzM7XG4gICAgcGFkZGluZzogMCA1cHg7XG4gIH1cbn1cbiNsYWJlbHMge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7IC8qIGxldCB1cyBwb3NpdGlvbiBvdXJzZWxmIGluc2lkZSB0aGUgY29udGFpbmVyICovXG4gIHotaW5kZXg6IDA7IC8qIG1ha2UgYSBuZXcgc3RhY2tpbmcgY29udGV4dCBzbyBjaGlsZHJlbiBkb24ndCBzb3J0IHdpdGggcmVzdCBvZiBwYWdlICovXG4gIGxlZnQ6IDA7IC8qIG1ha2Ugb3VyIHBvc2l0aW9uIHRoZSB0b3AgbGVmdCBvZiB0aGUgY29udGFpbmVyICovXG4gIHRvcDogMDtcbiAgY29sb3I6IHJnYigyMzYsIDMsIDMpO1xufVxuI2xhYmVscyA+IGRpdiB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTsgLyogbGV0IHVzIHBvc2l0aW9uIHRoZW0gaW5zaWRlIHRoZSBjb250YWluZXIgKi9cbiAgbGVmdDogMDsgLyogbWFrZSB0aGVpciBkZWZhdWx0IHBvc2l0aW9uIHRoZSB0b3AgbGVmdCBvZiB0aGUgY29udGFpbmVyICovXG4gIHRvcDogMDtcbiAgY3Vyc29yOiBwb2ludGVyOyAvKiBjaGFuZ2UgdGhlIGN1cnNvciB0byBhIGhhbmQgd2hlbiBvdmVyIHVzICovXG4gIGZvbnQtc2l6ZTogc21hbGw7XG4gIHVzZXItc2VsZWN0OiBub25lOyAvKiBkb24ndCBsZXQgdGhlIHRleHQgZ2V0IHNlbGVjdGVkICovXG4gIHBvaW50ZXItZXZlbnRzOiBub25lOyAvKiBtYWtlIHVzIGludmlzaWJsZSB0byB0aGUgcG9pbnRlciAqL1xuICB0ZXh0LXNoYWRvdzogICAgICAgICAvKiBjcmVhdGUgYSBibGFjayBvdXRsaW5lICovIC0xcHggLTFweCAwICMwMDAsXG4gICAgMCAtMXB4IDAgIzAwMCwgMXB4IC0xcHggMCAjMDAwLCAxcHggMCAwICMwMDAsIDFweCAxcHggMCAjMDAwLCAwIDFweCAwICMwMDAsXG4gICAgLTFweCAxcHggMCAjMDAwLCAtMXB4IDAgMCAjMDAwO1xuICB3aWR0aDogMTAwcHg7XG59XG5cbi50ZXh0LW1ldHJpY2VzIHtcbiAgb3ZlcmZsb3c6IGF1dG87XG4gIHBvc2l0aW9uOiBmaXhlZDtcbiAgcmlnaHQ6IDA7XG4gIHdpZHRoOiAxNjBweDtcbiAgYmFja2dyb3VuZC1jb2xvcjogd2hpdGU7XG4gIHRvcDogMTBweDtcbiAgYm9yZGVyOiBzb2xpZDtcbiAgcGFkZGluZzogMTBweDtcbn1cbiIsIi5tZXRyaWNlcyB7XG4gIHBvc2l0aW9uOiBmaXhlZDtcbiAgd2lkdGg6IDkwdnc7XG4gIHRvcDogMDtcbiAgaGVpZ2h0OiA1MHB4O1xuICBsZWZ0OiA4MXB4O1xuICBvdmVyZmxvdzogc2Nyb2xsO1xuICBib3JkZXI6IHNvbGlkIDFweCAjMzMzO1xuICBib3JkZXItcmFkaXVzOiAxMHB4O1xuICBkaXNwbGF5OiBmbGV4O1xuICBhbGlnbi1pdGVtczogY2VudGVyO1xuICBiYWNrZ3JvdW5kLWNvbG9yOiB3aGl0ZTtcbn1cbi5tZXRyaWNlcyBkaXYge1xuICBib3JkZXItcmlnaHQ6IHNvbGlkIDVweCAjMzMzO1xuICBwYWRkaW5nOiAwIDVweDtcbn1cblxuI2xhYmVscyB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgLyogbGV0IHVzIHBvc2l0aW9uIG91cnNlbGYgaW5zaWRlIHRoZSBjb250YWluZXIgKi9cbiAgei1pbmRleDogMDtcbiAgLyogbWFrZSBhIG5ldyBzdGFja2luZyBjb250ZXh0IHNvIGNoaWxkcmVuIGRvbid0IHNvcnQgd2l0aCByZXN0IG9mIHBhZ2UgKi9cbiAgbGVmdDogMDtcbiAgLyogbWFrZSBvdXIgcG9zaXRpb24gdGhlIHRvcCBsZWZ0IG9mIHRoZSBjb250YWluZXIgKi9cbiAgdG9wOiAwO1xuICBjb2xvcjogI2VjMDMwMztcbn1cblxuI2xhYmVscyA+IGRpdiB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgLyogbGV0IHVzIHBvc2l0aW9uIHRoZW0gaW5zaWRlIHRoZSBjb250YWluZXIgKi9cbiAgbGVmdDogMDtcbiAgLyogbWFrZSB0aGVpciBkZWZhdWx0IHBvc2l0aW9uIHRoZSB0b3AgbGVmdCBvZiB0aGUgY29udGFpbmVyICovXG4gIHRvcDogMDtcbiAgY3Vyc29yOiBwb2ludGVyO1xuICAvKiBjaGFuZ2UgdGhlIGN1cnNvciB0byBhIGhhbmQgd2hlbiBvdmVyIHVzICovXG4gIGZvbnQtc2l6ZTogc21hbGw7XG4gIHVzZXItc2VsZWN0OiBub25lO1xuICAvKiBkb24ndCBsZXQgdGhlIHRleHQgZ2V0IHNlbGVjdGVkICovXG4gIHBvaW50ZXItZXZlbnRzOiBub25lO1xuICAvKiBtYWtlIHVzIGludmlzaWJsZSB0byB0aGUgcG9pbnRlciAqL1xuICB0ZXh0LXNoYWRvdzogLTFweCAtMXB4IDAgIzAwMCwgMCAtMXB4IDAgIzAwMCwgMXB4IC0xcHggMCAjMDAwLCAxcHggMCAwICMwMDAsIDFweCAxcHggMCAjMDAwLCAwIDFweCAwICMwMDAsIC0xcHggMXB4IDAgIzAwMCwgLTFweCAwIDAgIzAwMDtcbiAgd2lkdGg6IDEwMHB4O1xufVxuXG4udGV4dC1tZXRyaWNlcyB7XG4gIG92ZXJmbG93OiBhdXRvO1xuICBwb3NpdGlvbjogZml4ZWQ7XG4gIHJpZ2h0OiAwO1xuICB3aWR0aDogMTYwcHg7XG4gIGJhY2tncm91bmQtY29sb3I6IHdoaXRlO1xuICB0b3A6IDEwcHg7XG4gIGJvcmRlcjogc29saWQ7XG4gIHBhZGRpbmc6IDEwcHg7XG59Il19 */"];
 
 
 
@@ -1475,14 +1478,17 @@ class GroupLayoutComponent {
         // this.threeCommon.renderer.setPixelRatio(2);
         this.threeCommon.scene.background = new three__WEBPACK_IMPORTED_MODULE_2__["Color"](0x000000);
         this.threeCommon.camera.updateProjectionMatrix();
-        this.threeCommon.controls.addEventListener("change", this.requestRenderIfNotRequested.bind(this));
+        this.threeCommon.controls.addEventListener("change", () => {
+            // this.configureRaycast();
+            // this.configureLabels();
+            this.requestRenderIfNotRequested();
+        });
         window.addEventListener("resize", this.requestRenderIfNotRequested.bind(this));
     }
     initRequests() {
         Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["forkJoin"])(this.graphRequestService.getGroups(), this.graphRequestService.getNodeMesh()).subscribe(([groupData, mesh]) => {
             this.nodeMeshResponseHandler(mesh);
             this.groupsResponseHandler(groupData);
-            this.renderView();
         });
     }
     nodeMeshResponseHandler(mesh) {
@@ -1561,69 +1567,9 @@ class GroupLayoutComponent {
             this.configureLineSegmentConnections();
             this.configureDirectionalArrows();
         }
-        this.renderView();
-    }
-    constructHtmlText() {
-        const labelParentElem = document.querySelector("#labels");
-        labelParentElem.innerHTML = "";
-        const docFrag = document.createDocumentFragment();
-        let canvasBounds = this.threeCommon.renderer.context.canvas.getBoundingClientRect();
-        const frustum = new three__WEBPACK_IMPORTED_MODULE_2__["Frustum"]();
-        for (let index = 0; index < this.objectCount; index++) {
-            const elem = document.createElement("div");
-            elem.className = "label-div";
-            elem.textContent = "node name " + index;
-            let matrix = new three__WEBPACK_IMPORTED_MODULE_2__["Matrix4"]();
-            this.instancedNodeMesh.getMatrixAt(index, matrix);
-            const position = new three__WEBPACK_IMPORTED_MODULE_2__["Vector3"]();
-            position.setFromMatrixPosition(matrix);
-            this.threeCommon.camera.updateMatrix();
-            this.threeCommon.camera.updateMatrixWorld();
-            frustum.setFromProjectionMatrix(new three__WEBPACK_IMPORTED_MODULE_2__["Matrix4"]().multiplyMatrices(this.threeCommon.camera.projectionMatrix, this.threeCommon.camera.matrixWorldInverse));
-            // if (
-            //   frustum.containsPoint(position) &&
-            //   this.threeCommon.camera.position.distanceTo(position) < 25
-            // ) {
-            position.setY(position.y - 1);
-            position.project(this.threeCommon.camera);
-            // convert to unit  vector.
-            position.normalize();
-            if (Number.isNaN(position.x)) {
-                position.x = 0;
-            }
-            if (Number.isNaN(position.y)) {
-                position.y = 0;
-            }
-            const x = ((position.x + 1) * canvasBounds.width) / 2;
-            const y = ((1 - position.y) * canvasBounds.height) / 2;
-            elem.style.left = `${0}px`;
-            elem.style.top = `${0}px`;
-            elem.style.position = `absolute`;
-            elem.style.zIndex = (((-position.z * 0.5 + 0.5) * 100000) | 0) + "";
-            elem.style.minWidth = "100px";
-            elem.style.transform = `translate(${x}px,${y}px)`;
-            // "translate(-50%,-50%)";
-            docFrag.appendChild(elem);
-            // }
-        }
-        labelParentElem.append(docFrag);
-    }
-    constructSpriteText() {
-        const cameraPosition = this.threeCommon.controls.target;
-        for (let index = 0; index < this.objectCount; index++) {
-            let matrix = new three__WEBPACK_IMPORTED_MODULE_2__["Matrix4"]();
-            this.instancedNodeMesh.getMatrixAt(index, matrix);
-            const position = new three__WEBPACK_IMPORTED_MODULE_2__["Vector3"]();
-            position.setFromMatrixPosition(matrix);
-            // console.log(cameraPosition.distanceTo(position), `node index ${index}`);
-            const sprite = new three_spritetext__WEBPACK_IMPORTED_MODULE_3__["default"](`node index ${index}`);
-            sprite.color = "#b3b3b3";
-            sprite.textHeight = 0.25;
-            sprite.visible = true;
-            sprite.position.setX(position.x);
-            sprite.position.setY(position.y + 1.2);
-            this.threeCommon.scene.add(sprite);
-        }
+        this.configureRaycast();
+        this.configureLabels();
+        this.requestRenderIfNotRequested();
     }
     configureDirectionalArrows() {
         let newMesh = !this.directionInstanceMesh;
@@ -1724,7 +1670,8 @@ class GroupLayoutComponent {
                 (canvasBounds.bottom - canvasBounds.top)) *
                 2 +
                 1;
-        this.renderView();
+        this.configureRaycast();
+        this.configureLabels();
     }
     objectCountChangeHandler($event) {
         this.threeService.cleanScene(this.threeCommon);
@@ -1763,8 +1710,6 @@ class GroupLayoutComponent {
         this.sceneController();
     }
     renderView() {
-        this.configureRaycast();
-        this.configureLabels();
         this.renderRequested = false;
         if (this.resizeRendererToDisplaySize(this.threeCommon.renderer)) {
             const canvas = this.threeCommon.renderer.domElement;
@@ -1776,18 +1721,21 @@ class GroupLayoutComponent {
     }
     configureLabels() {
         if (this.labelSpriteText === "html") {
-            this.constructHtmlText();
+            this.htmlOverlayAllLabels();
         }
         else if (this.labelSpriteText === "sprite") {
-            this.constructSpriteText();
+            this.npmSpriteAllLabels();
+        }
+        else if (this.labelSpriteText === "allMouseSpriteNative") {
+            this.nativeSpriteAllLabels();
         }
     }
     configureEventBasedLabels(intersects) {
         if (this.labelSpriteText === "mouseSprite") {
-            this.addSpriteTextLabel(intersects);
+            this.npmSpriteOnEvent(intersects);
         }
         else if (this.labelSpriteText === "mouseSpriteNative") {
-            this.addSpriteNativeLabel(intersects);
+            this.nativeSpriteOnEvent(intersects);
         }
     }
     resizeRendererToDisplaySize(renderer) {
@@ -1836,22 +1784,106 @@ class GroupLayoutComponent {
             }
         }
     }
-    addSpriteTextLabel(intersects) {
+    /**
+     * NPM sprite text. On mouse click
+     */
+    npmSpriteOnEvent(intersects) {
         const sprite = new three_spritetext__WEBPACK_IMPORTED_MODULE_3__["default"]("node label" + intersects[0].instanceId);
         sprite.color = "#ffffff";
         sprite.textHeight = 0.7;
         sprite.visible = true;
-        const position = this.getLabelPosition(intersects);
-        sprite.position.set(position.x, position.y - 1.5, position.z);
+        const position = this.getLabelPosition(intersects, null);
+        sprite.position.set(position.x, position.y - 2, position.z);
         this.threeCommon.scene.add(sprite);
     }
-    addSpriteNativeLabel(intersects) {
-        const sprite = this.constructTooltipLabelSprite("node label" + intersects[0].instanceId);
-        const position = this.getLabelPosition(intersects);
-        sprite.position.set(position.x, position.y - 3, position.z);
+    /**
+     * NPM sprite text. all labels
+     */
+    npmSpriteAllLabels() {
+        for (let index = 0; index < this.objectCount; index++) {
+            let matrix = new three__WEBPACK_IMPORTED_MODULE_2__["Matrix4"]();
+            this.instancedNodeMesh.getMatrixAt(index, matrix);
+            const position = new three__WEBPACK_IMPORTED_MODULE_2__["Vector3"]();
+            position.setFromMatrixPosition(matrix);
+            // console.log(cameraPosition.distanceTo(position), `node index ${index}`);
+            const sprite = new three_spritetext__WEBPACK_IMPORTED_MODULE_3__["default"](`node index ${index}`);
+            sprite.color = "#b3b3b3";
+            sprite.textHeight = 0.25;
+            sprite.visible = true;
+            sprite.position.setX(position.x);
+            sprite.position.setY(position.y + 1.2);
+            this.threeCommon.scene.add(sprite);
+        }
+    }
+    /**
+     * Native canvas sprite text. On mouse click
+     */
+    nativeSpriteOnEvent(intersects) {
+        const sprite = this.createNativeSpriteLabel("node label" + intersects[0].instanceId);
+        const position = this.getLabelPosition(intersects, null);
+        sprite.position.set(position.x, position.y - 2, position.z);
         this.threeCommon.scene.add(sprite);
     }
-    constructTooltipLabelSprite(text) {
+    /**
+     * Native canvas sprite text. all labels
+     */
+    nativeSpriteAllLabels() {
+        for (let index = 0; index < this.objectCount; index++) {
+            const position = this.getLabelPosition(null, index);
+            const sprite = this.createNativeSpriteLabel(`node index ${index}`);
+            sprite.position.setX(position.x);
+            sprite.position.setY(position.y - 2);
+            this.threeCommon.scene.add(sprite);
+        }
+    }
+    /**
+     * HTML overlay. all labels
+     */
+    htmlOverlayAllLabels() {
+        const labelParentElem = document.querySelector("#labels");
+        labelParentElem.innerHTML = "";
+        const docFrag = document.createDocumentFragment();
+        let canvasBounds = this.threeCommon.renderer.context.canvas.getBoundingClientRect();
+        const frustum = new three__WEBPACK_IMPORTED_MODULE_2__["Frustum"]();
+        for (let index = 0; index < this.objectCount; index++) {
+            const elem = document.createElement("div");
+            elem.className = "label-div";
+            elem.textContent = "node name " + index;
+            elem.setAttribute("data-matrix-id", index + "");
+            let matrix = new three__WEBPACK_IMPORTED_MODULE_2__["Matrix4"]();
+            this.instancedNodeMesh.getMatrixAt(index, matrix);
+            const position = new three__WEBPACK_IMPORTED_MODULE_2__["Vector3"]();
+            position.setFromMatrixPosition(matrix);
+            this.threeCommon.camera.updateMatrix();
+            this.threeCommon.camera.updateMatrixWorld();
+            frustum.setFromProjectionMatrix(new three__WEBPACK_IMPORTED_MODULE_2__["Matrix4"]().multiplyMatrices(this.threeCommon.camera.projectionMatrix, this.threeCommon.camera.matrixWorldInverse));
+            // if (
+            //   frustum.containsPoint(position) &&
+            //   this.threeCommon.camera.position.distanceTo(position) < 25
+            // ) {
+            position.setY(position.y - 1);
+            position.project(this.threeCommon.camera);
+            // convert to unit  vector.
+            position.normalize();
+            if (Number.isNaN(position.x)) {
+                position.x = 0;
+            }
+            if (Number.isNaN(position.y)) {
+                position.y = 0;
+            }
+            const x = ((position.x + 1) * canvasBounds.width) / 2;
+            const y = ((1 - position.y) * canvasBounds.height) / 2;
+            elem.style.left = `${0}px`;
+            elem.style.top = `${0}px`;
+            elem.style.position = `absolute`;
+            elem.style.zIndex = (((-position.z * 0.5 + 0.5) * 100000) | 0) + "";
+            elem.style.minWidth = "100px";
+            elem.style.transform = `translate(${x}px,${y}px)`;
+            docFrag.appendChild(elem);
+        }
+        labelParentElem.append(docFrag);
+    }
+    createNativeSpriteLabel(text) {
         var font = "Arial";
         var size = 130;
         var color = "#ffffff";
@@ -1859,26 +1891,23 @@ class GroupLayoutComponent {
         var canvas = document.createElement("canvas");
         var context = canvas.getContext("2d");
         context.font = font;
-        // get size data (height depends only on font size)
         var metrics = context.measureText(text), textWidth = metrics.width;
         canvas.width = textWidth + 3;
         canvas.height = size + 3;
         context.font = font;
         context.fillStyle = color;
         context.fillText(text, 0, size + 3);
-        //context.style.border="3px solid blue";
-        // canvas contents will be used for a texture
         var texture = new three__WEBPACK_IMPORTED_MODULE_2__["Texture"](canvas);
         texture.needsUpdate = true;
-        ////////////////////////////////////////
         var spriteMaterial = new three__WEBPACK_IMPORTED_MODULE_2__["SpriteMaterial"]({ map: texture });
         let sprite1 = new three__WEBPACK_IMPORTED_MODULE_2__["Sprite"](spriteMaterial);
         sprite1.scale.set(4, 1, 1.0);
         return sprite1;
     }
-    getLabelPosition(intersects) {
+    getLabelPosition(intersects, index) {
+        const _index = intersects[0].instanceId || index;
         let matrix = new three__WEBPACK_IMPORTED_MODULE_2__["Matrix4"]();
-        this.instancedNodeMesh.getMatrixAt(intersects[0].instanceId, matrix);
+        this.instancedNodeMesh.getMatrixAt(_index, matrix);
         const position = new three__WEBPACK_IMPORTED_MODULE_2__["Vector3"]();
         position.setFromMatrixPosition(matrix);
         return position;
