@@ -500,8 +500,7 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
       sprite.color = "#b3b3b3";
       sprite.textHeight = 0.25;
       sprite.visible = true;
-      sprite.position.setX(position.x);
-      sprite.position.setY(position.y + 1.2);
+      sprite.position.set(position.x,position.y + 1.2,position.z);
       this.threeCommon.scene.add(sprite);
     }
   }
