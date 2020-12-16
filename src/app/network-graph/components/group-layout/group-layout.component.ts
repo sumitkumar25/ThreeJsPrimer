@@ -18,6 +18,7 @@ import { LineSegmentsGeometry } from "three/examples/jsm/lines/LineSegmentsGeome
 import * as Stats from "../../../../../node_modules/stats.js/build/stats.min.js";
 import { NetworkGraphRequestService } from "../../services/network-graph-request.service.js";
 import { LineMaterial } from "./../../../../../node_modules/three/examples/jsm/lines/LineMaterial.js";
+import { throttle } from "lodash";
 @Component({
   selector: "app-group-layout",
   templateUrl: "./group-layout.component.html",
@@ -69,7 +70,8 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
   };
   labelSpriteText: any;
   labelsElements: any = {};
-
+  
+  throttledLabelUpdate = throttle(this.configureLabelsFov,200)
   constructor(
     private threeService: ThreeService,
     private graphRequestService: NetworkGraphRequestService
@@ -394,6 +396,17 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
       this.threeCommon.camera.aspect = canvas.clientWidth / canvas.clientHeight;
       this.threeCommon.camera.updateProjectionMatrix();
     }
+    this.throttledLabelUpdate();
+    this.threeCommon.renderer.render(
+      this.threeCommon.scene,
+      this.threeCommon.camera
+    );
+    this.renderCalls = this.threeService.getRendererCallCount(
+      this.threeCommon.renderer
+    );
+  }
+
+  private configureLabelsFov() {
     this.threeCommon.scene.traverse((object) => {
       if (object.type === "Sprite") {
         if (this.threeCommon.camera.position.distanceTo(object.position) < 15) {
@@ -403,13 +416,6 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
         }
       }
     });
-    this.threeCommon.renderer.render(
-      this.threeCommon.scene,
-      this.threeCommon.camera
-    );
-    this.renderCalls = this.threeService.getRendererCallCount(
-      this.threeCommon.renderer
-    );
   }
 
   private configureLabels() {
