@@ -1716,12 +1716,23 @@ var GroupLayoutComponent = /** @class */ (function () {
         this.sceneController();
     };
     GroupLayoutComponent.prototype.renderView = function () {
+        var _this = this;
         this.renderRequested = false;
         if (this.resizeRendererToDisplaySize(this.threeCommon.renderer)) {
             var canvas = this.threeCommon.renderer.domElement;
             this.threeCommon.camera.aspect = canvas.clientWidth / canvas.clientHeight;
             this.threeCommon.camera.updateProjectionMatrix();
         }
+        this.threeCommon.scene.traverse(function (object) {
+            if (object.type === "Sprite") {
+                if (_this.threeCommon.camera.position.distanceTo(object.position) < 15) {
+                    object.visible = true;
+                }
+                else {
+                    object.visible = false;
+                }
+            }
+        });
         this.threeCommon.renderer.render(this.threeCommon.scene, this.threeCommon.camera);
         this.renderCalls = this.threeService.getRendererCallCount(this.threeCommon.renderer);
     };
@@ -1806,6 +1817,7 @@ var GroupLayoutComponent = /** @class */ (function () {
      * NPM sprite text. all labels
      */
     GroupLayoutComponent.prototype.npmSpriteAllLabels = function () {
+        var spriteGrp = new three__WEBPACK_IMPORTED_MODULE_3__["Object3D"]();
         for (var index = 0; index < this.objectCount; index++) {
             var matrix = new three__WEBPACK_IMPORTED_MODULE_3__["Matrix4"]();
             this.instancedNodeMesh.getMatrixAt(index, matrix);
@@ -1813,13 +1825,15 @@ var GroupLayoutComponent = /** @class */ (function () {
             position.setFromMatrixPosition(matrix);
             // console.log(cameraPosition.distanceTo(position), `node index ${index}`);
             var sprite = new three_spritetext__WEBPACK_IMPORTED_MODULE_4__["default"]("node index " + index);
+            if (index === 0)
+                console.log(sprite);
             sprite.color = "#b3b3b3";
-            sprite.textHeight = 0.25;
+            sprite.textHeight = 0.5;
             sprite.visible = true;
-            sprite.position.setX(position.x);
-            sprite.position.setY(position.y + 1.2);
-            this.threeCommon.scene.add(sprite);
+            sprite.position.set(position.x, position.y + 1.5, position.z);
+            spriteGrp.add(sprite);
         }
+        this.threeCommon.scene.add(spriteGrp);
     };
     /**
      * Native canvas sprite text. On mouse click
