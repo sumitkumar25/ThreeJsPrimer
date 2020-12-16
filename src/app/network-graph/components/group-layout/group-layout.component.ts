@@ -394,6 +394,15 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
       this.threeCommon.camera.aspect = canvas.clientWidth / canvas.clientHeight;
       this.threeCommon.camera.updateProjectionMatrix();
     }
+    this.threeCommon.scene.traverse((object) => {
+      if (object.type === "Sprite") {
+        if (this.threeCommon.camera.position.distanceTo(object.position) < 15) {
+          object.visible = true;
+        } else {
+          object.visible = false;
+        }
+      }
+    });
     this.threeCommon.renderer.render(
       this.threeCommon.scene,
       this.threeCommon.camera
@@ -490,6 +499,7 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
    * NPM sprite text. all labels
    */
   npmSpriteAllLabels() {
+    const spriteGrp = new THREE.Object3D();
     for (let index = 0; index < this.objectCount; index++) {
       let matrix = new THREE.Matrix4();
       this.instancedNodeMesh.getMatrixAt(index, matrix);
@@ -497,12 +507,14 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
       position.setFromMatrixPosition(matrix);
       // console.log(cameraPosition.distanceTo(position), `node index ${index}`);
       const sprite = new SpriteText(`node index ${index}`);
+      if (index === 0) console.log(sprite);
       sprite.color = "#b3b3b3";
-      sprite.textHeight = 0.25;
+      sprite.textHeight = 0.5;
       sprite.visible = true;
-      sprite.position.set(position.x,position.y + 1.2,position.z);
-      this.threeCommon.scene.add(sprite);
+      sprite.position.set(position.x, position.y + 1.5, position.z);
+      spriteGrp.add(sprite);
     }
+    this.threeCommon.scene.add(spriteGrp);
   }
   /**
    * Native canvas sprite text. On mouse click
