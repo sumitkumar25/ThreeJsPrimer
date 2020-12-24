@@ -18631,8 +18631,10 @@ class GroupLayoutComponent {
         this.raycaster = new three__WEBPACK_IMPORTED_MODULE_2__["Raycaster"]();
         this.traffic = {};
         this.trafficColor = 0x378ef0;
+        this.labelSpriteText = "sprite";
         this.labelsElements = {};
         this.throttledLabelUpdate = Object(lodash__WEBPACK_IMPORTED_MODULE_8__["throttle"])(this.configureLabelsFov, 200);
+        this.lableMap = {};
     }
     ngOnInit() {
         this.initRequests();
@@ -18732,11 +18734,11 @@ class GroupLayoutComponent {
     }
     sceneController(newMesh) {
         this.constructNodes(!!newMesh);
-        if (this.enableConnections) {
-            this.configureLineSegmentConnections();
-            this.configureDirectionalArrows();
-        }
-        this.configureRaycast();
+        // if (this.enableConnections) {
+        //   this.configureLineSegmentConnections();
+        //   this.configureDirectionalArrows();
+        // }
+        // this.configureRaycast();
         this.configureLabels();
         this.requestRenderIfNotRequested();
     }
@@ -18752,7 +18754,6 @@ class GroupLayoutComponent {
         else {
             this.directionInstanceMesh.instanceMatrix.needsUpdate = true;
         }
-        console.log(this.directionInstanceMesh.countx);
         for (let index = 0; index < this.directionInstanceMesh.count; index++) {
             this.directionInstanceMesh.setMatrixAt(index, new three__WEBPACK_IMPORTED_MODULE_2__["Matrix4"]());
         }
@@ -18890,14 +18891,18 @@ class GroupLayoutComponent {
         this.renderCalls = this.threeService.getRendererCallCount(this.threeCommon.renderer);
     }
     configureLabelsFov() {
-        this.threeCommon.scene.traverse((object) => {
-            if (object.type === "Sprite") {
-                if (this.threeCommon.camera.position.distanceTo(object.position) < 15) {
-                    object.visible = true;
+        Object.keys(this.lableMap).forEach((objectId) => {
+            const object = this.lableMap[objectId];
+            const zoom = this.threeCommon.camera.position.distanceTo(object.obj.position);
+            if (zoom < 80) {
+                if (!object.visible) {
+                    this.threeCommon.scene.add(object.obj);
+                    this.lableMap[objectId] = Object.assign({}, object, { visible: true });
                 }
-                else {
-                    object.visible = false;
-                }
+            }
+            else {
+                this.threeCommon.scene.remove(object.obj);
+                this.lableMap[objectId] = Object.assign({}, object, { visible: false });
             }
         });
     }
@@ -18982,23 +18987,22 @@ class GroupLayoutComponent {
      * NPM sprite text. all labels
      */
     npmSpriteAllLabels() {
-        const spriteGrp = new three__WEBPACK_IMPORTED_MODULE_2__["Object3D"]();
         for (let index = 0; index < this.objectCount; index++) {
-            let matrix = new three__WEBPACK_IMPORTED_MODULE_2__["Matrix4"]();
-            this.instancedNodeMesh.getMatrixAt(index, matrix);
+            const matrix = new three__WEBPACK_IMPORTED_MODULE_2__["Matrix4"]();
             const position = new three__WEBPACK_IMPORTED_MODULE_2__["Vector3"]();
-            position.setFromMatrixPosition(matrix);
-            // console.log(cameraPosition.distanceTo(position), `node index ${index}`);
-            const sprite = new three_spritetext__WEBPACK_IMPORTED_MODULE_3__["default"](`node index ${index}`);
-            if (index === 0)
-                console.log(sprite);
-            sprite.color = "#b3b3b3";
-            sprite.textHeight = 0.5;
-            sprite.visible = true;
-            sprite.position.set(position.x, position.y + 1.5, position.z);
-            spriteGrp.add(sprite);
+            if (!this.lableMap[index]) {
+                this.instancedNodeMesh.getMatrixAt(index, matrix);
+                position.setFromMatrixPosition(matrix);
+                // console.log(cameraPosition.distanceTo(position), `node index ${index}`);
+                const sprite = new three_spritetext__WEBPACK_IMPORTED_MODULE_3__["default"](`node index ${index}`);
+                sprite.color = "#b3b3b3";
+                sprite.textHeight = 1;
+                sprite.visible = true;
+                sprite.position.set(position.x, position.y + 2, position.z);
+                sprite.userData = { __objId: index };
+                this.lableMap[index] = { obj: sprite, visible: false };
+            }
         }
-        this.threeCommon.scene.add(spriteGrp);
     }
     /**
      * Native canvas sprite text. On mouse click
@@ -19015,7 +19019,7 @@ class GroupLayoutComponent {
     nativeSpriteAllLabels() {
         for (let index = 0; index < this.objectCount; index++) {
             const position = this.getLabelPosition(null, index);
-            const sprite = this.createNativeSpriteLabel(`node index ${index}`);
+            const sprite = this.createNativeSpriteLabel(`native index ${index}`);
             sprite.position.setX(position.x);
             sprite.position.setY(position.y - 2);
             this.threeCommon.scene.add(sprite);
@@ -19090,7 +19094,7 @@ class GroupLayoutComponent {
         return sprite1;
     }
     getLabelPosition(intersects, index) {
-        const _index = intersects[0].instanceId || index;
+        const _index = intersects ? intersects[0].instanceId : index;
         let matrix = new three__WEBPACK_IMPORTED_MODULE_2__["Matrix4"]();
         this.instancedNodeMesh.getMatrixAt(_index, matrix);
         const position = new three__WEBPACK_IMPORTED_MODULE_2__["Vector3"]();

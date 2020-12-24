@@ -68,10 +68,12 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
     geometry: THREE.SphereBufferGeometry;
     material: THREE.MeshBasicMaterial;
   };
-  labelSpriteText: any;
+  labelSpriteText: any = "sprite";
   labelsElements: any = {};
-  
-  throttledLabelUpdate = throttle(this.configureLabelsFov,200)
+
+  throttledLabelUpdate = throttle(this.configureLabelsFov, 200);
+  lableMap: any = {};
+  labelcount: any;
   constructor(
     private threeService: ThreeService,
     private graphRequestService: NetworkGraphRequestService
@@ -201,11 +203,11 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
 
   private sceneController(newMesh?) {
     this.constructNodes(!!newMesh);
-    if (this.enableConnections) {
-      this.configureLineSegmentConnections();
-      this.configureDirectionalArrows();
-    }
-    this.configureRaycast();
+    // if (this.enableConnections) {
+    //   this.configureLineSegmentConnections();
+    //   this.configureDirectionalArrows();
+    // }
+    // this.configureRaycast();
     this.configureLabels();
     this.requestRenderIfNotRequested();
   }
@@ -225,7 +227,6 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
     } else {
       this.directionInstanceMesh.instanceMatrix.needsUpdate = true;
     }
-    console.log(this.directionInstanceMesh.countx);
     for (let index = 0; index < this.directionInstanceMesh.count; index++) {
       this.directionInstanceMesh.setMatrixAt(index, new THREE.Matrix4());
     }
@@ -407,13 +408,23 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
   }
 
   private configureLabelsFov() {
-    this.threeCommon.scene.traverse((object) => {
-      if (object.type === "Sprite") {
-        if (this.threeCommon.camera.position.distanceTo(object.position) < 15) {
-          object.visible = true;
-        } else {
-          object.visible = false;
+    this.labelcount = 0;
+    Object.keys(this.lableMap).forEach((objectId) => {
+      const object = this.lableMap[objectId];
+      const zoom = this.threeCommon.camera.position.distanceTo(
+        object.obj.position
+      );
+      if (zoom < 100) {
+        if (!object.visible) {
+          this.threeCommon.scene.add(object.obj);
+          this.lableMap[objectId] = { ...object, ...{ visible: true } };
         }
+      } else {
+        this.threeCommon.scene.remove(object.obj);
+        this.lableMap[objectId] = { ...object, ...{ visible: false } };
+      }
+      if(this.lableMap[objectId].visible){
+        this.labelcount++;
       }
     });
   }
@@ -505,22 +516,22 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
    * NPM sprite text. all labels
    */
   npmSpriteAllLabels() {
-    const spriteGrp = new THREE.Object3D();
     for (let index = 0; index < this.objectCount; index++) {
-      let matrix = new THREE.Matrix4();
-      this.instancedNodeMesh.getMatrixAt(index, matrix);
+      const matrix = new THREE.Matrix4();
       const position = new THREE.Vector3();
-      position.setFromMatrixPosition(matrix);
-      // console.log(cameraPosition.distanceTo(position), `node index ${index}`);
-      const sprite = new SpriteText(`node index ${index}`);
-      if (index === 0) console.log(sprite);
-      sprite.color = "#b3b3b3";
-      sprite.textHeight = 0.5;
-      sprite.visible = true;
-      sprite.position.set(position.x, position.y + 1.5, position.z);
-      spriteGrp.add(sprite);
+      if (!this.lableMap[index]) {
+        this.instancedNodeMesh.getMatrixAt(index, matrix);
+        position.setFromMatrixPosition(matrix);
+        // console.log(cameraPosition.distanceTo(position), `node index ${index}`);
+        const sprite = new SpriteText(`node index ${index}`);
+        sprite.color = "#b3b3b3";
+        sprite.textHeight = 1;
+        sprite.visible = true;
+        sprite.position.set(position.x, position.y + 2, position.z);
+        sprite.userData = { __objId: index };
+        this.lableMap[index] = { obj: sprite, visible: false };
+      }
     }
-    this.threeCommon.scene.add(spriteGrp);
   }
   /**
    * Native canvas sprite text. On mouse click
@@ -540,7 +551,7 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
   nativeSpriteAllLabels() {
     for (let index = 0; index < this.objectCount; index++) {
       const position = this.getLabelPosition(null, index);
-      const sprite = this.createNativeSpriteLabel(`node index ${index}`);
+      const sprite = this.createNativeSpriteLabel(`native index ${index}`);
       sprite.position.setX(position.x);
       sprite.position.setY(position.y - 2);
       this.threeCommon.scene.add(sprite);
@@ -631,7 +642,7 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
   }
 
   private getLabelPosition(intersects: THREE.Intersection[], index) {
-    const _index = intersects[0].instanceId || index;
+    const _index = intersects ? intersects[0].instanceId : index;
     let matrix = new THREE.Matrix4();
     this.instancedNodeMesh.getMatrixAt(_index, matrix);
     const position = new THREE.Vector3();

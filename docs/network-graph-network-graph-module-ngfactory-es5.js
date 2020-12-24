@@ -18633,8 +18633,10 @@ var GroupLayoutComponent = /** @class */ (function () {
         this.raycaster = new three__WEBPACK_IMPORTED_MODULE_3__["Raycaster"]();
         this.traffic = {};
         this.trafficColor = 0x378ef0;
+        this.labelSpriteText = "sprite";
         this.labelsElements = {};
         this.throttledLabelUpdate = Object(lodash__WEBPACK_IMPORTED_MODULE_9__["throttle"])(this.configureLabelsFov, 200);
+        this.lableMap = {};
     }
     GroupLayoutComponent.prototype.ngOnInit = function () {
         this.initRequests();
@@ -18737,11 +18739,11 @@ var GroupLayoutComponent = /** @class */ (function () {
     };
     GroupLayoutComponent.prototype.sceneController = function (newMesh) {
         this.constructNodes(!!newMesh);
-        if (this.enableConnections) {
-            this.configureLineSegmentConnections();
-            this.configureDirectionalArrows();
-        }
-        this.configureRaycast();
+        // if (this.enableConnections) {
+        //   this.configureLineSegmentConnections();
+        //   this.configureDirectionalArrows();
+        // }
+        // this.configureRaycast();
         this.configureLabels();
         this.requestRenderIfNotRequested();
     };
@@ -18758,7 +18760,6 @@ var GroupLayoutComponent = /** @class */ (function () {
         else {
             this.directionInstanceMesh.instanceMatrix.needsUpdate = true;
         }
-        console.log(this.directionInstanceMesh.countx);
         for (var index = 0; index < this.directionInstanceMesh.count; index++) {
             this.directionInstanceMesh.setMatrixAt(index, new three__WEBPACK_IMPORTED_MODULE_3__["Matrix4"]());
         }
@@ -18897,14 +18898,18 @@ var GroupLayoutComponent = /** @class */ (function () {
     };
     GroupLayoutComponent.prototype.configureLabelsFov = function () {
         var _this = this;
-        this.threeCommon.scene.traverse(function (object) {
-            if (object.type === "Sprite") {
-                if (_this.threeCommon.camera.position.distanceTo(object.position) < 15) {
-                    object.visible = true;
+        Object.keys(this.lableMap).forEach(function (objectId) {
+            var object = _this.lableMap[objectId];
+            var zoom = _this.threeCommon.camera.position.distanceTo(object.obj.position);
+            if (zoom < 80) {
+                if (!object.visible) {
+                    _this.threeCommon.scene.add(object.obj);
+                    _this.lableMap[objectId] = tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, object, { visible: true });
                 }
-                else {
-                    object.visible = false;
-                }
+            }
+            else {
+                _this.threeCommon.scene.remove(object.obj);
+                _this.lableMap[objectId] = tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, object, { visible: false });
             }
         });
     };
@@ -18989,23 +18994,22 @@ var GroupLayoutComponent = /** @class */ (function () {
      * NPM sprite text. all labels
      */
     GroupLayoutComponent.prototype.npmSpriteAllLabels = function () {
-        var spriteGrp = new three__WEBPACK_IMPORTED_MODULE_3__["Object3D"]();
         for (var index = 0; index < this.objectCount; index++) {
             var matrix = new three__WEBPACK_IMPORTED_MODULE_3__["Matrix4"]();
-            this.instancedNodeMesh.getMatrixAt(index, matrix);
             var position = new three__WEBPACK_IMPORTED_MODULE_3__["Vector3"]();
-            position.setFromMatrixPosition(matrix);
-            // console.log(cameraPosition.distanceTo(position), `node index ${index}`);
-            var sprite = new three_spritetext__WEBPACK_IMPORTED_MODULE_4__["default"]("node index " + index);
-            if (index === 0)
-                console.log(sprite);
-            sprite.color = "#b3b3b3";
-            sprite.textHeight = 0.5;
-            sprite.visible = true;
-            sprite.position.set(position.x, position.y + 1.5, position.z);
-            spriteGrp.add(sprite);
+            if (!this.lableMap[index]) {
+                this.instancedNodeMesh.getMatrixAt(index, matrix);
+                position.setFromMatrixPosition(matrix);
+                // console.log(cameraPosition.distanceTo(position), `node index ${index}`);
+                var sprite = new three_spritetext__WEBPACK_IMPORTED_MODULE_4__["default"]("node index " + index);
+                sprite.color = "#b3b3b3";
+                sprite.textHeight = 1;
+                sprite.visible = true;
+                sprite.position.set(position.x, position.y + 2, position.z);
+                sprite.userData = { __objId: index };
+                this.lableMap[index] = { obj: sprite, visible: false };
+            }
         }
-        this.threeCommon.scene.add(spriteGrp);
     };
     /**
      * Native canvas sprite text. On mouse click
@@ -19022,7 +19026,7 @@ var GroupLayoutComponent = /** @class */ (function () {
     GroupLayoutComponent.prototype.nativeSpriteAllLabels = function () {
         for (var index = 0; index < this.objectCount; index++) {
             var position = this.getLabelPosition(null, index);
-            var sprite = this.createNativeSpriteLabel("node index " + index);
+            var sprite = this.createNativeSpriteLabel("native index " + index);
             sprite.position.setX(position.x);
             sprite.position.setY(position.y - 2);
             this.threeCommon.scene.add(sprite);
@@ -19097,7 +19101,7 @@ var GroupLayoutComponent = /** @class */ (function () {
         return sprite1;
     };
     GroupLayoutComponent.prototype.getLabelPosition = function (intersects, index) {
-        var _index = intersects[0].instanceId || index;
+        var _index = intersects ? intersects[0].instanceId : index;
         var matrix = new three__WEBPACK_IMPORTED_MODULE_3__["Matrix4"]();
         this.instancedNodeMesh.getMatrixAt(_index, matrix);
         var position = new three__WEBPACK_IMPORTED_MODULE_3__["Vector3"]();
