@@ -203,10 +203,10 @@ export class GroupLayoutComponent implements OnInit, AfterViewInit {
 
   private sceneController(newMesh?) {
     this.constructNodes(!!newMesh);
-    // if (this.enableConnections) {
-    //   this.configureLineSegmentConnections();
-    //   this.configureDirectionalArrows();
-    // }
+    if (this.enableConnections) {
+      this.configureLineSegmentConnections();
+      this.configureDirectionalArrows();
+    }
     // this.configureRaycast();
     this.configureLabels();
     this.requestRenderIfNotRequested();
