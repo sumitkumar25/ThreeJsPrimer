@@ -18553,7 +18553,7 @@ function View_GroupLayoutComponent_0(_l) { return _angular_core__WEBPACK_IMPORTE
     } return ad; }, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵted"](-1, null, [" Event native Mouse Sprite "])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](44, 0, null, null, 2, "div", [["style", "position: relative; width: 1002px; height: 502px; margin: 0 auto"]], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](45, 0, [[1, 0], ["canvasEl", 1]], null, 0, "canvas", [["height", "500"], ["width", "1000"]], null, [[null, "click"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("click" === en)) {
         var pd_0 = (_co.clickHandler($event) !== false);
         ad = (pd_0 && ad);
-    } return ad; }, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](46, 0, null, null, 0, "div", [["id", "labels"]], null, null, null, null, null))], null, function (_ck, _v) { var _co = _v.component; var currVal_0 = _co.renderCalls; _ck(_v, 5, 0, currVal_0); var currVal_1 = _co.objectCount; _ck(_v, 17, 0, currVal_1); var currVal_2 = _co.connectionCount; _ck(_v, 19, 0, currVal_2); var currVal_3 = _co.enableConnections; _ck(_v, 22, 0, currVal_3); }); }
+    } return ad; }, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](46, 0, null, null, 0, "div", [["id", "labels"]], null, null, null, null, null))], null, function (_ck, _v) { var _co = _v.component; var currVal_0 = _co.labelcount; _ck(_v, 5, 0, currVal_0); var currVal_1 = _co.objectCount; _ck(_v, 17, 0, currVal_1); var currVal_2 = _co.connectionCount; _ck(_v, 19, 0, currVal_2); var currVal_3 = _co.enableConnections; _ck(_v, 22, 0, currVal_3); }); }
 function View_GroupLayoutComponent_Host_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵeld"](0, 0, null, null, 1, "app-group-layout", [], null, null, null, View_GroupLayoutComponent_0, RenderType_GroupLayoutComponent)), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵdid"](1, 4308992, null, 0, _group_layout_component__WEBPACK_IMPORTED_MODULE_2__["GroupLayoutComponent"], [_three_services_three_service__WEBPACK_IMPORTED_MODULE_3__["ThreeService"], _services_network_graph_request_service__WEBPACK_IMPORTED_MODULE_4__["NetworkGraphRequestService"]], null, null)], function (_ck, _v) { _ck(_v, 1, 0); }, null); }
 var GroupLayoutComponentNgFactory = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵccf"]("app-group-layout", _group_layout_component__WEBPACK_IMPORTED_MODULE_2__["GroupLayoutComponent"], View_GroupLayoutComponent_Host_0, {}, {}, []);
 
@@ -18734,10 +18734,10 @@ class GroupLayoutComponent {
     }
     sceneController(newMesh) {
         this.constructNodes(!!newMesh);
-        // if (this.enableConnections) {
-        //   this.configureLineSegmentConnections();
-        //   this.configureDirectionalArrows();
-        // }
+        if (this.enableConnections) {
+            this.configureLineSegmentConnections();
+            this.configureDirectionalArrows();
+        }
         // this.configureRaycast();
         this.configureLabels();
         this.requestRenderIfNotRequested();
@@ -18891,10 +18891,11 @@ class GroupLayoutComponent {
         this.renderCalls = this.threeService.getRendererCallCount(this.threeCommon.renderer);
     }
     configureLabelsFov() {
+        this.labelcount = 0;
         Object.keys(this.lableMap).forEach((objectId) => {
             const object = this.lableMap[objectId];
             const zoom = this.threeCommon.camera.position.distanceTo(object.obj.position);
-            if (zoom < 80) {
+            if (zoom < 100) {
                 if (!object.visible) {
                     this.threeCommon.scene.add(object.obj);
                     this.lableMap[objectId] = Object.assign({}, object, { visible: true });
@@ -18903,6 +18904,9 @@ class GroupLayoutComponent {
             else {
                 this.threeCommon.scene.remove(object.obj);
                 this.lableMap[objectId] = Object.assign({}, object, { visible: false });
+            }
+            if (this.lableMap[objectId].visible) {
+                this.labelcount++;
             }
         });
     }
